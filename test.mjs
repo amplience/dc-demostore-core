@@ -21,13 +21,14 @@ let commerceToolsConfig = {
     scope: 'manage_project:anyafinn'
 }
 
+let baseUrl = "https://demostore-catalog.s3.us-east-2.amazonaws.com"
 let restConfig = {
     _meta: {
         schema: 'https://demostore.amplience.com/site/integration/rest'
     },
-    productURL: "https://nova-amprsa-product-catalog.s3.us-east-2.amazonaws.com/refactor/products.json",
-    categoryURL: "https://nova-amprsa-product-catalog.s3.us-east-2.amazonaws.com/refactor/categories.json",
-    translationsURL: "https://nova-amprsa-product-catalog.s3.us-east-2.amazonaws.com/translations.json"
+    productURL: `${baseUrl}/products.json`,
+    categoryURL: `${baseUrl}/categories.json`,
+    translationsURL: `${baseUrl}/translations.json`
 }
 
 const includesAnyOf = (array, targets) => {

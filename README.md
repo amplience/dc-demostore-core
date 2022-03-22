@@ -74,7 +74,7 @@ Then go to http://localhost:6006. More details may be found in our [Storybook RE
   - OWN README: Own Account: What do you need to configure your own Amplience Instance:
     - What are the dependencies / pre-requisites: Own Sandbox, configure to that
       - Deploy to get APP URL
-      - Packages - AMP-RSA-CLI etc
+      - Packages - dc-demostore-CLI etc
       - What account information do you need and where do you get it (hub ID, etc)
       - Pointing the FE to yours - Deployment Variable or Local env variable after automation has run
 
@@ -83,13 +83,13 @@ Then go to http://localhost:6006. More details may be found in our [Storybook RE
 
 # Provisioning your own Amplience Environment
 
-The main tool for using your own Amplience environment with `dc-demostore-core` is `amp-rsa-cli`. The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amp Env. Basically, everything you'd see running `dc-demostore-core` OOTB against our 'core public' Amplience Environment.
+The main tool for using your own Amplience environment with `dc-demostore-core` is `dc-demostore-cli`. The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amp Env. Basically, everything you'd see running `dc-demostore-core` OOTB against our 'core public' Amplience Environment.
 
 At a high level the basic steps are:
 
 1. [Request an Amplience Media and Dynamic Account (if you don't already have one)](#requesting-an-amplience-environment)
 2. [Deploy a fork of `dc-demostore-core` (we'll cover deploying on Vercel)](#fork--deploy-dc-demostore-core)
-3. Configure & use `amp-rsa-cli` to populate content
+3. Configure & use `dc-demostore-cli` to populate content
 4. Point `dc-demostore-core` to your Dynamic Content Hub and run
 
 ## Requesting an Amplience Environment
@@ -102,9 +102,9 @@ TODO: details or links in here for requesting a SB
 
 Go [HERE for some basic instructions](docs/ForkDeploy.md) on Forking and deploying core.
 
-## Configure & Use `amp-rsa-cli`
+## Configure & Use `dc-demostore-cli`
 
-Please refer directly to the [this README on how to Install/Configure/Use the CLI tool](https://github.com/amplience/amp-rsa-cli)
+Please refer directly to the [this README on how to Install/Configure/Use the CLI tool](https://github.com/amplience/dc-demostore-cli)
 
 ## Change dc-demostore-core Config / Point to your account
 - Create a .env.local file on the root of your project
@@ -152,10 +152,10 @@ If you are using services like Vercel, you can configure the environment variabl
 
 
 
-You can then use the CLI tool amprsa from amp-rsa-cli package to register your environment:
+You can then use the CLI tool demostore from dc-demostore-cli package to register your environment:
 
 ```sh
-$ amprsa env add 
+$ demostore env add 
 info: run [ env,add ]
 ✔ env name: · myinstance
 ✔ app deployment url: · https://mydomain.com
@@ -169,13 +169,13 @@ info: npx @amplience/dc-cli configure --clientId client-id --clientSecret client
 info: [ myinstance ] environment active
 ```
 
-Next step is to run the import command and specify the path to amp-rsa-automation:
+Next step is to run the import command and specify the path to dc-demostore-automation:
 
 ```sh
-$ amprsa import --automationDir ../amp-rsa-automation
+$ demostore import --automationDir ../dc-demostore-automation
 
 info: run [ import ]
-info: created temp dir: /tmp/amprsa/amprsa-iSlTD_-OmUyBEJzjYDLzB
+info: created temp dir: /tmp/demostore/demostore-iSlTD_-OmUyBEJzjYDLzB
 info: connected to hub [ automation02 ]
 info: connected to dam with user [ rkalfane@amplience.com ]
 info: import: Import hub data started at Mon Feb 14 2022 10:34:42 GMT+0100 (Central European Standard Time)
@@ -223,16 +223,16 @@ info:
 info: 🗄  contentTypeSchema: [ 0 unarchived ] [ 9 updated ] [ 0 created ]  
 ...
 info: 🗂  contentTypes: [ 0 unarchived ] [ 35 updated ] [ 0 created ] [ 61 synced ]                                                 
-info: logs and temp files stored in /tmp/amprsa/amprsa-iSlTD_-OmUyBEJzjYDLzB
+info: logs and temp files stored in /tmp/demostore/demostore-iSlTD_-OmUyBEJzjYDLzB
 info: run completed in [ 3m53s ]
 ```
 
 Using the CLI tool, you can also cleanup a hub (check documentation as it can remove everything):
 
 ```sh
-$ amprsa cleanup -a -c
+$ demostore cleanup -a -c
 info: run [ cleanup ]
-info: created temp dir: /tmp/amprsa/amprsa-Ft_z9bMsllZBx8DX1GJ8H
+info: created temp dir: /tmp/demostore/demostore-Ft_z9bMsllZBx8DX1GJ8H
 info: connected to hub [ myinstance ]
 info: connected to dam with user [ me@mydomain.com ]
 info: 📄  contentItems: [ 146 items archived ] [ 19 folders deleted ]                                                                    
@@ -242,7 +242,7 @@ info: 🗄  contentTypeSchema: [ 72 archived ]
 info: 🔌  extensions: [ 11 deleted ]                                                                                                     
 info: 📦  repositories: [ 159 content types unassigned ]                                                                                 
 info: 🗂  contentTypes: [ 61 archived ]                                                                                             
-info: logs and temp files stored in /tmp/amprsa/amprsa-Ft_z9bMsllZBx8DX1GJ8H
+info: logs and temp files stored in /tmp/demostore/demostore-Ft_z9bMsllZBx8DX1GJ8H
 info: run completed in [ 0m20s ]
 ```
 
