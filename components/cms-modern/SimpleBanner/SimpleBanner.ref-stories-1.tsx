@@ -106,7 +106,7 @@ export default {
       component: "Image",
       imageAltText: "Dress",
       _meta: {
-        schema: "https://amprsa.net/lib/di-image"
+        schema: "https://demostore.amplience.com/lib/di-image"
       },
       disablePoiAspectRatio: false
     },

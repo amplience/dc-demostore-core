@@ -60,7 +60,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         filterBy: [
           {
             path: '/_meta/schema',
-            value: 'https://amprsa.net/site/experiences/category'
+            value: 'https://demostore.amplience.com/site/experiences/category'
           },
           {
             path: '/id',
@@ -87,7 +87,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         filterBy: [
           {
             path: '/_meta/schema',
-            value: 'https://amprsa.net/site/experiences/designer'
+            value: 'https://demostore.amplience.com/site/experiences/designer'
           },
           {
             path: '/designer',
@@ -111,7 +111,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       filterBy: [
         {
           path: '/_meta/schema',
-          value: 'https://amprsa.net/site/experiences/product'
+          value: 'https://demostore.amplience.com/site/experiences/product'
         },
         {
           path: '/id',

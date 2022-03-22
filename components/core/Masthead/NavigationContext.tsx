@@ -29,13 +29,13 @@ const NavigationContext = createContext<NavigationState | null>(null);
 
 const getTypeFromSchema = (schema: string) => {
     switch (schema) {
-        case 'https://amprsa.net/site/pages/landing':
+        case 'https://demostore.amplience.com/site/pages/landing':
             return 'page';
-        case 'https://amprsa.net/site/pages/external':
+        case 'https://demostore.amplience.com/site/pages/external':
             return 'external-page';
-        case 'https://amprsa.net/site/page-group':
+        case 'https://demostore.amplience.com/site/page-group':
             return 'group';
-        case 'https://amprsa.net/site/pages/category':
+        case 'https://demostore.amplience.com/site/pages/category':
             return 'category';
     }
     return null;

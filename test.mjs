@@ -1,6 +1,6 @@
 let config = {
     _meta: {
-        schema: 'https://amprsa.net/site/integration/elasticpath'
+        schema: 'https://demostore.amplience.com/site/integration/elasticpath'
     },
     client_id: 'L20xPsBYoQCQmHhg4m9PkXzViWLDX5Jp0OLYaJsxq7',
     client_secret: 'h4sokq7LiduYn3KHDAcHBvKHcehGzBKQJq09TchamQ',
@@ -11,7 +11,7 @@ let config = {
 
 let commerceToolsConfig = {
     _meta: {
-        schema: 'https://amprsa.net/site/integration/commercetools'
+        schema: 'https://demostore.amplience.com/site/integration/commercetools'
     },
     client_id: 'rT8wuJyF8yZ_0Un0s30TieTT',
     client_secret: 'A_upL187BxOg7XP_RtYJT3EUDmmcURVE',
@@ -23,7 +23,7 @@ let commerceToolsConfig = {
 
 let restConfig = {
     _meta: {
-        schema: 'https://amprsa.net/site/integration/rest'
+        schema: 'https://demostore.amplience.com/site/integration/rest'
     },
     productURL: "https://nova-amprsa-product-catalog.s3.us-east-2.amazonaws.com/refactor/products.json",
     categoryURL: "https://nova-amprsa-product-catalog.s3.us-east-2.amazonaws.com/refactor/categories.json",

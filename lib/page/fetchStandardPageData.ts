@@ -35,7 +35,7 @@ async function fetchStandardPageData<
     let page: any = {};
 
     // Make Generic
-    if (pageNode && pageNode.content._meta?.schema?.indexOf('https://amprsa.net/site/pages/') === 0) {
+    if (pageNode && pageNode.content._meta?.schema?.indexOf('https://demostore.amplience.com/site/pages/') === 0) {
         // check to see if we have already loaded the page object
         const pageId = pageNode.content._meta.deliveryId;
         let fullPageContent = findInContentMap(data.content, (content) => content._meta.deliveryId === pageId);

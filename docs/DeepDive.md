@@ -68,7 +68,7 @@ let filterRequest: GetByFilterRequest =
       filterBy: [
         {
           path: "/_meta/schema",
-          value: "https://amprsa.net/content/store"
+          value: "https://demostore.amplience.com/content/store"
         },
         {
           path: "/filterActive",
@@ -314,7 +314,7 @@ const [data, product] = await Promise.all(
         filterBy: [
           {
             path: '/_meta/schema',
-            value: 'https://amprsa.net/site/experiences/category'
+            value: 'https://demostore.amplience.com/site/experiences/category'
           },
           {
             path: '/id',
@@ -342,7 +342,7 @@ const [data, product] = await Promise.all(
       filterBy: [
         {
           path: '/_meta/schema',
-          value: 'https://amprsa.net/product-experience'
+          value: 'https://demostore.amplience.com/product-experience'
         },
         {
           path: '/id',
@@ -372,7 +372,7 @@ const [data, product] = await Promise.all(
         filterBy: [
           {
             path: '/_meta/schema',
-            value: 'https://amprsa.net/site/experiences/designer'
+            value: 'https://demostore.amplience.com/site/experiences/designer'
           },
           {
             path: '/designer',

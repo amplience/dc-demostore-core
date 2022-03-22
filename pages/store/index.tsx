@@ -18,7 +18,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     filterBy: [
       {
         path: "/_meta/schema",
-        value: "https://amprsa.net/content/store"
+        value: "https://demostore.amplience.com/content/store"
       },
       {
         path: "/filterActive",
@@ -83,7 +83,7 @@ export default function StoreMainPage(
       filterBy: [
         {
           path: "/_meta/schema",
-          value: "https://amprsa.net/content/store"
+          value: "https://demostore.amplience.com/content/store"
         },
         {
           path: "/filterActive",

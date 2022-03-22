@@ -60,7 +60,7 @@ const MegaMenu: React.FC<Props> = ({
                             return fullContent?.image?.img?.image ? (<ContentBlock
                                 content={fullContent}
                                 components={{
-                                    'https://amprsa.net/content/simple-banner': MegaMenuSimpleBanner,
+                                    'https://demostore.amplience.com/content/simple-banner': MegaMenuSimpleBanner,
                                 }}
                             />) : (<Skeleton />);
                         }}
