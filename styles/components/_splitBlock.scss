@@ -1,0 +1,43 @@
+@import "../dc-accelerators/renders/splitBlock/sass/all.scss";
+
+.amp-dc-splitBlock .amp-dc-split-part:first-child .amp-dc-split-part-wrap {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+.amp-dc-splitBlock .amp-dc-split-part .amp-dc-split-part-wrap {
+  padding-left: 20px;
+}
+
+.amp-dc-splitBlock {
+  .amp-dc-split-part {
+    &:first-child {
+      .amp-dc-split-part-wrap {
+        padding: 0;
+      }
+    }
+    .amp-dc-split-part-wrap {
+      padding: 0;
+    }
+    .amp-dc-text {
+      padding: 30px;
+      h1 {
+        font-size: 32px;
+      }
+      @media screen and (min-width: 1280px) {
+        padding: 40px;
+        h1 {
+          font-size: 48px;
+        }
+      }
+    }
+    @media screen and (min-width: 768px) {
+      .amp-dc-banner {
+        padding: 0;
+        .amp-dc-banner-wrapper {
+          position: relative;
+        }
+      }
+    }
+  }
+}

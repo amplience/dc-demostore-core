@@ -1,0 +1,66 @@
+.product-grid {
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .product-grid-item {
+        flex: 0 1 24%;
+        max-width: 24%;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .product-grid-item {
+            flex: 0 1 31% !important;
+            max-width: 31%;
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        .product-grid-item {
+            flex: 0 1 98% !important;
+            max-width: 48%;
+        }
+    }
+
+    .product-grid-item .amp-dc-card-wrap {
+        width: 100%;
+    }
+
+    .product-grid-item .amp-dc-card-text-wrap {
+        bottom: 0;
+        text-align: left;
+        text-transform: uppercase;
+        background: none;
+
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 30px;
+        border-bottom: 1px solid #bebebe;
+    }
+
+    .product-grid-item .amp-dc-card-name {
+        font-family: "Roboto Condensed", sans-serif;
+        line-height: 1em;
+        font-size: 22px!important;
+        text-transform: initial; 
+        font-weight: 400 !important;
+    }
+
+    .product-grid-item .amp-dc-card-img-wrap {
+        height: calc(100% - 90px);
+    }
+
+    .product-grid-item .amp-dc-card-img-wrap img {
+        transition: 0.5s;
+        object-fit: cover;
+    }
+
+    // .product-grid-item:hover .amp-dc-card-img-wrap img {
+    //     transform: scale(1.025);
+    // }
+
+    .product-grid-container {
+        display: flex;
+        justify-content: center;
+    }

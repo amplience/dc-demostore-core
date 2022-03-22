@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+
+    <link rel="stylesheet" href="../../../dist/renders/blogPost/blogPost.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/text/text.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/image/image.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/video/video.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/slider/slider.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/banner/banner.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/cardList/cardList.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/card/card.min.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="js_blog_wrap"></div>
+
+<!-- build:js ../../reusable/cms-javascript-sdk.min.js -->
+<script src="../../../node_modules/cms-javascript-sdk/dist/cms-javascript-sdk.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/handlebars.min.js -->
+<script src="../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/showdown.min.js -->
+<script src="../../../node_modules/showdown/dist/showdown.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/utils.js -->
+<script src="../../reusable/js/utils.js"></script>
+<!-- /build -->
+
+
+<!-- build:js ../../reusable/handlebars_helpers.js -->
+<script src="../../reusable/js/handlebars_helpers.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/lory.min.js -->
+<script src="../../reusable/js/lory.min.js"></script>
+<!-- /build -->
+
+<script src="../../../dist/renders/slider/sliderHelper.js"></script>
+
+
+<script src="../../../dist/renders/blogPost/acc-template-blogPost.min.js"></script>
+<script src="../../../dist/renders/image/acc-template-image.min.js"></script>
+<script src="../../../dist/renders/text/acc-template-text.min.js"></script>
+<script src="../../../dist/renders/video/acc-template-video.min.js"></script>
+<script src="../../../dist/renders/banner/acc-template-banner.min.js"></script>
+<script src="../../../dist/renders/cardList/acc-template-cardList.min.js"></script>
+<script src="../../../dist/renders/card/acc-template-card.min.js"></script>
+<script src="../../../dist/renders/slider/acc-template-slider.min.js"></script>
+<script src="../../../dist/renders/blogPost/acc-template-snippet.min.js"></script>
+
+<script>
+
+    Handlebars.partials = AmpCa.templates;
+
+    AmpCa.utils = new AmpCa.Utils();
+
+    AmpCa.utils.getCaData({
+        auth: {
+            baseUrl: 'https://c1.adis.ws',
+            id: 'aa99fbd5-e64c-495c-a17c-3a0596d6b987',
+            store: 'csdemo'
+        },
+        callback: function (data) {
+            var template = Handlebars.template(AmpCa.templates['acc-template-blogPost']);
+            document.querySelectorAll(".js_blog_wrap")[0].innerHTML = template(data[0]);
+            loryHelpers.initSliders(document.querySelectorAll(".js_slider"));
+        },
+        formatData: function (data) {
+            return amp.inlineContent(JSON.parse(data));
+        }
+    });
+
+</script>
+
+</body>
+</html>

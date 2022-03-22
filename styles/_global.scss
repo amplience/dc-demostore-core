@@ -1,0 +1,453 @@
+@import "./variables";
+
+html *
+{
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.5em;
+  color: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+
+@mixin header() {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 900;
+  line-height: 1em;
+  font-size: 48px;
+  color: $black;
+  @media screen and (max-width: 1280px) {
+    font-size: 32px;
+  }
+}
+
+@mixin button() {
+  font-family: 'Roboto Condensed', sans-serif;
+  display: inline-block;
+  border: 1px solid #999;
+  color: $textColor;
+  padding: 2px 30px;
+  font-size:18px;
+  text-align: center;
+
+  &:hover {
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  @include header();
+}
+
+a,a:hover,a:active,a:visited {
+  text-decoration: none;
+  * {
+    text-decoration: none;
+  }
+}
+
+html.disable-scroll,
+body.disable-scroll{
+  height: 100%;
+  .main{
+    max-height: 100%;
+  }
+}
+
+html{
+  &:not(.disable-scroll){
+    &.force-scroll{
+      min-height: 101vh;
+    }
+  }
+}
+
+body{
+  background: $white;
+
+  &.fixedLayout{
+    overflow-y:hidden !important;
+  }
+}
+
+.clr{
+  clear: both;
+}
+table .error{
+  background-color: transparent;
+  padding: 0;
+  font-weight: normal;
+
+}
+
+.content-container{
+  padding: 10px 58px;
+}
+
+@include media-breakpoint-down(sm) {
+  .content-container,.mainContent section{
+    padding: 0 10px 10px 10px;
+  }
+}
+
+a{
+  cursor: pointer;
+}
+
+
+// GET RID OF THE SPINNER IN INPUT TYPE NUMBER
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.has-error{
+  select.form-control{
+    background-image: url(data:image/gif;base64,R0lGODlhDgAEAIABAFVVVf///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhFQzZCRjFBNTE2MTExRTQ5NTZEQUQ3MjgwNEY0M0JBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhFQzZCRjFCNTE2MTExRTQ5NTZEQUQ3MjgwNEY0M0JBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OEVDNkJGMTg1MTYxMTFFNDk1NkRBRDcyODA0RjQzQkEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OEVDNkJGMTk1MTYxMTFFNDk1NkRBRDcyODA0RjQzQkEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQBAAABACwAAAAADgAEAAACCoQfqXm42540chUAOw==)!important;
+    background-repeat: no-repeat;
+    background-position: right 48%;
+    background-color: $errorred;
+  }
+}
+
+.has-error .ui-select-container .btn-default {
+  background-color: $errorred;
+  border-color: #cf0d0d;
+}
+
+select{
+
+  // GET RIDD OF DEFAULT SKINNING
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: 0;
+
+  // Firefox remove arrow
+  text-indent: 0.01px;
+  text-overflow: '';
+
+
+  // Arrow Replacement
+  background-image: url(data:image/gif;base64,R0lGODlhDgAEAIABAFVVVf///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhFQzZCRjFBNTE2MTExRTQ5NTZEQUQ3MjgwNEY0M0JBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhFQzZCRjFCNTE2MTExRTQ5NTZEQUQ3MjgwNEY0M0JBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OEVDNkJGMTg1MTYxMTFFNDk1NkRBRDcyODA0RjQzQkEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OEVDNkJGMTk1MTYxMTFFNDk1NkRBRDcyODA0RjQzQkEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQBAAABACwAAAAADgAEAAACCoQfqXm42540chUAOw==)!important;
+  background-repeat: no-repeat;
+  background-position: right 48%;
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+.css-select-moz{
+  display: block;
+  select{
+    background-color: transparent;
+    line-height: 1;
+    padding: 0 !important;
+    width: 112%;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+
+  overflow: hidden;
+
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: 0;
+
+  // Firefox remove arrow
+  text-indent: 0.01px;
+  text-overflow: '';
+
+
+  // Arrow Replacement
+  background-image: url(data:image/gif;base64,R0lGODlhDgAEAIABAFVVVf///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhFQzZCRjFBNTE2MTExRTQ5NTZEQUQ3MjgwNEY0M0JBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhFQzZCRjFCNTE2MTExRTQ5NTZEQUQ3MjgwNEY0M0JBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OEVDNkJGMTg1MTYxMTFFNDk1NkRBRDcyODA0RjQzQkEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OEVDNkJGMTk1MTYxMTFFNDk1NkRBRDcyODA0RjQzQkEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQBAAABACwAAAAADgAEAAACCoQfqXm42540chUAOw==)!important;
+  background-repeat: no-repeat !important;
+  background-position: right 48% !important;
+
+}
+
+// Get ridd of iOS
+input[type='text'],
+input[type='number']{
+  -webkit-border-radius: 0;
+  background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(0,0%,100%,0)), to(hsla(0,0%,100%,0)));
+  background-image:-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0));
+}
+
+.error{
+  color:$brightred;
+  padding: 15px;
+  background: lighten($brightred, 35%);
+  margin: 5px 0 10px;
+  font-weight: bold;
+}
+
+
+.errorPageContainer{
+  text-align: center;
+  padding-top: 75px;
+
+  .errorTitle{
+    margin-bottom: 40px;
+    text-transform: uppercase;
+
+  }
+
+  .actionButton{
+    margin: 30px 0 0 0;
+
+    .btn-secondary{
+      color: #fff;
+    }
+  }
+}
+
+section{
+  padding: 30px 58px;
+
+  &.white{
+    background: #fff;
+  }
+
+  &.lightgray{
+    background: $lightestgrey;
+  }
+
+  &.mediumgray{
+    background: $lightergrey;
+  }
+
+  &.gray{
+    background: $lightgrey;
+  }
+
+  header{
+    text-align: center;
+    color: #202122;
+    font: italic 30px/90px $font-family-serif, sans-serif;
+  }
+
+  footer{
+    margin: 25px 0;
+    text-align: center;
+    button{
+      text-transform: uppercase;
+    }
+  }
+}
+
+.pageTitle{
+  font-size: 49px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #202122;
+
+}
+
+.popoverCloseBtn{
+  margin: 10px;
+}
+
+.open > .dropdown-menu{
+  display: block !important;
+}
+
+.originalPrice{
+  font-weight: normal;
+  margin-bottom: 0 !important;
+  margin-right: 3px;
+  display: inline-block;
+}
+
+.salesPrice.price,
+.salesPrice.priceUnit{
+  color: #3ab85d !important;
+
+}
+
+.priceUnit{
+  text-transform: none;
+  font-weight: 200;
+  font-size: 80%;
+  color: #202122;
+  margin-left: 2px;
+  position: relative;
+  &:before{
+    content: '/';
+    margin-right: 7px;
+  }
+}
+
+.shippingZoneModalHeader{
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+
+.shippingZoneModal{
+  padding-top: 0;
+  padding-bottom: 50px;
+
+  > .row > div{
+    border-bottom: 1px solid #ccc;
+    padding: 0px 0px;
+    &:last-child{
+      border-bottom: none;
+    }
+  }
+
+  .zoneparent{
+    padding-top: 10px;
+    border-bottom: none !important;
+    background-color: #ebeced;
+  }
+
+  .zonetitle{
+    padding: 15px 50px;
+  }
+
+  .zoneinfo{
+    padding: 15px 50px;
+    background-color: white;
+  }
+
+  .label{
+    margin-left:0;
+    padding-left:0;
+    font-size: 14px;
+    color: $black;
+    font-weight: bold;
+
+  }
+}
+
+/* UI-Select style*/
+.custom-select-container .ui-select-container .btn-default {
+  background-color: #fff;
+  color: #555;
+  border-color: #ccc;
+}
+
+.product-list-sort .ui-select-container .btn-default {
+  background-color: #333331;
+  border-color: #333331;
+  color: #fff;
+}
+
+.search-list-sort .ui-select-container .btn-default {
+  background-color: #333331;
+  border-color: #333331;
+  color: #fff;
+}
+
+.custom-select-container .ui-select-choices-row .ui-select-choices-row-inner {
+  height: 20px;
+}
+
+.custom-select-container .ui-select-bootstrap .ui-select-choices-row > a {
+  padding: 0 20px;
+}
+
+.product-list-sort .ui-select-container .btn-default-focus {
+  line-height: 20px;
+  margin-top: 9px;
+}
+
+.search-list-sort .ui-select-container .btn-default-focus {
+  line-height: 20px;
+  margin-top: 9px;
+
+}
+
+.checkout-selector .btn-default-focus {
+  height: 48px;
+}
+
+.checkout-selector .has-error .btn-default {
+  background-color: #f97777;
+  border-color: #cf0d0d;
+}
+
+.product-list-sort .ui-select-container {
+  margin-left: 10px;
+  width: 100px;
+}
+
+.search-list-sort .ui-select-container {
+  margin-left: 10px;
+  width: 150px;
+}
+
+.product-list-sort .ui-select-container input {
+  margin-top: 9px;
+}
+
+.search-list-sort .ui-select-container input {
+  margin-top: 9px;
+}
+
+.custom-select-container .btn-default-focus {
+  background-color: inherit;
+  box-shadow: none;
+}
+.ui-select-container .dropdown-menu {
+  min-width: 100%;
+}
+
+/* Override angular-ui-notification style*/
+.ui-notification {
+  z-index: 10000;
+}
+.ui-notification.success
+{
+  color: #fff;
+  background: #000;
+}
+
+@font-face {
+	font-display: swap;
+	font-family: AdihausDIN;
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/AdihausDIN-Regular.woff2) format("woff2"), url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/AdihausDIN-Regular.woff) format("woff")
+}
+
+@font-face {
+	font-display: swap;
+	font-family: AdihausDIN;
+	font-style: normal;
+	font-weight: 700;
+	src: url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/AdihausDIN-Bold.woff2) format("woff2"), url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/AdihausDIN-Bold.woff) format("woff")
+}
+
+@font-face {
+	font-display: swap;
+	font-family: AdihausDIN Cn;
+	font-style: normal;
+	font-weight: 500;
+	src: url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/AdihausDIN-CnMediumItalic.woff2) format("woff2"), url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/AdihausDIN-CnMediumItalic.woff) format("woff")
+}
+
+@font-face {
+	font-display: swap;
+	font-family: AdineuePRO;
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/adineuePRO-Regular.woff2) format("woff2"), url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/adineuePRO-Regular.woff) format("woff")
+}
+
+@font-face {
+	font-display: swap;
+	font-family: AdineuePRO;
+	font-style: normal;
+	font-weight: 600;
+	src: url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/adineuePRO-Bold.woff2) format("woff2"), url(https://adl-foundation.adidas.com/prod/v41.2.1/assets/fonts/adidas/adineuePRO-Bold.woff) format("woff")
+}

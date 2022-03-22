@@ -1,0 +1,340 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import SimpleBanner from '@components/cms-modern/SimpleBanner';
+
+<Meta 
+    title="Organisms/SimpleBanner" 
+    component={SimpleBanner} 
+    argTypes={{
+        bannerText: {
+            table: {
+                disable: true,
+            },
+        },
+        ctaSettings: {
+            table: {
+                disable: true,
+            },
+        },
+        textPositioning: {
+            table: {
+                disable: true,
+            },
+        },
+        image: {
+            table: {
+                disable: true,
+            },
+        },
+        header: {
+        description: 'Banner text header',
+        control: {
+            type: 'text'
+        }
+        },
+        subheader: {
+        description: 'Banner text sub-header',
+        control: {
+            type: 'text'
+        }
+        },
+        description: {
+        description: 'Banner text description',
+        control: {
+            type: 'text'
+        }
+        }, 
+        ctaText: {
+        description: 'Call-to-action text',
+        control: {
+            type: 'text'
+        }
+        },
+        opacity: {
+        description: 'Panel opacity',
+        defaultValue: 0.9,
+        table: {
+            defaultValue: { summary: '0.9' }
+        },
+        control: {
+            type: 'number',
+            min: 0,
+            max: 1,
+            step: 0.05
+        }
+        },
+        textPositionHorizontal: {
+        description: 'Panel horizontal position',
+        table: {
+            defaultValue: { summary: 'right' }
+        },
+        control: {
+            type: 'select',
+            options: ['left', 'center', 'right'],
+        },
+        },
+        textPositionVertical: {
+        description: 'Panel vertical position',
+        table: {
+            defaultValue: { summary: 'middle' }
+        },
+        control: {
+            type: 'select',
+            options: ['top', 'middle', 'bottom'],
+        },
+        },
+    }}/>
+
+export const Template = (args) => {
+    args.bannerText = { 
+      header: args.header,
+      subheader: args.subheader,
+      description: args.description
+    }
+    args.ctaSettings = {
+      buttonText: args.ctaText,
+    }
+    args.textPositioning = {
+      textPositionHorizontal: args.textPositionHorizontal,
+      textPositionVertical: args.textPositionVertical,
+    }
+    return <SimpleBanner {...args} />
+};
+
+# SimpleBanner Component
+---
+
+`SimpleBanner` Component displaying a basic Banner with an image, a header, sub-header and
+description. More controls are available on the `AdvancedBanner` Component.
+
+## Stories
+
+<Canvas>
+  <Story 
+    name="Simple Banner"
+    args={
+        { 
+            header: "New Collection",
+            textPositionHorizontal: "right",
+            textPositionVertical: "middle",
+            ctaText: "Shop collection",
+            "image": {
+                "img": {
+                    "image": {
+                        "crop": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "rot": 0,
+                        "hue": 0,
+                        "sat": 0,
+                        "bri": 0,
+                        "fliph": false,
+                        "flipv": false,
+                        "poi": {
+                            "x": 0.2678571428571429,
+                            "y": 0.413265306122449
+                        },
+                        "aspectLock": "poi",
+                        "image": {
+                            "_meta": {
+                                "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
+                            },
+                            "id": "7ea53111-9ab7-4e1e-b51f-682c4b7692b2",
+                            "name": "190207-homepage-date-night-slide",
+                            "endpoint": "rezademo",
+                            "defaultHost": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io"
+                        },
+                        "query": "poi=0.2679,0.4133,0,0&scaleFit=poi"
+                    }
+                },
+                "component": "Image",
+                "imageAltText": "Dress",
+                "_meta": {
+                    "schema": "https://amprsa.net/lib/di-image"
+                },
+                "disablePoiAspectRatio": false
+                },
+                "opacity": 0.9,
+        }
+    }>
+    {Template.bind({})}
+   </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={SimpleBanner} />
+
+## Content Type Schema
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://amprsa.net/content/simple-banner",
+    "title": "Simple Banner",
+    "description": "Simple Banner",
+    "allOf": [
+        {
+            "$ref": "http://bigcontent.io/cms/schema/v1/core#/definitions/content"
+        }
+    ],
+    "type": "object",
+    "properties": {
+        "image": {
+            "title": "Image",
+            "description": "Main Image",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "https://amprsa.net/lib/di-image"
+                }
+            ]
+        },
+        "opacity": {
+            "title": "Panel opacity",
+            "type": "number",
+            "default": 0.9
+        },
+        "textPositioning": {
+            "title": "Text Positioning",
+            "type": "object",
+            "properties": {
+                "textPositionHorizontal": {
+                    "title": "Horizontal Text Position",
+                    "description": "Select: Left / Center / Right",
+                    "type": "string",
+                    "default": "left",
+                    "enum": [
+                        "left",
+                        "center",
+                        "right"
+                    ]
+                },
+                "textPositionVertical": {
+                    "title": "Vertical Text Position",
+                    "description": "Select: Top / Middle / Bottom",
+                    "type": "string",
+                    "default": "top",
+                    "enum": [
+                        "top",
+                        "middle",
+                        "bottom"
+                    ]
+                }
+            }
+        },
+        "bannerText": {
+            "title": "Banner Text Settings",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "title": "Header",
+                    "description": "Add header text",
+                    "type": "string"
+                },
+                "subheader": {
+                    "title": "Subheader",
+                    "description": "Add Subheader text",
+                    "type": "string"
+                },
+                "description": {
+                    "title": "Description",
+                    "description": "Add description text",
+                    "type": "string"
+                }
+            }
+        },
+        "ctaSettings": {
+            "title": "CTA Settings",
+            "type": "object",
+            "properties": {
+                "buttonText": {
+                    "title": "CTA Text",
+                    "type": "string",
+                    "minimum": 4,
+                    "maximum": 12
+                },
+                "linkUrl": {
+                    "title": "CTA URL",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "propertyOrder": [
+        "image",
+        "opacity",
+        "textPositioning",
+        "bannerText",
+        "ctaSettings"
+    ]
+}
+```
+
+## Sample Content Item
+
+```json
+{
+  "content": {
+    "image": {
+      "img": {
+        "image": {
+          "crop": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "rot": 0,
+          "hue": 0,
+          "sat": 0,
+          "bri": 0,
+          "fliph": false,
+          "flipv": false,
+          "poi": {
+            "x": 0.2678571428571429,
+            "y": 0.413265306122449
+          },
+          "aspectLock": "poi",
+          "image": {
+            "_meta": {
+              "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
+            },
+            "id": "7ea53111-9ab7-4e1e-b51f-682c4b7692b2",
+            "name": "190207-homepage-date-night-slide",
+            "endpoint": "rezademo",
+            "defaultHost": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io"
+          },
+          "query": "poi=0.2679,0.4133,0,0&scaleFit=poi"
+        }
+      },
+      "component": "Image",
+      "imageAltText": "Dress",
+      "_meta": {
+        "schema": "https://amprsa.net/lib/di-image"
+      },
+      "disablePoiAspectRatio": false
+    },
+    "opacity": 0.9,
+    "textPositioning": {
+      "textPositionHorizontal": "right",
+      "textPositionVertical": "middle"
+    },
+    "bannerText": {
+      "header": "New Collection"
+    },
+    "ctaSettings": {
+      "buttonText": "Shop collection",
+      "linkUrl": "/category/women"
+    },
+    "_meta": {
+      "name": "Simple Banner - Fashion",
+      "schema": "https://amprsa.net/content/simple-banner",
+      "deliveryKey": "docs/story/simplebanner/banner1",
+      "deliveryId": "9da63e86-67c9-4805-a9db-6ee4572cf1fd"
+    }
+  }
+}
+```

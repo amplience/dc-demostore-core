@@ -1,0 +1,35 @@
+@import '../global';
+
+.amp-dc-snippet-info-wrap {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 40px 120px;
+    background: #fff;
+    margin-top: -170px;
+    position: relative;
+
+    &__categories {
+        padding-bottom: 40px;
+    }
+
+    &__description {
+        margin: 40px 0;
+        display: flex;
+        div {
+            margin-right: 10px;
+        }
+    }
+
+    @media screen and (max-width: 750px) {
+
+      margin-top: 0;
+      padding: 20px;
+      .amp-dc-text {
+          padding: 20px;
+      }
+
+      .amp-dc-image-holder {
+          padding-bottom: 20px;
+      }
+  }
+}

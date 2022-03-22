@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/blogPost/blogPost.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/text/text.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/image/image.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/banner/banner.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/video/video.min.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="js_blog_wrap"></div>
+
+
+<script src="{VISUALIZATION_BASEPATH}/reusable/cms-javascript-sdk.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/handlebars.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/showdown.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/utils.js"></script>
+
+<script src="../../../reusable/handlebars_helpers.js"></script>
+
+
+<script src="{VISUALIZATION_BASEPATH}/renders/blogPost/acc-template-blogPost.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/image/acc-template-image.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/text/acc-template-text.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/video/acc-template-video.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/banner/acc-template-banner.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/blogPost/acc-template-snippet.min.js"></script>
+
+<script>
+
+    function getQueryVar(params) {
+        var paramsObj = {};
+        var currentParam = null;
+
+        for (var x = 0; x < params.length; x++) {
+            currentParam = window.location.href.match(new RegExp(params[x] + "=([a-zA-Z0-9-\._]+)"));
+            if (currentParam && currentParam.length > 1) {
+                paramsObj[params[x]] = currentParam[1];
+            }
+
+            else {
+                console.warn('Param: ' + x + ' not found');
+            }
+        }
+        var url = 'https://' + paramsObj.vse + '/cms/content/query?fullBodyObject=true&scope=tree&store={COMPANY_TAG}&query=%7B"sys.iri":"http://content.cms.amplience.com/' + paramsObj.content + '"%7D&v=' + Date.now();
+        return url;
+    }
+
+    Handlebars.partials = AmpCa.templates;
+
+    AmpCa.utils = new AmpCa.Utils();
+
+    AmpCa.utils.getCaData({
+        url: getQueryVar(['vse', 'content']),
+        callback: function (data) {
+
+            var template = Handlebars.template(AmpCa.templates['acc-template-blogPost']);
+            document.querySelectorAll(".js_blog_wrap")[0].innerHTML = template(data[0]);
+        },
+        formatData: function (data) {
+            return amp.inlineContent(JSON.parse(data));
+        }
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+@media screen and (max-width: 768px) {
+  .amp-dc-splitBlock {
+    .amp-dc-split-part {
+      float: none;
+      &.amp-dc-size-50 {
+        width: 100%;
+      }
+      &.amp-dc-size-70 {
+        width: 100%;
+      }
+      &.amp-dc-size-30 {
+        width: 100%;
+      }
+
+      &:first-child {
+        padding: 0 0 30px 0;
+      }
+
+      .amp-dc-split-part-wrap {
+        padding-left: 0;
+      }
+
+      &:first-child {
+        .amp-dc-split-part-wrap {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import "../dc-accelerators/renders/text/sass/all.scss";
+@import "../global";
+
+
+  .amp-dc-text {
+    padding: 40px 80px;
+
+    /* h1 {
+      @include header();
+    }
+
+    h2{
+    	@include header();
+    	font-size: 20px;
+    } */
+
+    a {
+      // @include button();
+      text-decoration: none;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      font-weight: bold;
+      &:hover{
+        //text-decoration: none !important;
+        color:inherit;
+      }
+    }
+  }

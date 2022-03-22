@@ -1,0 +1,20 @@
+.menu {
+    
+}
+
+.icon {
+    font-size: 1.125rem;
+    margin-right: .5rem!important;
+}
+
+.label {
+    font-weight: bolder;
+    margin-right: .5rem!important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.actions {
+    white-space: nowrap;
+}

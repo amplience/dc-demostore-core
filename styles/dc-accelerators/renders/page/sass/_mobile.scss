@@ -1,0 +1,20 @@
+@media screen and (max-width: 979px) {
+  .header-wrap {
+    .logo {
+      width: auto;
+    }
+    .top-menu {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .header-wrap {
+    .customer-menu {
+      .first-nav, .second-nav {
+        display: none;
+      }
+    }
+  }
+}

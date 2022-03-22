@@ -1,0 +1,36 @@
+$debugColor: blue;
+
+.af-debug-overlay {
+    display: none;
+}
+
+.af-debug {
+
+    .af-slot {
+        position: relative;
+    }
+
+    .af-debug-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #98C7EC88;
+        border: 2px solid #808080;
+    }
+
+    .af-debug-menu {
+        background: white;
+        margin: 10px;
+        padding: 10px;
+        width: auto;
+        position: inherit;
+        
+        &-slot-name {
+            margin-right: 15px;
+        }
+    }
+
+}

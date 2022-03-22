@@ -1,0 +1,133 @@
+.search {
+  background-color: inherit;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+  padding: 0;
+  flex-wrap: none;
+  list-style: none;
+  border: 0;
+  border-left: 1px solid $textColor;
+  position: relative;
+  display: block;
+  &__icon {
+    position: absolute;
+    right: 15px;
+    width: 14px;
+    fill: #999;
+    top: 4px;
+  }
+  &__input {
+    width: 170px;
+    height: 100%;
+    padding-left: 15px;
+    padding-right: 40px;
+    border: 0;
+    outline: none;
+    background-color: inherit;
+    color: white;
+  }
+  &__input::placeholder {
+    color: #999;
+  }
+  &__input:focus {
+    background-color: white;
+    color: #333;
+    outline: none;
+  }
+  &__results {
+    position: absolute;
+    padding: 0 10px 10px 10px;
+    top: 30px;
+    right: -10px;
+    z-index: 101;
+    display: none;
+    overflow: hidden;
+    &__container {
+      padding: 20px 0;
+      background-color: white;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    &--active {
+      display: inherit;
+    }
+
+    &__listing {
+      color: #888;
+      ul,
+      li {
+        list-style: none;        
+        padding: 0;
+        span {
+          margin-right: 5px;
+        }
+      }
+
+      &__result,
+      &__term {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      &__result {
+        text-transform: uppercase;
+        color: #333;
+      }
+
+      &__term {
+        max-width: 100%;
+        .search__results__listing__price {
+          font-size: 0.7em;
+          font-weight: bold;
+          color: #777777;
+        }
+      }
+
+      &__count,
+      &__term {
+        flex-shrink: 0;
+      }
+
+      &__heading {
+        text-transform: uppercase;
+        margin: 10px 0 10px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: $offblack;
+      }
+      &__icon {
+        flex-shrink: 0;
+        display: inline-block;
+        width: 12px;
+        fill: #888;
+        margin: 2px;
+        margin-top: 0;
+        margin-left: 10px;
+      }
+    }
+    &__section {
+      a {
+        display: flex;
+        min-width: 0;
+        &:hover {
+          color: inherit;
+        }
+      }
+      li {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        padding: 0 20px;
+        cursor: pointer;
+        &:hover {
+          background: #eee;
+        }
+      }
+    }
+  }
+}
+
+.search__results__listing__list {
+  display: flex;
+  list-style-type: none;
+}

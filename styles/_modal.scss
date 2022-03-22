@@ -1,0 +1,49 @@
+.af-modal-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,.4);
+    z-index: 10;
+
+    display: none;
+
+    &-active {
+        display: flex;
+    }
+
+    .af-modal {
+        position: relative;
+        background: white;
+        padding: 32px;
+        margin: 32px;
+        overflow: scroll;
+
+        min-width: 500px;
+        max-width: calc(100% - 64px);
+        max-height: calc(100% - 64px);
+
+        &-active {
+            display: block;
+        }
+
+        h2 {
+            text-align: center;
+            width: 100%;
+            font-size: 32px;
+        }
+
+        .af-modal-locale {
+        }
+
+        @media (max-width: $breakpoint-tablet) {
+            min-width: unset;
+        }
+    }
+}

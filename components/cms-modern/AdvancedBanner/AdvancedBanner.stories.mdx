@@ -1,0 +1,496 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import AdvancedBanner from '@components/cms-modern/AdvancedBanner';
+
+<Meta 
+    title="Organisms/AdvancedBanner" 
+    component={AdvancedBanner} 
+    argTypes={{
+        textPositioning: {
+            table: {
+                disable: true,
+            },
+        },
+        bgcol: {
+           control: {
+                type: 'color'
+           } 
+        },
+        image: {
+            table: {
+                disable: true,
+            },
+        },
+        opacity: {
+            description: 'Panel opacity',
+            defaultValue: 0.9,
+            table: {
+                defaultValue: { summary: '0.9' }
+            },
+            control: {
+                type: 'number',
+                min: 0,
+                max: 1,
+                step: 0.05
+            }
+        },
+        textPositionHorizontal: {
+            description: 'Panel horizontal position',
+            table: {
+                defaultValue: { summary: 'right' }
+            },
+            control: {
+                type: 'select',
+                options: ['left', 'center', 'right'],
+            },
+        },
+        textPositionVertical: {
+            description: 'Panel vertical position',
+            table: {
+                defaultValue: { summary: 'middle' }
+            },
+            control: {
+                type: 'select',
+                options: ['top', 'middle', 'bottom'],
+            },
+        },
+    }}/>
+
+export const Template = (args) => {
+    args.textPositioning = {
+      textPositionHorizontal: args.textPositionHorizontal,
+      textPositionVertical: args.textPositionVertical,
+    }
+    args.overlaypanel = {
+        opacity: args.opacity
+    }
+    return <AdvancedBanner {...args} />
+};
+
+# AdvancedBanner Component
+---
+
+`AdvancedBanner` Component allows some more advanced controls to build a banner with
+multiple lines of text.
+
+## Stories
+
+<Canvas>
+  <Story 
+    name="Advanced Banner"
+    args={{ 
+        textPositionHorizontal: "right",
+        textPositionVertical: "middle",
+        "image": {
+            "img": {
+                "image": {
+                "crop": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "rot": 0,
+                "hue": 0,
+                "sat": 0,
+                "bri": 0,
+                "fliph": false,
+                "flipv": false,
+                "poi": {
+                    "x": 0.6856617647058824,
+                    "y": 0.29052734375
+                },
+                "aspectLock": "poi",
+                "image": {
+                    "_meta": {
+                    "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
+                    },
+                    "id": "0013556d-0aa8-412e-83b9-479bf89d8c0e",
+                    "name": "180815-mens-wardrobe-reload",
+                    "endpoint": "rezademo",
+                    "defaultHost": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io"
+                },
+                "query": "poi=0.6857,0.2905,0,0&scaleFit=poi"
+                }
+            },
+            "disablePoiAspectRatio": false,
+            "imageAltText": "mens",
+            "_meta": {
+                "schema": "https://amprsa.net/lib/di-image"
+            }
+            },
+            "overlaypanel": {
+                "opacity": 0.9,
+                "col": "rgb(255, 255, 255)"
+            },
+            "textPositioning": {
+            "textPositionHorizontal": "left",
+            "textPositionVertical": "middle"
+            },
+            "textLines": [
+            {
+                "text": "Mens Clothing",
+                "variant": "h1",
+                "align": "left"
+            },
+            {
+                "text": "Perfect additions to your wardrobe",
+                "variant": "h2",
+                "align": "left"
+            },
+            {
+                "text": "Update your wardobe with the latest menswear clothing line from ANYA FINN.",
+                "align": "left"
+            }
+            ],
+            "ctas": [
+                {
+                    "buttonText": "Shop Now",
+                    "variant": "contained",
+                    "linkUrl": "#"
+                }
+            ]
+        }
+    }>
+    {Template.bind({})}
+   </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={AdvancedBanner} />
+
+## Content Type Schema
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://amprsa.net/content/advanced-banner",
+    "title": "Advanced Banner",
+    "description": "Advanced Banner",
+    "allOf": [
+        {
+            "$ref": "http://bigcontent.io/cms/schema/v1/core#/definitions/content"
+        }
+    ],
+    "type": "object",
+    "properties": {
+        "image": {
+            "title": "Image",
+            "description": "Main Image",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "https://amprsa.net/lib/di-image"
+                }
+            ]
+        },
+        "bgcol": {
+            "title": "Background Colour",
+            "description": "A background colour for the banner. If blank it will default to white",
+            "format": "color",
+            "type": "string"
+        },
+        "overlaypanel": {
+            "title": "Overlay Panel",
+            "type": "object",
+            "properties": {
+                "opacity": {
+                    "title": "Panel opacity",
+                    "description": "The opacity of the overlay panel",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "col": {
+                    "title": "Panel Colour",
+                    "description": "Colour of the overlay panel. If blank it will default to white",
+                    "format": "color",
+                    "type": "string"
+                },
+                "borderStyle": {
+                    "title": "Border Style",
+                    "type": "string",
+                    "enum": [
+                        "black",
+                        "white"
+                    ]
+                },
+                "offsetH": {
+                    "title": "Horizontal Offset",
+                    "description": "Can be 0, 10% or 112px",
+                    "type": "string"
+                },
+                "offsetV": {
+                    "title": "Vertical Offset",
+                    "description": "Can be 0, 10% or 112px",
+                    "type": "string"
+                },
+                "w": {
+                    "title": "Width",
+                    "description": "Width of the panel in pixels, if none set it will flow.",
+                    "type": "number"
+                }
+            }
+        },
+        "textPositioning": {
+            "title": "Text Positioning",
+            "type": "object",
+            "properties": {
+                "textPositionHorizontal": {
+                    "title": "Horizontal Text Position",
+                    "description": "Select: Left / Center / Right",
+                    "type": "string",
+                    "default": "left",
+                    "enum": [
+                        "left",
+                        "center",
+                        "right"
+                    ]
+                },
+                "textPositionVertical": {
+                    "title": "Vertical Text Position",
+                    "description": "Select: Top / Middle / Bottom",
+                    "type": "string",
+                    "default": "top",
+                    "enum": [
+                        "top",
+                        "middle",
+                        "bottom"
+                    ]
+                }
+            }
+        },
+        "textLines": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 4,
+            "items": {
+                "type": "object",
+                "title": "Text Line",
+                "properties": {
+                    "text": {
+                        "title": "Text",
+                        "description": "The text to display",
+                        "type": "string"
+                    },
+                    "col": {
+                        "title": "Colour",
+                        "description": "Colour",
+                        "format": "color",
+                        "type": "string"
+                    },
+                    "variant": {
+                        "title": "Variant",
+                        "type": "string",
+                        "enum": [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "subtitle1",
+                            "subtitle2"
+                        ]
+                    },
+                    "align": {
+                        "title": "Align",
+                        "type": "string",
+                        "enum": [
+                            "left",
+                            "center",
+                            "right",
+                            "inherit",
+                            "justify"
+                        ]
+                    },
+                    "fontFamily": {
+                        "title": "Font Family",
+                        "type": "string",
+                        "enum": [
+                            "'Montserrat', sans-serif",
+                            "'Helvetica', 'Arial', sans-serif",
+                            "'Roboto', 'Helvetica', 'Arial', sans-serif",
+                            "'Roboto Condensed', sans-serif"
+                        ]
+                    }
+                }
+            }
+        },
+        "ctas": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 4,
+            "items": {
+                "type": "object",
+                "title": "CTA",
+                "properties": {
+                    "buttonText": {
+                        "title": "CTA Text",
+                        "type": "string",
+                        "minimum": 4,
+                        "maximum": 12
+                    },
+                    "linkUrl": {
+                        "title": "CTA URL",
+                        "type": "string"
+                    },
+                    "variant": {
+                        "title": "Variant",
+                        "type": "string",
+                        "enum": [
+                            "contained",
+                            "outlined"
+                        ]
+                    }
+                }
+            }
+        },
+        "disclaimer": {
+            "title": "Disclaimer",
+            "type": "object",
+            "properties": {
+                "text": {
+                    "title": "Text",
+                    "description": "The text to display",
+                    "type": "string"
+                },
+                "col": {
+                    "title": "Colour",
+                    "description": "Colour",
+                    "format": "color",
+                    "type": "string"
+                },
+                "variant": {
+                    "title": "Variant",
+                    "type": "string",
+                    "enum": [
+                        "h1",
+                        "h2",
+                        "h3",
+                        "h4",
+                        "h5",
+                        "h6",
+                        "subtitle1",
+                        "subtitle2"
+                    ]
+                },
+                "align": {
+                    "title": "Align",
+                    "type": "string",
+                    "enum": [
+                        "left",
+                        "center",
+                        "right",
+                        "inherit",
+                        "justify"
+                    ]
+                },
+                "fontFamily": {
+                    "title": "Font Family",
+                    "type": "string",
+                    "enum": [
+                        "'Montserrat', sans-serif",
+                        "'Helvetica', 'Arial', sans-serif",
+                        "'Roboto', 'Helvetica', 'Arial', sans-serif",
+                        "'Roboto Condensed', sans-serif"
+                    ]
+                }
+            }
+        }
+    },
+    "propertyOrder": [
+        "image",
+        "bgcol",
+        "overlaypanel",
+        "textPositioning",
+        "textLines",
+        "ctas",
+        "disclaimer"
+    ]
+}
+```
+
+## Sample Content Item
+
+```json
+{
+  "content": {
+    "image": {
+      "img": {
+        "image": {
+          "crop": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "rot": 0,
+          "hue": 0,
+          "sat": 0,
+          "bri": 0,
+          "fliph": false,
+          "flipv": false,
+          "poi": {
+            "x": 0.6856617647058824,
+            "y": 0.29052734375
+          },
+          "aspectLock": "poi",
+          "image": {
+            "_meta": {
+              "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
+            },
+            "id": "0013556d-0aa8-412e-83b9-479bf89d8c0e",
+            "name": "180815-mens-wardrobe-reload",
+            "endpoint": "rezademo",
+            "defaultHost": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io"
+          },
+          "query": "poi=0.6857,0.2905,0,0&scaleFit=poi"
+        }
+      },
+      "disablePoiAspectRatio": false,
+      "imageAltText": "mens",
+      "_meta": {
+        "schema": "https://amprsa.net/lib/di-image"
+      }
+    },
+    "overlaypanel": {
+      "opacity": 0.9,
+      "col": "rgb(255, 255, 255)"
+    },
+    "textPositioning": {
+      "textPositionHorizontal": "left",
+      "textPositionVertical": "middle"
+    },
+    "textLines": [
+      {
+        "text": "Mens Clothing",
+        "variant": "h1",
+        "align": "left"
+      },
+      {
+        "text": "Perfect additions to your wardrobe",
+        "variant": "h2",
+        "align": "left"
+      },
+      {
+        "text": "Update your wardobe with the latest menswear clothing line from ANYA FINN.",
+        "align": "left"
+      }
+    ],
+    "ctas": [
+      {
+        "buttonText": "Shop Now",
+        "variant": "contained",
+        "linkUrl": "#"
+      }
+    ],
+    "_meta": {
+      "name": "Advanced Banner - Mens Clothing",
+      "schema": "https://amprsa.net/content/advanced-banner",
+      "deliveryKey": "docs/story/advancedbanner/banner1",
+      "deliveryId": "aa8b1086-748d-49f9-8cfc-66015f39f262"
+    }
+  }
+}
+```

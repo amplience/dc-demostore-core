@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text</title>
+
+    <link rel="stylesheet" href="../../../dist/renders/text/text.min.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .amp-dc-text {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="js_text_wrap"></div>
+
+<!-- build:js ../../reusable/cms-javascript-sdk.min.js -->
+<script src="../../../node_modules/cms-javascript-sdk/dist/cms-javascript-sdk.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/handlebars.min.js -->
+<script src="../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/showdown.min.js -->
+<script src="../../../node_modules/showdown/dist/showdown.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/utils.js -->
+<script src="../../reusable/js/utils.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/handlebars_helpers.js -->
+<script src="../../reusable/js/handlebars_helpers.js"></script>
+<!-- /build -->
+
+<script src="../../../dist/renders/text/acc-template-text.min.js"></script>
+
+<script>
+
+    AmpCa.utils = new AmpCa.Utils();
+
+    AmpCa.utils.getCaData({
+        auth: {
+            baseUrl: 'https://c1.adis.ws',
+            id: 'bc3f11ab-ed9c-4163-8e87-ac64fec19f44',
+            store: 'csdemo'
+        },
+        callback: function (data) {
+            var template = Handlebars.template(AmpCa.templates['acc-template-text']);
+            document.querySelectorAll(".js_text_wrap")[0].innerHTML = template(data[0]);
+        },
+        formatData: function (data) {
+            return amp.inlineContent(JSON.parse(data));
+        }
+    });
+
+
+</script>
+</body>
+</html>

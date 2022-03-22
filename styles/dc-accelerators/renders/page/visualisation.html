@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>homepage</title>
+
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/page/page.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/slider/slider.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/banner/banner.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/image/image.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/video/video.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/promoList/promoList.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/splitBlock/splitBlock.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/text/text.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/cardList/cardList.min.css"/>
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/card/card.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .test {
+            padding: 15px 15px 20px 15px;
+            background: #efefef;
+            border-radius: 5px;
+        }
+
+        .test > div {
+            padding: 15px;
+            background: #bff2b5;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="header-wrap">
+    <div class="header-promotion">FREE DELIVERY | ORDER BEFORE 1PM FOR NEXT DAY DELIVERY | FREE RETURNS</div>
+    <div class="header-content">
+
+        <a class="logo" href="#">
+            <img src="https://i1.adis.ws/i/csdemo/m02fm899008g_81867bf7?h=40"
+                 srcset="https://i1.adis.ws/i/csdemo/m02fm899008g_81867bf7?h=40 1x, https://i1.adis.ws/i/csdemo/m02fm899008g_81867bf7?h=80 2x"
+                 class="logo-image">
+        </a>
+
+        <ul class="customer-menu">
+            <li class="first-nav"><a href="#" class="fa fa-map-marker primary-color"></a></li>
+            <li class="second-nav"><a href="#" class="fa fa-user primary-color"></a></li>
+            <li class="third-nav"><a href="" class="fa fa-shopping-cart primary-color"></a></li>
+        </ul>
+
+        <ul class="top-menu">
+            <li><a href="#">Home & Electricals</a></li>
+            <li><a href="#">Inspiration</a></li>
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Women</a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div class="js_homepage_wrap"></div>
+
+
+<script src="{VISUALIZATION_BASEPATH}/reusable/cms-javascript-sdk.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/handlebars.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/showdown.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/utils.js"></script>
+
+<script src="{VISUALIZATION_BASEPATH}/reusable/lory.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/handlebars_helpers.js"></script>
+
+<script src="{VISUALIZATION_BASEPATH}/renders/slider/package/sliderHelper.js"></script>
+
+
+<script src="{VISUALIZATION_BASEPATH}/renders/page/acc-template-page.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/slider/acc-template-slider.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/image/acc-template-image.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/banner/acc-template-banner.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/video/acc-template-video.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/text/acc-template-text.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/promoList/acc-template-promoList.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/splitBlock/acc-template-splitBlock.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/cardList/acc-template-cardList.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/externalBlock/acc-template-externalBlock.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/renders/card/acc-template-card.min.js"></script>
+
+<script>
+    function getQueryVar(params) {
+        var paramsObj = {};
+        var currentParam = null;
+
+        for (var x = 0; x < params.length; x++) {
+            currentParam = window.location.href.match(new RegExp(params[x] + "=([a-zA-Z0-9-\._]+)"));
+            if (currentParam && currentParam.length > 1) {
+                paramsObj[params[x]] = currentParam[1];
+            }
+
+            else {
+                console.warn('Param: ' + x + ' not found');
+            }
+        }
+        var url = 'https://' + paramsObj.vse + '/cms/content/query?fullBodyObject=true&scope=tree&store={COMPANY_TAG}&query=%7B"sys.iri":"http://content.cms.amplience.com/' + paramsObj.content + '"%7D&v=' + Date.now();
+        return url;
+    }
+
+    Handlebars.partials = AmpCa.templates;
+    AmpCa.utils = new AmpCa.Utils();
+
+    AmpCa.utils.getCaData({
+        url: getQueryVar(['vse', 'content']),
+        callback: function (data) {
+            var template = Handlebars.template(AmpCa.templates['acc-template-page']);
+            document.querySelectorAll(".js_homepage_wrap")[0].innerHTML = template(data[0]);
+
+            loryHelpers.initSliders(document.querySelectorAll(".js_slider"));
+            AmpCa.utils.postProcessing.exec('homepage', {});
+
+        },
+        formatData: function (data) {
+            return amp.inlineContent(JSON.parse(data));
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

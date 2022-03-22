@@ -1,0 +1,61 @@
+.af-form {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.af-form-field {
+    width: calc(100% - 16px);
+    flex: 0 0 auto;
+    margin: 0 8px 16px;
+}
+
+.af-select {
+    color: #5c5c5c;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    margin-top: 0;
+    letter-spacing: normal;
+
+    width: 100%;
+    min-width: 100px;
+    height: 48px;
+    padding: 0 32px 0 12px;
+    margin: 0;
+    border: 1px solid #a4a4a4;
+    border-radius: 2px;
+    background-size: 100%;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='8' height='13' viewBox='0 0 8 13' xmlns='http://www.w3.org/2000/svg' fill='%235c5c5c'%3E%3Ctitle%3Edropdown arrows%3C/title%3E%3Cg fill='%235C5C5C' fill-rule='evenodd'%3E%3Cpath d='M-.03 8h8l-4 5zM-.03 5h8l-4-5z'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    background-size: 8px 13px;
+    background-position: right 16px center;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: inherit;
+    box-shadow: 0 0 4px 1px transparent;
+    transition: box-shadow .3s;
+}
+
+.af-input {
+    background: #fff;
+    -webkit-box-shadow: 0 0 4px 1px transparent;
+    box-shadow: 0 0 4px 1px transparent;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    background-color: #fff;
+    border: 1px solid #a4a4a4;
+    border-radius: 2px;
+    height: 48px;
+    width: 100%;
+    color: #5c5c5c;
+    font-size: 16px;
+    letter-spacing: .1px;
+    line-height: 18px;
+    padding: 0 12px;
+    font-family: inherit;
+}

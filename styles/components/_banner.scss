@@ -1,0 +1,143 @@
+@import "../dc-accelerators/renders/banner/sass/all.scss";
+@import "../variables";
+@import "../global";
+
+.amp-dc-banner {
+  @media screen and (min-width: 768px) {
+    padding-bottom: 47% !important;
+    .amp-dc-banner-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .amp-dc-banner-pic-wrap {
+      position:absolute;
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .amp-dc-banner-info-wrap {
+      &[data-align='center'] {
+        background: transparent;
+        left: 50%;
+        transform: translateX(-50%);
+        height: auto;
+        width: auto;
+        top: auto;
+        bottom: 0;
+        .amp-dc-banner-info {
+          &:before {
+            height: auto;
+            margin-right: auto;
+          }
+          text-align: center;
+          background: transparent;
+        }
+        .amp-dc-banner-header {
+          color: white;
+        }
+        .amp-dc-banner-description {
+          color: white;
+        }
+      }
+    }
+  }
+  .amp-dc-banner-info-wrap {
+    @media screen and (max-width: 1280px) {
+      width: 45%;
+    }
+    .amp-dc-banner-info {
+      text-align: left;
+      padding: 40px 60px 40px 60px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    &[data-align='left'] {
+      left: 0;
+      text-align: left;
+    }
+
+    &[data-align='right'] {
+      right: 0;
+      text-align: left;
+      &:before {
+        margin-right: -6px; // why?
+      }
+    }
+
+    .amp-dc-banner-button {
+      @include button();
+      text-align: center;
+    }
+  }
+  .amp-dc-banner-content-image {
+    max-height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    @media screen and (max-width: 1024px) {
+      padding: 80px;
+    }
+    @media screen and (max-width: 768px) {
+      padding: 0;
+      top: 30%
+    }
+    @media screen and (max-width: 480px) {
+      top: 25%;
+    }
+  }
+
+  .amp-dc-banner-header {
+    @include header();
+    font-size: 40px!important;
+    color: #666;
+    line-height: 44px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    @media screen and (max-width: 1024px) {
+      font-size: 22px;
+    }
+  }
+
+  .amp-dc-banner-description {
+    margin: 20px 0;
+  }
+
+}
+
+.amp-dc-banner {
+  @media screen and (max-width: 768px) {
+    .amp-dc-banner-info-wrap {
+      width: 40%;
+
+      .amp-dc-banner-info {
+        padding: 40px;
+      }
+
+      &[data-align='center'] {
+        left: 35px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .amp-dc-banner-info-wrap {
+      &[data-align='center'] {
+        left: 20px;
+      }
+
+      &.amp-dc-info-bottom {
+        &[data-align='center'] {
+          left: 0;
+        }
+      }
+    }
+  }
+
+}

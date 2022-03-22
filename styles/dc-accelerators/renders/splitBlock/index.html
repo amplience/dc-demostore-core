@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>splitBlock</title>
+
+    <link rel="stylesheet" href="../../../dist/renders/splitBlock/splitBlock.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/text/text.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/image/image.min.css"/>
+    <link rel="stylesheet" href="../../../dist/renders/video/video.min.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .amp-dc-splitBlock {
+            margin: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="js_splitBlock_wrap"></div>
+
+<!-- build:js ../../reusable/cms-javascript-sdk.min.js -->
+<script src="../../../node_modules/cms-javascript-sdk/dist/cms-javascript-sdk.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/handlebars.min.js -->
+<script src="../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/showdown.min.js -->
+<script src="../../../node_modules/showdown/dist/showdown.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/utils.js -->
+<script src="../../reusable/js/utils.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/handlebars_helpers.js -->
+<script src="../../reusable/js/handlebars_helpers.js"></script>
+<!-- /build -->
+
+<script src="../../../dist/renders/splitBlock/acc-template-splitBlock.min.js"></script>
+<script src="../../../dist/renders/image/acc-template-image.min.js"></script>
+<script src="../../../dist/renders/text/acc-template-text.min.js"></script>
+<script src="../../../dist/renders/video/acc-template-video.min.js"></script>
+
+<script>
+
+    Handlebars.partials = AmpCa.templates;
+    AmpCa.utils = new AmpCa.Utils();
+
+    AmpCa.utils.getCaData({
+        auth: {
+            baseUrl: 'https://c1.adis.ws',
+            id: '47c6b9bf-c164-4c7f-8087-1a608028108e',
+            store: 'csdemo'
+        },
+        callback: function (data) {
+            console.log(data);
+            var template = Handlebars.template(AmpCa.templates['acc-template-splitBlock']);
+            document.querySelectorAll(".js_splitBlock_wrap")[0].innerHTML = template(data[0]);
+        },
+        formatData: function (data) {
+            return amp.inlineContent(JSON.parse(data));
+        }
+    });
+
+</script>
+
+</body>
+</html>

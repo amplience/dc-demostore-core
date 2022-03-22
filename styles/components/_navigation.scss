@@ -1,0 +1,176 @@
+.navigation {
+    * {
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+    display: flex;
+    height: 30px;
+    background-color: $primaryGrey;
+    z-index: 1200;
+    &__list {
+        margin: 0 auto;
+        display: flex;
+        padding: 0;
+        flex-wrap: none;
+        border-left: 1px solid $textColor;
+        border-right: 1px solid $textColor;
+        list-style: none;
+        &__item {
+            height: 100%;
+            
+            &__link {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                padding: 0 42.5px;
+                text-decoration: none;
+                text-transform: uppercase;
+                color: $white;
+                @media (max-width: $breakpoint-sm) {
+                    padding: 0 15px;
+                }
+            }
+
+            &--active {
+                & > a {
+                    color: #fff;
+                    background-color: rgba(255,255,255,0.4);
+                }
+            }
+        }
+    }
+
+    @media (max-width: 750px) {
+        position: fixed;
+        background-color: $primaryGrey;
+        color: #fff;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        height: 100%;
+        width: 80%;
+        will-change: transform;
+        &--open {
+            .navigation {
+                transform: translateX(0);
+            }
+        }
+        &__list {
+            flex-direction: column;
+            border: none;
+            padding: 0 40px;
+            margin: 75px 0 0 0;
+            flex: 1;
+            &__item {
+                order: 2;
+                height: 50px;
+                padding: 0px;
+                border-bottom: 1px solid $textColor;
+                &--search{
+                    order: 1;
+                    .search {
+                        border-left: none;
+                        display: flex;
+                        align-items: center;
+                        &__icon {
+                            top: 13px
+                        }
+                        &__input {
+                            width: 100%;
+                        }
+
+                        &__results {
+                            top: 40px;
+                            left:-50px;
+                            width: calc(100% + 100px);
+                            padding:10px;
+                            &__container {
+                                width: 100%;
+                            }
+                            &__listing {
+                                width: 100%;
+                            }
+                            &__section {
+                                li {
+                                    padding:8px 0 
+                                }
+                            }
+                        }
+                    }
+                }
+                &--active {
+                    & > a {
+                        color: $white;
+                        background-color: $primaryGrey;
+                    }
+                }
+
+                &--open {
+                    .megaMenu {
+                        display: block;
+                        width: 100%;
+                        &__list {
+                            flex-direction: column;
+                            border: none;
+                            padding: 0 40px;
+                            margin: 20px 0 0 0;
+                            flex: 1;
+                            &__subCategory {
+                                margin-bottom: 0;
+                            }
+                            &__container {
+                                flex-direction: column;
+                            }
+                            &__item {
+                                height: 50px;
+                                border-bottom: 1px solid $textColor;
+                                color: $white;
+                                display: flex; 
+                                align-items: center;
+                                &__link {
+                                    font-size: 14px; 
+                                    text-decoration: none;
+                                    color: $white;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.navigation--open {
+    .navigation__close {
+        display: block;
+        position: relative;
+        right: -30px;
+    }
+    .navigation__list__item {
+        &:hover {
+            & > a {
+                color: $white;
+            }
+        }
+    }
+}
+.navigation--closed {
+    .navigation__close {
+        display: none;
+    }
+    .navigation__list__item {
+        &:hover {
+            & > a {
+                color: $primaryGrey;
+                background-color: $white;
+            }
+            & > div {
+                display: block;
+            }
+        }
+    }
+}

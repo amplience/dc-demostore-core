@@ -1,0 +1,79 @@
+@media screen and (max-width: 768px) {
+  .amp-dc-prod-5-rows {
+    .amp-dc-card {
+      width: 50%;
+    }
+  }
+  .amp-dc-prod-4-rows {
+    .amp-dc-card {
+      width: 50%;
+    }
+  }
+  .amp-dc-prod-3-rows {
+    .amp-dc-card {
+      width: 50%;
+    }
+
+    &.amp-dc-cards-hero {
+      .amp-dc-card-list-wrap {
+        > div:nth-last-child(3):first-child {
+          width: 100%;
+
+          .amp-dc-card-wrap {
+            margin-right: 0;
+          }
+        }
+
+        .amp-dc-card {
+          width: 100%;
+
+          &.amp-dc-card-1 {
+            width: 100%;
+
+            .amp-dc-card-wrap {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .amp-dc-prod-2-rows {
+    .amp-dc-card {
+      width: 50%;
+    }
+  }
+  .amp-dc-prod-1-rows {
+    .amp-dc-card {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .amp-dc-prod-5-rows {
+    .amp-dc-card {
+      width: 100%;
+    }
+  }
+  .amp-dc-prod-4-rows {
+    .amp-dc-card {
+      width: 100%;
+    }
+  }
+  .amp-dc-prod-3-rows {
+    .amp-dc-card {
+      width: 100%;
+    }
+  }
+  .amp-dc-prod-2-rows {
+    .amp-dc-card {
+      width: 100%;
+    }
+  }
+  .amp-dc-prod-1-rows {
+    .amp-dc-card {
+      width: 100%;
+    }
+  }
+}

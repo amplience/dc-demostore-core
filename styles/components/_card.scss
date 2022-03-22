@@ -1,0 +1,84 @@
+@import "../dc-accelerators/renders/card/sass/all.scss";
+@import "../global";
+@import "../variables";
+
+.amp-dc-card {
+  .amp-dc-card-name {
+    @include header();
+    font-size: 24px!important;
+    color: #231f20;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    white-space: normal;
+    text-transform:uppercase;
+  }
+  .amp-dc-card-text-wrap {
+    padding: 20px;
+    font-size: 13px;
+    color: #666;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+    .amp-dc-card-link {
+      @include button();
+    }
+    .amp-dc-card-description {
+      display: block;
+      margin-bottom: 20px;
+    }
+    &.amp-dc-card-no-image {
+      margin:0;
+      width: 100%;
+      height: calc(100% - 15px);
+      padding: 50% 80px;
+      text-align: center !important; //sorry, was just quicker.
+      .amp-dc-card-name {
+        &:before{
+          content: "\201C";
+          font-family: Georgia, serif;
+          font-size: 250px;
+          display: block;
+          padding-bottom: 60px;
+        }
+        font-size:48px;
+        padding: 60px 0;
+      }
+      .amp-dc-card-description {
+        font-size: 13px;
+        color: #666;
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: 400;
+      }
+    }
+  }
+  a.amp-dc-card-wrap:hover .amp-dc-card-link {
+    text-decoration: none;
+  }
+}
+
+.amp-dc-card.style1{
+  .amp-dc-card-name {
+    font-size: 60px !important;
+    font-weight: 900 !important;
+     @media screen and (max-width: 480px) {
+        font-size: 40px !important;
+      }
+    color: #ffffff;
+    text-shadow: 0 2px 16px rgba(0,0,0,.75);
+  }
+
+  .amp-dc-card-text-wrap{
+    position:absolute;
+    top:40%;
+    padding: 5px;
+    background-color:transparent;
+
+    .amp-dc-card-link{
+      background-color: #FFF;
+      @include button();
+          width: fit-content;
+          margin: 0 auto;
+          margin-top: 16px;
+    }
+  }
+}

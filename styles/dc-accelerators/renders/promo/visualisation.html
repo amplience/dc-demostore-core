@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promo banner section</title>
+
+    <link rel="stylesheet"
+          href="{VISUALIZATION_BASEPATH}/renders/promoList/promoList.min.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="js_promoBannerSection_wrap"></div>
+
+
+<script src="{VISUALIZATION_BASEPATH}/reusable/cms-javascript-sdk.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/handlebars.min.js"></script>
+<script src="{VISUALIZATION_BASEPATH}/reusable/utils.js"></script>
+
+<script src="{VISUALIZATION_BASEPATH}/renders/promo/acc-template-promo.min.js"></script>
+
+<script>
+    function getQueryVar(params) {
+        var paramsObj = {};
+        var currentParam = null;
+
+        for (var x = 0; x < params.length; x++) {
+            currentParam = window.location.href.match(new RegExp(params[x] + "=([a-zA-Z0-9-\._]+)"));
+            if (currentParam && currentParam.length > 1) {
+                paramsObj[params[x]] = currentParam[1];
+            }
+
+            else {
+                console.warn('Param: ' + x + ' not found');
+            }
+        }
+        var url = 'https://' + paramsObj.vse + '/cms/content/query?fullBodyObject=true&scope=tree&store={COMPANY_TAG}&query=%7B"sys.iri":"http://content.cms.amplience.com/' + paramsObj.content + '"%7D&v=' + Date.now();
+        return url;
+    }
+
+    AmpCa.utils = new AmpCa.Utils();
+
+    AmpCa.utils.getCaData({
+        url: getQueryVar(['vse', 'content']),
+        callback: function (data) {
+            var template = Handlebars.template(AmpCa.templates['acc-template-promo']);
+            document.querySelectorAll(".js_promoBannerSection_wrap")[0].innerHTML = template(data[0]);
+            AmpCa.utils.postProcessing.exec('promoBanner', {});
+        },
+        formatData: function (data) {
+            return amp.inlineContent(JSON.parse(data));
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+footer{
+  padding-top: 40px;
+  padding-bottom: 0;
+  background-color: #ecedee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Roboto Condensed', sans-serif;
+
+  .footer {
+    &__column-break{
+      max-width:1400px;
+    }
+    
+    &__sitemap {
+      min-width: 375px;
+      padding-top: 0;
+      padding-left: 100px;
+      padding-right: 100px;
+      display: flex;
+      flex-direction: row;
+      flex-flow: row;
+      width: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      @media screen and (max-width: 1219px) {
+        justify-content: flex-start;
+      }
+    }
+    &__signup {
+      padding-top:0;
+      padding-left: 0;
+      padding-right: 100px;
+      @media screen and (max-width: 540px) {
+        padding-left: 100px;
+      }
+      input {
+        box-sizing: border-box;
+        width: 250px;
+        height: 48px;
+        border-radius: 3px;
+        border: none;
+        font-size: 13px;
+        padding: 20px;
+        padding-right: 40px;
+        font-style: italic;
+        font-family: 'Roboto Condensed', sans-serif;
+        ::placeholder {
+        }
+      }
+      h4 {
+        // font-size: 16px;
+        // color: #333;
+        text-transform: uppercase;
+        // font-family: 'Roboto Condensed', sans-serif;
+        margin-bottom: 20px;
+        padding-left: 20px;
+      }
+    }
+    &__signup-input-wrap {
+      position: relative;
+      width: 250px;
+      display: inline;
+      img {
+        position: absolute;
+        right: 0;
+        height: 18px;
+        width: 22px;
+        margin-right: 15px;
+        margin-top: 15px;
+      }
+    }
+    &__column-break {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      @media screen and (max-width: 750px) {
+        flex-direction: column;
+      }
+    }
+    &__sitemap-column-title--mobile{
+      cursor: pointer;
+      font-size: 13px !important;
+      img {
+        position: relative;
+        width: 11px;
+        height: 11px;
+        margin-right: 15px;
+      }
+    }
+    &__sitemap-column {
+      box-sizing: border-box;
+      margin-right:50px;
+      margin-bottom: 50px;
+      flex-basis: 120px;
+    
+      h4 {
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding-left: 0;
+        li {
+          min-width: 125px;
+          list-style-type: none;
+          margin: 0;
+          a {
+            line-height: 25px;
+            &:hover {
+              color: #666;
+            }
+          }
+        }
+      }
+      &--collapsed {
+        margin-bottom: 0;
+      }
+    }
+    &__social-links {
+      width: 100%;
+      height: 90px;
+      padding: 36px;
+      border-top: 1px solid #ccc;
+      border-bottom:  1px solid #ccc;
+    }
+    &__social-link-wrapper { 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px;
+      a {
+        transform: scale(0.5);
+      }
+      div {
+        width: 38px;
+        height: 36px;
+        margin: 0 18px;
+        cursor: pointer;
+      }
+    }
+    &__watermark {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      h6 {
+        margin: 0;
+      }
+    }
+  }
+
+  .back-to-top-container{
+
+    position: relative;
+    padding: 35px;
+
+    .back-to-top{
+      position: absolute;
+      right: 20px;
+      bottom: 5px;
+      color: black;
+    }
+    .back-to-top-icon{
+
+      position: absolute;
+      right: 38px;
+      bottom: 30px;
+      width: 30px;
+
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .footer__sitemap {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    .footer__sitemap-column {
+      flex-basis: 100%;
+      ul {
+        padding-left: 25px;
+      }
+    }
+    .footer__signup {
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 20px;
+      h4 {
+        display: none;
+      }
+      input {
+        width: 100%;
+      }
+    }
+    .footer__social-links {
+      height: 60px;
+      padding: 20px;
+    }
+
+    .footer__watermark {
+      height: 35px;
+    }
+    
+  }
+}

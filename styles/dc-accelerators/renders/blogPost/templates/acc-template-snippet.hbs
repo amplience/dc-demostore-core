@@ -1,0 +1,33 @@
+<a href="{{cta.value}}" class="amp-dc-snippet js_dc_snippet">
+    {{#if image}}
+        <div class="amp-dc-image">
+            {{templateChooser image}}
+        </div>
+    {{/if}}
+
+    {{#if title}}
+        <div class="amp-dc-title">{{title}}</div>
+    {{else}}
+        {{#if mainBlogTitle}}
+            <div class="amp-dc-title">{{mainBlogTitle}}</div>
+        {{/if}}
+    {{/if}}
+
+    {{#if description}}
+        <div class="amp-dc-description">{{description}}</div>
+    {{/if}}
+
+    {{#if cta}}
+        {{#if cta.value}}
+            <div class="amp-dc-link">
+                <span class="amp-dc-snippet-more" href="{{cta.value}}">
+                    {{#if cta.label}}
+                        {{cta.label}}
+                    {{else}}
+                        Read more >>
+                    {{/if}}
+                </span>
+            </div>
+        {{/if}}
+    {{/if}}
+</a>

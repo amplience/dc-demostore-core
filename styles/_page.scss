@@ -1,0 +1,22 @@
+.af-main-content {
+  max-width: $content-width;
+  margin: 0 auto;
+}
+.af-timemachine {
+  background: red;
+  color: $white;
+  text-align: right;
+  font-weight: 500;
+  span {
+    padding-right: 24px;
+    color: $white;
+  }
+  a {
+    padding-right: 24px;
+    color: $white;
+  }
+}
+
+#nprogress .bar {
+  background: #231f20 !important;
+}

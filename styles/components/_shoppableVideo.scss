@@ -1,0 +1,110 @@
+@import "../global";
+
+.af-shoppable-video {
+  position: relative;
+  padding-bottom: 56.25%;
+
+  video {
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &-products-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 100px; // room for controls
+    padding: 20px;
+
+    overflow: hidden; //does this break anything?
+    pointer-events: none;
+
+    @media (max-width: $breakpoint-tablet) {
+      position: inherit;
+      padding: 0px;
+      bottom: -56.25vw;
+      top: auto;
+    }
+  }
+
+  &-products {
+    list-style: none;
+    width: 25%;
+    position: absolute;
+    right: 0;
+    margin: 0px;
+    padding: 0px;
+
+    @media (max-width: $breakpoint-tablet) {
+      position: inherit;
+      width: 100%;
+    }
+  }
+
+  &-product {
+    background: white;
+
+    display: flex;
+    margin-bottom: 10px;
+
+    transition: all 1s ease;
+
+    visibility: hidden;
+    height: 0px;
+    opacity: 0;
+
+    &-active {
+      visibility: visible;
+      height: auto;
+      opacity: 1;
+    }
+
+    &-focus {
+
+    }
+
+    &__image {
+      flex: 1 0 30%;
+      position: relative;
+
+      img {
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    }
+
+    &-details {
+      flex: 1 0 70%;
+      padding: 15px;
+
+      &__name {
+        @include header();
+        font-size: 25px !important;
+      }
+
+      &__price {
+        font-size: 14px;
+        color: #8F8F8F;
+        display: inline-block;
+      }
+
+      &__cta {
+        @include button();
+        width: 100%;
+      }
+    }
+  }
+
+}

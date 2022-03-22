@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promo banner section</title>
+
+    <link rel="stylesheet" href="../../../dist/renders/promoList/promoList.min.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="js_promoBannerSection_wrap"></div>
+
+<!-- build:js ../../reusable/cms-javascript-sdk.min.js -->
+<script src="../../../node_modules/cms-javascript-sdk/dist/cms-javascript-sdk.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/handlebars.min.js -->
+<script src="../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+<!-- /build -->
+
+<!-- build:js ../../reusable/utils.js -->
+<script src="../../reusable/js/utils.js"></script>
+<!-- /build -->
+<script src="../../../dist/renders/promo/acc-template-promo.min.js"></script>
+
+<script>
+
+    AmpCa.utils = new AmpCa.Utils();
+
+    AmpCa.utils.getCaData({
+        auth: {
+            baseUrl: 'https://c1.adis.ws',
+            id: '3b0db833-ed08-4993-aec8-c24fc0f38c5c',
+            store: 'csdemo'
+        },
+        callback: function (data) {
+            var template = Handlebars.template(AmpCa.templates['acc-template-promo']);
+            document.querySelectorAll(".js_promoBannerSection_wrap")[0].innerHTML = template(data[0]);
+            AmpCa.utils.postProcessing.exec('promoBanner', {});
+        },
+        formatData: function (data) {
+            return amp.inlineContent(JSON.parse(data));
+        }
+    });
+
+</script>
+
+</body>
+</html>

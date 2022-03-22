@@ -1,0 +1,9 @@
+<div class="amp-dc-splitBlock{{#if split}}{{else}} full-size{{/if}}">
+    {{#each content}}
+        <div class="amp-dc-split-part {{splitBlock @index ../split}}">
+            <div class="amp-dc-split-part-wrap">
+                {{templateChooser this}}
+            </div>
+        </div>
+    {{/each}}
+</div>
