@@ -54,6 +54,10 @@ const AdminPanel: React.SFC<Props> = (props) => {
     ...other
   } = props;
 
+  const configArray = configLocator.split(":");
+  const hubname = configArray[0];
+  const env = configArray[1];
+
   return (
     <WithAdminTheme>
       <div className={classes.root}>
@@ -63,10 +67,10 @@ const AdminPanel: React.SFC<Props> = (props) => {
         <Divider />
         <div className={classes.logo}>
           <div>
-            <span>hub</span> <span><b>{configLocator.hub}</b></span>
+            <span>hub</span> <span><b>{hubname}</b></span>
           </div>
           <div style={{ marginLeft: '40px' }}>
-            <span>env</span> <span><b>{configLocator.environment}</b></span>
+            <span>env</span> <span><b>{env}</b></span>
           </div>
         </div>
         <Divider />

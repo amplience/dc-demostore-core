@@ -35,7 +35,7 @@ export const WithAppContext: FC<{ value: AMPRSAConfiguration }> = ({children, va
     </Context.Provider>;    
 };
 
-export const configLocator = process.env.NEXT_PUBLIC_ARIA_CONFIG_LOCATOR || process.env.STORYBOOK_ARIA_CONFIG_LOCATOR || `aria:default`
+export const configLocator = process.env.NEXT_PUBLIC_ARIA_CONFIG_LOCATOR || process.env.STORYBOOK_ARIA_CONFIG_LOCATOR || `amprsaprod:default`
 export async function createAppContext(): Promise<AMPRSAConfiguration> {
     let x = await getConfig(configLocator)
     x.commerce = x.commerce || null
