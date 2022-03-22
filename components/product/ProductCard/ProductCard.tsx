@@ -3,7 +3,7 @@ import { Theme, Typography, Button } from '@mui/material';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useCmsContext } from '@lib/cms/CmsContext';
-import { Product } from '@amplience/aria';
+import { Product } from '@amplience/dc-demostore-integration';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
 

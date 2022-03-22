@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { CodecConfiguration, CommerceAPI, getCommerceAPI, QueryContext, getCommerceAPIFromCodecConfig } from '@amplience/aria';
+import { CodecConfiguration, CommerceAPI, getCommerceAPI, QueryContext, getCommerceAPIFromCodecConfig } from '@amplience/dc-demostore-integration';
 
 import { configLocator } from '@lib/config/AppContext';
 import isServer from '@utils/isServer';

@@ -3,7 +3,7 @@ import SearchResultsListing from './SearchResultsListing';
 import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/aria'
+import { Product } from '@amplience/dc-demostore-integration'
 import _ from 'lodash'
 
 interface Props {
@@ -46,7 +46,7 @@ function onlyUnique(value: any, index: any, self: any) {
 }
 
 import { getProducts } from '@lib/ecommerce/api';
-import { QueryContext } from '@amplience/aria';
+import { QueryContext } from '@amplience/dc-demostore-integration';
 import { useAppContext } from '@lib/config/AppContext';
 
 const SearchResults: React.FC<Props> = (props) => {

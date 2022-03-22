@@ -49,7 +49,7 @@ const getRandom = array => {
 }
 
 import chalk from 'chalk'
-import { getCommerceAPIFromCodecConfig, QueryContext } from '@amplience/aria'
+import { getCommerceAPIFromCodecConfig, QueryContext } from '@amplience/dc-demostore-integration'
 import _ from 'lodash'
 import fetch from 'isomorphic-unfetch'
 import fs from 'fs-extra'

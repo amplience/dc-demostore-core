@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { AMPRSAConfiguration, getConfig } from '@amplience/aria';
+import { AMPRSAConfiguration, getConfig } from '@amplience/dc-demostore-integration';
 import { CmsContent } from '@lib/cms/CmsContent';
 
 const Context = React.createContext<AMPRSAConfiguration | null>(null);

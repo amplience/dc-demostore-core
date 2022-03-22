@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getProducts } from "@lib/ecommerce/api";
-import { QueryContext } from "@amplience/aria";
+import { QueryContext } from "@amplience/dc-demostore-integration";
 
 import NextCors from 'nextjs-cors'
 

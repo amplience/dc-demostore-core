@@ -1,5 +1,5 @@
 {
-  "name": "@amp-nova/amp-rsa-core",
+  "name": "@amplience/dc-demostore-core",
   "version": "1.0.0",
   "private": false,
   "license": "Apache-2.0",
@@ -13,7 +13,7 @@
     "chromatic": "npx chromatic --project-token=ac184ccb63dc"
   },
   "dependencies": {
-    "@amplience/aria": "git+https://github.com/amplience/aria",
+    "@amplience/dc-demostore-integration": "git+https://github.com/amplience/dc-demostore-integration",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -89,8 +89,5 @@
   },
   "resolutions": {
     "**/@emotion/styled": "^11.0.0"
-  },
-  "browser": {
-    "amp-rsa-core": false
   }
 }

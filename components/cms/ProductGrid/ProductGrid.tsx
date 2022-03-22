@@ -4,7 +4,7 @@ import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
 import { useUserContext } from '@lib/user/UserContext';
-import { Product, QueryContext } from '@amplience/aria';
+import { Product, QueryContext } from '@amplience/dc-demostore-integration';
 import { getCategory } from '@lib/ecommerce/api'
 
 type Props = {

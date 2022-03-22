@@ -10,7 +10,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
 
-import { Product, QueryContext } from '@amplience/aria';
+import { Product, QueryContext } from '@amplience/dc-demostore-integration';
 import { useAsync } from '@lib/util';
 
 import { 

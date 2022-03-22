@@ -13,7 +13,7 @@ import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
 import { getCategory, getMegaMenu } from "@lib/ecommerce/api";
 import { measurePromiseDuration } from "@utils/measurePromiseDuration";
 import { withRetry } from '@utils/withRetry';
-import { QueryContext } from '@amplience/aria';
+import { QueryContext } from '@amplience/dc-demostore-integration';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 

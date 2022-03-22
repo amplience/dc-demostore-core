@@ -2,7 +2,7 @@
 
 # Amplience Reference Storefront Architecture – Core Package
 
-`amp-rsa-core` is a React/Material/NextJS front-end e-Commerce application, implemented with Typescript, showcasing Amplience Dynamic Media and Dynamic Content. 
+`dc-demostore-core` is a React/Material/NextJS front-end e-Commerce application, implemented with Typescript, showcasing Amplience Dynamic Media and Dynamic Content. 
 
 It uses GraphQL as an integration layer for e-Commerce. What does this mean exactly? it means that <!-- TODO: high level detail -->
 
@@ -11,7 +11,7 @@ The package includes a Debug/X-Ray panel to aid in tracing and analysing request
 It also includes Storybook, a visual documentation of the UI components, things like Product Lists, Banners, Blogs & Blog posts, Stores, etc.
 
 
-`amp-rsa-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
+`dc-demostore-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
 
 
 # Table of Contents
@@ -24,18 +24,18 @@ It also includes Storybook, a visual documentation of the UI components, things 
 # Getting Started
 ## General Use (w/o Amplience account)
 
-Out of the box, `amp-rsa-core` may be used without needing to have an Amplience account, allowing you to experiment with API calls and Front-End customisations against an existing content base. You can simply clone this repository and it already points to a working account so that you can see:
+Out of the box, `dc-demostore-core` may be used without needing to have an Amplience account, allowing you to experiment with API calls and Front-End customisations against an existing content base. You can simply clone this repository and it already points to a working account so that you can see:
 
  - Live Content
  - Components
  - Amplience API requests
  - etc.
 
- The following commands will install `amp-rsa-core` on your local machine.
+ The following commands will install `dc-demostore-core` on your local machine.
 
 ```sh
-$ gh repo clone amp-nova/amp-rsa-core
-$ cd amp-rsa-core
+$ gh repo clone amplience/dc-demostore-core
+$ cd dc-demostore-core
 $ yarn install
 ```
 
@@ -83,30 +83,30 @@ Then go to http://localhost:6006. More details may be found in our [Storybook RE
 
 # Provisioning your own Amplience Environment
 
-The main tool for using your own Amplience environment with `amp-rsa-core` is `amp-rsa-cli`. The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amp Env. Basically, everything you'd see running `amp-rsa-core` OOTB against our 'core public' Amplience Environment.
+The main tool for using your own Amplience environment with `dc-demostore-core` is `amp-rsa-cli`. The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amp Env. Basically, everything you'd see running `dc-demostore-core` OOTB against our 'core public' Amplience Environment.
 
 At a high level the basic steps are:
 
 1. [Request an Amplience Media and Dynamic Account (if you don't already have one)](#requesting-an-amplience-environment)
-2. [Deploy a fork of `amp-rsa-core` (we'll cover deploying on Vercel)](#fork--deploy-amp-rsa-core)
+2. [Deploy a fork of `dc-demostore-core` (we'll cover deploying on Vercel)](#fork--deploy-dc-demostore-core)
 3. Configure & use `amp-rsa-cli` to populate content
-4. Point `amp-rsa-core` to your Dynamic Content Hub and run
+4. Point `dc-demostore-core` to your Dynamic Content Hub and run
 
 ## Requesting an Amplience Environment
 
-If you already have a Dynamic Content and Dynamic Media instance, you can skip to the [next step](#fork--deploy-amp-rsa-core).
+If you already have a Dynamic Content and Dynamic Media instance, you can skip to the [next step](#fork--deploy-dc-demostore-core).
 
 TODO: details or links in here for requesting a SB
 
-## Fork & Deploy `amp-rsa-core`
+## Fork & Deploy `dc-demostore-core`
 
 Go [HERE for some basic instructions](docs/ForkDeploy.md) on Forking and deploying core.
 
 ## Configure & Use `amp-rsa-cli`
 
-Please refer directly to the [this README on how to Install/Configure/Use the CLI tool](https://github.com/amp-nova/amp-rsa-cli)
+Please refer directly to the [this README on how to Install/Configure/Use the CLI tool](https://github.com/amplience/amp-rsa-cli)
 
-## Change AMP-RSA-CORE Config / Point to your account
+## Change dc-demostore-core Config / Point to your account
 - Create a .env.local file on the root of your project
 
 Default setting:

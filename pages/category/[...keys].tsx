@@ -16,7 +16,7 @@ import { withStyles, WithStyles } from '@mui/styles';
 
 import { getCategory } from "@lib/ecommerce/api";
 import { createUserContext } from '@lib/user/UserContext';
-import { Product, QueryContext } from '@amplience/aria';
+import { Product, QueryContext } from '@amplience/dc-demostore-integration';
 import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'

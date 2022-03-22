@@ -10,7 +10,7 @@ import { CmsComponent } from "@components/cms-layout";
 import WithProduct from "@components/product/WithProduct";
 import { createUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
-import { Attribute, QueryContext } from "@amplience/aria";
+import { Attribute, QueryContext } from "@amplience/dc-demostore-integration";
 
 import { validate as uuidValidate } from 'uuid';
 import { nanoid } from 'nanoid'
