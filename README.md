@@ -1,6 +1,6 @@
 [![Amplience Dynamic Content](media/header.png)](https://amplience.com/dynamic-content)
 
-# Amplience Reference Storefront Architecture – Core Package
+# Amplience Demo Store Core Package
 
 `dc-demostore-core` is a React/Material/NextJS front-end e-Commerce application, implemented with Typescript, showcasing Amplience Dynamic Media and Dynamic Content. 
 
@@ -54,7 +54,7 @@ $ yarn start
 
 Both dev and prod commands will also start a localhost. Then go to [http://localhost:3000](http://localhost:3000)
 
-![Amplience Reference Storefront homepage](media/homepage.png)
+![Amplience Demo Store homepage](media/homepage.png)
 
 
 # Storybook
