@@ -88,7 +88,7 @@ const SearchResults: React.FC<Props> = (props) => {
     if (!_.isEmpty(searchTerm)) {
       getProducts(new QueryContext({ args: { keyword: searchTerm, limit: 5 }, ...cmsContext, ...userContext }))
         .then(products => {
-          setSearchResults(products.results.map((prod: Product) => ({
+          setSearchResults(products.map((prod: Product) => ({
             ...prod,
             href: `/product/${prod.slug}/${prod.key}`
           })))
