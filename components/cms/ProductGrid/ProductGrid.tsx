@@ -29,6 +29,7 @@ const ProductGrid: FC<Props> = ({
         let isMounted: boolean = true
         getCategory(new QueryContext({ args: { query, limit, key: category, full: true, includeProducts: true }, ...cmsContext, ...userContext })).then(c => {
             if (isMounted) {
+                console.log(c.products);
                 setProducts(c.products)
             }
         })
@@ -41,7 +42,7 @@ const ProductGrid: FC<Props> = ({
                 {
                     products && products.map((product: any) => {
                         const {
-                            variants, 
+                            variants = [], 
                             name,
                             slug,
                             key,
@@ -53,7 +54,7 @@ const ProductGrid: FC<Props> = ({
                             listPrice,
                             salePrice,
                             images
-                        } = variants[0];
+                        } = variants[0] || {};
 
                         const handleClickProduct = (event: any) => {
                             trackEvent({
