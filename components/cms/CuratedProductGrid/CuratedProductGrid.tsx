@@ -69,8 +69,10 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true
-    getProducts(new QueryContext({ args: { productIds: products.join(',') }, ...cmsContext, ...userContext })).then((prods: any) => {
+    getProducts(new QueryContext({ args: { productIds: products.join(',') }, ...cmsContext, ...userContext })).then((prods: Product[]) => {
       if (isMounted) {
+        console.log(prods)
+
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []
         _.each(products, product => {
