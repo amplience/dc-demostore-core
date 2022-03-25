@@ -111,11 +111,11 @@ Please refer directly to the [this README on how to Install/Configure/Use the CL
 
 Default setting:
 ```
-NEXT_PUBLIC_ARIA_CONFIG_LOCATOR=aria:default
+NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR=amprsaprod:default
 ```
 Your setting with your Hub Name {hubname}
 ```
-NEXT_PUBLIC_ARIA_CONFIG_LOCATOR={hubname}:default
+NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR={hubname}:default
 ```
 
 
