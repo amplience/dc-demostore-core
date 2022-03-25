@@ -29,7 +29,6 @@ const ProductGrid: FC<Props> = ({
         let isMounted: boolean = true
         getCategory(new QueryContext({ args: { query, limit, key: category, full: true, includeProducts: true }, ...cmsContext, ...userContext })).then(c => {
             if (isMounted) {
-                console.log(c.products);
                 setProducts(c.products)
             }
         })

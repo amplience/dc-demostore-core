@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useUI } from '@components/ui';
+import _ from 'lodash';
 
 interface Props {
   pages: NavigationItem[];
@@ -54,6 +55,7 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
   const closeMenu = () => {
     setSelectedMenuKey(null);
   };
+
   return (
     <nav className="navigation" style={style}>
       <ul className="navigation__list">
@@ -79,14 +81,14 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
                   </a>
                 </Link>
               )}
-              {categoriesWithChildren.length > 0 ? 
+              {children.length > 0 ? 
                 <MegaMenu
                   content={content?.menu?.content}
                   handleRouteChange={handleRouteChange}
                   closeMenu={closeMenu}
                   title={title}
                   href={href}
-                >{categoriesWithChildren}</MegaMenu> : <div></div>
+                >{children}</MegaMenu> : <div></div>
               }
             </li>
           );
