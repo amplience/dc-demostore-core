@@ -92,11 +92,11 @@ At a high level the basic steps are:
 3. Configure & use `dc-demostore-cli` to populate content
 4. Point `dc-demostore-core` to your Dynamic Content Hub and run
 
-## Requesting an Amplience Environment
+## Requesting an Amplience Demo Store Environment
 
 If you already have a Dynamic Content and Dynamic Media instance, you can skip to the [next step](#fork--deploy-dc-demostore-core).
 
-TODO: details or links in here for requesting a SB
+This section assumes you are already an Amplience partner, customer, or internal Amplience team member with access to the Amplience Support Center. IF the answer to any one of these is yes, [go here for instructions on requesting a Demo Store Environment](docs/DemoEnvironmentRequest.md)
 
 ## Fork & Deploy `dc-demostore-core`
 
