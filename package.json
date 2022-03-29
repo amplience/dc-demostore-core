@@ -2,7 +2,6 @@
   "name": "@amplience/dc-demostore-core",
   "version": "1.0.0",
   "private": false,
-  "license": "Apache-2.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,7 +12,7 @@
     "chromatic": "npx chromatic --project-token=ac184ccb63dc"
   },
   "dependencies": {
-    "@amplience/dc-demostore-integration": "git+https://github.com/amplience/dc-demostore-integration",
+    "@amplience/dc-demostore-integration": "git+https://github.com/amplience/dc-demostore-integration.git",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -89,5 +88,18 @@
   },
   "resolutions": {
     "**/@emotion/styled": "^11.0.0"
-  }
+  },
+  "keywords": [
+    "amplience",
+    "headless",
+    "cms",
+    "demo",
+    "demostore"
+  ],
+  "author": "Amplience Innovation Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/amplience/dc-demostore-core/issues"
+  },
+  "homepage": "https://github.com/amplience/dc-demostore-core#readme"
 }

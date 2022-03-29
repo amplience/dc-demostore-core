@@ -3,6 +3,7 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import clsx from 'clsx';
 import Image from '../../cms-modern/Image';
 import _ from 'lodash'
+import { nanoid } from 'nanoid'
 
 type Props = {
 
@@ -39,10 +40,10 @@ const BlogCard: FC<Props> = ({
                 <div className="amp-dc-category-container">
                     {
                         category.map((item: any) => {
-                            return <>
+                            return <div key={nanoid()}>
                                 <div className="amp-dc-category">{item}</div>
                                 <span className="line"></span> 
-                            </>;
+                            </div>;
                         })
                     }
                 </div>

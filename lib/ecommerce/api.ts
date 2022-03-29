@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { CodecConfiguration, CommerceAPI, getCommerceAPI, QueryContext, getCommerceAPIFromCodecConfig, Product, Category } from '@amplience/dc-demostore-integration';
+import { getCommerceAPI, QueryContext, Product, Category } from '@amplience/dc-demostore-integration';
 
 import { configLocator } from '@lib/config/AppContext';
 import isServer from '@utils/isServer';
