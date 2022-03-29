@@ -10,7 +10,7 @@ It'll prompt you to import one of your repositories. Click Import for your forke
 
 ![Vercel Import Forked Project](../media/vercel-import.png)
 
-On the next screen you can simply click "Deploy"
+On the next screen you can simply click "Deploy". At this stage, it's also possible to setup environment variables (for instance to point to your Dynamic Content instance), but you can do that later, with a re-deployment to take effect.
 
 ![Vercel Import Forked Project](../media/vercel-deploy.png)
 
