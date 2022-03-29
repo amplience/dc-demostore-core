@@ -106,15 +106,47 @@ Go [HERE for some basic instructions](docs/ForkDeploy.md) on Forking and deployi
 
 Please refer directly to the [this README on how to Install/Configure/Use the CLI tool](https://github.com/amplience/dc-demostore-cli)
 
+Once you have installed the `demostore` CLI tool, you can provision your account in two easy steps:
+
+1. Register your instance using the CLI command `env add`
+
+```sh
+% demostore env add 
+✔ env name: · mydcinstance
+✔ app deployment url: · https://mydomain.com
+✔ cms client id: · zzzzzzzz-yyyy-yyyy-yyyy-xxxxxxxxxxxx
+✔ cms client secret: · ****************************************************************
+✔ cms hub id: · xxxxxxxxxxxxxxx
+✔ dam username: · youremail@domain.com
+✔ dam password: · ********
+info: [ amprsatest ] configure dc-cli...
+info: [ amprsatest ] environment active
+info: run [ env,add ]: started at Mon Mar 28 2022 12:39:21 GMT+0200 (Central European Summer Time)
+```
+
+2. You can provision your instance using the CLI command `import` [(more information on the CLI tool project page)](https://github.com/amplience/dc-demostore-cli):
+
+```sh
+% demostore import --latest
+info: run [ import ]: started at Mon Mar 28 2022 12:45:26 GMT+0200 (Central European Summer Time)
+...
+...
+...
+info: run completed in [ 3m20s ]
+```
+
 ## Change dc-demostore-core Config / Point to your account
-- Create a .env.local file on the root of your project
+- Create a .env.local file on the root of your project:
 
 Default setting:
-```
+
+```sh
 NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR=amprsaprod:default
 ```
+
 Your setting with your Hub Name {hubname}
-```
+
+```sh
 NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR={hubname}:default
 ```
 
