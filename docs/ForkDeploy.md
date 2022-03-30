@@ -1,6 +1,10 @@
 # Fork & Deploy `dc-demostore-core`
 
-Before starting to use `dc-demostore-cli`, you'll need to delopy a fork of this project to something like Vercel or Netlify. We'll cover Vercel here, but you can choose any deployment platform. So, start by forking this repo, then head over to [Vercel](https://vercel.com/) to create a new project pointing to your fork. Hobby accounts are free, go ahead and create one if you don't already have one.
+Before starting to use `dc-demostore-cli`, you'll need to deploy a fork of this project to something like Vercel or Netlify.
+
+This is because your hosted application also contains an API service used for integration (getting products etc.)
+
+ We'll cover Vercel here, but you can choose any deployment platform. So, start by forking this repo, then head over to [Vercel](https://vercel.com/) to create a new project pointing to your fork. Hobby accounts are free, go ahead and create one if you don't already have one.
 
 Then click "New Project"
 

@@ -1,67 +1,17 @@
-# Requesting a Demo Store Environment
+# Requesting a DC Demo Store Core Environment
 
-First, head over to [https://support.amplience.com](https://support.amplience.com/) and login. 
+## With Amplience Access
 
-On the home page click "Request New Service".
+If you already have access to Amplience as a customer / partner, the process is very straight forward.
 
-![Support Home](../media/support-home.png)
+1. Login to your support portal [https://support.amplience.com](https://support.amplience.com/). If you don't have a log in, you can self register.
+2. Choose a new "New DC Demo Store Core" from your service catalog.
+3. Fill out the details
+    - You can choose between a brand new account or attaching a new [Hub](https://amplience.com/docs/intro/hubsandrepositories.html#hubs) to your existing instance.
+    - Don't worry, if your existing agreement with Amplience does not have all of the modules used, one of the team will be in contact to help you.
 
-In the search field on that page, search for "demo", you should see "New DC Demo Store Core". Click on that option.
+Once your account is setup, you will have all of the required information to automate.
 
-![Demo Option](../media/supportFindDemo.png)
+## Without Amplience Access
 
-On the request page, select the Account Type (Internal, Customer, Partner, or Prospect).
-
-![Account Type](../media/supportAcctType.png)
-
-Next, you'll select between two Setup Types:
-
-## CMS Instance on existing Content Hub
-
-![Existing Option](../media/supportExisting.png)
-
-### Name of existing Content Hub Account
-
-TODO
-
-### Hub Name and label
-
-These can be anything you want, just follow the guidlines in the form. 
-
-### Users
-This should be provided in the following format:
-
-```bash
-First Last - email@address.com
-First Last - email@address.com
-First Last - email@address.com
-```
-
-### Asset Store Choice
-
-TODO
-
-## Full Account Setup
-
-![Full Option](../media/supportFull.png)
-
-### Hub Name and label
-These can be anything you want, just follow the guidlines in the form. 
-
-### FTP 
-
-If you require FTP access, sellect Yes. If not, select no or leave blank.
-
-### Users
-
-This should be provided in the following format:
-
-```bash
-First Last - email@address.com
-First Last - email@address.com
-First Last - email@address.com
-```
-
-Finally, if you are requesting the environment for someone else, check the "Request for someone else" box on the right and enter their email address so they are notified when the request is complete.
-
-![Support Proxy](../media/supportProxy.png)
+If you are not an existing Amplience customer / partner, please head to [Amplience.com](https://amplience.com) to register your interest.
