@@ -3,7 +3,7 @@ import SearchResultsListing from './SearchResultsListing';
 import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/dc-demostore-integration'
+import { Product, qc } from '@amplience/dc-demostore-integration'
 import _ from 'lodash'
 
 interface Props {
@@ -86,11 +86,11 @@ const SearchResults: React.FC<Props> = (props) => {
       });
     // end algolia
     if (!_.isEmpty(searchTerm)) {
-      getProducts(new QueryContext({ args: { keyword: searchTerm, limit: 5 }, ...cmsContext, ...userContext }))
+      getProducts(qc({ args: { keyword: searchTerm, limit: 5 }, ...cmsContext, ...userContext }))
         .then(products => {
           setSearchResults(products.map((prod: Product) => ({
             ...prod,
-            href: `/product/${prod.slug}/${prod.key}`
+            href: `/product/${prod.slug}`
           })))
         })
     }

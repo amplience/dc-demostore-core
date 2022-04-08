@@ -95,10 +95,10 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
     }
     else {
         return (
-            <ImageGallery items={_.map(_.flatten(_.map(product.variants, 'images')), image => ({
+            <ImageGallery items={_.uniqBy(_.map(_.flatten(_.map(product.variants, 'images')), image => ({
                 original: image.url,
                 thumbnail: image.url
-            }))} />
+            })), 'original')} />
         );
     }
 };
