@@ -83,7 +83,7 @@ const AdminPanel: React.SFC<Props> = (props) => {
                   <Typography variant="button">{label}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  { Component && <Component /> }
+                  <Component />
                 </AccordionDetails>
               </Accordion>
             )
