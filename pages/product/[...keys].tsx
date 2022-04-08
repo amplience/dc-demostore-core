@@ -10,7 +10,7 @@ import { CmsComponent } from "@components/cms-layout";
 import WithProduct from "@components/product/WithProduct";
 import { createUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
-import { qc } from "@amplience/dc-demostore-integration";
+import { Attribute, QueryContext } from "@amplience/dc-demostore-integration";
 
 import { validate as uuidValidate } from 'uuid';
 import { nanoid } from 'nanoid'
@@ -29,10 +29,10 @@ function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undef
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { slugs } = context.params || {};
+  const { keys } = context.params || {};
   const { vse } = context.query || {};
 
-  let slug = _.first(slugs)
+  let key = _.first(keys)
 
   const { pdpLayout } = context.query;
   const cmsContext = await createCmsContext(context.req);
@@ -41,11 +41,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const data = await fetchStandardPageData({
     content: {
       defaultPDPLayout: pdpLayout ? { id: pdpLayout as string } : { key: 'layout/default-pdp' },
-      productContent: { key: "product/" + slug }
+      productContent: { key: "product/" + key }
     },
   }, context)
 
-  const product = await getProduct(qc({ args: slug && uuidValidate(slug) ? { id: slug } : { slug }, ...cmsContext, ...userContext }))
+  const product = await getProduct(new QueryContext({ args: key && uuidValidate(key) ? { id: key } : { key }, ...cmsContext, ...userContext }))
 
   if (!product) {
     return create404Error(data, context);
@@ -78,8 +78,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     )
   });
 
-  // let designer = _.find(product?.variants?.[0]?.attributes, (att: Attribute) => att.name === 'designer')
-  let designer = product?.variants?.[0]?.attributes['designer']
+  let designer = _.find(product?.variants?.[0]?.attributes, (att: Attribute) => att.name === 'designer')
 
   // config based on designer
   if (designer) {
@@ -138,7 +137,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       ...data,
       vse: vse || "",
-      slug,
+      key,
       product,
       experienceConfig,
       forceDefaultLayout: pdpLayout != null

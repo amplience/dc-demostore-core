@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getProducts } from "@lib/ecommerce/api";
-import { qc } from "@amplience/dc-demostore-integration";
+import { QueryContext } from "@amplience/dc-demostore-integration";
 
 import NextCors from 'nextjs-cors'
 
@@ -12,6 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     });
 
-    let result = await getProducts(qc({ args: req.query }))
+    let result = await getProducts(new QueryContext({ args: req.query }))
     res.status(200).json(result)
 }

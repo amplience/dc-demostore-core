@@ -4,7 +4,7 @@ import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
 import { useUserContext } from '@lib/user/UserContext';
-import { Product, qc } from '@amplience/dc-demostore-integration';
+import { Product, QueryContext } from '@amplience/dc-demostore-integration';
 import { getCategory } from '@lib/ecommerce/api'
 
 type Props = {
@@ -19,17 +19,15 @@ const ProductGrid: FC<Props> = ({
     const {
         trackEvent
     } = useContentAnalytics();
-
+    
     const [products, setProducts] = useState<Product[]>([])
-
+    
     const cmsContext = useCmsContext()
     const userContext = useUserContext()
 
     useEffect(() => {
         let isMounted: boolean = true
-
-        // migrate from CT-specific 'key' to 'slug'
-        getCategory(qc({ args: { query, slug: category }, ...cmsContext, ...userContext })).then(c => {
+        getCategory(new QueryContext({ args: { query, limit, key: category, full: true, includeProducts: true }, ...cmsContext, ...userContext })).then(c => {
             if (isMounted) {
                 setProducts(c.products)
             }
@@ -43,9 +41,10 @@ const ProductGrid: FC<Props> = ({
                 {
                     products && products.map((product: any) => {
                         const {
-                            variants = [],
+                            variants = [], 
                             name,
                             slug,
+                            key,
                             id
                         } = product;
 
@@ -58,18 +57,18 @@ const ProductGrid: FC<Props> = ({
 
                         const handleClickProduct = (event: any) => {
                             trackEvent({
-                                category: 'Product',
-                                action: 'Click',
+                                category: 'Product', 
+                                action: 'Click', 
                                 label: id,
                                 value: prices.list
                             });
                         };
 
-                        let firstImage: string = '';
-                        if (images) {
-                            if (images[0] && images[0].url) {
+                        let firstImage:string = '';
+                        if(images){
+                            if (images[0] && images[0].url){
                                 firstImage = images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
-                                if (firstImage.indexOf('cdn.media.amplience.net') > 0) {
+                                if(firstImage.indexOf('cdn.media.amplience.net') > 0){
                                     firstImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&upscale=false'
                                 }
                             }
@@ -86,8 +85,8 @@ const ProductGrid: FC<Props> = ({
                                                     width: '100%',
                                                     objectFit: 'cover'
                                                 }}
-                                                    src={firstImage}
-                                                    alt={firstImage}
+                                                    src={firstImage} 
+                                                    alt={firstImage} 
                                                 />
                                             </picture>
                                         </div>

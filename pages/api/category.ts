@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getCategory } from "@lib/ecommerce/api";
-import { qc } from "@amplience/dc-demostore-integration";
+import { QueryContext } from "@amplience/dc-demostore-integration";
 
 import NextCors from 'nextjs-cors'
 
@@ -12,5 +12,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     });
 
-    res.status(200).json(await getCategory(qc({ args: req.query })))
+    res.status(200).json(await getCategory(new QueryContext({ args: req.query })))
 }
