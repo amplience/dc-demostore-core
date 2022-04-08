@@ -32,7 +32,7 @@ const VisibilityToggle = ({selected, onClick}: any) => {
     </IconButton>
 }
 
-const ComponentsPanel: React.SFC<Props> = (props) => {
+const ComponentsPanel: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
         ...other

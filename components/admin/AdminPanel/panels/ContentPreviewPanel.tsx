@@ -24,7 +24,7 @@ interface Props extends WithStyles<typeof styles> {
     style?: React.CSSProperties
 }
 
-const ContentPreviewPanel: React.SFC<Props> = (props) => {
+const ContentPreviewPanel: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
         ...other
