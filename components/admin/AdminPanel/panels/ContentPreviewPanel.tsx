@@ -97,7 +97,7 @@ const ContentPreviewPanel: React.FunctionComponent<Props> = (props) => {
         setApplying(false);
     }
 
-    return (
+    return (<>
         <div className={classes.root}>
             <form noValidate>
                 <FormControl className={classes.formControl}>
@@ -133,7 +133,7 @@ const ContentPreviewPanel: React.FunctionComponent<Props> = (props) => {
                 </div>
             </form>
         </div>
-    );
+    </>);
 };
 
 export default withStyles(styles)(ContentPreviewPanel);

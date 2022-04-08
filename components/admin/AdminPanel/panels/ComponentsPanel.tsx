@@ -25,10 +25,10 @@ interface Props extends WithStyles<typeof styles> {
     style?: React.CSSProperties
 }
 
-const VisibilityToggle = ({selected, onClick}: any) => {
-    return <IconButton size="small" color={ selected ? "primary" : "default" } onClick={onClick}>
-        { selected && <VisibilityIcon /> }
-        { !selected && <VisibilityOffIcon /> }
+const VisibilityToggle = ({ selected, onClick }: any) => {
+    return <IconButton size="small" color={selected ? "primary" : "default"} onClick={onClick}>
+        {selected && <VisibilityIcon />}
+        {!selected && <VisibilityOffIcon />}
     </IconButton>
 }
 
@@ -59,37 +59,36 @@ const ComponentsPanel: React.FunctionComponent<Props> = (props) => {
         setShowEditions(!showEditions);
     }
 
-    return (
-            <Table size="small" className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Component</TableCell>
-                        <TableCell align="right"></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow key={"content"}>
-                        <TableCell>All Content</TableCell>
-                        <TableCell align="right">
-                            <VisibilityToggle selected={showContent} onClick={toggleContent} />
-                        </TableCell>
-                    </TableRow>
-                    <TableRow key={"slots"}>
-                        <TableCell>All Slots</TableCell>
-                        <TableCell align="right">
-                            <VisibilityToggle selected={showSlots} onClick={toggleSlots} />
-                        </TableCell>
-                    </TableRow>
-                    <TableRow key={"editions"}>
-                        <TableCell>All Editions</TableCell>
-                        <TableCell align="right">
-                            <VisibilityToggle selected={showEditions} onClick={toggleEditions} />
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
-
-    );
+    return (<>
+        <Table size="small" className={classes.table}>
+            <TableHead>
+                <TableRow>
+                    <TableCell>Component</TableCell>
+                    <TableCell align="right"></TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                <TableRow key={"content"}>
+                    <TableCell>All Content</TableCell>
+                    <TableCell align="right">
+                        <VisibilityToggle selected={showContent} onClick={toggleContent} />
+                    </TableCell>
+                </TableRow>
+                <TableRow key={"slots"}>
+                    <TableCell>All Slots</TableCell>
+                    <TableCell align="right">
+                        <VisibilityToggle selected={showSlots} onClick={toggleSlots} />
+                    </TableCell>
+                </TableRow>
+                <TableRow key={"editions"}>
+                    <TableCell>All Editions</TableCell>
+                    <TableCell align="right">
+                        <VisibilityToggle selected={showEditions} onClick={toggleEditions} />
+                    </TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+    </>);
 };
 
 export default withStyles(styles)(ComponentsPanel);
