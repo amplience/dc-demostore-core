@@ -16,7 +16,7 @@ import { withStyles, WithStyles } from '@mui/styles';
 
 import { getCategory } from "@lib/ecommerce/api";
 import { createUserContext } from '@lib/user/UserContext';
-import { Product, QueryContext } from '@amplience/dc-demostore-integration';
+import { Product, qc } from '@amplience/dc-demostore-integration';
 import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'
@@ -34,19 +34,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { keys } = context.params || {};
     const { vse } = context.query || {};
 
-    let key = _.last(keys)
+    let slug = _.last(keys)
 
     const data = await fetchStandardPageData({
         content: {
-            page: { key: `category/${key}` }
+            page: { key: `category/${slug}` }
         }
     }, context);
 
     let cmsContext = await createCmsContext(context.req)
     let userContext = await createUserContext(context)
-    let category = await getCategory(new QueryContext({ args: { key, full: true, productLimit: 12, includeProducts: true }, ...cmsContext, ...userContext }))
+    let category = await getCategory(qc({ args: { slug, full: true, productLimit: 12, includeProducts: true }, ...cmsContext, ...userContext }))
 
-    if (!data.page || key === 'favicon.ico') {
+    if (!data.page || slug === 'favicon.ico') {
         return create404Error(data, context);
     }
 

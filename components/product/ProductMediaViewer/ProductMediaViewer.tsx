@@ -97,7 +97,7 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
         return (
             <ImageGallery items={_.map(_.flatten(_.map(product.variants, 'images')), image => ({
                 original: image.url,
-                thumbnail: image.url
+                thumbnail: image.thumb || image.url
             }))} />
         );
     }

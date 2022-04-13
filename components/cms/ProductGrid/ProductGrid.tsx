@@ -4,7 +4,7 @@ import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
 import { useUserContext } from '@lib/user/UserContext';
-import { Product, QueryContext } from '@amplience/dc-demostore-integration';
+import { Product, qc } from '@amplience/dc-demostore-integration';
 import { getCategory } from '@lib/ecommerce/api'
 
 type Props = {
@@ -27,7 +27,7 @@ const ProductGrid: FC<Props> = ({
 
     useEffect(() => {
         let isMounted: boolean = true
-        getCategory(new QueryContext({ args: { query, limit, key: category, full: true, includeProducts: true }, ...cmsContext, ...userContext })).then(c => {
+        getCategory(qc({ args: { query, limit, key: category, full: true, includeProducts: true }, ...cmsContext, ...userContext })).then(c => {
             if (isMounted) {
                 setProducts(c.products)
             }
@@ -76,7 +76,7 @@ const ProductGrid: FC<Props> = ({
 
                         return (
                             <div key={slug} className="amp-dc-card product-grid-item">
-                                <a href={`/product/${slug}/${id}`} onClick={handleClickProduct}>
+                                <a href={`/product/${id}/${slug}`} onClick={handleClickProduct}>
                                     <div className="amp-dc-card-wrap">
                                         <div className="amp-dc-card-img-wrap">
                                             <picture>

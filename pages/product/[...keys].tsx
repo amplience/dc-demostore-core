@@ -10,7 +10,7 @@ import { CmsComponent } from "@components/cms-layout";
 import WithProduct from "@components/product/WithProduct";
 import { createUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
-import { Attribute, QueryContext } from "@amplience/dc-demostore-integration";
+import { qc } from "@amplience/dc-demostore-integration";
 
 import { validate as uuidValidate } from 'uuid';
 import { nanoid } from 'nanoid'
@@ -45,7 +45,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   }, context)
 
-  const product = await getProduct(new QueryContext({ args: key && uuidValidate(key) ? { id: key } : { key }, ...cmsContext, ...userContext }))
+  const product = await getProduct(qc({ args: key && uuidValidate(key) ? { id: key } : { key }, ...cmsContext, ...userContext }))
 
   if (!product) {
     return create404Error(data, context);
@@ -78,7 +78,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     )
   });
 
-  let designer = _.find(product?.variants?.[0]?.attributes, (att: Attribute) => att.name === 'designer')
+  let designer = product?.variants?.[0]?.attributes['designer']
 
   // config based on designer
   if (designer) {
