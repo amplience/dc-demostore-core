@@ -27,7 +27,7 @@ const ProductGrid: FC<Props> = ({
 
     useEffect(() => {
         let isMounted: boolean = true
-        getCategory(qc({ args: { query, limit, key: category, full: true, includeProducts: true }, ...cmsContext, ...userContext })).then(c => {
+        getCategory(qc({ args: { query, limit, slug: category, full: true, includeProducts: true }, ...cmsContext, ...userContext })).then(c => {
             if (isMounted) {
                 setProducts(c.products)
             }

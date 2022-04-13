@@ -35,19 +35,6 @@ interface Props extends WithStyles<typeof styles> {
   style?: React.CSSProperties
 }
 
-const panels = [
-  {
-    label: 'Content Preview',
-    icon: VisibilityIcon,
-    component: ContentPreviewPanel
-  },
-  {
-    label: 'Components',
-    icon: ExtensionIcon,
-    component: ComponentsPanel
-  }
-]
-
 const AdminPanel: React.SFC<Props> = (props) => {
   const {
     classes,
@@ -74,21 +61,25 @@ const AdminPanel: React.SFC<Props> = (props) => {
           </div>
         </div>
         <Divider />
-        {
-          panels.map(({ label, icon: Icon, component: Component }) => {
-            return (
-              <Accordion key={label}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-                  <Icon className={classes.icon} />
-                  <Typography variant="button">{label}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  { Component && <Component /> }
-                </AccordionDetails>
-              </Accordion>
-            )
-          })
-        }
+        <Accordion key={'Content Preview'}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
+            <VisibilityIcon className={classes.icon} />
+            <Typography variant="button">{'Content Preview'}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ContentPreviewPanel />
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion key={'Components'}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
+            <ExtensionIcon className={classes.icon} />
+            <Typography variant="button">{'Components'}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ComponentsPanel />
+          </AccordionDetails>
+        </Accordion>
       </div>
     </WithAdminTheme>
   );
