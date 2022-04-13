@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Theme, Button, TextField, FormControl, InputLabel, Select, MenuItem, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/router';
 import { StagingEnvironmentFactory } from 'dc-delivery-sdk-js';
@@ -24,7 +24,7 @@ interface Props extends WithStyles<typeof styles> {
     style?: React.CSSProperties
 }
 
-const ContentPreviewPanel: React.FunctionComponent<Props> = (props) => {
+const ContentPreviewPanel: FC<Props> = (props) => {
     const {
         classes,
         ...other

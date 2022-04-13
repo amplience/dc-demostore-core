@@ -1,19 +1,18 @@
 import React from 'react';
+import Image from 'next/image';
 import { Theme, Divider, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { withStyles, WithStyles } from '@mui/styles'
 
-import ExtensionIcon from '@mui/icons-material/Extension';
-import ComponentsPanel from './panels/ComponentsPanel';
-
 import WithAdminTheme from '@components/admin/AdminTheme';
-import ContentPreviewPanel from './panels/ContentPreviewPanel';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { configLocator } from '@lib/config/AppContext';
-import Image from 'next/image';
+import ComponentsPanel from './panels/ComponentsPanel';
+import ContentPreviewPanel from './panels/ContentPreviewPanel';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -35,7 +34,7 @@ interface Props extends WithStyles<typeof styles> {
   style?: React.CSSProperties
 }
 
-const AdminPanel: React.SFC<Props> = (props) => {
+const AdminPanel: React.FunctionComponent<Props> = (props) => {
   const {
     classes,
     ...other

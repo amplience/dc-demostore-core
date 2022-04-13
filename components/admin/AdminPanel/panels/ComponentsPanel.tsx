@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Theme } from '@mui/material';
 import { useDebug } from '@components/ui';
 import { withStyles, WithStyles } from '@mui/styles'
@@ -32,7 +32,7 @@ const VisibilityToggle = ({ selected, onClick }: any) => {
     </IconButton>
 }
 
-const ComponentsPanel: React.FunctionComponent<Props> = (props) => {
+const ComponentsPanel: FC<Props> = (props) => {
     const {
         classes,
         ...other
