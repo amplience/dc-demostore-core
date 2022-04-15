@@ -10,7 +10,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
 
-import { Product, qc } from '@amplience/dc-demostore-integration';
+import { Product } from '@amplience/dc-demostore-integration';
 import { useAsync } from '@lib/util';
 
 import { 
@@ -69,7 +69,7 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true
-    getProducts(qc({ args: { productIds: products.join(',') }, ...cmsContext, ...userContext })).then((prods: Product[]) => {
+    getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
       if (isMounted) {
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []

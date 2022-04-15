@@ -44,8 +44,8 @@ export async function createCmsContext(req: IncomingMessage): Promise<CmsContext
     const cookieCurrency = cookies.get('currency');
 
     return {
-        stagingApi: queryStringVse as string || cookieVse || null,
-        locale: queryStringLocale as string || cookieLocale || 'en-US',
+        stagingApi: queryStringVse || cookieVse || null,
+        locale: queryStringLocale || cookieLocale || 'en-US',
         currency: cookieCurrency || 'USD',
         timestamp: cookieTimestamp || null
     };

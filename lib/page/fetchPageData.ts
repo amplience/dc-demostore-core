@@ -13,7 +13,6 @@ import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
 import { getCategory, getMegaMenu } from "@lib/ecommerce/api";
 import { measurePromiseDuration } from "@utils/measurePromiseDuration";
 import { withRetry } from '@utils/withRetry';
-import { qc } from '@amplience/dc-demostore-integration';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
@@ -42,8 +41,6 @@ async function fetchPageData<
     let enriched = (await enrichedContent) as FetchMapOutput<typeof input.content, CmsRequest, CmsContent>
     let enrichedHierarchies = (await enrichesHierarchies) as FetchMapOutput<NonNullable<typeof input.hierarchies>, CmsHierarchyRequest, CmsHierarchyNode>
 
-    let children = (enrichedHierarchies as any).pages?.children
-    let categories = await getMegaMenu()
     return {
         context: {
             cmsContext,
@@ -53,7 +50,7 @@ async function fetchPageData<
         content: enriched,
         hierarchies: enrichedHierarchies,
         ecommerce: {
-            categories
+            categories: await getMegaMenu({ ...cmsContext, ...userContext })
         }
     }
 }

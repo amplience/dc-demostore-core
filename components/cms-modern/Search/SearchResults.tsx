@@ -46,7 +46,6 @@ function onlyUnique(value: any, index: any, self: any) {
 }
 
 import { getProducts } from '@lib/ecommerce/api';
-import { qc } from '@amplience/dc-demostore-integration';
 import { useAppContext } from '@lib/config/AppContext';
 
 const SearchResults: React.FC<Props> = (props) => {
@@ -86,7 +85,7 @@ const SearchResults: React.FC<Props> = (props) => {
       });
     // end algolia
     if (!_.isEmpty(searchTerm)) {
-      getProducts(qc({ args: { keyword: searchTerm, limit: 5 }, ...cmsContext, ...userContext }))
+      getProducts({ keyword: searchTerm, ...cmsContext, ...userContext })
         .then(products => {
           setSearchResults(products.map((prod: Product) => ({
             ...prod,

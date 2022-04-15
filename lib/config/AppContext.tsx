@@ -19,9 +19,7 @@ export const WithLazyAppContext: React.SFC<Props> = (props) => {
 
     const [context, setContext] = useState<any | null>(null);
     useEffect(() => {
-        createAppContext().then(async context => {
-            setContext(context)
-        })
+        createAppContext().then(setContext)
     }, []);
 
     return context ? <Context.Provider value={context}>
@@ -37,7 +35,5 @@ export const WithAppContext: FC<{ value: DemoStoreConfiguration }> = ({children,
 
 export const configLocator = process.env.NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR || process.env.STORYBOOK_DEMOSTORE_CONFIG_LOCATOR || `amprsaprod:default`
 export async function createAppContext(): Promise<DemoStoreConfiguration> {
-    let x = await getConfig(configLocator)
-    x.commerce = x.commerce || null
-    return x
+    return await getConfig(configLocator)
 }

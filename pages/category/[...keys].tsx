@@ -16,7 +16,7 @@ import { withStyles, WithStyles } from '@mui/styles';
 
 import { getCategory } from "@lib/ecommerce/api";
 import { createUserContext } from '@lib/user/UserContext';
-import { Product, qc } from '@amplience/dc-demostore-integration';
+import { Product } from '@amplience/dc-demostore-integration';
 import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'
@@ -44,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     let cmsContext = await createCmsContext(context.req)
     let userContext = await createUserContext(context)
-    let category = await getCategory(qc({ args: { slug, full: true, productLimit: 12, includeProducts: true }, ...cmsContext, ...userContext }))
+    let category = await getCategory({ slug, ...cmsContext, ...userContext })
 
     if (!data.page || slug === 'favicon.ico') {
         return create404Error(data, context);

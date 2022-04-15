@@ -10,6 +10,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     });
-
-    res.status(200).json(await getMegaMenu())
+    res.status(200).json(await getMegaMenu(req.query))
 }
