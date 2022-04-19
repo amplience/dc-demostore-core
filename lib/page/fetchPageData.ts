@@ -4,13 +4,13 @@ import { CmsRequest } from "@lib/cms/fetchContent";
 import fetchContentMap from "@lib/cms/fetchContentMap";
 import { GetServerSidePropsContext } from "next";
 import { createCmsContext } from "@lib/cms/CmsContext";
-import { createUserContext, UserContext } from "@lib/user/UserContext";
+import { createUserContext } from "@lib/user/UserContext";
 import { createAppContext } from "@lib/config/AppContext";
 import { CmsContent } from "@lib/cms/CmsContent";
 import { enrichPageContent } from "./pageContent/enrichPageContent";
 import { CmsHierarchyRequest, CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
-import { getCategory, getMegaMenu } from "@lib/ecommerce/api";
+import { getMegaMenu } from '@lib/ecommerce/api';
 import { measurePromiseDuration } from "@utils/measurePromiseDuration";
 import { withRetry } from '@utils/withRetry';
 

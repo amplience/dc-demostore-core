@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getCategory } from "@lib/ecommerce/api";
+import { getCategory } from '@lib/ecommerce/api';
 
 import NextCors from 'nextjs-cors'
 

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getProduct } from "@lib/ecommerce/api";
+import { getProduct } from '@lib/ecommerce/api';
 import NextCors from 'nextjs-cors'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

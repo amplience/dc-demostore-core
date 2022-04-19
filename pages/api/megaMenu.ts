@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getMegaMenu } from "@lib/ecommerce/api";
+import { getMegaMenu } from '@lib/ecommerce/api';
 
 import NextCors from 'nextjs-cors'
 
