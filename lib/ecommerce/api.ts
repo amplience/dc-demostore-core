@@ -1,4 +1,4 @@
-import { CommonArgs } from '@amplience/dc-demostore-integration';
+import { CommerceAPI, CommonArgs } from '@amplience/dc-demostore-integration';
 import { getResponse } from 'pages/api';
 import isServer from '@utils/isServer';
 import { stringify } from 'querystring';
@@ -12,11 +12,12 @@ const fetchApi = (operation: string) => async (args: CommonArgs): Promise<any> =
     return await (await fetch(`${apiUrl}/api?operation=${operation}&${stringify(args)}`)).json()
 }
 
-const api = {
+const api: CommerceAPI = {
     getProduct: fetchApi('product'),
     getProducts: fetchApi('products'),
     getCategory: fetchApi('category'),
-    getMegaMenu: fetchApi('megaMenu')
+    getMegaMenu: fetchApi('megaMenu'),
+    getCustomerGroups: fetchApi('customerGroups')
 }
 
 export default api

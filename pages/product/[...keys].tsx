@@ -4,7 +4,7 @@ import fetchStandardPageData from "@lib/page/fetchStandardPageData";
 import create404Error from "@lib/page/errors/create404Error";
 import { createCmsContext } from "@lib/cms/CmsContext";
 import { useContent } from '@components/core/WithVisualization';
-import { getProduct } from '@lib/ecommerce/api';
+import commerceApi from '@lib/ecommerce/api';
 import fetchContent, { CmsFilterResponse, GetByFilterRequest } from "@lib/cms/fetchContent";
 import { CmsComponent } from "@components/cms-layout";
 import WithProduct from "@components/product/WithProduct";
@@ -42,7 +42,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   }, context)
 
-  const product = await getProduct({ id: key, ...cmsContext, ...userContext })
+  const product = await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext })
 
   if (!product) {
     return create404Error(data, context);

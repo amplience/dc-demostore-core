@@ -9,7 +9,7 @@ import { createAppContext } from "@lib/config/AppContext";
 import { enrichPageContent } from "./pageContent/enrichPageContent";
 import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
-import { getMegaMenu } from '@lib/ecommerce/api';
+import commerceApi from '@lib/ecommerce/api';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
@@ -41,7 +41,7 @@ async function fetchPageData<
         content: await enrichPageContent(content, cmsContext),
         hierarchies: await enrichPageContent(hierarchies, cmsContext),
         ecommerce: {
-            categories: await getMegaMenu({ ...cmsContext, ...userContext })
+            categories: await commerceApi.getMegaMenu({ ...cmsContext, ...userContext })
         }
     }
 }

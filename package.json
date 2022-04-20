@@ -11,6 +11,7 @@
     "build-storybook": "build-storybook --no-dll"
   },
   "dependencies": {
+    "@amplience/dc-demostore-core": "git+https://github.com/amplience/dc-demostore-core.git",
     "@amplience/dc-demostore-integration": "git+https://github.com/amplience/dc-demostore-integration.git",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.7.1",

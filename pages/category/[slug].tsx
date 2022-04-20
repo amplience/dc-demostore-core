@@ -14,7 +14,7 @@ import fetchPageData from "@lib/page/fetchPageData";
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles';
 
-import { getCategory } from '@lib/ecommerce/api';
+import commerceApi from '@lib/ecommerce/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Product } from '@amplience/dc-demostore-integration';
 import { nanoid } from 'nanoid'
@@ -32,7 +32,7 @@ type CategoryPageConfig = {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { slug } = context.params || {};
+    let { slug } = context.params || {};
     const { vse } = context.query || {};
 
     const data = await fetchStandardPageData({
@@ -45,7 +45,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    const category = await getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+    slug = Array.isArray(slug) ? slug.join('/') : slug
+    const category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
     const slots = await fetchPageData({
         content: {
             slots: data.content.page?.slots.map(mapToID)
