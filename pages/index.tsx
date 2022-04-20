@@ -5,6 +5,7 @@ import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import fetchPageData from "@lib/page/fetchPageData";
 import ContentBlock from '@components/cms-modern/ContentBlock/ContentBlock';
 import _ from 'lodash';
+import { mapToID } from '@lib/util';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const data = await fetchStandardPageData({
@@ -13,19 +14,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
   }, context);
 
-
-const slots = await fetchPageData(
-    {
-        content:{
-            slots: (data.content.page.slots || []).map((x: any) => ({id:x.id}))
-        }
+  const slots = await fetchPageData({
+    content: {
+      slots: data?.content?.page?.slots.map(mapToID)
     }
-, context)
+  }, context)
 
   return {
     props: {
       ...data,
-      slots:slots.content.slots
+      slots: slots.content.slots
     }
   };
 }
@@ -36,7 +34,7 @@ export default function Home({
   return (
     <div className="af-main-content">
       {
-        _.compact(slots).map(slot => <ContentBlock content={slot as CmsContent} type="SLOT" key={slot._meta.deliveryId} />)
+        _.compact(slots).map(slot => <ContentBlock content={slot} type="SLOT" key={slot?._meta.deliveryId} />)
       }
     </div>
   )

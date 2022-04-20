@@ -11,13 +11,12 @@ export const useAsync = (asyncFn: any, onSuccess: any) => {
                 console.debug("aborted setState on unmounted component")
             }
         });
-        return () => {
-            isActive = false;
-        };
-    }, [asyncFn, onSuccess]);
+        return () => { isActive = false }
+    }, [asyncFn, onSuccess])
 }
 
 export const notNull = (x: any) => x != null
+export const mapToID = (x: any) => ({ id: x.id })
 
 const sizeof = require('object-sizeof')
 export function objectToSize(obj: any) {

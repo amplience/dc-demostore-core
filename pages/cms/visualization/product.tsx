@@ -17,7 +17,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
   }, context);
 
-  const dk = data.content.content._meta.deliveryKey;
+  const dk = data?.content?.content?._meta.deliveryKey;
   const sku = dk.split('product/')[1];
   
   if (res) {

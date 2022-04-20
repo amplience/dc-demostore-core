@@ -5,7 +5,7 @@ import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import fetchPageData from "@lib/page/fetchPageData";
 import { ContentBlock } from '@components/cms-modern';
 import create404Error from '@lib/page/errors/create404Error';
-import { notNull } from '@lib/util';
+import { mapToID, notNull } from '@lib/util';
 import { nanoid } from 'nanoid'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -22,23 +22,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    const slots = await fetchPageData(
-        {
-            content:{
-                slots: (data.content.page.slots || []).map((x: any) => ({id:x.id}))
-            }
+    const slots = await fetchPageData({
+        content: {
+            slots: data.content.page?.slots.map(mapToID)
         }
-    , context)
+    }, context)
 
     return {
         props: {
             ...data,
-            slots:slots.content.slots
+            slots: slots.content.slots
         }
     };
 }
 
-export default function LandingPage({ content, slots}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function LandingPage({ content, slots }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <div className="af-main-content">
             {

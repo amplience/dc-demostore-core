@@ -4,30 +4,28 @@ import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
 import { useUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/dc-demostore-integration';
+import { Category, Product } from '@amplience/dc-demostore-integration';
 import { getCategory } from '@lib/ecommerce/api'
 
 type Props = {
-
 } & CmsContent;
 
 const ProductGrid: FC<Props> = ({
     category,
-    limit,
     query
 }) => {
     const {
         trackEvent
     } = useContentAnalytics();
-    
+
     const [products, setProducts] = useState<Product[]>([])
-    
+
     const cmsContext = useCmsContext()
     const userContext = useUserContext()
 
     useEffect(() => {
         let isMounted: boolean = true
-        getCategory({ slug: category, ...cmsContext, ...userContext }).then(c => {
+        getCategory({ slug: category, ...cmsContext, ...userContext }).then((c: Category) => {
             if (isMounted) {
                 setProducts(c.products.filter(product => !query || product.name.toLowerCase().indexOf(query.toLowerCase()) > -1))
             }
@@ -39,17 +37,15 @@ const ProductGrid: FC<Props> = ({
         <div className="amp-dc-card-list product-grid-container">
             <div className="amp-dc-card-list-wrap product-grid">
                 {
-                    products && products.map((product: any) => {
+                    products.map((product: Product) => {
                         const {
-                            variants = [], 
+                            variants = [],
                             name,
                             slug,
-                            key,
                             id
                         } = product;
 
                         const {
-                            prices,
                             listPrice,
                             salePrice,
                             images
@@ -57,18 +53,18 @@ const ProductGrid: FC<Props> = ({
 
                         const handleClickProduct = (event: any) => {
                             trackEvent({
-                                category: 'Product', 
-                                action: 'Click', 
+                                category: 'Product',
+                                action: 'Click',
                                 label: id,
-                                value: prices.list
+                                value: 1
                             });
                         };
 
-                        let firstImage:string = '';
-                        if(images){
-                            if (images[0] && images[0].url){
+                        let firstImage: string = '';
+                        if (images) {
+                            if (images[0] && images[0].url) {
                                 firstImage = images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
-                                if(firstImage.indexOf('cdn.media.amplience.net') > 0){
+                                if (firstImage.indexOf('cdn.media.amplience.net') > 0) {
                                     firstImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&upscale=false'
                                 }
                             }
@@ -85,8 +81,8 @@ const ProductGrid: FC<Props> = ({
                                                     width: '100%',
                                                     objectFit: 'cover'
                                                 }}
-                                                    src={firstImage} 
-                                                    alt={firstImage} 
+                                                    src={firstImage}
+                                                    alt={firstImage}
                                                 />
                                             </picture>
                                         </div>
