@@ -14,13 +14,14 @@ import fetchPageData from "@lib/page/fetchPageData";
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles';
 
-import { getCategory } from "@lib/ecommerce/api";
+import commerceApi from '@lib/ecommerce/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Product } from '@amplience/dc-demostore-integration';
 import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'
 import DEFAULT_FACETS from '@lib/util/default-search-facets'
+import { mapToID } from '@lib/util';
 
 type CategoryPageConfig = {
     facets?: {
@@ -31,10 +32,8 @@ type CategoryPageConfig = {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { keys } = context.params || {};
+    let { slug } = context.params || {};
     const { vse } = context.query || {};
-
-    let slug = _.last(keys)
 
     const data = await fetchStandardPageData({
         content: {
@@ -42,19 +41,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         }
     }, context);
 
-    let cmsContext = await createCmsContext(context.req)
-    let userContext = await createUserContext(context)
-    let category = await getCategory({ slug, ...cmsContext, ...userContext })
-
-    if (!data.page || slug === 'favicon.ico') {
+    if (!data.page || !slug || slug === 'favicon.ico') {
         return create404Error(data, context);
     }
 
-    let results: Product[] = category.products || []
-
+    slug = Array.isArray(slug) ? slug.join('/') : slug
+    const category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
     const slots = await fetchPageData({
         content: {
-            slots: (data.content.page?.slots || []).map((x: any) => ({ id: x.id }))
+            slots: data.content.page?.slots.map(mapToID)
         }
     }, context)
 
@@ -63,7 +58,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             ...data,
             vse: vse || "",
             category: JSON.parse(JSON.stringify(category)),
-            results: JSON.parse(JSON.stringify(results)),
             slots: slots.content.slots
         }
     }
@@ -75,7 +69,6 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
         classes,
         content,
         category,
-        results,
         slots
     } = props;
 
@@ -84,7 +77,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
     let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS
     let components: CmsContent[] = props.content?.page?.components || []
     let pageSlots: CmsContent[] = slots
-    let products: Product[] = results
+    let products: Product[] = category.products
 
     return (<>
         <PageContent>

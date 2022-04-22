@@ -1,18 +1,15 @@
 import _ from 'lodash'
-import { FetchMapInput, FetchMapOutput } from "@utils/FetchMap";
+import { FetchMapInput } from "@utils/FetchMap";
 import { CmsRequest } from "@lib/cms/fetchContent";
 import fetchContentMap from "@lib/cms/fetchContentMap";
 import { GetServerSidePropsContext } from "next";
 import { createCmsContext } from "@lib/cms/CmsContext";
-import { createUserContext, UserContext } from "@lib/user/UserContext";
+import { createUserContext } from "@lib/user/UserContext";
 import { createAppContext } from "@lib/config/AppContext";
-import { CmsContent } from "@lib/cms/CmsContent";
 import { enrichPageContent } from "./pageContent/enrichPageContent";
-import { CmsHierarchyRequest, CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
+import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
-import { getCategory, getMegaMenu } from "@lib/ecommerce/api";
-import { measurePromiseDuration } from "@utils/measurePromiseDuration";
-import { withRetry } from '@utils/withRetry';
+import commerceApi from '@lib/ecommerce/api';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
@@ -30,16 +27,10 @@ async function fetchPageData<
     CH extends FetchMapInput<CmsHierarchyRequest>
 >(input: FetchPageDataInput<CT, CH>, context: GetServerSidePropsContext) {
     const cmsContext = await createCmsContext(context.req);
+    const userContext = await createUserContext(context);
 
-    const content = measurePromiseDuration('contentMap', withRetry(() => fetchContentMap(input.content, cmsContext), 'fetchContentMap'));
-    const hierarchies = measurePromiseDuration('hierarchyMap', withRetry(() => fetchHierarchyMap(input.hierarchies || {}, cmsContext), 'fetchHierarchyMap'));
-    const userContext = await measurePromiseDuration('createUserContext', withRetry(() => createUserContext(context), 'createUserContext'));
-
-    const enrichedContent = content.then(x => measurePromiseDuration('enrichContent', withRetry(() => enrichPageContent(x, cmsContext), 'enrichPageContent')));
-    const enrichesHierarchies = hierarchies.then(x => measurePromiseDuration('enrichHierarchies', withRetry(() => enrichPageContent(x, cmsContext), 'enrichPageContent')));
-
-    let enriched = (await enrichedContent) as FetchMapOutput<typeof input.content, CmsRequest, CmsContent>
-    let enrichedHierarchies = (await enrichesHierarchies) as FetchMapOutput<NonNullable<typeof input.hierarchies>, CmsHierarchyRequest, CmsHierarchyNode>
+    const content = await fetchContentMap(input.content, cmsContext)
+    const hierarchies = await fetchHierarchyMap(input.hierarchies || {}, cmsContext)
 
     return {
         context: {
@@ -47,10 +38,10 @@ async function fetchPageData<
             userContext,
             appContext: await createAppContext()
         },
-        content: enriched,
-        hierarchies: enrichedHierarchies,
+        content: await enrichPageContent(content, cmsContext),
+        hierarchies: await enrichPageContent(hierarchies, cmsContext),
         ecommerce: {
-            categories: await getMegaMenu({ ...cmsContext, ...userContext })
+            categories: await commerceApi.getMegaMenu({ ...cmsContext, ...userContext })
         }
     }
 }
