@@ -33,6 +33,7 @@ config/content-types/
 
 yarn.lock
 package-lock.json
+pnpm*
 
 logs
 *.log
