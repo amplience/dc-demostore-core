@@ -1,23 +1,20 @@
-import { CommerceAPI, CommonArgs } from '@amplience/dc-demostore-integration';
-import { getResponse } from 'pages/api';
-import isServer from '@utils/isServer';
+import { CommerceAPI, CommonArgs, getResponse, isServer } from '@amplience/dc-demostore-integration';
 import { stringify } from 'querystring';
+import { configLocator } from '@lib/config/AppContext';
 
+const apiURL = isServer() ? '' : (window as any)?.isStorybook ? 'https://core.amprsa.net' : ''
 const fetchApi = (operation: string) => async (args: CommonArgs): Promise<any> => {
     if (isServer()) {
-        return await getResponse({ ...args, operation })
+        return await getResponse({ ...args, operation, config_locator: configLocator })
     }
-
-    let apiUrl = (window as any).isStorybook ? 'https://core.amprsa.net' : ''
-    return await (await fetch(`${apiUrl}/api?operation=${operation}&${stringify(args)}`)).json()
+    return await (await fetch(`${apiURL}/api?operation=${operation}&config_locator=${configLocator}&${stringify(args)}`)).json()
 }
 
 const api: CommerceAPI = {
-    getProduct: fetchApi('product'),
-    getProducts: fetchApi('products'),
-    getCategory: fetchApi('category'),
-    getMegaMenu: fetchApi('megaMenu'),
-    getCustomerGroups: fetchApi('customerGroups')
+    getProduct:         fetchApi('getProduct'),
+    getProducts:        fetchApi('getProducts'),
+    getCategory:        fetchApi('getCategory'),
+    getMegaMenu:        fetchApi('getMegaMenu'),
+    getCustomerGroups:  fetchApi('getCustomerGroups')
 }
-
 export default api

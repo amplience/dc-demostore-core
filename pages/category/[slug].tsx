@@ -47,6 +47,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     slug = Array.isArray(slug) ? slug.join('/') : slug
     const category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+
     const slots = await fetchPageData({
         content: {
             slots: data.content.page?.slots.map(mapToID)
