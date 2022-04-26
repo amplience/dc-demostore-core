@@ -39,6 +39,7 @@
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.6",
     "moment": "^2.29.1",
+    "nanoid": "^3.3.3",
     "next": "^12.1.5",
     "next-seo": "^5.1.0",
     "nextjs-cors": "^2.1.0",
