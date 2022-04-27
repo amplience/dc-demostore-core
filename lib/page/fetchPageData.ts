@@ -5,11 +5,11 @@ import fetchContentMap from "@lib/cms/fetchContentMap";
 import { GetServerSidePropsContext } from "next";
 import { createCmsContext } from "@lib/cms/CmsContext";
 import { createUserContext } from "@lib/user/UserContext";
-import { createAppContext } from "@lib/config/AppContext";
+import { configLocator, createAppContext } from "@lib/config/AppContext";
 import { enrichPageContent } from "./pageContent/enrichPageContent";
 import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
-import commerceApi from '@lib/ecommerce/api';
+import { commerceApi } from '@pages/api';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
@@ -41,7 +41,7 @@ async function fetchPageData<
         content: await enrichPageContent(content, cmsContext),
         hierarchies: await enrichPageContent(hierarchies, cmsContext),
         ecommerce: {
-            categories: await commerceApi.getMegaMenu({ ...cmsContext, ...userContext })
+            categories: await commerceApi({ config_locator: configLocator }).getMegaMenu({ ...cmsContext, ...userContext })
         }
     }
 }

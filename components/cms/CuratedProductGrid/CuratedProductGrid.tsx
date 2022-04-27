@@ -3,24 +3,14 @@ import clsx from 'clsx';
 import { useContentAnalytics } from '@lib/analytics';
 import { Theme } from '@mui/material';
 import { useCmsContext } from '@lib/cms/CmsContext';
-import commerceApi from "@lib/ecommerce/api";
+import { commerceApi } from "@pages/api";
 import { LegacySlider, LegacySliderSlide, Section } from '@components/ui';
 import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
-
 import { Product } from '@amplience/dc-demostore-integration';
-import { useAsync } from '@lib/util';
-
-import {
-  CarouselProvider,
-  Dot,
-  Slider as PureSlider,
-  Slide
-} from 'pure-react-carousel';
-
-import { SliderBackButton, SliderNextButton } from '@components/cms-modern/Slider';
+import { configLocator } from '@lib/config/AppContext';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -70,7 +60,7 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true
-    commerceApi.getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
+    commerceApi({ config_locator: configLocator }).getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
       if (isMounted) {
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []
