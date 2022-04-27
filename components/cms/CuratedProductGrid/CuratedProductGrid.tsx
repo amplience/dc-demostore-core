@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useContentAnalytics } from '@lib/analytics';
 import { Theme } from '@mui/material';
 import { useCmsContext } from '@lib/cms/CmsContext';
-import { commerceApi } from "@pages/api";
+import { getCommerceAPI } from "@pages/api";
 import { LegacySlider, LegacySliderSlide, Section } from '@components/ui';
 import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
@@ -60,7 +60,7 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true
-    commerceApi({ config_locator: configLocator }).getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
+    getCommerceAPI({ config_locator: configLocator }).getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
       if (isMounted) {
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []
