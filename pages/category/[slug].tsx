@@ -51,7 +51,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const slots = await fetchPageData({
         content: {
-            slots: data.content.page?.slots.map(mapToID)
+            slots: (data.content.page?.slots || []).map(mapToID)
         }
     }, context)
 
