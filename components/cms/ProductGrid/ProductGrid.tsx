@@ -27,7 +27,7 @@ const ProductGrid: FC<Props> = ({
     useEffect(() => {
         let isMounted: boolean = true
         getCommerceAPI({ config_locator: configLocator }).getCategory({ slug: category, ...cmsContext, ...userContext }).then((c: Category) => {
-            if (isMounted) {
+            if (isMounted && c?.products) {
                 setProducts(c.products.filter(product => !query || product.name.toLowerCase().indexOf(query.toLowerCase()) > -1))
             }
         })
