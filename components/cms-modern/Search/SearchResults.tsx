@@ -63,27 +63,30 @@ const SearchResults: React.FC<Props> = (props) => {
   const fetchResults = () => {
     const { algoliasearch } = window as any;
     const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
+    const blogIndex = _.find(algolia.indexes, i => i.key === 'blog')
     // this code searches in algolia for matching blog posts?
-    searchClient
-      .search([
-        {
-          indexName: stagingApi ? algolia.indexes.blog.staging : algolia.indexes.blog.prod,
-          query: searchTerm,
-        },
-      ])
-      .then((algoliaResponse: any) => {
-        const result: any[] = algoliaResponse.results[0].hits.map(
-          (hit: any) => {
-            return {
-              label: hit.snippet.title,
-              href: '/blog/' + hit._meta.deliveryId + '/' + hit._meta.name,
-            };
-          }
-        );
+    if (blogIndex) {
+      searchClient
+        .search([
+          {
+            indexName: stagingApi ? blogIndex.staging : blogIndex.prod,
+            query: searchTerm,
+          },
+        ])
+        .then((algoliaResponse: any) => {
+          const result: any[] = algoliaResponse.results[0].hits.map(
+            (hit: any) => {
+              return {
+                label: hit.snippet.title,
+                href: '/blog/' + hit._meta.deliveryId + '/' + hit._meta.name,
+              };
+            }
+          );
 
-        setInspiration(result.slice(0, 10));
-      });
-    // end algolia
+          setInspiration(result.slice(0, 10));
+        });
+      // end algolia
+    }
     if (!_.isEmpty(searchTerm)) {
       getCommerceAPI({ config_locator: configLocator }).getProducts({ keyword: searchTerm, ...cmsContext, ...userContext })
         .then(products => {

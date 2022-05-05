@@ -10,6 +10,7 @@ import { Section, LegacySlider, LegacySliderSlide } from '@components/ui';
 
 import DynamicBlogListCard from './DynamicBlogListCard';
 import { useAsync } from '@lib/util';
+import _ from 'lodash';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -55,16 +56,20 @@ const DynamicBlogList: React.SFC<Props> = (props) => {
         if (typeof window !== "undefined") {
             const { algoliasearch } = window as any;
             const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
-            searchClient.search([{
-                indexName: stagingApi ? algolia.indexes.blog.staging : algolia.indexes.blog.prod,
-                params: {
-                    facetFilters: [
-                        ...(tags || []).map(x => `snippet.tags.id:${x.id}`),
-                        (locale || 'en-US').indexOf('en-') === 0 ? `locale:en-US` : `locale:${locale}`
-                    ],
-                    hitsPerPage: numItems
-                }
-            }]).then((response: any) => setResults(response.results?.[0]?.hits || []))
+            const blogIndex = _.find(algolia.indexes, i => i.key === 'blog')
+
+            if (blogIndex) {
+                searchClient.search([{
+                    indexName: stagingApi ? blogIndex.staging : blogIndex.prod,
+                    params: {
+                        facetFilters: [
+                            ...(tags || []).map(x => `snippet.tags.id:${x.id}`),
+                            (locale || 'en-US').indexOf('en-') === 0 ? `locale:en-US` : `locale:${locale}`
+                        ],
+                        hitsPerPage: numItems
+                    }
+                }]).then((response: any) => setResults(response.results?.[0]?.hits || []))    
+            }
         }
     }, [tags, numItems, stagingApi, locale, algolia]);
 
