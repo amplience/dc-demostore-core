@@ -11,6 +11,7 @@ module.exports = {
       "@lib": path.resolve(__dirname, "../lib"),
       "@assets": path.resolve(__dirname, "../assets"),
       "@components": path.resolve(__dirname, "../components"),
+      "@pages": path.resolve(__dirname, "../pages"),
       "@utils": path.resolve(__dirname, "../utils"),
       "@config": path.resolve(__dirname, "../config")
     };
