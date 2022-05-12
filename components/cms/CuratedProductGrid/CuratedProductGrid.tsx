@@ -66,7 +66,9 @@ const CuratedProductGrid: FC<Props> = ({
         let orderedProducts: Product[] = []
         _.each(products, product => {
           let ordered: any = _.find(prods, prod => prod.id === product)
-          orderedProducts.push(ordered)
+          if (ordered) {
+            orderedProducts.push(ordered)
+          }
         })
         setProductList(orderedProducts)
       }

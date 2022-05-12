@@ -41,11 +41,10 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
             let target = container.current;
             const mediaSet = product.imageSetId.padStart(6, '0');
 
-            let productImageHub = _.find(cms.hubs, hub => hub.key === 'productImages')
-            if (productImageHub) {
+            if (cms.imageHub) {
                 new amp.Viewer({
                     target,
-                    client: productImageHub.name,
+                    client: cms.imageHub,
                     imageBasePath: `https://cdn.media.amplience.net/`,
                     set: mediaSet,
                     view: variant,

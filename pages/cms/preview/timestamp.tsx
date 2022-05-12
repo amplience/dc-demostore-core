@@ -28,9 +28,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (timestamp && !vse && !isNaN(Number(timestamp))) {
         // generate vse
         const factory = new StagingEnvironmentFactory(
-            cms.hub.stagingApi as string
+            cms.stagingApi as string
         )
-        if (timestamp && cms.hub.stagingApi) {
+        if (timestamp && cms.stagingApi) {
             const stagingEnvironmentAtTimestamp = await factory.generateDomain({
                 timestamp: Number(timestamp)
             });

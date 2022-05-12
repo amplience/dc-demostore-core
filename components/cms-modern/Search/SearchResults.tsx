@@ -58,16 +58,17 @@ const SearchResults: React.FC<Props> = (props) => {
   const { stagingApi } = useCmsContext() || {};
   const cmsContext = useCmsContext()
   const userContext = useUserContext()
-  const { algolia } = useAppContext()
+  const { algolia, cms } = useAppContext()
 
   const fetchResults = () => {
     const { algoliasearch } = window as any;
     const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
+    const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`
     // this code searches in algolia for matching blog posts?
     searchClient
       .search([
         {
-          indexName: stagingApi ? algolia.indexes.blog.staging : algolia.indexes.blog.prod,
+          indexName,
           query: searchTerm,
         },
       ])
@@ -84,6 +85,7 @@ const SearchResults: React.FC<Props> = (props) => {
         setInspiration(result.slice(0, 10));
       });
     // end algolia
+
     if (!_.isEmpty(searchTerm)) {
       getCommerceAPI({ config_locator: configLocator }).getProducts({ keyword: searchTerm, ...cmsContext, ...userContext })
         .then(products => {
@@ -106,7 +108,7 @@ const SearchResults: React.FC<Props> = (props) => {
     );
   };
 
-  useEffect(fetchResults, [searchTerm, algolia, cmsContext, rootItems, stagingApi, userContext]);
+  useEffect(fetchResults, [cms.hub, searchTerm, algolia, cmsContext, rootItems, stagingApi, userContext]);
 
   return (
     <div

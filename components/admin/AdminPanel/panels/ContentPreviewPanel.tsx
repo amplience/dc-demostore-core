@@ -31,8 +31,6 @@ const ContentPreviewPanel: FC<Props> = (props) => {
     } = props;
 
     const { cms } = useAppContext()
-    let stagingApi: string = cms.hub.stagingApi
-
     const {
         stagingApi: cmsContextStagingApi,
         timestamp
@@ -76,14 +74,14 @@ const ContentPreviewPanel: FC<Props> = (props) => {
                 await fetch('/cms/preview/current');
                 break;
             case 'STAGING':
-                await fetch(`/cms/preview/timestamp?vse=${stagingApi}`);
+                await fetch(`/cms/preview/timestamp?vse=${cms.stagingApi}`);
                 break;
             case 'TIME':
                 const factory = new StagingEnvironmentFactory(
-                    stagingApi as string
+                    cms.stagingApi as string
                 );
                 const timestamp = new Date(date).getTime();
-                if (timestamp && stagingApi) {
+                if (timestamp && cms.stagingApi) {
                     const stagingEnvironmentAtTimestamp = await factory.generateDomain({
                         timestamp: timestamp
                     });

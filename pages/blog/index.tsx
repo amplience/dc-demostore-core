@@ -8,6 +8,7 @@ import { Typography } from '@mui/material';
 import { ProductFacet } from '@components/product';
 import { NavigationItem } from '@components/core/Masthead';
 import { useAppContext } from '@lib/config/AppContext';
+import _ from 'lodash';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const data = await fetchStandardPageData(
@@ -36,21 +37,16 @@ export default function Womens({
         parents: [],
     };
 
-    let { algolia } = useAppContext()
+    let { algolia, cms } = useAppContext()
+    let { instantsearch, algoliasearch } = window as any;
+    let hub = cms.hub
+    let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`
+    let search = instantsearch({
+        indexName,
+        searchClient: algoliasearch(algolia.appId, algolia.apiKey),
+        hitsPerPage: 5,
+    });
     useEffect(() => {
-        const { instantsearch, algoliasearch } = window as any;
-
-        const search = instantsearch({
-            indexName: stagingApi
-                ? algolia.indexes.blog.staging
-                : algolia.indexes.blog.prod,
-            searchClient: algoliasearch(
-                algolia.appId,
-                algolia.apiKey
-            ),
-            hitsPerPage: 5,
-        });
-
         search.addWidget(
             instantsearch.widgets.configure({
                 filters:
@@ -130,7 +126,7 @@ export default function Womens({
         );
 
         search.start();
-    }, [stagingApi, locale, algolia]);
+    }, [search, locale, instantsearch]);
 
     return (
         <>

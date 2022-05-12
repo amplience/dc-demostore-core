@@ -102,9 +102,7 @@ let filterRequest: GetByFilterRequest =
 
 ```js
         const search = instantsearch({
-            indexName: stagingApi
-                ? indexes.blog.staging
-                : indexes.blog.prod,
+            indexName: stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`,
             searchClient: algoliasearch(
                 appId,
                 apiKey 

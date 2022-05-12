@@ -35,5 +35,16 @@ export const WithAppContext: FC<{ value: DemoStoreConfiguration }> = ({children,
 
 export const configLocator = process.env.NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR || process.env.STORYBOOK_DEMOSTORE_CONFIG_LOCATOR || `amprsaprod:default`
 export async function createAppContext(): Promise<DemoStoreConfiguration> {
-    return await getConfig(configLocator)
+    let context: DemoStoreConfiguration = await getConfig(configLocator)
+
+    // support older style config objects
+    if (typeof context.cms.hub === 'object') {
+        context.cms = {
+            hub: (context.cms.hub as any).name,
+            stagingApi: (context.cms.hub as any).stagingApi,
+            imageHub: (context.cms as any).hubs.find((hub: any) => hub.key === 'productImages')?.name
+        }
+    }
+
+    return context
 }
