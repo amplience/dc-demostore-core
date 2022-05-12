@@ -58,35 +58,34 @@ const SearchResults: React.FC<Props> = (props) => {
   const { stagingApi } = useCmsContext() || {};
   const cmsContext = useCmsContext()
   const userContext = useUserContext()
-  const { algolia } = useAppContext()
+  const { algolia, cms } = useAppContext()
 
   const fetchResults = () => {
     const { algoliasearch } = window as any;
     const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
-    const blogIndex = _.find(algolia.indexes, i => i.key === 'blog')
+    const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`
     // this code searches in algolia for matching blog posts?
-    if (blogIndex) {
-      searchClient
-        .search([
-          {
-            indexName: stagingApi ? blogIndex.staging : blogIndex.prod,
-            query: searchTerm,
-          },
-        ])
-        .then((algoliaResponse: any) => {
-          const result: any[] = algoliaResponse.results[0].hits.map(
-            (hit: any) => {
-              return {
-                label: hit.snippet.title,
-                href: '/blog/' + hit._meta.deliveryId + '/' + hit._meta.name,
-              };
-            }
-          );
+    searchClient
+      .search([
+        {
+          indexName,
+          query: searchTerm,
+        },
+      ])
+      .then((algoliaResponse: any) => {
+        const result: any[] = algoliaResponse.results[0].hits.map(
+          (hit: any) => {
+            return {
+              label: hit.snippet.title,
+              href: '/blog/' + hit._meta.deliveryId + '/' + hit._meta.name,
+            };
+          }
+        );
 
-          setInspiration(result.slice(0, 10));
-        });
-      // end algolia
-    }
+        setInspiration(result.slice(0, 10));
+      });
+    // end algolia
+
     if (!_.isEmpty(searchTerm)) {
       getCommerceAPI({ config_locator: configLocator }).getProducts({ keyword: searchTerm, ...cmsContext, ...userContext })
         .then(products => {
@@ -109,7 +108,7 @@ const SearchResults: React.FC<Props> = (props) => {
     );
   };
 
-  useEffect(fetchResults, [searchTerm, algolia, cmsContext, rootItems, stagingApi, userContext]);
+  useEffect(fetchResults, [cms.hub, searchTerm, algolia, cmsContext, rootItems, stagingApi, userContext]);
 
   return (
     <div

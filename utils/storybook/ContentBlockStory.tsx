@@ -19,7 +19,7 @@ const ContentBlockStory: FC<Props> = (props) => {
 
     let { cms } = useAppContext()
     return (
-        <WithLazyContent request={request} cmsContextOverrides={{locale: 'en-US', stagingApi: cms.hub.stagingApi}} enrichContent={true}>
+        <WithLazyContent request={request} cmsContextOverrides={{locale: 'en-US', stagingApi: cms.stagingApi}} enrichContent={true}>
             {({content}) => content ? <ContentBlock content={overrideContent ? overrideContent(content) : content} /> : <Skeleton />}
         </WithLazyContent>
     );

@@ -15,10 +15,8 @@ const CmsSlotFrame: FC<Props> = ({children}) => {
     } = useCmsSlot() || {};
 
     const { cms } = useAppContext()
-    let hubName = cms.hub.name
-
     const handleEdit = () => {
-        window.open(`https://content.amplience.net/#!/${hubName}/authoring/content-item/edit/${id}`);
+        window.open(`https://content.amplience.net/#!/${cms.hub}/authoring/content-item/edit/${id}`);
     };
 
     const handleView = () => {

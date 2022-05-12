@@ -34,7 +34,7 @@ export default function QrCode({
   } = context.cmsContext;
 
   return (<Image
-    src={`https://qrickit.com/api/qr.php?d=${url}/visualization?vse=${cms.hub.stagingApi}%26content=${contentId}%26locale=${locale}&addtext=SCAN%20TO%20VIEW%20ON%20MOBILE&txtcolor=e80d8c&fgdcolor=29333f&bgdcolor=FFFFFF&qrsize=1000&t=p&e=m`}
+    src={`https://qrickit.com/api/qr.php?d=${url}/visualization?vse=${cms.stagingApi}%26content=${contentId}%26locale=${locale}&addtext=SCAN%20TO%20VIEW%20ON%20MOBILE&txtcolor=e80d8c&fgdcolor=29333f&bgdcolor=FFFFFF&qrsize=1000&t=p&e=m`}
     width='600px'
     height='600px'
     alt='QR code for mobile'

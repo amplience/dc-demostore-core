@@ -8,7 +8,7 @@ import { useAppContext } from '@lib/config/AppContext';
 interface Props {
 }
 
-const CmsSlotFrame: FC<Props> = ({children}) => {
+const CmsSlotFrame: FC<Props> = ({ children }) => {
     const {
         id,
         label,
@@ -16,10 +16,8 @@ const CmsSlotFrame: FC<Props> = ({children}) => {
     } = useCmsContentItem() || {};
 
     const { cms } = useAppContext()
-    let hubName = cms.hub.name
-
     const handleEdit = () => {
-        window.open(`https://content.amplience.net/#!/${hubName}/authoring/content-item/edit/${id}`);
+        window.open(`https://content.amplience.net/#!/${cms.hub}/authoring/content-item/edit/${id}`);
     };
 
     const handleView = () => {
@@ -29,8 +27,8 @@ const CmsSlotFrame: FC<Props> = ({children}) => {
         } = window.location;
         window.open(`${protocol}//${host}/visualization?content=${id}`)
     }
-    
-    return <ComponentFrame 
+
+    return <ComponentFrame
         menu={
             <>
                 <Puzzle title={schema} className={s.icon} />

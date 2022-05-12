@@ -28,7 +28,7 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
         product
     } = useProduct() || {};
 
-    let { cms, imageHub } = useAppContext()
+    let { cms } = useAppContext()
 
     const container = createRef<HTMLDivElement>();
     useEffect(() => {
@@ -41,10 +41,10 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
             let target = container.current;
             const mediaSet = product.imageSetId.padStart(6, '0');
 
-            if (imageHub) {
+            if (cms.imageHub) {
                 new amp.Viewer({
                     target,
-                    client: imageHub,
+                    client: cms.imageHub,
                     imageBasePath: `https://cdn.media.amplience.net/`,
                     set: mediaSet,
                     view: variant,

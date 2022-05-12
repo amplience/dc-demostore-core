@@ -47,31 +47,29 @@ const DynamicBlogList: React.SFC<Props> = (props) => {
 
     const [results, setResults] = useState([] as any);
 
-    const { algolia } = useAppContext()
+    const { algolia, cms } = useAppContext()
     const {
         stagingApi,
         locale
     } = useCmsContext() || {};
+    const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`
+    const { algoliasearch } = window as any;
+    const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
+
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const { algoliasearch } = window as any;
-            const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
-            const blogIndex = _.find(algolia.indexes, i => i.key === 'blog')
-
-            if (blogIndex) {
-                searchClient.search([{
-                    indexName: stagingApi ? blogIndex.staging : blogIndex.prod,
-                    params: {
-                        facetFilters: [
-                            ...(tags || []).map(x => `snippet.tags.id:${x.id}`),
-                            (locale || 'en-US').indexOf('en-') === 0 ? `locale:en-US` : `locale:${locale}`
-                        ],
-                        hitsPerPage: numItems
-                    }
-                }]).then((response: any) => setResults(response.results?.[0]?.hits || []))    
-            }
+            searchClient.search([{
+                indexName,
+                params: {
+                    facetFilters: [
+                        ...(tags || []).map(x => `snippet.tags.id:${x.id}`),
+                        (locale || 'en-US').indexOf('en-') === 0 ? `locale:en-US` : `locale:${locale}`
+                    ],
+                    hitsPerPage: numItems
+                }
+            }]).then((response: any) => setResults(response.results?.[0]?.hits || []))
         }
-    }, [tags, numItems, stagingApi, locale, algolia]);
+    }, [searchClient, tags, numItems, locale, indexName]);
 
     return (
         <div className={clsx(classes.root, className)} {...other}>

@@ -32,7 +32,7 @@ const ProductGrid: FC<Props> = ({
             }
         })
         return () => { isMounted = false }
-    }, [category, cmsContext, userContext])
+    }, [category, cmsContext, userContext, query])
 
     return (
         <div className="amp-dc-card-list product-grid-container">
