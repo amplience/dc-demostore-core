@@ -3,13 +3,12 @@ import clsx from 'clsx';
 import { useContentAnalytics } from '@lib/analytics';
 import { Theme } from '@mui/material';
 import { useCmsContext } from '@lib/cms/CmsContext';
-import { getCommerceAPI } from "@pages/api";
 import { LegacySlider, LegacySliderSlide, Section } from '@components/ui';
 import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
-import { Product } from '@amplience/dc-demostore-integration';
+import { Product, getCommerceAPI } from '@amplience/dc-demostore-integration';
 import { configLocator } from '@lib/config/AppContext';
 
 const styles = (theme: Theme) => ({

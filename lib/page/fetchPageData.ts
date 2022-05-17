@@ -9,7 +9,7 @@ import { configLocator, createAppContext } from "@lib/config/AppContext";
 import { enrichPageContent } from "./pageContent/enrichPageContent";
 import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
-import { getCommerceAPI } from '@pages/api';
+import { getCommerceAPI } from '@amplience/dc-demostore-integration';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 

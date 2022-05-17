@@ -14,9 +14,8 @@ import fetchPageData from "@lib/page/fetchPageData";
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles';
 
-import { getCommerceAPI } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/dc-demostore-integration';
+import { Product, getCommerceAPI } from '@amplience/dc-demostore-integration';
 import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'
