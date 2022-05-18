@@ -59,7 +59,7 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true
-    getCommerceAPI({ config_locator: configLocator }).getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
+    getCommerceAPI({ config_locator: configLocator }).then(api => api.getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
       if (isMounted) {
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []
@@ -71,7 +71,7 @@ const CuratedProductGrid: FC<Props> = ({
         })
         setProductList(orderedProducts)
       }
-    })
+    }))
     return () => { isMounted = false }
   }, [products, cmsContext, userContext])
 

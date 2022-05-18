@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { DemoStoreConfiguration, getConfig } from '@amplience/dc-demostore-integration';
+import { DemoStoreConfiguration, getDemoStoreConfig } from '@amplience/dc-demostore-integration';
 import { CmsContent } from '@lib/cms/CmsContent';
 
 const Context = React.createContext<DemoStoreConfiguration | null>(null);
@@ -35,7 +35,7 @@ export const WithAppContext: FC<{ value: DemoStoreConfiguration }> = ({children,
 
 export const configLocator = process.env.NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR || process.env.STORYBOOK_DEMOSTORE_CONFIG_LOCATOR || `amprsaprod:default`
 export async function createAppContext(): Promise<DemoStoreConfiguration> {
-    let context: DemoStoreConfiguration = await getConfig(configLocator)
+    let context: DemoStoreConfiguration = await getDemoStoreConfig(configLocator)
 
     // support older style config objects
     if (typeof context.cms.hub === 'object') {
