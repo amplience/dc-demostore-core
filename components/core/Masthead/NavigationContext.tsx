@@ -199,8 +199,8 @@ export const WithNavigationContext: FC<{
             switch (type) {
                 case 'category':
                     // console.log(node)
-                    // console.log(`buildCategoryItem: [ ${node.content.name} ]`)
-                    return buildCategoryItem(node, categoriesBySlug[node.content.name]);
+                    let categorySlug = node.content._meta.deliveryKey.split('/').pop()
+                    return buildCategoryItem(node, categoriesBySlug[categorySlug]);
                 case 'group':
                     return buildGroupItem(node);
                 case 'page':
