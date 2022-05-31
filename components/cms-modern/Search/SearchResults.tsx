@@ -86,7 +86,7 @@ const SearchResults: React.FC<Props> = (props) => {
     // end algolia
 
     if (!_.isEmpty(searchTerm)) {
-      getCommerceAPI({ config_locator: configLocator })
+      getCommerceAPI()
         .then(api => api.getProducts({ keyword: searchTerm, ...cmsContext, ...userContext })
         .then(products => {
           setSearchResults(products.map((prod: Product) => ({

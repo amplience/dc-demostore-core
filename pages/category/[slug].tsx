@@ -46,7 +46,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     slug = Array.isArray(slug) ? slug.join('/') : slug
-    const category = await (await getCommerceAPI({ config_locator: configLocator })).getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+    const category = await (await getCommerceAPI()).getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
 
     const slots = await fetchPageData({
         content: {

@@ -9,7 +9,6 @@ import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
 import { Product, getCommerceAPI } from '@amplience/dc-demostore-integration';
-import { configLocator } from '@lib/config/AppContext';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -59,7 +58,7 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true
-    getCommerceAPI({ config_locator: configLocator }).then(api => api.getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
+    getCommerceAPI().then(api => api.getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
       if (isMounted) {
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []

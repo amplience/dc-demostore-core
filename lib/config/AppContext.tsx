@@ -33,7 +33,7 @@ export const WithAppContext: FC<{ value: DemoStoreConfiguration }> = ({children,
     </Context.Provider>;    
 };
 
-export const configLocator = process.env.NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR || process.env.STORYBOOK_DEMOSTORE_CONFIG_LOCATOR || `amprsaprod:default`
+export const configLocator = process.env.NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR || `amprsaprod:default`
 export async function createAppContext(): Promise<DemoStoreConfiguration> {
     let context: DemoStoreConfiguration = await getDemoStoreConfig(configLocator)
 

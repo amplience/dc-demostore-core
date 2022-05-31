@@ -43,7 +43,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   }, context)
 
-  const product = await (await getCommerceAPI({ config_locator: configLocator })).getProduct({ id: key, ...cmsContext, ...userContext })
+  const product = await (await getCommerceAPI()).getProduct({ id: key, ...cmsContext, ...userContext })
 
   if (!product) {
     return create404Error(data, context);
