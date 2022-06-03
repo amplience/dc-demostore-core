@@ -26,13 +26,11 @@ const ProductGrid: FC<Props> = ({
 
     useEffect(() => {
         let isMounted: boolean = true
-        getCommerceAPI({ config_locator: configLocator }).then(api => {
-            api.getCategory({ slug: category, ...cmsContext, ...userContext }).then((c: Category) => {
-                if (isMounted && c?.products) {
-                    setProducts(c.products.filter(product => !query || product.name.toLowerCase().indexOf(query.toLowerCase()) > -1))
-                }
-            })
-        }) 
+        getCommerceAPI({ config_locator: configLocator }).getCategory({ slug: category, ...cmsContext, ...userContext }).then((c: Category) => {
+            if (isMounted && c?.products) {
+                setProducts(c.products.filter(product => !query || product.name.toLowerCase().indexOf(query.toLowerCase()) > -1))
+            }
+        })
         return () => { isMounted = false }
     }, [category, cmsContext, userContext, query])
 
