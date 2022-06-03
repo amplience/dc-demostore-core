@@ -45,7 +45,7 @@ function onlyUnique(value: any, index: any, self: any) {
   return self.indexOf(value) === index;
 }
 
-import { getCommerceAPI } from '@pages/api';
+import { commerceApi } from '@pages/api';
 import { configLocator, useAppContext } from '@lib/config/AppContext';
 
 const SearchResults: React.FC<Props> = (props) => {
@@ -87,13 +87,12 @@ const SearchResults: React.FC<Props> = (props) => {
     // end algolia
 
     if (!_.isEmpty(searchTerm)) {
-      getCommerceAPI({ config_locator: configLocator }).getProducts({ keyword: searchTerm, ...cmsContext, ...userContext })
-        .then(products => {
-          setSearchResults(products.map((prod: Product) => ({
-            ...prod,
-            href: `/product/${prod.id}/${prod.slug}`
-          })))
-        })
+      commerceApi.getProducts({ keyword: searchTerm, ...cmsContext, ...userContext }).then(products => {
+        setSearchResults(products.map((prod: Product) => ({
+          ...prod,
+          href: `/product/${prod.id}/${prod.slug}`
+        })))
+      })
     }
 
     // ? category names?
