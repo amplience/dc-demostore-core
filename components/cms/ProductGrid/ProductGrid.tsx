@@ -4,8 +4,8 @@ import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
 import { useUserContext } from '@lib/user/UserContext';
-import { Category, Product, getCommerceAPI } from '@amplience/dc-demostore-integration';
-import { configLocator } from '@lib/config/AppContext';
+import { Category, Product } from '@amplience/dc-demostore-integration';
+import { commerceApi } from '@pages/api'
 
 type Props = {
 } & CmsContent;
@@ -25,11 +25,11 @@ const ProductGrid: FC<Props> = ({
 
     useEffect(() => {
         let isMounted: boolean = true
-        getCommerceAPI().then(api => api.getCategory({ slug: category, ...cmsContext, ...userContext }).then((c: Category) => {
+        commerceApi.getCategory({ slug: category, ...cmsContext, ...userContext }).then((c: Category) => {
             if (isMounted && c?.products) {
                 setProducts(c.products.filter(product => !query || product.name.toLowerCase().indexOf(query.toLowerCase()) > -1))
             }
-        }))
+        })
         return () => { isMounted = false }
     }, [category, cmsContext, userContext, query])
 

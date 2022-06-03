@@ -14,6 +14,7 @@ import fetchPageData from "@lib/page/fetchPageData";
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles';
 
+import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Product, getCommerceAPI } from '@amplience/dc-demostore-integration';
 import { nanoid } from 'nanoid'
@@ -46,7 +47,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     slug = Array.isArray(slug) ? slug.join('/') : slug
-    const category = await (await getCommerceAPI()).getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+    const category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
 
     const slots = await fetchPageData({
         content: {

@@ -4,14 +4,13 @@ import fetchStandardPageData from "@lib/page/fetchStandardPageData";
 import create404Error from "@lib/page/errors/create404Error";
 import { createCmsContext } from "@lib/cms/CmsContext";
 import { useContent } from '@components/core/WithVisualization';
+import { commerceApi } from '@pages/api';
 import fetchContent, { CmsFilterResponse, GetByFilterRequest } from "@lib/cms/fetchContent";
 import { CmsComponent } from "@components/cms-layout";
 import WithProduct from "@components/product/WithProduct";
 import { createUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { nanoid } from 'nanoid'
-import { configLocator } from "@lib/config/AppContext";
-import { getCommerceAPI } from "@amplience/dc-demostore-integration"
 
 function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undefined {
   const configs = [];
@@ -43,7 +42,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   }, context)
 
-  const product = await (await getCommerceAPI()).getProduct({ id: key, ...cmsContext, ...userContext })
+  const product = await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext })
 
   if (!product) {
     return create404Error(data, context);

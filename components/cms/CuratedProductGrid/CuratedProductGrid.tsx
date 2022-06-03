@@ -3,12 +3,13 @@ import clsx from 'clsx';
 import { useContentAnalytics } from '@lib/analytics';
 import { Theme } from '@mui/material';
 import { useCmsContext } from '@lib/cms/CmsContext';
+import { commerceApi } from "@pages/api";
 import { LegacySlider, LegacySliderSlide, Section } from '@components/ui';
 import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
-import { Product, getCommerceAPI } from '@amplience/dc-demostore-integration';
+import { Product } from '@amplience/dc-demostore-integration';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -39,7 +40,6 @@ const CuratedProductGrid: FC<Props> = ({
   navigationDots,
   ...other
 }) => {
-
   // Retrieve locale/country code from context - TODO: get language from user context
   const { locale: cmsLocale } = useCmsContext() || {}
   let locale = cmsLocale || 'en';
@@ -58,7 +58,7 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true
-    getCommerceAPI().then(api => api.getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
+    commerceApi.getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
       if (isMounted) {
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []
@@ -70,7 +70,7 @@ const CuratedProductGrid: FC<Props> = ({
         })
         setProductList(orderedProducts)
       }
-    }))
+    })
     return () => { isMounted = false }
   }, [products, cmsContext, userContext])
 
