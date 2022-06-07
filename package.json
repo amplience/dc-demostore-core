@@ -1,6 +1,6 @@
 {
   "name": "@amplience/dc-demostore-core",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "private": false,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook --no-dll"
   },
   "dependencies": {
-    "@amplience/dc-demostore-integration": "git+https://github.com/amplience/dc-demostore-integration.git",
+    "@amplience/dc-demostore-integration": "git+https://github.com/amplience/dc-demostore-integration.git#v1.1.1",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
