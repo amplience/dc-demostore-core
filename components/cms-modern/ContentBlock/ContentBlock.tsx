@@ -25,6 +25,7 @@ import LocalizedBannerSlot      from '@components/cms-modern/LocalizedBannerSlot
 import PersonalizedBannerSlot   from '@components/cms-modern/PersonalizedBannerSlot';
 import ProductGrid              from '@components/cms/ProductGrid';
 import ProductContent           from '@components/cms-modern/ProductContent';
+import RuleBasedContent         from '@components/cms-modern/RuleBasedContent';
 import SimpleBanner             from '@components/cms-modern/SimpleBanner';
 import Slider                   from '@components/cms-modern/Slider';
 import SplitBlock               from '@components/cms-modern/SplitBlock';
@@ -61,6 +62,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/landing-page'           : LandingPage,
     'https://demostore.amplience.com/content/product-grid'           : ProductGrid,
     'https://demostore.amplience.com/content/rich-text'              : CustomRichText,
+    'https://demostore.amplience.com/content/rule-based'             : RuleBasedContent,
     'https://demostore.amplience.com/content/simple-banner'          : SimpleBanner,
     'https://demostore.amplience.com/content/simple-localized-banner': SimpleBanner,
     'https://demostore.amplience.com/content/slider'                 : Slider,
