@@ -36,6 +36,7 @@ import ThemeWrapper             from '@components/cms-modern/ThemeWrapper';
 import Video                    from '@components/cms-modern/Video';
 
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 export type ContentBlockType = 'SLOT' | 'CONTENT';
 
@@ -78,8 +79,11 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/slots/landing-page'             : BannerSlot,
     'https://demostore.amplience.com/slots/localized-banner'         : LocalizedBannerSlot,
     'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot
-    
 };
+
+const componentName = 'HelloWorld';
+const DynamicComponent = dynamic(() => import(`../../../plugins/${componentName}`));
+// ComponentMapping['https://demostore.amplience.com/content/simple-banner'] = DynamicComponent;
 
 const ContentBlock: FC<Props> = ({content: originalContent, type = 'CONTENT', components = ComponentMapping}) => {
     const {
