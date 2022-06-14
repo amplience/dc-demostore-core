@@ -23,6 +23,7 @@ import styles from '../../components/ui/category-styles'
 import DEFAULT_FACETS from '@lib/util/default-search-facets'
 import { mapToID } from '@lib/util';
 import { configLocator } from '@lib/config/AppContext';
+import RuleBasedContent from '@components/cms-modern/RuleBasedContent';
 
 type CategoryPageConfig = {
     facets?: {
@@ -83,6 +84,14 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
 
     return (<>
         <PageContent>
+                <div className={classes.hero}>
+                    {category && <RuleBasedContent variant="single" rules={{
+                        productCategories: [category.id],
+                        pageTypes: ['Category']
+                    }} 
+                        // defaultSkeleton={<DefaultAdaptiveImageSkeleton />}
+                    />}
+                </div>
             { /* NOVADEV-15: Breadcrumb category updates before large category on PLP */}
             {<div>
                 <Breadcrumb className={classes.breadcrumb} />
