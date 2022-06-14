@@ -34,6 +34,8 @@ import ThemePaletteSpec         from '@components/cms-modern/ThemePaletteSpec';
 import ThemeTypographySpec      from '@components/cms-modern/ThemeTypographySpec';
 import ThemeWrapper             from '@components/cms-modern/ThemeWrapper';
 import Video                    from '@components/cms-modern/Video';
+import SimpleImage              from '@components/cms/SimpleImage';
+import SimpleImageBanner        from '@components/cms/SimpleImageBanner';
 
 import { useRouter } from 'next/router';
 
@@ -77,8 +79,9 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/slots/flexible'                 : FlexibleSlot,
     'https://demostore.amplience.com/slots/landing-page'             : BannerSlot,
     'https://demostore.amplience.com/slots/localized-banner'         : LocalizedBannerSlot,
-    'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot
-    
+    'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot,
+    'https://demostore.amplience.com/content/simple-image'           : SimpleImage,
+    'https://demostore.amplience.com/content/simple-image-banner'    : SimpleImageBanner
 };
 
 const ContentBlock: FC<Props> = ({content: originalContent, type = 'CONTENT', components = ComponentMapping}) => {
