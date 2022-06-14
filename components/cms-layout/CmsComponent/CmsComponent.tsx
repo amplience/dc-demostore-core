@@ -6,6 +6,7 @@ import ProductHero from '@components/product/ProductHero';
 import ProductMediaViewer from '@components/product/ProductMediaViewer';
 import ProductRichText from '@components/product/ProductRichText';
 import ProductSize from '@components/product/ProductSize';
+import ProductRuleBasedContent from '@components/product/ProductRuleBasedContent';
 import Accordion from '@components/ui/Accordion/Accordion';
 import { Grid, Typography } from '@mui/material';
 import React, { FC } from 'react'
@@ -56,7 +57,8 @@ const mapping: any = {
     'product_hero': ProductHero,
     'product_rich_text': ProductRichText,
     'content_block': ContentBlock,
-    'accordion': Accordion
+    'accordion': Accordion,
+    'product_rule_based_content': ProductRuleBasedContent
     // 'product_header': ProductHeader,
     // 'product_image': ProductImage
 };
