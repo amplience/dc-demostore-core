@@ -47,6 +47,7 @@ interface Props {
     components?: { [key: string]: any };
 }
 
+// Plugins list - will come from CMS
 const pluginsConfig = [
     {
         label: "Card plugin",
@@ -66,6 +67,7 @@ const pluginsConfig = [
     }
 ]
 
+// Core components mapping
 let ComponentMapping: any = {
     'https://demostore.amplience.com/content/advanced-banner'        : AdvancedBanner,
     'https://demostore.amplience.com/content/blog-list'              : BlogList,
@@ -100,6 +102,7 @@ let ComponentMapping: any = {
     'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot
 };
 
+// Loading plugins, possibly overriding core components
 pluginsConfig.forEach((plugin: any) => {
     const componentName = plugin.packageName;
     const schema = plugin.schema;
