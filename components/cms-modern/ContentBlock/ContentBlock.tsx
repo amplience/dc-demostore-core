@@ -47,7 +47,26 @@ interface Props {
     components?: { [key: string]: any };
 }
 
-const ComponentMapping: any = {
+const pluginsConfig = [
+    {
+        label: "Card plugin",
+        packageName: "Card",
+        description: "Card plugin",
+        version: "1.0",
+        author: "rkalfane",
+        schema: "https://demostore.amplience.com/content/card"
+    },
+    {
+        label: "Card List plugin",
+        packageName: "CardList",
+        description: "Card List plugin",
+        version: "1.0",
+        author: "rkalfane",
+        schema: "https://demostore.amplience.com/content/card-list"
+    }
+]
+
+let ComponentMapping: any = {
     'https://demostore.amplience.com/content/advanced-banner'        : AdvancedBanner,
     'https://demostore.amplience.com/content/blog-list'              : BlogList,
     'https://demostore.amplience.com/content/blog-snippet'           : BlogSnippet,
@@ -81,9 +100,16 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot
 };
 
-const componentName = 'HelloWorld';
-const DynamicComponent = dynamic(() => import(`../../../plugins/${componentName}`));
-// ComponentMapping['https://demostore.amplience.com/content/simple-banner'] = DynamicComponent;
+pluginsConfig.forEach((plugin: any) => {
+    const componentName = plugin.packageName;
+    const schema = plugin.schema;
+    try {
+        const DynamicComponent = dynamic(() => import(`../../../plugins/${componentName}`));
+        ComponentMapping[schema] = DynamicComponent; 
+    } catch(e) {
+        console.error(`Can't find plugin '${componentName}'`);
+    }
+});
 
 const ContentBlock: FC<Props> = ({content: originalContent, type = 'CONTENT', components = ComponentMapping}) => {
     const {
