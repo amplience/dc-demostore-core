@@ -2,6 +2,7 @@ export { default as ContentBlock } from './ContentBlock';
 export { ContentBlockSkeleton } from './ContentBlock';
 export { default as Container } from './Container';
 export { default as CallToAction } from './CallToAction';
+export { default as CardEnhanced } from './CardEnhanced'
 export { default as WithLazyContent } from './WithLazyContent';
 export { default as AdvancedBanner } from './AdvancedBanner';
 export { default as BannerSlot } from './BannerSlot';

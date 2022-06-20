@@ -107,7 +107,11 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                     </div>
                     <div className={classes.results}>
                         <ProductGrid>
-                            {products.map(product => <ProductCard key={nanoid()} data={product} />)}
+                            {products.map((product, idx) => {
+                            
+                            <ProductCard key={nanoid()} data={product} />
+                            
+                            })}
                         </ProductGrid>
                     </div>
                 </div>
