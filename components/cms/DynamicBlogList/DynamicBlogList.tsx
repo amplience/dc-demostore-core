@@ -52,12 +52,14 @@ const DynamicBlogList: React.SFC<Props> = (props) => {
         stagingApi,
         locale
     } = useCmsContext() || {};
-    const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`
-    const { algoliasearch } = window as any;
-    const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
+    const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
+
+    let searchClient;
 
     useEffect(() => {
         if (typeof window !== "undefined") {
+            const { algoliasearch } = window as any;
+            searchClient = algoliasearch(algolia.appId, algolia.apiKey);
             searchClient.search([{
                 indexName,
                 params: {
