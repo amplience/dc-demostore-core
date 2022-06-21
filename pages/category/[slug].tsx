@@ -75,8 +75,6 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
         slots,
     } = props;
 
-    console.log(props);
-
     const [config] = useContent(content.configComponents, vse);
 
     let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS
