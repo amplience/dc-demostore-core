@@ -9,6 +9,7 @@ import Blog                     from '@components/cms-modern/Blog';
 import BlogList                 from '@components/cms/BlogList';
 import BlogSnippet              from '@components/cms/BlogSnippet';
 import Card                     from '@components/cms-modern/Card';
+import CardEnhanced             from '@components/cms-modern/CardEnhanced';
 import CardList                 from '@components/cms-modern/CardList';
 import CmsContentItem           from '@components/cms-modern/CmsContentItem';
 import CmsEdition               from '@components/cms-modern/CmsEdition';
@@ -53,6 +54,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/blog'                   : Blog,
     'https://demostore.amplience.com/content/card-list'              : CardList,
     'https://demostore.amplience.com/content/card'                   : Card,
+    'https://demostore.amplience.com/content/card-enhanced'          : CardEnhanced,
     'https://demostore.amplience.com/content/container'              : Container,
     'https://demostore.amplience.com/content/curated-product-grid'   : CuratedProductGrid,
     'https://demostore.amplience.com/content/dynamic-blog-list'      : DynamicBlogList,
