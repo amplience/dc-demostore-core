@@ -68,6 +68,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSideProps> & WithStyles<typeof styles> & CategoryPageConfig) {
     const {
         vse,
+        title,
         classes,
         content,
         category,
@@ -89,7 +90,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
             {<div>
                 <Breadcrumb className={classes.breadcrumb} />
                 <div className={classes.header}>
-                    <Typography variant="h2">{category && category.name}</Typography>
+                    <Typography variant="h2">{title || ( category && category.name ) }</Typography>
                 </div>
             </div>}
 
