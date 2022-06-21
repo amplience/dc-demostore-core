@@ -17,21 +17,22 @@ const styles = (theme: Theme) => ({
         }
     },
     imageContainer: {
-        position: 'relative' as 'relative',
-        paddingTop: '150%'
+        // position: 'relative' as 'relative',
+        // paddingTop: '150%'
     },
     image: {
-        position: 'absolute' as 'absolute',
-        top: 0,
-        bottom: 0,
+        // position: 'absolute' as 'absolute',
+        // top: 0,
+        // bottom: 0,
         // height: '100%',
         width: '100%',
         // objectFit: 'cover' as 'cover'
     },
     details: {
-        marginTop: 30,
-        marginBottom: 30,
-        padding: 5
+        // marginTop: 30,
+        // marginBottom: 30,
+        padding: 5,
+        height: 100
     },
     name: {
         // fontFamily: "'Roboto Condensed Regular', sans-serif",
@@ -39,7 +40,7 @@ const styles = (theme: Theme) => ({
         // color: '#231f20'
     },
     overview: {
-        marginTop: 20,
+        // marginTop: 20,
         // fontSize: 13,
         // color: '#231f20'
     },
@@ -52,7 +53,7 @@ const styles = (theme: Theme) => ({
         textDecoration: 'line-through'
     },
     button: {
-        marginTop: 30
+        // marginTop: 30
     }
 });
 
@@ -93,13 +94,13 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
             
             firstImage = variant.images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
             if(firstImage.indexOf('cdn.media.amplience.net') > 0){
-                firstImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&upscale=false'
+                firstImage += '?aspectRatio=1:1&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&h=440&upscale=false'
             }
         }
         if (variant.images[1] && variant.images[1].url){
             secondImage = variant.images[1].url.replace("i8.amplience.net", "cdn.media.amplience.net");
             if(secondImage.indexOf('cdn.media.amplience.net') > 0){
-                secondImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&upscale=false'
+                secondImage += '?aspectRatio=1:1&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&h=440&upscale=false'
             }
         }
     }
@@ -120,9 +121,11 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
                         <Typography variant="h4" component="h4" className={classes.name}>
                             {name}
                         </Typography>
-                        <Typography variant="body2" component="div" className={classes.overview}>
+                        {
+                        /*<Typography variant="body2" component="div" className={classes.overview}>
                             {longDescription}
-                        </Typography>
+                        </Typography>*/
+                        }
                         { (!variant.salePrice || variant.listPrice === variant.salePrice || _.isEmpty(variant.salePrice)) &&
                             variant.listPrice
                         }

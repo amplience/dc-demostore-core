@@ -73,15 +73,16 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
         content,
         category,
         slots,
-        gridslots,
     } = props;
+
+    console.log(props);
 
     const [config] = useContent(content.configComponents, vse);
 
     let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS
     let components: CmsContent[] = props.content?.page?.components || []
     let pageSlots: CmsContent[] = slots
-    let gridSlots: CmsContent[] = gridslots
+    let gridSlots: CmsContent[] = props.content?.page?.gridslots || []
     let products: Product[] = category.products
 
     return (<>
@@ -103,62 +104,64 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                     {_.compact(pageSlots).map(slot => <ContentBlock key={nanoid()} content={slot} type="SLOT" />)}
                 </div>
             </div>
-            {!props.content?.page?.hideProductList &&
+            {
+                !props.content?.page?.hideProductList &&
                 <div className={classes.container}>
                     <div className={classes.facets}>
                         {facets.map(facet => <ProductFacet key={nanoid()} title={facet.title} />)}
                     </div>
                     <div className={classes.results}>
                         <ProductGrid>
-                            {products.map((product, idx) => {
+                            {
+                                products.map((product: any, idx: number) => {
 
-                                // Insert Amplience Grid Content
-                                if (gridSlots.length) {
+                                    // Insert Amplience Grid Content
+                                    if (gridSlots.length) {
 
-                                    const card = gridSlots.find(obj => { return obj.position === idx });
+                                        const card = gridSlots.find(obj => { return obj.position === idx });
 
-                                    if (card != undefined && card.card != undefined) {
-                                        const { img } = card.card.image || {};
+                                        if (card != undefined && card.card != undefined) {
+                                            const { img } = card.card.image || {};
 
-                                        const ratio = (card.cols === card.rows) ? '1:1' : card.cols + ':' + card.rows;
+                                            const ratio = (card.cols === card.rows) ? '1:1' : card.cols + ':' + card.rows;
 
-                                        const cardtransformations = {
-                                            ...img?.image,
-                                            upscale: true,
-                                            strip: true,
-                                            quality: 80,
-                                            width: (400 * card.cols),
-                                            height: 400 * card.rows,
-                                            aspectRatio: ratio,
-                                            scaleMode: 'c',
-                                            scaleFit: !card.card.image?.disablePoiAspectRatio
-                                                && img?.image?.poi
-                                                && img?.image?.poi.x != -1
-                                                && img?.image?.poi.y != -1
-                                                ? 'poi'
-                                                : undefined,
+                                            const cardtransformations = {
+                                                ...img?.image,
+                                                upscale: true,
+                                                strip: true,
+                                                quality: 80,
+                                                width: (400 * card.cols),
+                                                height: 400 * card.rows,
+                                                aspectRatio: ratio,
+                                                scaleMode: 'c',
+                                                scaleFit: !card.card.image?.disablePoiAspectRatio
+                                                    && img?.image?.poi
+                                                    && img?.image?.poi.x != -1
+                                                    && img?.image?.poi.y != -1
+                                                    ? 'poi'
+                                                    : undefined,
+                                            }
+
+                                            let gridItemStyle = {
+                                                gridColumnEnd: `span ${card.cols}`,
+                                                gridRowEnd: `span ${card.rows}`
+                                            };
+                                        
+                                            var itemCSS = gridItemStyle as React.CSSProperties ;
+
+                                            //console.log('card ' + idx, cardtransformations)
+
+                                            return (
+                                                <div key={nanoid()} style={itemCSS}>
+                                                    <CardEnhanced {...card.card} index={idx} transformations={cardtransformations} />
+                                                </div>
+                                            )
                                         }
-
-                                        let gridItemStyle = {
-                                            gridColumnEnd: `span ${card.cols}`,
-                                            gridRowEnd: `span ${card.rows}`
-                                        };
-                                    
-                                        var itemCSS = gridItemStyle as React.CSSProperties ;
-
-                                        //console.log('card ' + idx, cardtransformations)
-
-                                        return (
-                                            <div key={nanoid()} style={itemCSS}>
-                                                <CardEnhanced {...card.card} index={idx} transformations={cardtransformations} />
-                                            </div>
-                                        )
                                     }
-                                }
-                            
-                                <ProductCard key={nanoid()} data={product} />
-                            
-                            })}
+                                
+                                    return <ProductCard key={nanoid()} data={product} />}
+                                )
+                            }
                         </ProductGrid>
                     </div>
                 </div>

@@ -8,7 +8,14 @@ import { ImageTransformations, ImageScaleFit, ImageScaleMode } from '@utils/getI
 import { DefaultAdaptiveImageSkeleton, TrueAdaptiveImage } from '../AdaptiveImage';
 
 const styles = (theme: Theme) => ({
-    root: {},
+    root: {
+        display: 'flex',
+        flexDirection: 'column' as 'column',
+        border: '1px solid white',
+        '&:hover': {
+            border: '1px solid black'
+        }
+    },
     image: {
         width: "100%",
     },
