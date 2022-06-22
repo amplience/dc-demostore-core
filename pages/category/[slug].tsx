@@ -119,26 +119,6 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                                         const card = gridSlots.find(obj => { return obj.position === idx });
 
                                         if (card != undefined && card.card != undefined) {
-                                            const { img } = card.card.image || {};
-
-                                            const ratio = (card.cols === card.rows) ? '1:1' : card.cols + ':' + card.rows;
-
-                                            const cardtransformations = {
-                                                ...img?.image,
-                                                upscale: true,
-                                                strip: true,
-                                                quality: 80,
-                                                width: (400 * card.cols),
-                                                height: 400 * card.rows,
-                                                aspectRatio: ratio,
-                                                scaleMode: 'c',
-                                                scaleFit: !card.card.image?.disablePoiAspectRatio
-                                                    && img?.image?.poi
-                                                    && img?.image?.poi.x != -1
-                                                    && img?.image?.poi.y != -1
-                                                    ? 'poi'
-                                                    : undefined,
-                                            }
 
                                             let gridItemStyle = {
                                                 gridColumnEnd: `span ${card.cols}`,
@@ -151,7 +131,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
 
                                             return (
                                                 <div key={nanoid()} style={itemCSS}>
-                                                    <CardEnhanced {...card.card} index={idx} transformations={cardtransformations} />
+                                                    <CardEnhanced {...card.card} index={idx} cols={card.cols} rows={card.rows} />
                                                 </div>
                                             )
                                         }

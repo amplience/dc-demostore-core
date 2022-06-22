@@ -11,15 +11,16 @@ const styles = (theme: Theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column' as 'column',
-        border: '1px solid white',
+        /* border: '1px solid white',
         '&:hover': {
             border: '1px solid black'
-        }
+        } */
     },
     image: {
         width: "100%",
     },
     tile: {
+        height: '100%',
         position: 'relative' as 'relative',
         margin: 0,
         display: 'block',
@@ -116,7 +117,8 @@ export type Link = {
 type Props = {
     index?: number;
     onImageLoad?: Function;
-    transformations?: ImageTransformations;
+    cols: number;
+    rows: number;
 } & CmsContent;
 
 const CardEnhanced: FC<Props> = ({
@@ -134,12 +136,18 @@ const CardEnhanced: FC<Props> = ({
     blend,
     color,
     link,
-    transformations,
+    cols,
+    rows,
     ...other
 }) => {
 
     const [imageLoading, setImageLoading] = useState(true);
     const imageRef = useRef<any>();
+
+    const [height, setHeight] = useState(0)
+    const [width, setWidth] = useState(0)
+    const [ratio, setRatio] = useState('1:1')
+    const parentRef = useRef<any>();
 
     const handleImageLoaded = () => {
         setImageLoading(false);
@@ -147,6 +155,10 @@ const CardEnhanced: FC<Props> = ({
             onImageLoad(index);
         }
     };
+
+    const gcd = (a: number, b: number): number => {
+        return (b == 0) ? a : gcd(b, a%b);
+    }
 
     useEffect(() => {
         if (imageRef?.current?.complete && imageLoading) {
@@ -157,35 +169,55 @@ const CardEnhanced: FC<Props> = ({
         }
     }, [imageRef?.current?.complete]);
 
+    useEffect(() => {
+        const h = parentRef.current?.clientHeight;
+        const w = parentRef.current?.clientWidth;
+        let r, ratio;
+
+        if(w && h){
+            r = gcd(w, h)
+            //ratio = w/r + ':' + h/r;
+            setWidth(Math.floor(w/cols))
+            setHeight(Math.floor(h/rows))
+            ratio = (cols === rows) ? w/r + ':' + h/r : (w/cols) * cols + ':' + (h/rows) * rows;
+            setRatio(ratio)
+            console.log('grid Width:', width)
+            console.log('grid height:', height)
+            console.log('ratio:', ratio)
+        }
+
+    })
+
     const { img } = image || {};
 
-    transformations ? transformations : {
+    const cardtransformations: ImageTransformations = {
         ...img?.image,
-        upscale: false,
+        upscale: true,
         strip: true,
         quality: 80,
-        scaleMode: !image?.disablePoiAspectRatio
-            ? ImageScaleMode.ASPECT_RATIO
-            : undefined,
+        width: (width * cols),
+        height: height * rows,
+        aspectRatio: ratio,
+        scaleMode: 'c',
         scaleFit: !image?.disablePoiAspectRatio
             && img?.image?.poi
             && img?.image?.poi.x != -1
             && img?.image?.poi.y != -1
-            ? ImageScaleFit.POINT_OF_INTEREST
+            ? 'poi'
             : undefined,
-    };
+    }
 
     //console.log(transformations);
 
     const content = <>
 
         {imageLoading ? <DefaultAdaptiveImageSkeleton /> : null}
-        <div className="img-place" style={{ display: `${imageLoading ? "none" : "block"}` }}>
+        <div className="img-place" style={{ display: `${imageLoading ? "none" : "block"}`, height: '100%' }}>
             <TrueAdaptiveImage
                 ref={imageRef}
                 onLoad={() => handleImageLoaded()}
                 image={img?.image.image}
-                transformations={transformations}
+                transformations={cardtransformations}
                 className={classes.image}
             />
         </div>
@@ -262,11 +294,11 @@ const CardEnhanced: FC<Props> = ({
 
     return (
         links[0] ? (
-            <a className={`${clsx(classes.tile)} amp-tile amp-tile-${index + 1} ${style || ''}`} href={links[0]?.value}>
+            <a ref={parentRef} className={`${clsx(classes.tile)} amp-tile amp-tile-${index + 1} ${style || ''}`} href={links[0]?.value}>
                 {content}
             </a>
         ) : (
-            <div className={`${clsx(classes.tile)} amp-tile amp-tile-${index + 1} ${style || ''}`}>
+            <div ref={parentRef} className={`${clsx(classes.tile)} amp-tile amp-tile-${index + 1} ${style || ''}`}>
                 {content}
             </div>
         )
