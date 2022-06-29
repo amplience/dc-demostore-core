@@ -58,7 +58,6 @@ export const WithNavigationContext: FC<{
             const { en } = item.slug || {};
             result[item.slug] = item;
         }
-        // console.log(result)
         return result;
     }, [categories]);
 
@@ -198,9 +197,8 @@ export const WithNavigationContext: FC<{
 
             switch (type) {
                 case 'category':
-                    // console.log(node)
-                    // console.log(`buildCategoryItem: [ ${node.content.name} ]`)
-                    return buildCategoryItem(node, categoriesBySlug[node.content.name]);
+                    let category = categoriesBySlug[node.content._meta.deliveryKey.replace(`category/`, '')] || categoriesBySlug[node.content.name]
+                    return buildCategoryItem(node, category);
                 case 'group':
                     return buildGroupItem(node);
                 case 'page':

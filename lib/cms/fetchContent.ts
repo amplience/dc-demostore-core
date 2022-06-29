@@ -41,7 +41,7 @@ function isGetByFilterRequest(request: any): request is GetByFilterRequest {
 
 const fetchContent = async (items: CmsRequest[], context: CmsContext, parameters = { "depth": "all", "format": "inlined" }): Promise<(CmsContent | CmsFilterResponse | null)[]> => {
     const { cms } = await createAppContext()
-    const host = cms.stagingApi || `${cms.hub}.cdn.content.amplience.net`;
+    const host = context.stagingApi || `${cms.hub}.cdn.content.amplience.net`;
     return await Promise.all(items.map((request: CmsRequest): Promise<CmsContent | CmsFilterResponse> => {
         if (isGetByFilterRequest(request)) {
             let body = JSON.stringify({

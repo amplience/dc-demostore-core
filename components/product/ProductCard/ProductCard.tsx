@@ -123,10 +123,10 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
                         <Typography variant="body2" component="div" className={classes.overview}>
                             {longDescription}
                         </Typography>
-                        { (variant.listPrice === variant.salePrice || _.isEmpty(variant.salePrice)) &&
+                        { (!variant.salePrice || variant.listPrice === variant.salePrice || _.isEmpty(variant.salePrice)) &&
                             variant.listPrice
                         }
-                        { variant.listPrice !== variant.salePrice &&
+                        { variant.salePrice && variant.listPrice !== variant.salePrice &&
                             <div>                                
                                 <span className={classes.salePrice}>{variant.listPrice}</span> {variant.salePrice}
                             </div>

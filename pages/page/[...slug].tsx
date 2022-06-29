@@ -24,16 +24,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const slots = await fetchPageData({
         content: {
-            slots: data.content.page?.slots.map(mapToID)
+            slots: (data.content.page?.slots || []).map(mapToID)
         }
     }, context)
 
     return {
         props: {
             ...data,
-            slots: slots.content.slots
+            slots: slots?.content?.slots
         }
-    };
+    }
 }
 
 export default function LandingPage({ content, slots }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -43,7 +43,7 @@ export default function LandingPage({ content, slots }: InferGetServerSidePropsT
                 slots.filter(notNull).map((slot: CmsContent) => (<ContentBlock content={slot} type="SLOT" key={nanoid()} />))
             }
             {
-                content?.page?.components.filter(notNull).map((content: CmsContent) => (<ContentBlock content={content} key={nanoid()} />))
+                content?.page?.components?.filter(notNull).map((content: CmsContent) => (<ContentBlock content={content} key={nanoid()} />))
             }
         </div>
     )

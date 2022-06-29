@@ -39,3 +39,4 @@ logs
 *.log
 
 localStorage/
+tsconfig.tsbuildinfo
