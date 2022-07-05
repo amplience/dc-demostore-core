@@ -9,6 +9,7 @@ import { WithUserContext } from '@lib/user/UserContext'
 import { WithCmsContext } from '@lib/cms/CmsContext'
 import { WithAppContext } from '@lib/config/AppContext'
 import { WithDebugState, WithUI } from '@components/ui'
+import { WithWindowContext } from '@components/cms-modern/ShoppableImage/WindowContext';
 import { configureAnalytics } from '@lib/analytics/configureAnalytics'
 import WithCart from '@components/cart/CartContext'
 
@@ -59,9 +60,11 @@ export default class MyApp extends NextApp<AppProps> {
                   <WithCmsContext value={pageProps.context?.cmsContext}>
                     <ConfigContext.Provider value={{values: pageProps.content?.configComponents}}>
                       <WithDebugState>
+                      <WithWindowContext>
                         <Layout pageProps={pageProps}>
                           <Component {...pageProps} />
                         </Layout>
+                        </WithWindowContext>
                       </WithDebugState>
                     </ConfigContext.Provider>
                   </WithCmsContext>
