@@ -1,5 +1,3 @@
-import { MediaImageLink } from "dc-extensions-sdk/dist/types/lib/components/MediaLink";
-
 export interface ShoppableImagePoi {
   x: number;
   y: number;
@@ -27,7 +25,6 @@ export interface ShoppableImagePolygon {
 }
 
 export interface ShoppableImageData {
-  image: MediaImageLink;
   poi?: ShoppableImagePoi;
   hotspots?: ShoppableImageHotspot[];
   polygons?: ShoppableImagePolygon[];
