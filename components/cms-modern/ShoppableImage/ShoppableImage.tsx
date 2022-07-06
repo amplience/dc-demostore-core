@@ -59,16 +59,16 @@ const ShoppableImage: FC<Props> = ({
         console.log('hotspot: ', hotspot);
         switch (hotspot.selector) {
             case '.page':
-                url = '/' + hotspot.target;
+                url = `/${hotspot.target}`;
                 break;
             case '.link':
                 url = hotspot.target;
                 break;
             case '.product':
-                url = '/product/' + hotspot.target;
+                url = `/product/${hotspot.target}`;
                 break;
             case '.category':
-                url = '/category/' + hotspot.target;
+                url = `/category/${hotspot.target}`;
                 break;
             default:
                 break;
