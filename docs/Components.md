@@ -18,6 +18,7 @@
 | externalBlock                | ExternalBlock                  | External block of HTML code                                               |
 | flexibleSlot                 | FlexibleSlot                   | Slot that allows a number of any content type                             |
 | image                        | Image                          | Basic image with SEO information                                          |
+| shoppableImage               | ShoppableImage                 | ![Shoppable Image](../media/component-shoppableImage.jpg)Image that allows you to add focal points, hotspots and polygons to make shoppable                          |
 | landingPage                  | LandingPage                    | ![Landing Page](../media/component-landingPage.png) A re-usable container for all content types with SEO information          |
 | landingpageSlot              | BannerSlot                     | Slot that can contain a landing page                                      |
 | localizedBannerSlot          | LocalizedBannerSlot            | Slot for localized banner                                                 |
