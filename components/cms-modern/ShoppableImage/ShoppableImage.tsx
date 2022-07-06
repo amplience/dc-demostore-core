@@ -11,7 +11,7 @@ import {
     ShoppableImagePoi,
     ShoppableImagePolygon,
 } from "./ShoppableImageData";
-import { useWindowContext } from './WindowContext';
+import { useWindowContext } from '../../core/WithWindowContext/WindowContext';
 import clsx from 'clsx';
 import { CircularProgress, Tooltip } from '@mui/material';
 

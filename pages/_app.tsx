@@ -9,7 +9,7 @@ import { WithUserContext } from '@lib/user/UserContext'
 import { WithCmsContext } from '@lib/cms/CmsContext'
 import { WithAppContext } from '@lib/config/AppContext'
 import { WithDebugState, WithUI } from '@components/ui'
-import { WithWindowContext } from '@components/cms-modern/ShoppableImage/WindowContext';
+import { WithWindowContext } from '@components/core/WithWindowContext/WindowContext';
 import { configureAnalytics } from '@lib/analytics/configureAnalytics'
 import WithCart from '@components/cart/CartContext'
 
