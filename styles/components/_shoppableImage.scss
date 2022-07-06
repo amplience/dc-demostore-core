@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   overflow: hidden;
   position: relative;
 }
@@ -74,8 +74,8 @@
 
 .amp-vis-page__polygon {
   position: absolute;
-  stroke: white;
-  stroke-dasharray: 2;
+  //stroke: white;
+  //stroke-dasharray: 2;
   fill: rgba(0, 41, 131, 0.33);
   transition: fill 0.33s, opacity 0.33s;
 }

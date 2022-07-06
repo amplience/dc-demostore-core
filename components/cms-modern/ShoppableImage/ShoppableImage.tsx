@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { CmsContent } from '@lib/cms/CmsContent';
-import Image from '../Image';
 import {
     pointsToSVGPath,
     PolygonForwardRef,
@@ -28,25 +27,48 @@ const ShoppableImage: FC<Props> = ({
     shoppableImage,
     scaleToFit = false,
     hotspotHide = false,
-    polygonHide = true,
+    polygonHide = false,
     focalPointHide = true
 }) => {
     const windowSize = useWindowContext();
+    const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });
+    const [canvasSize, setCanvasSize] = useState({ w: -1, h: -1 });
+    const [targetWidth, setTargetWidth] = useState(canvasSize.w);
+    const [targetHeight, setTargetHeight] = useState(800);
+    const [targetAspect, setTargetAspect] = useState(targetWidth / targetHeight);
 
-    const targetWidth = windowSize.w;
-    const targetHeight = windowSize.h;
+    const resizeWindow = () => {
+        if (refContainer.current) {
+            setCanvasSize({
+                w: refContainer.current.offsetWidth,
+                h: refContainer.current.offsetHeight,
+              });
+            setTargetWidth(refContainer.current.offsetWidth);
+        }
+      }
+
+    useLayoutEffect(() => {
+        if (refContainer.current) {
+            setCanvasSize({
+                w: refContainer.current.offsetWidth,
+                h: refContainer.current.offsetHeight,
+              });
+            setTargetWidth(refContainer.current.offsetWidth);
+        }
+        window.addEventListener("resize", resizeWindow);
+        return () => window.removeEventListener("resize", resizeWindow);
+    }, [refContainer]);
 
     const imageRef = React.createRef<HTMLImageElement>();
     const canvasRef = React.createRef<HTMLDivElement>();
-
-    const targetAspect = targetWidth / targetHeight;
 
     const imageLoaded = () => {
         setLoaded(true);
         if (imageRef.current) {
             setImageSize({ w: imageRef.current.width, h: imageRef.current.height });
+            setTargetHeight(imageRef.current.height);
         }
     };
 
@@ -252,10 +274,10 @@ const ShoppableImage: FC<Props> = ({
 
     useEffect(() => {
         setLoaded(false);
-    }, [src]);
+    }, [src]);   
 
     return (
-        <div className="amp-vis-page" style={{ height: targetHeight }}>
+        <div ref={refContainer} className="amp-vis-page" style={{ height: targetHeight }}>
             {image || false}
             {image && !loaded && <CircularProgress />}
             {canvas || false}
