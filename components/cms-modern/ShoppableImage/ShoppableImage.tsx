@@ -38,6 +38,15 @@ const ShoppableImage: FC<Props> = ({
     const [targetWidth, setTargetWidth] = useState(canvasSize.w);
     const [targetHeight, setTargetHeight] = useState(800);
     const [targetAspect, setTargetAspect] = useState(targetWidth / targetHeight);
+    const [ratio, setRatio] = useState({w:1, h:1})
+
+    const gcd = (a: number, b: number): number => {
+        return (b == 0) ? a : gcd(b, a%b);
+    }
+
+    
+    const [imageRef, setImageRef] = useState(React.createRef<HTMLImageElement>());
+    const canvasRef = React.createRef<HTMLDivElement>();
 
     const resizeWindow = () => {
         if (refContainer.current) {
@@ -47,7 +56,20 @@ const ShoppableImage: FC<Props> = ({
               });
             setTargetWidth(refContainer.current.offsetWidth);
         }
+
+        if (imageRef.current) {
+            setTargetHeight(imageRef.current.width / ratio.w);
+            setTargetWidth(imageRef.current.width);
+            //console.log('ratio:', ratio)
+            //console.log('imageSize:', imageSize) 
+            console.log('targetHeight:', targetHeight)  
+        }
       }
+
+    useEffect(() => {
+        window.addEventListener("resize", resizeWindow);
+        return () => window.removeEventListener("resize", resizeWindow);
+    }, [ratio])
 
     useLayoutEffect(() => {
         if (refContainer.current) {
@@ -56,19 +78,22 @@ const ShoppableImage: FC<Props> = ({
                 h: refContainer.current.offsetHeight,
               });
             setTargetWidth(refContainer.current.offsetWidth);
+            console.log('tW', targetWidth)
         }
-        window.addEventListener("resize", resizeWindow);
-        return () => window.removeEventListener("resize", resizeWindow);
     }, [refContainer]);
-
-    const imageRef = React.createRef<HTMLImageElement>();
-    const canvasRef = React.createRef<HTMLDivElement>();
 
     const imageLoaded = () => {
         setLoaded(true);
         if (imageRef.current) {
             setImageSize({ w: imageRef.current.width, h: imageRef.current.height });
             setTargetHeight(imageRef.current.height);
+
+            //if(imageSize.w > -1 && imageSize.h > -1){
+                let r = gcd(imageRef.current.width, imageRef.current.height)
+                let rati = {w: imageRef.current.width/r, h: imageRef.current.height/r};
+                setRatio(rati)
+                console.log('ratio:', rati)
+            //}
         }
     };
 
@@ -78,7 +103,7 @@ const ShoppableImage: FC<Props> = ({
 
     const hotspotLink = (hotspot: ShoppableImageHotspot | ShoppableImagePolygon) => {
         let url = '#';
-        console.log('hotspot: ', hotspot);
+        //console.log('hotspot: ', hotspot);
         switch (hotspot.selector) {
             case '.page':
                 url = `/${hotspot.target}`;
@@ -125,6 +150,8 @@ const ShoppableImage: FC<Props> = ({
                 ? targetWidth
                 : (imageSize.w / imageSize.h) * targetHeight;
 
+            //setCanvasSize({w: canvasWidth, h: canvasHeight})
+
             imageStyle = widthBounded ? { minWidth: "100%" } : { minHeight: "100%" };
         } else {
             // Fill image to canvas, centering on focal point. If the width is the bounding dimension, let it overflow, and vice versa.
@@ -134,6 +161,8 @@ const ShoppableImage: FC<Props> = ({
             canvasWidth = widthBounded
                 ? (imageSize.w / imageSize.h) * targetHeight
                 : targetWidth;
+
+            //setCanvasSize({w: canvasWidth, h: canvasHeight})
 
             // Determine a position offset based on the focal point, if present.
             if (shoppableImage.poi) {
