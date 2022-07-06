@@ -173,6 +173,7 @@ const ShoppableImage: FC<Props> = ({
             return {
                 transform: `translate(${hotspot.points.x * canvasWidth}px, ${hotspot.points.y * canvasHeight
                     }px)`,
+                cursor:'pointer'
             };
         };
 
@@ -206,7 +207,6 @@ const ShoppableImage: FC<Props> = ({
                                 (shoppableImage.polygons as ShoppableImagePolygon[])[index]
                             )}>
                             <Tooltip
-                                
                                 title={hotspotTitle(
                                     (shoppableImage.polygons as ShoppableImagePolygon[])[index]
                                 )}
@@ -226,8 +226,14 @@ const ShoppableImage: FC<Props> = ({
                 {shoppableImage &&
                     shoppableImage.hotspots &&
                     shoppableImage.hotspots.map((hotspot: any, index: number) => (
-                        <Link key={index} href={hotspotLink(hotspot)}>
-                            <Tooltip title={hotspotTitle(hotspot)} followCursor>
+                        <Link 
+                            key={index} 
+                            href={hotspotLink(hotspot)}
+                        >
+                            <Tooltip 
+                                title={hotspotTitle(hotspot)} 
+                                followCursor
+                            >
                                 <div
                                     className={clsx("amp-vis-page__hotspot", {
                                         "amp-vis-page__hotspot--hidden": hiddenHotspots,

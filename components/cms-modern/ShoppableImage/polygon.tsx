@@ -77,7 +77,7 @@ export function Polygon({
         height: polygon.bounds.h * size.y,
         left: polygon.bounds.x * size.x,
         top: polygon.bounds.y * size.y,
-
+        cursor: 'pointer',
         strokeWidth: 1.5 / size.x + "px",
         strokeDasharray: 5 / size.x + "px",
       }}
