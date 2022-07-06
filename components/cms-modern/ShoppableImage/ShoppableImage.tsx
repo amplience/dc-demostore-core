@@ -14,19 +14,22 @@ import {
 import { useWindowContext } from '../../core/WithWindowContext/WindowContext';
 import clsx from 'clsx';
 import { CircularProgress, Tooltip } from '@mui/material';
+import Link from 'next/link';
 
 type Props = {
     shoppableImage: any;
     scaleToFit: boolean;
     hotspotHide: boolean;
+    polygonHide: boolean;
     focalPointHide: boolean;
 } & CmsContent;
 
 const ShoppableImage: FC<Props> = ({
     shoppableImage,
     scaleToFit = false,
-    hotspotHide= false,
-    focalPointHide = false
+    hotspotHide = false,
+    polygonHide = true,
+    focalPointHide = true
 }) => {
     const windowSize = useWindowContext();
     const [loaded, setLoaded] = useState(false);
@@ -51,6 +54,28 @@ const ShoppableImage: FC<Props> = ({
         return `Target: ${hotspot.target} | Selector: ${hotspot.selector}`;
     };
 
+    const hotspotLink = (hotspot: ShoppableImageHotspot | ShoppableImagePolygon) => {
+        let url = '#';
+        console.log('hotspot: ', hotspot);
+        switch (hotspot.selector) {
+            case '.page':
+                url = '/' + hotspot.target;
+                break;
+            case '.link':
+                url = hotspot.target;
+                break;
+            case '.product':
+                url = '/product/' + hotspot.target;
+                break;
+            case '.category':
+                url = '/category/' + hotspot.target;
+                break;
+            default:
+                break;
+        }
+        return url;
+    };
+
     let polygons: SVGPath[] = [];
     if (shoppableImage && shoppableImage.polygons) {
         polygons = shoppableImage.polygons.map((polygon: any) => pointsToSVGPath(polygon.points));
@@ -59,6 +84,7 @@ const ShoppableImage: FC<Props> = ({
     let imageStyle: any = {};
     let canvas: JSX.Element | undefined;
     const hiddenHotspots = hotspotHide;
+    const hiddenPolygons = polygonHide;
     const hiddenFocalPoint = focalPointHide;
 
     if (shoppableImage && loaded) {
@@ -151,43 +177,49 @@ const ShoppableImage: FC<Props> = ({
 
                 {shoppableImage &&
                     shoppableImage.polygons &&
-                    polygons.map((polygon, index) => (
-                        <Tooltip
-                            key={index}
-                            title={hotspotTitle(
-                                (shoppableImage.polygons as ShoppableImagePolygon[])[index]
-                            )}
-                            followCursor
-                        >
-                            <PolygonForwardRef
-                                size={size}
-                                className={clsx("amp-vis-page__polygon", {
-                                    "amp-vis-page__polygon--hidden": hiddenHotspots,
-                                })}
-                                polygon={polygon}
-                            ></PolygonForwardRef>
-                        </Tooltip>
+                    polygons.map((polygon: any, index: number) => (
+                        <Link href={hotspotLink(
+                            (shoppableImage.polygons as ShoppableImagePolygon[])[index]
+                        )}>
+                            <Tooltip
+                                key={index}
+                                title={hotspotTitle(
+                                    (shoppableImage.polygons as ShoppableImagePolygon[])[index]
+                                )}
+                                followCursor
+                            >
+                                <PolygonForwardRef
+                                    size={size}
+                                    className={clsx("amp-vis-page__polygon", {
+                                        "amp-vis-page__polygon--hidden": hiddenPolygons,
+                                    })}
+                                    polygon={polygon}
+                                ></PolygonForwardRef>
+                            </Tooltip>
+                        </Link>
                     ))}
 
                 {shoppableImage &&
                     shoppableImage.hotspots &&
                     shoppableImage.hotspots.map((hotspot: any, index: number) => (
-                        <Tooltip key={index} title={hotspotTitle(hotspot)} followCursor>
-                            <div
-                                className={clsx("amp-vis-page__hotspot", {
-                                    "amp-vis-page__hotspot--hidden": hiddenHotspots,
-                                })}
-                                style={scaleHotspot(hotspot)}
-                            >
-                                <svg
-                                    viewBox="0 0 20 20"
-                                    className={clsx("amp-vis-page__hotspotplus")}
+                        <Link href={hotspotLink(hotspot)}>
+                            <Tooltip key={index} title={hotspotTitle(hotspot)} followCursor>
+                                <div
+                                    className={clsx("amp-vis-page__hotspot", {
+                                        "amp-vis-page__hotspot--hidden": hiddenHotspots,
+                                    })}
+                                    style={scaleHotspot(hotspot)}
                                 >
-                                    <rect x="9.15" y="3.5" width="1.7" height="13"></rect>
-                                    <rect y="9.15" x="3.5" width="13" height="1.7"></rect>
-                                </svg>
-                            </div>
-                        </Tooltip>
+                                    <svg
+                                        viewBox="0 0 20 20"
+                                        className={clsx("amp-vis-page__hotspotplus")}
+                                    >
+                                        <rect x="9.15" y="3.5" width="1.7" height="13"></rect>
+                                        <rect y="9.15" x="3.5" width="13" height="1.7"></rect>
+                                    </svg>
+                                </div>
+                            </Tooltip>
+                        </Link>
                     ))}
             </div>
         );
