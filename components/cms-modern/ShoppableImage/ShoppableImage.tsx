@@ -25,7 +25,7 @@ type Props = {
 
 const ShoppableImage: FC<Props> = ({
     shoppableImage,
-    scaleToFit = false,
+    //scaleToFit = false,
     hotspotHide = false,
     polygonHide = false,
     focalPointHide = true
@@ -38,13 +38,13 @@ const ShoppableImage: FC<Props> = ({
     const [targetWidth, setTargetWidth] = useState(canvasSize.w);
     const [targetHeight, setTargetHeight] = useState(800);
     const [targetAspect, setTargetAspect] = useState(targetWidth / targetHeight);
-    const [ratio, setRatio] = useState({w:1, h:1})
+    const [ratio, setRatio] = useState({ w: 1, h: 1 })
 
     const gcd = (a: number, b: number): number => {
-        return (b == 0) ? a : gcd(b, a%b);
+        return (b == 0) ? a : gcd(b, a % b);
     }
 
-    
+
     const [imageRef, setImageRef] = useState(React.createRef<HTMLImageElement>());
     const canvasRef = React.createRef<HTMLDivElement>();
 
@@ -53,30 +53,30 @@ const ShoppableImage: FC<Props> = ({
             setCanvasSize({
                 w: refContainer.current.offsetWidth,
                 h: refContainer.current.offsetHeight,
-              });
+            });
             setTargetWidth(refContainer.current.offsetWidth);
         }
 
         if (imageRef.current) {
-            setTargetHeight(imageRef.current.width / ratio.w);
+            setTargetHeight(imageRef.current.height);
             setTargetWidth(imageRef.current.width);
             //console.log('ratio:', ratio)
             //console.log('imageSize:', imageSize) 
-            console.log('targetHeight:', targetHeight)  
+            console.log('targetHeight:', targetHeight)
         }
-      }
+    }
 
     useEffect(() => {
         window.addEventListener("resize", resizeWindow);
         return () => window.removeEventListener("resize", resizeWindow);
-    }, [ratio])
+    }, [loaded])
 
     useLayoutEffect(() => {
         if (refContainer.current) {
             setCanvasSize({
                 w: refContainer.current.offsetWidth,
                 h: refContainer.current.offsetHeight,
-              });
+            });
             setTargetWidth(refContainer.current.offsetWidth);
             console.log('tW', targetWidth)
         }
@@ -88,12 +88,10 @@ const ShoppableImage: FC<Props> = ({
             setImageSize({ w: imageRef.current.width, h: imageRef.current.height });
             setTargetHeight(imageRef.current.height);
 
-            //if(imageSize.w > -1 && imageSize.h > -1){
-                let r = gcd(imageRef.current.width, imageRef.current.height)
-                let rati = {w: imageRef.current.width/r, h: imageRef.current.height/r};
-                setRatio(rati)
-                console.log('ratio:', rati)
-            //}
+            /* let r = gcd(imageRef.current.width, imageRef.current.height)
+            let rati = { w: imageRef.current.width / r, h: imageRef.current.height / r };
+            setRatio(rati)
+            console.log('ratio:', rati) */
         }
     };
 
@@ -141,7 +139,7 @@ const ShoppableImage: FC<Props> = ({
 
         let offsetTransform = '';
 
-        if (scaleToFit) {
+        //if (scaleToFit) {
             // Scale image to canvas. Focal point is not used.
             canvasHeight = widthBounded
                 ? (imageSize.h / imageSize.w) * targetWidth
@@ -153,7 +151,7 @@ const ShoppableImage: FC<Props> = ({
             //setCanvasSize({w: canvasWidth, h: canvasHeight})
 
             imageStyle = widthBounded ? { minWidth: "100%" } : { minHeight: "100%" };
-        } else {
+        /* } else {
             // Fill image to canvas, centering on focal point. If the width is the bounding dimension, let it overflow, and vice versa.
             canvasHeight = widthBounded
                 ? targetHeight
@@ -161,8 +159,6 @@ const ShoppableImage: FC<Props> = ({
             canvasWidth = widthBounded
                 ? (imageSize.w / imageSize.h) * targetHeight
                 : targetWidth;
-
-            //setCanvasSize({w: canvasWidth, h: canvasHeight})
 
             // Determine a position offset based on the focal point, if present.
             if (shoppableImage.poi) {
@@ -183,9 +179,9 @@ const ShoppableImage: FC<Props> = ({
             }
 
             imageStyle = widthBounded ? { height: "100%", maxWidth: "none" } : { width: "100%", maxHeight: "none" };
-        }
+        } */
 
-        imageStyle.transform = offsetTransform;
+        //imageStyle.transform = offsetTransform;
 
         const size = { x: canvasWidth, y: canvasHeight };
 
@@ -202,7 +198,7 @@ const ShoppableImage: FC<Props> = ({
             return {
                 transform: `translate(${hotspot.points.x * canvasWidth}px, ${hotspot.points.y * canvasHeight
                     }px)`,
-                cursor:'pointer'
+                cursor: 'pointer'
             };
         };
 
@@ -216,21 +212,21 @@ const ShoppableImage: FC<Props> = ({
                 }}
                 ref={canvasRef}
             >
-                {shoppableImage && shoppableImage.poi && shoppableImage.poi.x != null && (
+                {/* {shoppableImage && shoppableImage.poi && shoppableImage.poi.x != null && (
                     <div
                         className={clsx("amp-vis-page__focalpoint", {
                             "amp-vis-page__focalpoint--hidden": hiddenFocalPoint,
                         })}
-                        style={scaleSize(shoppableImage.poi)}
+                        //style={scaleSize(shoppableImage.poi)}
                     >
                         <div className="amp-vis-page__focalcircle"></div>
                     </div>
-                )}
+                )} */}
 
                 {shoppableImage &&
                     shoppableImage.polygons &&
                     polygons.map((polygon: any, index: number) => (
-                        <Link 
+                        <Link
                             key={index}
                             href={hotspotLink(
                                 (shoppableImage.polygons as ShoppableImagePolygon[])[index]
@@ -255,12 +251,12 @@ const ShoppableImage: FC<Props> = ({
                 {shoppableImage &&
                     shoppableImage.hotspots &&
                     shoppableImage.hotspots.map((hotspot: any, index: number) => (
-                        <Link 
-                            key={index} 
+                        <Link
+                            key={index}
                             href={hotspotLink(hotspot)}
                         >
-                            <Tooltip 
-                                title={hotspotTitle(hotspot)} 
+                            <Tooltip
+                                title={hotspotTitle(hotspot)}
                                 followCursor
                             >
                                 <div
@@ -301,7 +297,7 @@ const ShoppableImage: FC<Props> = ({
                 className={clsx("amp-vis-page__image", {
                     "amp-vis-page__image--hide": !loaded,
                 })}
-                style={imageStyle}
+                style={{width: "100%", height: "auto"}}
                 onLoad={() => {
                     imageLoaded();
                 }}
@@ -311,7 +307,7 @@ const ShoppableImage: FC<Props> = ({
 
     useEffect(() => {
         setLoaded(false);
-    }, [src]);   
+    }, [src]);
 
     return (
         <div ref={refContainer} className="amp-vis-page" style={{ height: targetHeight }}>
