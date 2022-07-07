@@ -8,6 +8,6 @@
 - Filter API implementation for Store page & Product Details Page personalisation
 - GraphQL implentation to connect to e-Commerce (CommerceTools, BigCommerce, file based catalog, etc.)
 - Admin Panel (visualise content, slots, editons, switch between production and staging view)
-- Custom Dashboards (translation & production Kanban board)
+- Custom Dashboards (translation & production Kanban board, deep clone)
 
 [back](../README.md)
