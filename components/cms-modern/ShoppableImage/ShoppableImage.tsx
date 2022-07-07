@@ -87,11 +87,6 @@ const ShoppableImage: FC<Props> = ({
         if (imageRef.current) {
             setImageSize({ w: imageRef.current.width, h: imageRef.current.height });
             setTargetHeight(imageRef.current.height);
-
-            /* let r = gcd(imageRef.current.width, imageRef.current.height)
-            let rati = { w: imageRef.current.width / r, h: imageRef.current.height / r };
-            setRatio(rati)
-            console.log('ratio:', rati) */
         }
     };
 
@@ -139,49 +134,14 @@ const ShoppableImage: FC<Props> = ({
 
         let offsetTransform = '';
 
-        //if (scaleToFit) {
-            // Scale image to canvas. Focal point is not used.
-            canvasHeight = widthBounded
-                ? (imageSize.h / imageSize.w) * targetWidth
-                : targetHeight;
-            canvasWidth = widthBounded
-                ? targetWidth
-                : (imageSize.w / imageSize.h) * targetHeight;
+        canvasHeight = widthBounded
+            ? (imageSize.h / imageSize.w) * targetWidth
+            : targetHeight;
+        canvasWidth = widthBounded
+            ? targetWidth
+            : (imageSize.w / imageSize.h) * targetHeight;
 
-            //setCanvasSize({w: canvasWidth, h: canvasHeight})
-
-            imageStyle = widthBounded ? { minWidth: "100%" } : { minHeight: "100%" };
-        /* } else {
-            // Fill image to canvas, centering on focal point. If the width is the bounding dimension, let it overflow, and vice versa.
-            canvasHeight = widthBounded
-                ? targetHeight
-                : (imageSize.h / imageSize.w) * targetWidth;
-            canvasWidth = widthBounded
-                ? (imageSize.w / imageSize.h) * targetHeight
-                : targetWidth;
-
-            // Determine a position offset based on the focal point, if present.
-            if (shoppableImage.poi) {
-                const poiX = (shoppableImage.poi.x + shoppableImage.poi.w / 2 - 0.5) * canvasWidth;
-                const poiY = (shoppableImage.poi.y + shoppableImage.poi.h / 2 - 0.5) * canvasHeight;
-
-                if (widthBounded) {
-                    // Width overflow, center on x.
-                    const maxDist = (canvasWidth - targetWidth) / 2;
-
-                    offsetTransform = `translate(${Math.min(maxDist, Math.max(-poiX, -maxDist))}px, 0)`;
-                } else {
-                    // Height overflow, center on y.
-                    const maxDist = (canvasHeight - targetHeight) / 2;
-
-                    offsetTransform = `translate(0, ${Math.min(maxDist, Math.max(-poiY, -maxDist))}px)`;
-                }
-            }
-
-            imageStyle = widthBounded ? { height: "100%", maxWidth: "none" } : { width: "100%", maxHeight: "none" };
-        } */
-
-        //imageStyle.transform = offsetTransform;
+        imageStyle = widthBounded ? { minWidth: "100%" } : { minHeight: "100%" };
 
         const size = { x: canvasWidth, y: canvasHeight };
 
@@ -212,16 +172,6 @@ const ShoppableImage: FC<Props> = ({
                 }}
                 ref={canvasRef}
             >
-                {/* {shoppableImage && shoppableImage.poi && shoppableImage.poi.x != null && (
-                    <div
-                        className={clsx("amp-vis-page__focalpoint", {
-                            "amp-vis-page__focalpoint--hidden": hiddenFocalPoint,
-                        })}
-                        //style={scaleSize(shoppableImage.poi)}
-                    >
-                        <div className="amp-vis-page__focalcircle"></div>
-                    </div>
-                )} */}
 
                 {shoppableImage &&
                     shoppableImage.polygons &&
