@@ -23,6 +23,7 @@
 | localizedBannerSlot          | LocalizedBannerSlot            | Slot for localized banner                                                 |
 | personalizedBannerSlot       | PersonalizedBannerSlot         | Slot that can accept multiple banner for different segments               |
 | productGrid                  | ProductGrid                    | ![Dynamic Product Grid](../media/component-dynamicProductGrid.png) Dynamic product grid based on a query and category                        |
+| shoppableImage               | ShoppableImage                 | ![Shoppable Image](../media/component-shoppableImage.jpg)Image that allows you to add focal points, hotspots and polygons to make shoppable                          |
 | simpleBanner                 | SimpleBanner                   | ![Simple Banner](../media/component-simpleBanner.png) Simple banner                                                             |
 | simpleLocalizedBanner        | SimpleBanner                   | ![Simple Localized Banner](../media/component-simpleLocalizedBanner.png) Simple localized banner                                                   |
 | slider                       | Slider                         | Slider that can contain images or videos                         |

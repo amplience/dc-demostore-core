@@ -6,6 +6,7 @@
 - [Product Detail Page Layout](#product-detail-page-layout)
 - [Theming](#theming)
 - [Admin UI Panels](#admin-ui-panels)
+- [Shoppable Image](#shoppable-image)
 
 ## Fetching content
 
@@ -436,5 +437,22 @@ const panels = [
   }
 ]
 ```
+
+## Shoppable Image
+
+This extension allows users to define Focal Points and interactable Hotspots over an image, in a format similar to what Content Hub provides, but with the data being stored on a content item.
+
+![Shoppable Image](../media/component-shoppableImage.jpg)
+
+The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub and this alpha version of the component has been added to Demo Store Core. Note: POI is not implemented in the Component yet but will be in a future release.
+
+There are several options that you can put in the selector column that drive specific functionality from the information in the target.
+
+| Target          | Selector                |
+| --------------- | ----------------------- |
+| Relative path to a page on this site<br/>`mycategory/mypage` | `.page` |
+| Absolute URL to a page on any site<br/>`https://amplience.com` | `.link` |
+| The ID of the product<br/>`123456789` | `.product` |
+| The slug of the category<br/>`women-bags` | `.category` |
 
 [top](#table-of-content)

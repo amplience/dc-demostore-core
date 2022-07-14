@@ -35,3 +35,7 @@ You do not have to run any code to resolve this issue. You can simply log into y
 7. Save and publish your content item
 
 > The content delivery API has a cache of up to 5 mins. So you may have to wait for up to 5 mins to see the change
+
+## Deep Copy Dashboard extension has no hub ID
+
+Please install the latest version of [dc-demostore-cli](https://github.com/amplience/dc-demostore-cli)
