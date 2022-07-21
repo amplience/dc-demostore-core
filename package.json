@@ -62,7 +62,8 @@
     "webpack": "^5.68.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
+    "@babel/core": "7.18.6",
+    "@babel/types": "7.18.6",
     "@storybook/addon-actions": "^6.5.0-alpha.45",
     "@storybook/addon-essentials": "^6.5.0-alpha.45",
     "@storybook/addon-links": "^6.5.0-alpha.45",
@@ -87,7 +88,9 @@
     "style-loader": "^3.3.1"
   },
   "resolutions": {
-    "@types/react": "^17.0.30"
+    "@types/react": "^17.0.30",
+    "@babel/core": "7.18.6",
+    "@babel/types": "7.18.6"
   },
   "keywords": [
     "amplience",
@@ -103,3 +106,4 @@
   },
   "homepage": "https://github.com/amplience/dc-demostore-core#readme"
 }
+
