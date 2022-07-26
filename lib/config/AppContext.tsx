@@ -41,6 +41,7 @@ export async function createAppContext(): Promise<DemoStoreConfiguration> {
     if (typeof context.cms.hub === 'object') {
         context.cms = {
             hub: (context.cms.hub as any).name,
+            hubId: (context.cms.hub as any).hubId,
             stagingApi: (context.cms.hub as any).stagingApi,
             imageHub: (context.cms as any).hubs.find((hub: any) => hub.key === 'productImages')?.name
         }

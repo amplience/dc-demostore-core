@@ -1,8 +1,8 @@
-import { apiRouteHandler, CommerceAPI, ConfigLocatorBlock, getCommerceAPI as integrationGetCommerceAPI, Category, CommonArgs, CustomerGroup, GetCommerceObjectArgs, GetProductsArgs, Product } from '@amplience/dc-demostore-integration'
+import { middleware, CommerceAPI, ConfigLocatorBlock, getCommerceAPI as integrationGetCommerceAPI, Category, CommonArgs, CustomerGroup, GetCommerceObjectArgs, GetProductsArgs, Product } from '@amplience/dc-demostore-integration'
 import { configLocator } from '@lib/config/AppContext'
 
 // add the /api route
-export default apiRouteHandler
+export default middleware
 
 let configuredApi: CommerceAPI
 const initCommerceAPI = async (config: ConfigLocatorBlock) => {
