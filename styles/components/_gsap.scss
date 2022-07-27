@@ -1,0 +1,45 @@
+  .container {
+    max-height: 300px;
+      overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+  }
+  
+  .panel {
+    scroll-snap-align: start;
+    height: 300px;
+  }
+  
+  .red {
+    background-color: #cf3535;
+    background-image: none;
+  }
+  
+  .panel p {
+    font-size: 32px;
+  }
+  
+  .comparisonSection {
+    position: relative;
+    margin-top: 20px;
+    margin-left: -58px;
+    padding-bottom: 56.25%; /* to maintain aspect ratio (responsive!) */
+  }
+  .comparisonImage {
+    width: 100%;
+    height: 100%;
+  }
+  .afterImage {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    transform: translate(100%, 0px);
+  }
+  .afterImage img {
+    transform: translate(-100%, 0px);
+  }
+  .comparisonImage img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+  }

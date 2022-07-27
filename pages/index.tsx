@@ -6,6 +6,7 @@ import fetchPageData from "@lib/page/fetchPageData";
 import ContentBlock from '@components/cms-modern/ContentBlock/ContentBlock';
 import _ from 'lodash';
 import { mapToID } from '@lib/util';
+import ParallaxSections from '@components/cms-modern/ParallaxSections';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const data = await fetchStandardPageData({
@@ -33,6 +34,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div className="af-main-content">
+      <ParallaxSections/>
       {
         _.compact(slots).map(slot => <ContentBlock content={slot} type="SLOT" key={slot?._meta.deliveryId} />)
       }

@@ -22,6 +22,7 @@ import FlexibleSlot             from '@components/cms-modern/FlexibleSlot';
 import Image                    from '@components/cms-modern/Image';
 import LandingPage              from '@components/cms-modern/LandingPage';
 import LocalizedBannerSlot      from '@components/cms-modern/LocalizedBannerSlot';
+import ParallaxSections         from '@components/cms-modern/ParallaxSections';
 import PersonalizedBannerSlot   from '@components/cms-modern/PersonalizedBannerSlot';
 import ProductGrid              from '@components/cms/ProductGrid';
 import ProductContent           from '@components/cms-modern/ProductContent';
@@ -72,6 +73,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/theme-wrapper'          : ThemeWrapper,
     'https://demostore.amplience.com/content/video'                  : Video,
     'https://demostore.amplience.com/content/product'                : ProductContent,
+    'https://demostore.amplience.com/content/parallax-sections'      : ParallaxSections,
     'https://demostore.amplience.com/site/palette'                   : ThemePaletteSpec,
     'https://demostore.amplience.com/site/typography'                : ThemeTypographySpec,
     'https://demostore.amplience.com/slots/banner'                   : BannerSlot,
