@@ -51,5 +51,8 @@
   "exclude": [
     "node_modules",
     "test"
+  ],
+  "files": [
+    "node_modules/gsap/types/index.d.ts"
   ]
 }

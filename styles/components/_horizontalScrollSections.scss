@@ -1,0 +1,46 @@
+body {
+  overflow-x: hidden;
+}
+
+.hss-appli {
+  font-family: sans-serif;
+  text-align: center;
+  height: 300vh;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.hss-section {
+  height: 100vh;
+  margin-left: -58px;
+}
+
+.hss-horizontal-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.hss-item {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hss-item:nth-of-type(odd) {
+  background: lightcyan;
+}
+
+.hss-item:nth-of-type(even) {
+  background: lightpink;
+}

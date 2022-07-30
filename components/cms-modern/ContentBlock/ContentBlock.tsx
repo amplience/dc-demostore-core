@@ -19,6 +19,7 @@ import CustomRichText           from '@components/cms-modern/CustomRichText';
 import DynamicBlogList          from '@components/cms/DynamicBlogList';
 import ExternalBlock            from '@components/cms-modern/ExternalBlock';
 import FlexibleSlot             from '@components/cms-modern/FlexibleSlot';
+import HorizontalScrollSections from '@components/cms-modern/HorizontalScrollSections';
 import Image                    from '@components/cms-modern/Image';
 import LandingPage              from '@components/cms-modern/LandingPage';
 import LocalizedBannerSlot      from '@components/cms-modern/LocalizedBannerSlot';
@@ -58,6 +59,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/curated-product-grid'   : CuratedProductGrid,
     'https://demostore.amplience.com/content/dynamic-blog-list'      : DynamicBlogList,
     'https://demostore.amplience.com/content/html'                   : ExternalBlock,
+    'https://demostore.amplience.com/content/horizontal-scroll-sections' : HorizontalScrollSections,
     'https://demostore.amplience.com/content/image'                  : Image,
     'https://demostore.amplience.com/content/landing-page'           : LandingPage,
     'https://demostore.amplience.com/content/product-grid'           : ProductGrid,
