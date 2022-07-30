@@ -57,11 +57,3 @@ div.hss-item h1 {
   flex-direction: column;
   justify-content: center;
 }
-
-.hss-item:nth-of-type(odd) {
-  background: lightcyan;
-}
-
-.hss-item:nth-of-type(even) {
-  background: lightpink;
-}
