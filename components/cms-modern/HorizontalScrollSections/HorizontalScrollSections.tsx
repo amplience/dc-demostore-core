@@ -64,12 +64,21 @@ const HorizontalScrollSections: React.FC<HorizontalScrollSectionsProps> = ({
         }
     }, [itemRef]);
 
+    useEffect(() => {
+        function handleResize() {
+            if (itemRef.current != null) {
+                setHeight(itemRef?.current?.offsetWidth + itemRef?.current?.offsetHeight);
+            }
+        }
+        window.addEventListener('resize', handleResize)
+    }, [])
+
   return (
     <div className="hss-appli" style={{height}}>
         <section className="hss-section">
             <div className="hss-horizontal-container" ref={itemRef}>
                 {items.map((i) => (
-                <div className="hss-item">{i}</div>
+                <div className="hss-item" key={i}>{i}</div>
                 ))}
             </div>
         </section>

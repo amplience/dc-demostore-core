@@ -60,6 +60,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/dynamic-blog-list'      : DynamicBlogList,
     'https://demostore.amplience.com/content/html'                   : ExternalBlock,
     'https://demostore.amplience.com/content/horizontal-scroll-sections' : HorizontalScrollSections,
+    'https://demostore.amplience.com/content/parallax-sections'      : HorizontalScrollSections,
     'https://demostore.amplience.com/content/image'                  : Image,
     'https://demostore.amplience.com/content/landing-page'           : LandingPage,
     'https://demostore.amplience.com/content/product-grid'           : ProductGrid,
