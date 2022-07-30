@@ -2,7 +2,7 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { CmsContent } from '@lib/cms/CmsContent';
 import { withStyles, WithStyles } from '@mui/styles'
-import { Theme } from '@mui/material';
+import { Button, Theme, Typography } from '@mui/material';
 import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -77,9 +77,33 @@ const HorizontalScrollSections: React.FC<HorizontalScrollSectionsProps> = ({
     <div className="hss-appli" style={{height}}>
         <section className="hss-section">
             <div className="hss-horizontal-container" ref={itemRef}>
-                {items.map((i) => (
-                <div className="hss-item" key={i}>{i}</div>
-                ))}
+                {
+                    cards?.map((card: any, index: number) => {
+                        return (
+                            <div className="hss-item" key={index}>
+                                <div className="hss-background" style={{
+                                    backgroundImage: `url(https://${card.image.image.defaultHost}/i/${card.image.image.endpoint}/${card.image.image.name})`
+                                }}></div>
+                                <div style={{paddingBottom: 20}}><h1>{card.cardName}</h1></div>
+                                <div>
+                                {
+                                    card.links && card.links.map((link: any, i: number) => {
+                                    if (link.label) {
+                                        return (
+                                        <Button className={classes.links} href={link.value} key={i}>
+                                            <Typography variant="h4" className={classes.linkText}>{link.label}</Typography>
+                                        </Button>
+                                        )
+                                    } else {
+                                        return null;
+                                    }
+                                    })
+                                }
+                                </div>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </section>
     </div>
