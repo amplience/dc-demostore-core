@@ -1,41 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+node_modules
+.turbo
+build/**
+dist/**
+.next/**
+.history/*
+.vscode/*
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-.env*
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-storybook-static
-.vercel
-
-
-config/content-type-schemas/
-config/content-types/
-
-package-lock.json
-pnpm*
-
-logs
-*.log
-
-localStorage/
-tsconfig.tsbuildinfo
