@@ -1,11 +1,14 @@
-import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from "@mui/material";
+import {
+  createTheme,
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+} from "@mui/material";
 import React, { FC } from "react";
 
-
-declare module '@mui/styles/defaultTheme' {
+declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
-
 
 const theme = createTheme({
   palette: {
@@ -104,9 +107,9 @@ const theme = createTheme({
       fontStyle: "italic",
     },
   },
-})
+});
 
-const WithTheme: FC = ({ children }) => {
+const WithTheme: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>

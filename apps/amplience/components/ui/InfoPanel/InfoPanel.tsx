@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { Theme } from "@mui/material";
 import clsx from "clsx";
-import { withStyles, WithStyles } from '@mui/styles'
+import { withStyles, WithStyles } from "@mui/styles";
 
 const styles = (theme: Theme) => ({
   root: {
@@ -20,7 +20,7 @@ interface Props extends PropsWithChildren<WithStyles<typeof styles>> {
   borderStyle?: string;
 }
 
-const InfoPanel: React.SFC<Props> = (props) => {
+const InfoPanel: React.FC<Props> = (props) => {
   const {
     classes,
     className,
@@ -32,7 +32,7 @@ const InfoPanel: React.SFC<Props> = (props) => {
     ...other
   } = props;
 
-  function hexToRgb(hex:string) {
+  function hexToRgb(hex: string) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function (m, r, g, b) {
@@ -49,13 +49,17 @@ const InfoPanel: React.SFC<Props> = (props) => {
       : null;
   }
 
-  function getRGB(str:string){
-    var match = str.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
-    return match ? {
-      r: match[1],
-      g: match[2],
-      b: match[3]
-    } : {};
+  function getRGB(str: string) {
+    var match = str.match(
+      /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
+    );
+    return match
+      ? {
+          r: match[1],
+          g: match[2],
+          b: match[3],
+        }
+      : {};
   }
 
   var colobj;
@@ -64,32 +68,35 @@ const InfoPanel: React.SFC<Props> = (props) => {
   if (col.indexOf("#") == 0) {
     colobj = hexToRgb(col);
   }
-  if(col.indexOf('rgb') == 0){
-      // need to get the rgb.
-      colobj = getRGB(col)
+  if (col.indexOf("rgb") == 0) {
+    // need to get the rgb.
+    colobj = getRGB(col);
   }
 
   // border style
   var borderstr;
-  switch(borderStyle){
-    case 'none':
-      borderstr = 'none';
+  switch (borderStyle) {
+    case "none":
+      borderstr = "none";
       break;
-    case 'white':
-      borderstr = '5px solid white';
+    case "white":
+      borderstr = "5px solid white";
       break;
-    case 'black':
-      borderstr = '5px solid black';
+    case "black":
+      borderstr = "5px solid black";
       break;
     default:
-      borderstr = 'none';
+      borderstr = "none";
   }
 
   return (
     <div
       className={clsx(classes.root, className)}
       {...other}
-      style={{ backgroundColor: `rgba(${colobj?.r},${colobj?.g},${colobj?.b},${opacity})`, border: borderstr}}
+      style={{
+        backgroundColor: `rgba(${colobj?.r},${colobj?.g},${colobj?.b},${opacity})`,
+        border: borderstr,
+      }}
     >
       {children}
     </div>
