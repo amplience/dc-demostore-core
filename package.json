@@ -10,7 +10,15 @@
     "packages": [
       "apps/*",
       "packages/*"
+    ],
+    "nohoist": [
+      "@amplience/dc-demostore-core/**"
     ]
+  },
+  "resolutions": {
+    "@types/react": "^17.0.30",
+    "@babel/core": "7.18.6",
+    "@babel/types": "7.18.6"
   },
   "scripts": {
     "build": "turbo run build",
@@ -19,6 +27,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "turbo": "^1.4.4"
+    "turbo": "^1.4.4",
+    "sass-loader": "^12.4.0"
   }
 }
