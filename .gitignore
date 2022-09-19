@@ -5,4 +5,5 @@ dist/**
 .next/**
 .history/*
 .vscode/*
+.DS_Store
 
