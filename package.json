@@ -10,9 +10,6 @@
     "packages": [
       "apps/*",
       "packages/*"
-    ],
-    "nohoist": [
-      "@amplience/dc-demostore-core/**"
     ]
   },
   "resolutions": {
