@@ -61,7 +61,7 @@ const BlogCard: FC<Props> = ({
             </>
           ) : (
             <>
-              <div className="amp-dc-card-link">Read More WOW!!</div>
+              <div className="amp-dc-card-link">Read More??</div>
             </>
           )}
         </div>
