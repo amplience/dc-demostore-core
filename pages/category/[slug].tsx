@@ -51,8 +51,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // use the content to get by ID if available in the content to control. Otherwise use the slug
     let category
     if (data.content.page?.name){
-        slug = data.content.page?.name
-        category = await commerceApi.getCategory({ id:slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+        const cmsslug = data.content.page?.name
+        category = await commerceApi.getCategory({ id: cmsslug, ...await createCmsContext(context.req), ...await createUserContext(context) })
     }else{
         category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
     }
