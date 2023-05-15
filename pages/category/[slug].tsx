@@ -47,8 +47,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     slug = Array.isArray(slug) ? slug.join('/') : slug
-    const category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
-
+    
+    // use the content to get by ID if available in the content to control. Otherwise use the slug
+    let category
+    if (data.content.page?.name){
+        slug = data.content.page?.name
+        category = await commerceApi.getCategory({ id:slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+    }else{
+        category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+    }
     const slots = await fetchPageData({
         content: {
             slots: (data.content.page?.slots || []).map(mapToID)
@@ -79,7 +86,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
     let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS
     let components: CmsContent[] = props.content?.page?.components || []
     let pageSlots: CmsContent[] = slots
-    let products: Product[] = category.products
+    let products: Product[] = category?.products
 
     return (<>
         <PageContent>
@@ -107,7 +114,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                     </div>
                     <div className={classes.results}>
                         <ProductGrid>
-                            {products.map(product => <ProductCard key={nanoid()} data={product} />)}
+                            {products?.map(product => <ProductCard key={nanoid()} data={product} />)}
                         </ProductGrid>
                     </div>
                 </div>
