@@ -236,7 +236,7 @@ const ShoppableImage: FC<Props> = ({
         const imageHost = shoppableImage.image.defaultHost;
         src = `https://${imageHost}/i/${shoppableImage.image.endpoint}/${encodeURIComponent(
             shoppableImage.image.name
-        )}`;
+        )}?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40`;
 
         image = (
             <img

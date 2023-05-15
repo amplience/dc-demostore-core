@@ -65,7 +65,7 @@ const Text: FC<Props> = ({
                             return (
                                 data && <picture key={data.name} className="amp-dc-image">
                                     <img 
-                                        src={`https://${data.defaultHost}/i/${data.endpoint}/${encodeURIComponent(data.name)}?upscale=false&strip=true`} 
+                                        src={`https://${data.defaultHost}/i/${data.endpoint}/${encodeURIComponent(data.name)}?upscale=false&strip=true&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40`} 
                                         className="amp-dc-image-pic"
                                         alt={data.name}
                                     />
