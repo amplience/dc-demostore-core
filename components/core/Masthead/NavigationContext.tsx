@@ -95,7 +95,9 @@ export const WithNavigationContext: FC<{
                 type: 'category',
                 title:  ecommerceCategory?.name,
                 //href: cmsCategory?.content?._meta?.deliveryKey || ecommerceCategory?.slug?.en ? `/category/${ecommerceCategory?.slug?.en}` : null,
-                href: cmsCategory?.content?._meta?.deliveryKey ? cmsCategory?.content?._meta?.deliveryKey.split('/')[1] : `${ecommerceCategory?.slug}`,
+                // to use slug as URL, use next line
+                //href: cmsCategory?.content?._meta?.deliveryKey ? cmsCategory?.content?._meta?.deliveryKey.split('/')[1] : `${ecommerceCategory?.slug}`,
+                href: `/category/${ecommerceCategory?.slug}`,
                 content: cmsCategory?.content,
                 category: ecommerceCategory,
                 children,
@@ -264,6 +266,7 @@ export const WithNavigationContext: FC<{
 
         for (let rootItem of rootItems) {
             walkNavigation(rootItem, (node: NavigationItem, parents: NavigationItem[]) => {
+                //console.log(node.href + ' ==? ' + href)
                 if (node.href === href) {
                     result = node;
                 }
