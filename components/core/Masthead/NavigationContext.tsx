@@ -89,11 +89,13 @@ export const WithNavigationContext: FC<{
 
             const children: NavigationItem[] = [];
 
+            //const seoUrl = cmsCategory?.content?._meta?.deliveryKey ? cmsCategory?.content?._meta?.deliveryKey.split('/')[1] : `${ecommerceCategory?.slug}`
+
             const result = {
                 type: 'category',
                 title:  ecommerceCategory?.name,
-                // href: cmsCategory?.content?._meta?.deliveryKey || ecommerceCategory?.slug?.en ? `/category/${ecommerceCategory?.slug?.en}` : null,
-                href: `/category/${ecommerceCategory?.slug}`,
+                //href: cmsCategory?.content?._meta?.deliveryKey || ecommerceCategory?.slug?.en ? `/category/${ecommerceCategory?.slug?.en}` : null,
+                href: cmsCategory?.content?._meta?.deliveryKey ? cmsCategory?.content?._meta?.deliveryKey.split('/')[1] : `${ecommerceCategory?.slug}`,
                 content: cmsCategory?.content,
                 category: ecommerceCategory,
                 children,
