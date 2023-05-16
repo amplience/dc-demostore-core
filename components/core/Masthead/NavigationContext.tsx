@@ -71,6 +71,15 @@ export const WithNavigationContext: FC<{
         return result;
     }, [categories]);
 
+    // Merge together CMS + commerce categories into a single navigation structure
+    const categoriesById = useMemo(() => {
+        const result: any = {};
+        for (let item of flattenCategories(categories)) {
+            result[item.id] = item;
+        }
+        return result;
+    }, [categories]);
+
     const rootItems = useMemo(() => {
 
         const buildCategoryItem = (cmsCategory: CmsHierarchyNode | undefined, ecommerceCategory: any | undefined): NavigationItem | null => {
@@ -207,7 +216,8 @@ export const WithNavigationContext: FC<{
 
             switch (type) {
                 case 'category':
-                    let category = categoriesBySlug[node.content._meta.deliveryKey.replace(`category/`, '')] || categoriesBySlug[node.content.name]
+                    // let category = categoriesBySlug[node.content._meta.deliveryKey.replace(`category/`, '')] || categoriesBySlug[node.content.name]
+                    let category = categoriesById[node.content.name]
                     return buildCategoryItem(node, category);
                 case 'group':
                     return buildGroupItem(node);
