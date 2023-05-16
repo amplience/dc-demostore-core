@@ -66,8 +66,6 @@ export const WithNavigationContext: FC<{
     const categoriesBySlug = useMemo(() => {
         const result: any = {};
         for (let item of flattenCategories(categories)) {
-            console.log(item)
-            const { en } = item.slug || {};
             result[item.slug] = item;
         }
         return result;
