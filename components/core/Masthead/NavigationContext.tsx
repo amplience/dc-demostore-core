@@ -51,10 +51,22 @@ export const WithNavigationContext: FC<{
     const { locale } = useCmsContext() || {}
     const { language } = useUserContext();
 
+    // Flatten a hierarchy of children
+    const flattenCategories = (categories: any[]) => {
+        const allCategories: any[] = []
+        const bulldozeCategories = (cat: any) => {
+            allCategories.push(cat)
+            cat.children && cat.children.forEach(bulldozeCategories)
+        }
+        categories.forEach(bulldozeCategories)
+        return allCategories
+    }
+
     // Merge together CMS + commerce categories into a single navigation structure
     const categoriesBySlug = useMemo(() => {
         const result: any = {};
-        for (let item of categories) {
+        for (let item of flattenCategories(categories)) {
+            console.log(item)
             const { en } = item.slug || {};
             result[item.slug] = item;
         }
