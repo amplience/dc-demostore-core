@@ -38,15 +38,15 @@ export default function Womens({
     };
 
     let { algolia, cms } = useAppContext()
-    let { instantsearch, algoliasearch } = window as any;
-    let hub = cms.hub
-    let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`
-    let search = instantsearch({
-        indexName,
-        searchClient: algoliasearch(algolia.appId, algolia.apiKey),
-        hitsPerPage: 5,
-    });
     useEffect(() => {
+        let { instantsearch, algoliasearch } = window as any;
+        let hub = cms.hub
+        let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`
+        let search = instantsearch({
+            indexName,
+            searchClient: algoliasearch(algolia.appId, algolia.apiKey),
+            hitsPerPage: 5,
+        });
         search.addWidget(
             instantsearch.widgets.configure({
                 filters:
@@ -126,7 +126,7 @@ export default function Womens({
         );
 
         search.start();
-    }, [search, locale, instantsearch]);
+    }, [locale]);
 
     return (
         <>
