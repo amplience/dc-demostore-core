@@ -18,34 +18,24 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
   const [selectedMenuKey, setSelectedMenuKey] = useState<number | null>(null);
   const router = useRouter();
   const isRouteActive = (href: string | undefined, category: any): boolean => {
-    // bringing this in here if we want to use somthing from category instead of href(delivery key) to match avtive top nav item
-    // But I htink we have to use href/key
-    // console.log("HREF", href)
-    // console.log("ROUTER", router)
-    // console.log("CATEGORY", category)
-    // console.log("PAGES", pages)
-
     // !!using the first word in the category slug as the current category
     // => full path should be present in slugs, and 1st level category slug shouldn't contain '-'
     // TODO: update logic or change new catalog slugs
-    const [route] = router?.asPath?.match(/^(\/(category\/[^-]*)|(\/blog))/) || [router?.asPath];
-    // console.log("ROUTE", route)
+    const testRte = router?.asPath.split('?')[0]
+    const [route] = testRte?.match(/^(\/(category\/[^-]*)|(\/blog)|(page\/[^-]*))/) || [router?.asPath.split('?')[0]];
 
     // First checking if a page in Site Pages matches the current route
     // Warning: 1st level category slug shouldn't contain '-'
     const pageNode = pages.find((item: any) => item.href === route)
     if (category && pageNode && pageNode.category) {
-      // console.log("FOUND NODE", pageNode)
       return pageNode.category.id === category.id
     }
     if (href) {
       if (href.startsWith('http')) {
         const url = new URL(href);
         const path = url.href.replace( url.origin, '');
-        //console.log(path + ' ==? ' + route)
         return path === route;
       } else {
-        //console.log('w/ href: ', href + ' ==? ' + route)
         return href === route;
       }
     }
