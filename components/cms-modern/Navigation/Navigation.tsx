@@ -17,7 +17,11 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
   const { navigationToggle, toggleNavigation } = useUI();
   const [selectedMenuKey, setSelectedMenuKey] = useState<number | null>(null);
   const router = useRouter();
-  const isRouteActive = (href: string | undefined): boolean => {
+  const isRouteActive = (href: string | undefined, category: any): boolean => {
+    // bringing this in here if we want to use somthing from category instead of href(delivery key) to match avtive top nav item
+    // But I htink we have to use href/key
+    //console.log(router)
+    //console.log(category)
 
     // !!using the first word in the category slug as the current category
     // => full path should be present in slugs, and 1st level category slug shouldn't contain '-'
@@ -27,8 +31,10 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
       if (href.startsWith('http')) {
         const url = new URL(href);
         const path = url.href.replace( url.origin, '');
+        //console.log(path + ' ==? ' + route)
         return path === route;
       } else {
+        //console.log('w/ href: ', href + ' ==? ' + route)
         return href === route;
       }
     }
@@ -59,7 +65,7 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
   return (
     <nav className="navigation" style={style}>
       <ul className="navigation__list">
-        {pages.map(({ title, href, children = [], content }, index) => {
+        {pages.map(({ title, href, children = [], content, category }, index) => {
           // make sure these categories have children or they won't display properly
           let categoriesWithChildren = children.filter(child => child.children.length > 0)
 
@@ -67,7 +73,7 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
             <li
               key={index}
               className={clsx('navigation__list__item', {
-                ['navigation__list__item--active']: isRouteActive(href),
+                ['navigation__list__item--active']: isRouteActive(href, category),
                 ['navigation__list__item--open']: isMenuOpen(index),
               })}
             >
