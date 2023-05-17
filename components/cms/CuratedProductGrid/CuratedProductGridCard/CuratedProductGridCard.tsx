@@ -82,9 +82,10 @@ const CuratedProductGridCard: React.SFC<Props> = (props) => {
         locale = locale.split('-')[0];
     }
 
-    const imageUrl = result.overrides?.image
+    let imageUrl = result.overrides?.image
         ? `https://${result.overrides.image?.defaultHost}/i/${result.overrides.image?.endpoint}/${result.overrides.image?.name}`
         : `${result.variants[0].images[0].url}`;
+    imageUrl += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40'
 
     return (
         <Link href={`/product/${result.id}/${result.slug}`}>
