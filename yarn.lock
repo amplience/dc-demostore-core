@@ -106,9 +106,9 @@
     "@algolia/logger-common" "4.14.2"
     "@algolia/requester-common" "4.14.2"
 
-"@amplience/dc-demostore-integration@git+https://github.com/amplience/dc-demostore-integration.git#feat/NOVADEV-1136-CategoryPicker":
-  version "1.1.2"
-  resolved "git+https://github.com/amplience/dc-demostore-integration.git#579ef0adf4076725045cf1e320df8fa87bc9cb4f"
+"@amplience/dc-demostore-integration@git+https://github.com/amplience/dc-demostore-integration.git#dev":
+  version "1.1.3"
+  resolved "git+https://github.com/amplience/dc-demostore-integration.git#90f3931a144d0f55bdf7f05b9959c67c09a228ca"
   dependencies:
     "@moltin/sdk" "^11.14.0"
     axios "^0.26.0"
