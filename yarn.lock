@@ -106,7 +106,7 @@
     "@algolia/logger-common" "4.14.2"
     "@algolia/requester-common" "4.14.2"
 
-"@amplience/dc-demostore-integration@git+https://github.com/amplience/dc-demostore-integration.git#dev":
+"@amplience/dc-demostore-integration@git+https://github.com/amplience/dc-demostore-integration.git#v1.1.3":
   version "1.1.3"
   resolved "git+https://github.com/amplience/dc-demostore-integration.git#90f3931a144d0f55bdf7f05b9959c67c09a228ca"
   dependencies:
