@@ -76,9 +76,6 @@ const Image: FC<Props> = ({
         if (seoText) {
             baseUrl += `/${encodeURIComponent(seoText)}`
         };
-        if (format) {
-            baseUrl += `.${format}`;
-        }
         let queryString = `w=${width}&upscale=false&strip=true`;
         if (display == 'Point of Interest' && poiAspect) {
             queryString += `&{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&aspect=${poiAspect}`
@@ -89,6 +86,7 @@ const Image: FC<Props> = ({
         if (roundel && roundel[0] && roundel[0].roundel && roundel[0].roundelPosition && roundel[0].roundelRatio) {
             queryString += `&$roundel$&${getRoundelConfig(roundel)}`
         }
+        queryString += '&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40'
         return `${baseUrl}?${queryString}`;
     };
 
@@ -104,16 +102,9 @@ const Image: FC<Props> = ({
         </picture>
     ) : (
             <picture className="amp-dc-image">
-                {source({ minWidth: '1280', width: '1600', highDensityWidth: '3200', format: 'webp', poiAspect: '2:1' })}
                 {source({ minWidth: '1280', width: '1600', highDensityWidth: '3200', poiAspect: '2:1' })}
-
-                {source({ minWidth: '1024', width: '1280', highDensityWidth: '2560', format: 'webp', poiAspect: '2:1' })}
                 {source({ minWidth: '1024', width: '1280', highDensityWidth: '2560', poiAspect: '2:1' })}
-
-                {source({ minWidth: '768', width: '1024', highDensityWidth: '2048', format: 'webp', poiAspect: '1.5:1' })}
                 {source({ minWidth: '768', width: '1024', highDensityWidth: '2048', poiAspect: '1.5:1' })}
-
-                {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', format: 'webp', poiAspect: '1:1' })}
                 {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', poiAspect: '1:1' })}
 
                 <img loading="lazy" src={buildSrcUrl({ width: '1600' })} className="amp-dc-image-pic" alt={imageAltText} />

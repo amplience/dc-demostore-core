@@ -51,12 +51,31 @@ export const WithNavigationContext: FC<{
     const { locale } = useCmsContext() || {}
     const { language } = useUserContext();
 
+    // Flatten a hierarchy of children
+    const flattenCategories = (categories: any[]) => {
+        const allCategories: any[] = []
+        const bulldozeCategories = (cat: any) => {
+            allCategories.push(cat)
+            cat.children && cat.children.forEach(bulldozeCategories)
+        }
+        categories.forEach(bulldozeCategories)
+        return allCategories
+    }
+
     // Merge together CMS + commerce categories into a single navigation structure
     const categoriesBySlug = useMemo(() => {
         const result: any = {};
-        for (let item of categories) {
-            const { en } = item.slug || {};
+        for (let item of flattenCategories(categories)) {
             result[item.slug] = item;
+        }
+        return result;
+    }, [categories]);
+
+    // Merge together CMS + commerce categories into a single navigation structure
+    const categoriesById = useMemo(() => {
+        const result: any = {};
+        for (let item of flattenCategories(categories)) {
+            result[item.id] = item;
         }
         return result;
     }, [categories]);
@@ -70,11 +89,15 @@ export const WithNavigationContext: FC<{
 
             const children: NavigationItem[] = [];
 
+            //const seoUrl = cmsCategory?.content?._meta?.deliveryKey ? cmsCategory?.content?._meta?.deliveryKey.split('/')[1] : `${ecommerceCategory?.slug}`
+
             const result = {
                 type: 'category',
                 title:  ecommerceCategory?.name,
-                // href: cmsCategory?.content?._meta?.deliveryKey || ecommerceCategory?.slug?.en ? `/category/${ecommerceCategory?.slug?.en}` : null,
-                href: `/category/${ecommerceCategory?.slug}`,
+                //href: cmsCategory?.content?._meta?.deliveryKey || ecommerceCategory?.slug?.en ? `/category/${ecommerceCategory?.slug?.en}` : null,
+                // to use slug as URL, use next line
+                href: cmsCategory?.content?._meta?.deliveryKey ? `/category/${cmsCategory?.content?._meta?.deliveryKey.split('/')[1]}` : `/category/${ecommerceCategory?.slug}`,
+                //href: `/category/${ecommerceCategory?.slug}`,
                 content: cmsCategory?.content,
                 category: ecommerceCategory,
                 children,
@@ -197,7 +220,8 @@ export const WithNavigationContext: FC<{
 
             switch (type) {
                 case 'category':
-                    let category = categoriesBySlug[node.content._meta.deliveryKey.replace(`category/`, '')] || categoriesBySlug[node.content.name]
+                    // let category = categoriesBySlug[node.content._meta.deliveryKey.replace(`category/`, '')] || categoriesBySlug[node.content.name]
+                    let category = categoriesById[node.content.name]
                     return buildCategoryItem(node, category);
                 case 'group':
                     return buildGroupItem(node);
@@ -242,7 +266,8 @@ export const WithNavigationContext: FC<{
 
         for (let rootItem of rootItems) {
             walkNavigation(rootItem, (node: NavigationItem, parents: NavigationItem[]) => {
-                if (node.href === href) {
+                //console.log(node.href + ' ==? ' + href)
+                if (`${node.href}` === href) {
                     result = node;
                 }
             });
