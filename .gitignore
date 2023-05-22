@@ -31,7 +31,6 @@ storybook-static
 config/content-type-schemas/
 config/content-types/
 
-package-lock.json
 pnpm*
 
 logs
