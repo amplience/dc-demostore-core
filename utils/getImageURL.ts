@@ -114,7 +114,7 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         'fliph': fliph,
         'flipv': flipv,
         'rotate': rot,
-        'hue': hue,
+        'hue': hue ? hue * 100 / 180 : null,
         'sat': sat,
         'bri': bri,
         'strip': strip,
