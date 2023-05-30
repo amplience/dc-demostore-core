@@ -19,6 +19,13 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 
 
 # Getting Started
+
+## Dependency versions
+This demo appliction was developed and tested with:
+
+- Node version `18.x`
+- NPM version `9.x`
+
 ## General Use (w/o Amplience account)
 
 Out of the box, `dc-demostore-core` may be used without needing to have an Amplience account, allowing you to experiment with API calls and Front-End customisations against an existing content base. You can simply clone this repository and it already points to a working account so that you can see:
@@ -33,20 +40,20 @@ Out of the box, `dc-demostore-core` may be used without needing to have an Ampli
 ```sh
 $ gh repo clone amplience/dc-demostore-core
 $ cd dc-demostore-core
-$ yarn install
+$ npm install / npm i
 ```
 
 ### To run a Development environment:
 
 ```sh
-$ yarn dev
+$ npm run dev
 ```
 
 ### To run a production environment:
 
 ```sh
-$ yarn build
-$ yarn start
+$ npm run build
+$ npm run start
 ```
 
 Both dev and prod commands will also start a localhost. Then go to [http://localhost:3000](http://localhost:3000)
@@ -59,7 +66,7 @@ Both dev and prod commands will also start a localhost. Then go to [http://local
 Firing up Storybook is super simple:
 
 ```sh
-$ yarn storybook
+$ npm run storybook
 ```
 
 Then go to http://localhost:6006. More details may be found in our [Storybook README](docs/Storybook.md)

@@ -45,20 +45,20 @@ export default class MyApp extends NextApp<AppProps> {
 
     const Layout = (Component as any).Layout || Noop;
 
-    if (pageProps.statusCode) {
-      return <ErrorPage statusCode={pageProps.statusCode} />;
+    if ((pageProps as any).statusCode) {
+      return <ErrorPage statusCode={(pageProps as any).statusCode} />;
     }
 
     return (
       <>
         <Head />
-        <WithAppContext value={pageProps.context?.appContext}>
+        <WithAppContext value={(pageProps as any).context?.appContext}>
           <WithVisualization>
             <WithUI>
               <WithCart>
-                <WithUserContext value={pageProps.context?.userContext}>
-                  <WithCmsContext value={pageProps.context?.cmsContext}>
-                    <ConfigContext.Provider value={{values: pageProps.content?.configComponents}}>
+                <WithUserContext value={(pageProps as any).context?.userContext}>
+                  <WithCmsContext value={(pageProps as any).context?.cmsContext}>
+                    <ConfigContext.Provider value={{values: (pageProps as any).content?.configComponents}}>
                       <WithDebugState>
                       <WithWindowContext>
                         <Layout pageProps={pageProps}>

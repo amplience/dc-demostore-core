@@ -11,7 +11,7 @@
 Included in this project is storybook for live component documentation. You can build this by running the commands below
 
 ```sh
-$ yarn storybook
+$ npm run storybook
 ```
 
 Then go to http://localhost:6006
