@@ -59,6 +59,14 @@ export default class MyDocument extends Document {
             integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8="
             crossOrigin="anonymous" />
           { /* end algolia instantsearch */}
+
+          { /* stylitics */}
+          <script src="https://web-assets.stylitics.com/v3-classic/latest/classic.release.js" defer />
+          <script src="https://web-assets.stylitics.com/v3-hotspots/latest/hotspots.release.js" defer />
+          <script src="https://web-assets.stylitics.com/v3-moodboard/latest/moodboard.release.js" defer />
+          <script src="https://web-assets.stylitics.com/v3-gallery/latest/gallery.release.js" defer />
+          <script src="https://web-assets.stylitics.com/v3-main-and-detail/latest/main-and-detail.release.js" defer />
+          { /* end stylitics */}
         </Head>
         <body>
           <Main />
