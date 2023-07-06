@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <!-- Import the Amplience Delivery SDK-->
+        <script src="https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js"></script>
+    </head>
+    <body>
+         <!-- Add a DIV with a container -->
+        <div id="amplience-stylitics-widget-container"></div>
+         <!-- Add Script -->
+         <script>
+            const styliticsViewMapping = {
+                classic: {
+                    script: "https://web-assets.stylitics.com/v3-classic/latest/classic.release.js",
+                    name: "StyliticsClassicWidget"
+                },
+                hotspots: {
+                    script: "https://web-assets.stylitics.com/v3-hotspots/latest/hotspots.release.js",
+                    name: "StyliticsHotspotsWidget"
+                },
+                moodboard: {
+                    script: "https://web-assets.stylitics.com/v3-moodboard/latest/moodboard.release.js",
+                    name: "StyliticsMoodboardWidget"
+                },
+                gallery: {
+                    script: "https://web-assets.stylitics.com/v3-gallery/latest/gallery.release.js",
+                    name: "StyliticsGalleryWidget"
+                },
+                mainAndDetail: {
+                    script: "https://web-assets.stylitics.com/v3-main-and-detail/latest/main-and-detail.release.js",
+                    name: "StyliticsMainAndDetailWidget"
+                }
+            }
+            // Get the parameters from the URL
+            const queryString = window.location.search;
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            const vse = urlParams.get('vse')
+            const contentID = urlParams.get('contentID') || '891f8228-9b3d-4827-b83e-9a4ffebb02a5'
+            console.log(contentID)
+
+
+            // Insantiate the SDK
+            var ampSDKConfig = {
+                hubName: 'nmdemostore'
+            }
+            if(vse) ampSDKConfig.stagingEnvironment = vse
+            const client = new ampDynamicContent.ContentClient(ampSDKConfig);
+
+            client
+            .getContentItemById(contentID)
+            .then((content) => {
+                console.log(content.body);
+                // check which script tag to load
+                const styliticsObj = styliticsViewMapping[content.body.view] || styliticsViewMapping['classic']
+                console.log(styliticsObj)
+                var styliticsScript = document.createElement('script');
+                styliticsScript.onload = function () {
+                    //do stuff with the script
+                    console.log("The script has loaded")
+                    let widgetInstance = new window[styliticsObj.name]( "puma", "amplience-stylitics-widget-container", {
+                        api: {
+                            item_number: content.body.sku,
+                            // Maximum number of bundles to include in the widget
+                            max: content.body.max,
+                            // Use this to change the bundle count threshold under which the widget is hidden completely.
+                            min: content.body.min
+                        },
+                        display: {
+                            disableMnM: true,
+                            imglazyLoadNextScreen: true,
+                            hideAnchorItem: false
+                        },
+                    });
+                    widgetInstance.start();
+                };
+                styliticsScript.src = styliticsObj.script;
+                document.head.appendChild(styliticsScript) 
+            })
+            .catch((error) => {
+                console.log('content not found', error);
+            });
+            /*
+                Authorable attributes in Amplience
+                - item_number: string (possible ecomm toolkit)
+                - min: number: Default 3
+                - max:number: Default 10
+                - tags: array of strings
+                - Mix & Match: Boolean (default true)
+                - Image Lazy Loading: Boolean (default true)
+                - Hide Anchor Item: Boolean (default false)
+
+            */
+            
+            </script>
+    </body>
+</html>

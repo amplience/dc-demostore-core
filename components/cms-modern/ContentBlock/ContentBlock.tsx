@@ -35,7 +35,6 @@ import ThemePaletteSpec         from '@components/cms-modern/ThemePaletteSpec';
 import ThemeTypographySpec      from '@components/cms-modern/ThemeTypographySpec';
 import ThemeWrapper             from '@components/cms-modern/ThemeWrapper';
 import Video                    from '@components/cms-modern/Video';
-import Classic                  from '@components/stylitics/Classic/Classic';
 import AdvancedShoppableBanner from '@components/stylitics/AdvancedShoppableBanner/AdvancedShoppableBanner';
 
 import { useRouter } from 'next/router';
