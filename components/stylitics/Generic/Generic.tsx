@@ -10,6 +10,7 @@ const styles = (theme: Theme) => ({
 interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
+    account?: string;
     sku?: string;
     view?:string;
     variant?:string;
@@ -20,6 +21,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
         view,
+        account = 'demo',
         variant = "classic",
         sku = "531850_01",
         min = 3,
@@ -53,7 +55,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
             }
         } 
 
-        const styliticsAccount = "demo-womens"
+        const styliticsAccount = account
         const embedID = "amplience-stylitics-widget-container"
 
         let widgetInstance
