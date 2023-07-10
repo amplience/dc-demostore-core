@@ -50,8 +50,8 @@ const Gallery: React.FunctionComponent<Props> = (props) => {
         const config = {
             api: {
                 tags: api_extra.tags,
-                max: api.max,
-                min: api.min,
+                max: api?.max || 6,
+                min: api?.min || 3
             },
             display: {
                 ...display,

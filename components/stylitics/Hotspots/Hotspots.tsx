@@ -50,8 +50,8 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
         const config = {
             api: {
                 item_number: sku,
-                max: api.max,
-                min: api.min,
+                max: api?.max || 6,
+                min: api?.min || 3
             },
             display: {
                 ...display,
