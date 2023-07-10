@@ -82,6 +82,9 @@ const Generic: React.FunctionComponent<Props> = (props) => {
             case "hotspots":
                 config.display = { ...config.display, ...hotspots.display }
                 config.text = hotspots.text
+                config.display.hotspotsOverlayOrder = config.display.hotspotsOverlayOrder && config.display.hotspotsOverlayOrder.map((item: string) => {
+                    return item.split(',')
+                })
                 widgetInstance = new StyliticsHotspotsWidget(styliticsAccount, embedID, config)
                 break;
             case "moodboard":
