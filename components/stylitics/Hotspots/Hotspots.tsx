@@ -61,7 +61,7 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
             text,
             price
         }
-        if (config.display.hotspotsOverlayOrder) {
+        if (config?.display?.hotspotsOverlayOrder) {
             config.display.hotspotsOverlayOrder =  config.display.hotspotsOverlayOrder.map((item: string) => {
                 return item.split(',')
             })

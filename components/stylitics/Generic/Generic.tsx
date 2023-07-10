@@ -86,7 +86,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                     config.display = { ...config.display, ...hotspots.display }
                 }
                 config.text = hotspots?.text
-                if (config.display.hotspotsOverlayOrder) {
+                if (config?.display?.hotspotsOverlayOrder) {
                     config.display.hotspotsOverlayOrder = config.display.hotspotsOverlayOrder.map((item: string) => {
                         return item.split(',')
                     })
