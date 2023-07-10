@@ -39,6 +39,7 @@ import AdvancedShoppableBanner from '@components/stylitics/AdvancedShoppableBann
 
 import { useRouter } from 'next/router';
 import Generic from '@components/stylitics/Generic/Generic';
+import Hotspots from '@components/stylitics/Hotspots/Hotspots';
 
 
 export type ContentBlockType = 'SLOT' | 'CONTENT';
@@ -84,6 +85,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/slots/localized-banner'         : LocalizedBannerSlot,
     'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot,
     'https://demostore.amplience.com/content/stylitics/generic'      : Generic,
+    'https://demostore.amplience.com/content/stylitics/hotspots'     : Hotspots,
     'https://demostore.amplience.com/content/stylitics/advanced-shoppable-banner'      : AdvancedShoppableBanner
     
 };
