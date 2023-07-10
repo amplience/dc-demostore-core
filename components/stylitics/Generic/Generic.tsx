@@ -1,5 +1,5 @@
 import React, { createRef, useEffect } from 'react';
-import { Theme } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import { useAppContext } from '@lib/config/AppContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
@@ -10,6 +10,7 @@ const styles = (theme: Theme) => ({
 interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
+    header?: string;
     account?: string;
     sku?: string;
     view?:string;
@@ -20,6 +21,7 @@ interface Props extends WithStyles<typeof styles> {
 const Generic: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
+        header,
         view,
         account = 'demo',
         variant = "classic",
@@ -97,6 +99,13 @@ const Generic: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div ref={container} className="stylitics">
+            {
+                header && ( 
+                    <Typography variant="h2" component="h2">
+                        {header}
+                    </Typography>
+                )
+            }
             <div id="amplience-stylitics-widget-container"></div>
         </div>
     );

@@ -43,6 +43,7 @@ import Hotspots from '@components/stylitics/Hotspots/Hotspots';
 import Moodboard from '@components/stylitics/Moodboard/Moodboard';
 import Gallery from '@components/stylitics/Gallery/Gallery';
 import MainAndDetail from '@components/stylitics/MainAndDetail/MainAndDetail';
+import Classic from '@components/stylitics/Classic/Classic';
 
 
 export type ContentBlockType = 'SLOT' | 'CONTENT';
@@ -91,6 +92,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/stylitics/hotspots'     : Hotspots,
     'https://demostore.amplience.com/content/stylitics/moodboard'    : Moodboard,
     'https://demostore.amplience.com/content/stylitics/gallery'      : Gallery,
+    'https://demostore.amplience.com/content/stylitics/classic'      : Classic,
     'https://demostore.amplience.com/content/stylitics/main-and-detail'      : MainAndDetail,
     'https://demostore.amplience.com/content/stylitics/advanced-shoppable-banner'      : AdvancedShoppableBanner
     

@@ -1,5 +1,5 @@
 import React, { createRef, useEffect } from 'react';
-import { Theme } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import { useAppContext } from '@lib/config/AppContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
@@ -11,6 +11,7 @@ interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
     account?: string;
+    header?: string;
     sku?: string;
     api?: any;
     display?: any;
@@ -23,6 +24,7 @@ interface Props extends WithStyles<typeof styles> {
 const Hotspots: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
+        header,
         account = 'demo-womens',
         sku = "536693_22",
         api,
@@ -76,6 +78,13 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div ref={container} className="stylitics">
+            {
+                header && ( 
+                    <Typography variant="h2" component="h2">
+                        {header}
+                    </Typography>
+                )
+            }
             <div id="amplience-stylitics-widget-container"></div>
         </div>
     );

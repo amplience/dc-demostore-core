@@ -10,8 +10,8 @@ const styles = (theme: Theme) => ({
 interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
-    account?: string;
     header?: string;
+    account?: string;
     sku?: string;
     api?: any;
     display?: any;
@@ -21,7 +21,7 @@ interface Props extends WithStyles<typeof styles> {
     price?: any;
 }
 
-const Moodboard: React.FunctionComponent<Props> = (props) => {
+const Classic: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
         header,
@@ -45,7 +45,7 @@ const Moodboard: React.FunctionComponent<Props> = (props) => {
         }
 
         let target = container.current;
-        const {StyliticsMoodboardWidget} = window as any;
+        const {StyliticsClassicWidget} = window as any;
         
         const config = {
             api: {
@@ -65,7 +65,7 @@ const Moodboard: React.FunctionComponent<Props> = (props) => {
         const styliticsAccount = account
         const embedID = "amplience-stylitics-widget-container"
 
-        let widgetInstance = new StyliticsMoodboardWidget(styliticsAccount, embedID, config)
+        let widgetInstance = new StyliticsClassicWidget(styliticsAccount, embedID, config)
         widgetInstance.start();
         
         return () => {
@@ -90,4 +90,4 @@ const Moodboard: React.FunctionComponent<Props> = (props) => {
     );
 };
 
-export default withStyles(styles)(Moodboard);
+export default withStyles(styles)(Classic);
