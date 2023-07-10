@@ -76,12 +76,20 @@ function loadWidgets(account, locale, vse) {
         }
     }
 
+    function flattenCommon(result) {
+        result.api = {...result.api, item_number: result.sku};
+
+        if (result.display && result.display.hotspotsOverlayOrder) {
+            result.display.hotspotsOverlayOrder = result.display.hotspotsOverlayOrder.map(order => order.split(','));
+        }
+    }
+
     function flattenGeneric(body) {
         const result = {...body};
 
         flattenGenericType(result, result[result.view]);
 
-        result.api = {...result.api, item_number: result.sku}
+        flattenCommon(result);
 
         return result;
     }
@@ -97,7 +105,7 @@ function loadWidgets(account, locale, vse) {
             }
         }
 
-        result.api = {...result.api, item_number: result.sku}
+        flattenCommon(result);
 
         return result;
     }
