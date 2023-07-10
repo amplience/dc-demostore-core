@@ -61,10 +61,11 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
             text,
             price
         }
-        config.display.hotspotsOverlayOrder = config.display.hotspotsOverlayOrder && config.display.hotspotsOverlayOrder.map((item: string) => {
-            return item.split(',')
-        })
-
+        if (config.display.hotspotsOverlayOrder) {
+            config.display.hotspotsOverlayOrder =  config.display.hotspotsOverlayOrder.map((item: string) => {
+                return item.split(',')
+            })
+        }
         const styliticsAccount = account
         const embedID = "amplience-stylitics-widget-container"
 
