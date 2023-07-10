@@ -74,40 +74,40 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         
         switch( viewSelector ){
             case "classic":
-                config.display = { ...config.display, ...classic.display }
-                config.navigation = classic.navigation
-                config.text = classic.text
+                config.display = classic?.display && { ...config.display, ...classic.display }
+                config.navigation = classic?.navigation
+                config.text = classic?.text
                 widgetInstance = new StyliticsClassicWidget(styliticsAccount, embedID, config)
                 break;
             case "hotspots":
-                config.display = { ...config.display, ...hotspots.display }
-                config.text = hotspots.text
+                config.display = hotspots?.display && { ...config.display, ...hotspots.display }
+                config.text = hotspots?.text
                 config.display.hotspotsOverlayOrder = config.display.hotspotsOverlayOrder && config.display.hotspotsOverlayOrder.map((item: string) => {
                     return item.split(',')
                 })
                 widgetInstance = new StyliticsHotspotsWidget(styliticsAccount, embedID, config)
                 break;
             case "moodboard":
-                config.display = { ...config.display, ...moodboard.display }
-                config.navigation = moodboard.navigation
-                config.text = moodboard.text
+                config.display = moodboard?.display && { ...config.display, ...moodboard.display }
+                config.navigation = moodboard?.navigation
+                config.text = moodboard?.text
                 widgetInstance = new StyliticsMoodboardWidget(styliticsAccount, embedID, config)
                 break;
             case "gallery":
-                config.api = { ...config.api, ...gallery.api }
-                config.display = { ...config.display, ...gallery.display }
-                config.navigation = gallery.navigation
-                config.text = gallery.text
+                config.api = gallery?.api && { ...config.api, ...gallery.api }
+                config.display = gallery?.display && { ...config.display, ...gallery.display }
+                config.navigation = gallery?.navigation
+                config.text = gallery?.text
                 widgetInstance = new StyliticsGalleryWidget(styliticsAccount, embedID, config)
                 break;
             case "mainAndDetail":
-                config.display = { ...config.display, ...mainAndDetail.display }
+                config.display = mainAndDetail?.display && { ...config.display, ...mainAndDetail.display }
                 widgetInstance = new StyliticsMainAndDetailWidget(styliticsAccount, embedID, config)
                 break;
             default:
-                config.display = { ...config.display, ...classic.display }
-                config.navigation = classic.navigation
-                config.text = classic.text
+                config.display = classic?.display && { ...config.display, ...classic.display }
+                config.navigation = classic?.navigation
+                config.text = classic?.text
                 widgetInstance = new StyliticsClassicWidget(styliticsAccount, embedID, config)
                 break;
         }

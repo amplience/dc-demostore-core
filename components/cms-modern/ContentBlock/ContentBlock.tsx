@@ -89,6 +89,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/slots/localized-banner'         : LocalizedBannerSlot,
     'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot,
     'https://demostore.amplience.com/content/stylitics/generic'      : Generic,
+    'https://demostore.amplience.com/content/stylitics/generic-simple'      : Generic,
     'https://demostore.amplience.com/content/stylitics/hotspots'     : Hotspots,
     'https://demostore.amplience.com/content/stylitics/moodboard'    : Moodboard,
     'https://demostore.amplience.com/content/stylitics/gallery'      : Gallery,
