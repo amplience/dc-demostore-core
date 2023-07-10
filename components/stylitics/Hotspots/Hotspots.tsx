@@ -47,7 +47,7 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
         let target = container.current;
         const {StyliticsHotspotsWidget} = window as any;
         
-        const config = {
+        const config: any = {
             api: {
                 item_number: sku,
                 max: api?.max || 6,
@@ -60,7 +60,10 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
             navigation,
             text,
             price
-        } 
+        }
+        config.display.hotspotsOverlayOrder = config.display.hotspotsOverlayOrder && config.display.hotspotsOverlayOrder.map((item: string) => {
+            return item.split(',')
+        })
 
         const styliticsAccount = account
         const embedID = "amplience-stylitics-widget-container"
