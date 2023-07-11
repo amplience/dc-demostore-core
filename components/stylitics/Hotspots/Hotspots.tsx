@@ -1,6 +1,7 @@
 import React, { createRef, useEffect } from 'react';
 import { Theme, Typography } from '@mui/material';
 import { useAppContext } from '@lib/config/AppContext';
+import { useProduct } from '../../product/WithProduct/WithProduct';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
 
@@ -36,6 +37,10 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
         ...other
     } = props;
 
+    const {
+        product
+    } = useProduct() || {};
+
     let { cms } = useAppContext()
 
     const container = createRef<HTMLDivElement>();
@@ -49,7 +54,7 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
         
         const config: any = {
             api: {
-                item_number: sku,
+                item_number: product ? product.id : sku || null,
                 max: api?.max || 6,
                 min: api?.min || 3
             },

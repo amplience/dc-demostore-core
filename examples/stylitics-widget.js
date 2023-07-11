@@ -105,6 +105,9 @@ function loadWidgets(account, locale, vse) {
             }
         }
 
+        const schemaEnd = body._meta.schema.lastIndexOf('/');
+        result.view = body._meta.schema.substring(schemaEnd + 1);
+
         flattenCommon(result);
 
         return result;
@@ -119,9 +122,10 @@ function loadWidgets(account, locale, vse) {
     }
 
     function initWidget(element, id, body) {
-        const styliticsObj = styliticsViewMapping[body.view] || styliticsViewMapping['classic']
+        const fbody = flatten(body);
+        const styliticsObj = styliticsViewMapping[fbody.view] || styliticsViewMapping['classic']
         ensureViewLoaded(styliticsObj, function () {
-            let widgetInstance = new window[styliticsObj.name](body.account, element, flatten(body));
+            let widgetInstance = new window[styliticsObj.name](fbody.account, element, fbody);
             widgetInstance.start();
         });
     }
