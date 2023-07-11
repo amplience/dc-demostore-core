@@ -63,9 +63,8 @@ const Classic: React.FunctionComponent<Props> = (props) => {
         } 
 
         const styliticsAccount = account
-        const embedID = "amplience-stylitics-widget-container"
 
-        let widgetInstance = new StyliticsClassicWidget(styliticsAccount, embedID, config)
+        let widgetInstance = new StyliticsClassicWidget(styliticsAccount, target, config)
         widgetInstance.start();
         
         return () => {
@@ -77,7 +76,7 @@ const Classic: React.FunctionComponent<Props> = (props) => {
     }, [container, sku, api, display, display_extra, navigation, text, price, cms]);
 
     return (
-        <div ref={container} className="stylitics">
+        <div>
             {
                 header && ( 
                     <Typography variant="h2" component="h2">
@@ -85,7 +84,7 @@ const Classic: React.FunctionComponent<Props> = (props) => {
                     </Typography>
                 )
             }
-            <div id="amplience-stylitics-widget-container"></div>
+            <div ref={container} className="stylitics"></div>
         </div>
     );
 };

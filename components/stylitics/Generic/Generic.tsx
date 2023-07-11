@@ -66,7 +66,6 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         } 
 
         const styliticsAccount = account
-        // const embedID = "amplience-stylitics-widget-container"
 
         let widgetInstance
 
@@ -147,7 +146,6 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 )
             }
             <div ref={container} className="stylitics"></div>
-            {/* <div id="amplience-stylitics-widget-container"></div> */}
         </div>
     );
 };
