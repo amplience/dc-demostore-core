@@ -33,8 +33,7 @@ const Hotspots: React.FunctionComponent<Props> = (props) => {
         display_extra,
         navigation,
         text,
-        price,
-        ...other
+        price
     } = props;
 
     const {

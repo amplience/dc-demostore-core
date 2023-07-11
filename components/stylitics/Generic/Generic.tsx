@@ -25,11 +25,11 @@ interface Props extends WithStyles<typeof styles> {
     view?:string;
     variant?:string;
     min: number;
-    max: number;}
+    max: number;
+}
 
 const Generic: React.FunctionComponent<Props> = (props) => {
     const {
-        classes,
         header,
         view,
         api,

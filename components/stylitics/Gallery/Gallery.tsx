@@ -32,8 +32,7 @@ const Gallery: React.FunctionComponent<Props> = (props) => {
         display_extra,
         navigation,
         text,
-        price,
-        ...other
+        price
     } = props;
 
     let { cms } = useAppContext()
