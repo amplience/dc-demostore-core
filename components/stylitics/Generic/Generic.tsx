@@ -110,7 +110,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                     config.display = { ...config.display, ...gallery.display }
                 }
                 if (gallery?.api) {
-                    config.api = { ...config.display, ...gallery.api }
+                    config.api = { ...config.api, ...gallery.api }
                 }
                 config.navigation = gallery?.navigation
                 config.text = gallery?.text
