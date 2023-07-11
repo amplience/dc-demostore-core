@@ -66,7 +66,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         } 
 
         const styliticsAccount = account
-        const embedID = "amplience-stylitics-widget-container"
+        // const embedID = "amplience-stylitics-widget-container"
 
         let widgetInstance
 
@@ -79,7 +79,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 }
                 config.navigation = classic?.navigation
                 config.text = classic?.text
-                widgetInstance = new StyliticsClassicWidget(styliticsAccount, embedID, config)
+                widgetInstance = new StyliticsClassicWidget(styliticsAccount, target, config)
                 break;
             case "hotspots":
                 if (hotspots?.display) {
@@ -91,7 +91,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                         return item.split(',')
                     })
                 }
-                widgetInstance = new StyliticsHotspotsWidget(styliticsAccount, embedID, config)
+                widgetInstance = new StyliticsHotspotsWidget(styliticsAccount, target, config)
                 break;
             case "moodboard":
                 if (moodboard?.display) {
@@ -99,7 +99,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 }
                 config.navigation = moodboard?.navigation
                 config.text = moodboard?.text
-                widgetInstance = new StyliticsMoodboardWidget(styliticsAccount, embedID, config)
+                widgetInstance = new StyliticsMoodboardWidget(styliticsAccount, target, config)
                 break;
             case "gallery":
                 if (gallery?.display) {
@@ -110,13 +110,13 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 }
                 config.navigation = gallery?.navigation
                 config.text = gallery?.text
-                widgetInstance = new StyliticsGalleryWidget(styliticsAccount, embedID, config)
+                widgetInstance = new StyliticsGalleryWidget(styliticsAccount, target, config)
                 break;
             case "mainAndDetail":
                 if (mainAndDetail?.display) {
                     config.display = { ...config.display, ...mainAndDetail.display }
                 }
-                widgetInstance = new StyliticsMainAndDetailWidget(styliticsAccount, embedID, config)
+                widgetInstance = new StyliticsMainAndDetailWidget(styliticsAccount, target, config)
                 break;
             default:
                 if (classic?.display) {
@@ -124,7 +124,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 }
                 config.navigation = classic?.navigation
                 config.text = classic?.text
-                widgetInstance = new StyliticsClassicWidget(styliticsAccount, embedID, config)
+                widgetInstance = new StyliticsClassicWidget(styliticsAccount, target, config)
                 break;
         }
 
@@ -138,7 +138,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
     }, [container, view, sku, api, display, price, classic, moodboard, gallery, hotspots, mainAndDetail, cms]);
 
     return (
-        <div ref={container} className="stylitics">
+        <div>
             {
                 header && ( 
                     <Typography variant="h2" component="h2">
@@ -146,7 +146,8 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                     </Typography>
                 )
             }
-            <div id="amplience-stylitics-widget-container"></div>
+            <div ref={container} className="stylitics"></div>
+            {/* <div id="amplience-stylitics-widget-container"></div> */}
         </div>
     );
 };
