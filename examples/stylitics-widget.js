@@ -1,6 +1,8 @@
 function loadWidgets(account, locale, vse) {
     // Elements to place widgets in are present on the page with classname `amp-stylitics-container`.
 
+    const widgetRegistry = {}
+
     const styliticsViewMapping = {
         classic: {
             script: "https://web-assets.stylitics.com/v3-classic/latest/classic.release.js",
@@ -121,12 +123,19 @@ function loadWidgets(account, locale, vse) {
         }
     }
 
-    function initWidget(element, id, body) {
+    function initWidget(element, id, body, onDone) {
         const fbody = flatten(body);
         const styliticsObj = styliticsViewMapping[fbody.view] || styliticsViewMapping['classic']
         ensureViewLoaded(styliticsObj, function () {
             let widgetInstance = new window[styliticsObj.name](fbody.account, element, fbody);
             widgetInstance.start();
+
+            widgetRegistry[id] = {
+                element,
+                widgetInstance
+            };
+
+            if (onDone) onDone();
         });
     }
 
@@ -136,10 +145,42 @@ function loadWidgets(account, locale, vse) {
             return body['@id'].substring(lastSlash + 1);
         }
 
+        if (body._meta?.deliveryId) {
+            return body._meta.deliveryId;
+        }
+
         return '';
     }
 
     const elements = document.getElementsByClassName('amp-stylitics-container');
+
+    let rtvInited = false;
+    function initRtv() {
+        if (!rtvInited) {
+            rtvInited = true;
+            const visSDK = window.dcVisualizationSdk;
+            if (visSDK) {
+                // If the Amplience Visualization SDK is loaded
+                // try and listen for changes to the content to perform realtime vis.
+                visSDK.init().then((sdk) => {
+                    const modelChange = (model) => {
+                        // handle form model change
+                        const match = widgetRegistry[model.content._meta.deliveryId];
+                        const body = model.content;
+
+                        if (match) {
+                            match.widgetInstance.destroy();
+                            delete widgetRegistry[model.content._meta.deliveryId];
+                            initWidget(match.element, getId(body), body);
+                        }
+                    };
+
+                    sdk.form.get().then(modelChange);
+                    sdk.form.changed(modelChange);
+                });
+            }
+        }
+    }
 
     for (const element of elements) {
         if (element.dataset) {
@@ -153,7 +194,7 @@ function loadWidgets(account, locale, vse) {
                 .then((content) => {
                     const body = content.body;
 
-                    initWidget(element, element.dataset.widgetId, body);
+                    initWidget(element, element.dataset.widgetId, body, initRtv);
                 })
                 .catch((error) => {
                     console.log('content not found', error);
@@ -166,7 +207,7 @@ function loadWidgets(account, locale, vse) {
                 try {
                     const body = JSON.parse(json);
 
-                    initWidget(element, getId(body), body);
+                    initWidget(element, getId(body), body, initRtv);
                 } catch { }
             }
         }
