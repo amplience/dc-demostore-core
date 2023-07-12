@@ -70,6 +70,9 @@ const MainAndDetail: React.FunctionComponent<Props> = (props) => {
         const styliticsAccount = account
 
         let widgetInstance = new StyliticsMainAndDetailWidget(styliticsAccount, target, config)
+        widgetInstance.override("click", "item", function (props: any) {
+            window.location.href = `/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`
+        })
         widgetInstance.start();
         
         return () => {

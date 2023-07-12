@@ -131,7 +131,9 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 widgetInstance = new StyliticsClassicWidget(styliticsAccount, target, config)
                 break;
         }
-
+        widgetInstance.override("click", "item", function (props: any) {
+            window.location.href = `/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`
+        })
         widgetInstance.start();
         
         return () => {
