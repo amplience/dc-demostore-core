@@ -8,6 +8,9 @@ import { withStyles, WithStyles } from '@mui/styles'
 const styles = (theme: Theme) => ({
 });
 
+/**
+ * Generic props
+ */
 interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
@@ -28,6 +31,11 @@ interface Props extends WithStyles<typeof styles> {
     max: number;
 }
 
+/**
+ * Generic Component that can handle all the different views
+ * @param props 
+ * @returns 
+ */
 const Generic: React.FunctionComponent<Props> = (props) => {
     const {
         header,
@@ -52,6 +60,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
     let { cms } = useAppContext()
 
     const container = createRef<HTMLDivElement>();
+
     useEffect(() => {
         if (!window || !container.current) {
             return;
@@ -76,6 +85,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
 
         const viewSelector = view || variant;
         
+        // Configuring and instantiating Stylitics Widget instance
         switch( viewSelector ){
             case "classic":
                 if (classic?.display) {
@@ -131,11 +141,15 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 widgetInstance = new StyliticsClassicWidget(styliticsAccount, target, config)
                 break;
         }
+
+        // Click override to redirect to Product page
         widgetInstance.override("click", "item", function (props: any) {
             window.location.href = `/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`
         })
+
         widgetInstance.start();
         
+        // Cleanup
         return () => {
             if (target) {
                 target.innerHTML = '';

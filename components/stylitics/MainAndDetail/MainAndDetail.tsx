@@ -8,6 +8,9 @@ import { withStyles, WithStyles } from '@mui/styles'
 const styles = (theme: Theme) => ({
 });
 
+/**
+ * Main and Detail props
+ */
 interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
@@ -22,6 +25,11 @@ interface Props extends WithStyles<typeof styles> {
     price?: any;
 }
 
+/**
+ * Main and Detail Component
+ * @param props 
+ * @returns 
+ */
 const MainAndDetail: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
@@ -69,12 +77,17 @@ const MainAndDetail: React.FunctionComponent<Props> = (props) => {
 
         const styliticsAccount = account
 
+        // Instantiating Stylitics Widget
         let widgetInstance = new StyliticsMainAndDetailWidget(styliticsAccount, target, config)
+        
+        // Click override to redirect to Product page
         widgetInstance.override("click", "item", function (props: any) {
             window.location.href = `/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`
         })
+
         widgetInstance.start();
         
+        // Cleanup
         return () => {
             if (target) {
                 target.innerHTML = '';

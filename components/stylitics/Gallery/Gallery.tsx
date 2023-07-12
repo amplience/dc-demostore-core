@@ -7,6 +7,9 @@ import { withStyles, WithStyles } from '@mui/styles'
 const styles = (theme: Theme) => ({
 });
 
+/**
+ * Gallery props
+ */
 interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
@@ -21,6 +24,11 @@ interface Props extends WithStyles<typeof styles> {
     price?: any;
 }
 
+/**
+ * Gallery Component
+ * @param props 
+ * @returns 
+ */
 const Gallery: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
@@ -38,6 +46,7 @@ const Gallery: React.FunctionComponent<Props> = (props) => {
     let { cms } = useAppContext()
 
     const container = createRef<HTMLDivElement>();
+
     useEffect(() => {
         if (!window || !container.current) {
             return;
@@ -63,12 +72,17 @@ const Gallery: React.FunctionComponent<Props> = (props) => {
 
         const styliticsAccount = account
 
+        // Instantiating Stylitics Widget
         let widgetInstance = new StyliticsGalleryWidget(styliticsAccount, target, config)
+
+        // Click override to redirect to Product page
         widgetInstance.override("click", "item", function (props: any) {
             window.location.href = `/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`
         })
+
         widgetInstance.start();
         
+        // Cleanup
         return () => {
             if (target) {
                 target.innerHTML = '';

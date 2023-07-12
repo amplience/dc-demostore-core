@@ -8,6 +8,9 @@ import { withStyles, WithStyles } from '@mui/styles'
 const styles = (theme: Theme) => ({
 });
 
+/**
+ * Classic props
+ */
 interface Props extends WithStyles<typeof styles> {
     className?: string;
     style?: React.CSSProperties;
@@ -22,6 +25,11 @@ interface Props extends WithStyles<typeof styles> {
     price?: any;
 }
 
+/**
+ * Classic Component
+ * @param props 
+ * @returns 
+ */
 const Classic: React.FunctionComponent<Props> = (props) => {
     const {
         classes,
@@ -43,6 +51,7 @@ const Classic: React.FunctionComponent<Props> = (props) => {
     let { cms } = useAppContext()
 
     const container = createRef<HTMLDivElement>();
+
     useEffect(() => {
         if (!window || !container.current) {
             return;
@@ -68,12 +77,17 @@ const Classic: React.FunctionComponent<Props> = (props) => {
 
         const styliticsAccount = account
 
+        // Instantiating Stylitics Widget
         let widgetInstance = new StyliticsClassicWidget(styliticsAccount, target, config)
+
+        // Click override to redirect to Product page
         widgetInstance.override("click", "item", function (props: any) {
             window.location.href = `/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`
         })
+
         widgetInstance.start();
         
+        // Cleanup
         return () => {
             if (target) {
                 target.innerHTML = '';
