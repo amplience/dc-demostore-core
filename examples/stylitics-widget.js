@@ -65,16 +65,22 @@ function loadWidgets(account, locale, vse) {
     }
 
     function flattenGenericType(base, type) {
-        if (type.display) {
-            base.display = {...base.display, ...type.display};
-        }
+        if (type) {
+            if (type.display) {
+                base.display = {...base.display, ...type.display};
+            }
 
-        if (type.navigation) {
-            base.navigation = {...base.navigation, ...type.navigation}
-        }
+            if (type.navigation) {
+                base.navigation = {...base.navigation, ...type.navigation}
+            }
 
-        if (type.text) {
-            base.text = {...base.text, ...type.text}
+            if (type.text) {
+                base.text = {...base.text, ...type.text}
+            }
+
+            if (type.api) {
+                base.api = {...base.api, ...type.api}
+            }
         }
     }
 
@@ -116,7 +122,7 @@ function loadWidgets(account, locale, vse) {
     }
 
     function flatten(body) {
-        if (body._meta.schema.endsWith('generic') && body.view) {
+        if (body.view) {
             return flattenGeneric(body);
         } else {
             return flattenSpecific(body);
