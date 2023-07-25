@@ -56,11 +56,12 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         let active = true;
         let widgetInstance: StyliticsWidget;
 
-        const args = fromContentItem(props as any);
-
-        if (product) {
-            args.api.item_number = product.id;
+        const item = {
+            ...props,
+            sku: product ? product.id : props.sku
         }
+
+        const args = fromContentItem(item as any);
 
         createWidget(target, args).then((widget: StyliticsWidget) => {
             if (active) {
