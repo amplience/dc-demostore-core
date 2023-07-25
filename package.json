@@ -31,7 +31,7 @@
     "currency.js": "^2.0.4",
     "dataloader": "^2.0.0",
     "dc-delivery-sdk-js": "^0.11.0",
-    "dc-integration-stylitics": "file:../dc-integration-stylitics",
+    "dc-integration-stylitics": "github:amplience/dc-integration-stylitics#develop",
     "dc-visualization-sdk": "^1.0.2",
     "glob-parent": "^6.0.2",
     "https-browserify": "^1.0.0",
