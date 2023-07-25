@@ -73,6 +73,8 @@ const Generic: React.FunctionComponent<Props> = (props) => {
                 })
 
                 widget.start();
+            } else {
+                widget.destroy();
             }
         })
         
