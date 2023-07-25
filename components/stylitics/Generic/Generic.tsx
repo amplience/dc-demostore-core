@@ -45,8 +45,6 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         product
     } = useProduct() || {};
 
-    props.sku = product ? product.id : props.sku;
-
     const container = createRef<HTMLDivElement>();
 
     useEffect(() => {
@@ -59,6 +57,11 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         let widgetInstance: StyliticsWidget;
 
         const args = fromContentItem(props as any);
+
+        if (product) {
+            args.api.item_number = product.id;
+        }
+
         createWidget(target, args).then((widget: StyliticsWidget) => {
             if (active) {
                 widgetInstance = widget;
@@ -84,7 +87,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
 
             active = false;
         };
-    }, [container, props]);
+    }, [container, props, product]);
 
     return (
         <div>
