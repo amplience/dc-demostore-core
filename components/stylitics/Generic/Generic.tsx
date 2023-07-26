@@ -58,7 +58,7 @@ const Generic: React.FunctionComponent<Props> = (props) => {
 
         const item = {
             ...props,
-            account: props.account || 'demo-womens',
+            account: product?.categories[0]?.parent?.id || props.account || 'demo-womens',
             sku: product ? product.id : props.sku
         }
 
