@@ -3,7 +3,7 @@ import { Theme, Typography } from '@mui/material';
 import { useProduct } from '../../product/WithProduct/WithProduct';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
-import { fromContentItem, createWidget, StyliticsWidget } from 'dc-integration-stylitics';
+import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-integration-stylitics';
 
 const styles = (theme: Theme) => ({
 });
