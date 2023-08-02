@@ -11,11 +11,13 @@
                 background-color: #FFFFFF;
             }
         </style>
+        <!-- Import the Amplience Stylitics Helper scripts -->
+        <script src="https://unpkg.com/@amplience/dc-integration-stylitics/dist/ampStylitics.browser.umd.min.js"></script>
     </head>
     <body>
         <div class="rootContainer">
             {{> stylitics-templateChooser this}}
         </div>
     </body>
-    <script src="https://dev-solutions.s3.amazonaws.com/rhys/stylitics/stylitics-widget.js"></script>
+    <script src="https://unpkg.com/@amplience/dc-integration-stylitics/examples/stylitics-widget.js"></script>
 </html>
