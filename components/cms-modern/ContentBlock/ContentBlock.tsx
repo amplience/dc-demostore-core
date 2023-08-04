@@ -35,7 +35,6 @@ import ThemePaletteSpec         from '@components/cms-modern/ThemePaletteSpec';
 import ThemeTypographySpec      from '@components/cms-modern/ThemeTypographySpec';
 import ThemeWrapper             from '@components/cms-modern/ThemeWrapper';
 import Video                    from '@components/cms-modern/Video';
-import AdvancedShoppableBanner from '@components/stylitics/AdvancedShoppableBanner/AdvancedShoppableBanner';
 
 import { useRouter } from 'next/router';
 import Generic from '@components/stylitics/Generic/Generic';
@@ -89,7 +88,6 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/stylitics/gallery'      : Generic,
     'https://demostore.amplience.com/content/stylitics/classic'      : Generic,
     'https://demostore.amplience.com/content/stylitics/main-and-detail'      : Generic,
-    'https://demostore.amplience.com/content/stylitics/advanced-shoppable-banner'      : AdvancedShoppableBanner
     
 };
 
