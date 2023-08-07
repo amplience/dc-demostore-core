@@ -28,6 +28,7 @@ interface Props extends WithStyles<typeof styles> {
             description: string;
             image: {
                 image: any
+                imageAltText: string
             },
             category: string[]
         }
@@ -68,7 +69,7 @@ const DynamicBlogListCard: React.SFC<Props> = (props) => {
                 {
                     image ? (
                         <div className="amp-dc-image">
-                            <Image alt={description} {...image as any}  query="w=500" />
+                            <Image alt={image.imageAltText ? image.imageAltText : title} {...image as any}  query="w=500" />
                         </div>
                     ) : null
                 }

@@ -6,6 +6,7 @@ type Props = {
     image: any;
     query?: any;
     format?: string;
+    imageAltText?: string;
 } & CmsContent;
 
 const Image: FC<Props> = ({
@@ -20,7 +21,7 @@ const Image: FC<Props> = ({
     if (!image) {
         return null;
     }
-
+    
     const getRoundelConfig = (roundel: any) => {
         if (roundel &&
             roundel[0] &&
@@ -98,7 +99,7 @@ const Image: FC<Props> = ({
 
     const imageTag = display == 'Static' ? (
         <picture className="amp-dc-image">
-            <img loading="lazy" src={`//${image.endpoint}.a.bigcontent.io/v1/static/${image.name}`} className="amp-dc-image-pic" alt={imageAltText} />
+            <img loading="lazy" src={`//${image.endpoint}.a.bigcontent.io/v1/static/${image.name}`} className="amp-dc-image-pic" alt={imageAltText} title={seoText}/>
         </picture>
     ) : (
             <picture className="amp-dc-image">
@@ -107,7 +108,7 @@ const Image: FC<Props> = ({
                 {source({ minWidth: '768', width: '1024', highDensityWidth: '2048', poiAspect: '1.5:1' })}
                 {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', poiAspect: '1:1' })}
 
-                <img loading="lazy" src={buildSrcUrl({ width: '1600' })} className="amp-dc-image-pic" alt={imageAltText} />
+                <img loading="lazy" src={buildSrcUrl({ width: '1600' })} className="amp-dc-image-pic" alt={imageAltText} title={seoText} />
             </picture>
         );
 

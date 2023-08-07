@@ -69,6 +69,7 @@ export interface AdvancedBannerProps {
       };
     };
     disablePoiAspectRatio: boolean;
+    imageAltText:string;
   };
 
   /**
@@ -262,6 +263,7 @@ const AdvancedBanner: React.FC<AdvancedBannerProps> = ({
             ref={imageRef}
             onLoad={() => handleImageLoaded()}
             image={img?.image.image}
+            imageAltText={image?.imageAltText} 
             transformations={transformations}
             className={classes.image}
           />
