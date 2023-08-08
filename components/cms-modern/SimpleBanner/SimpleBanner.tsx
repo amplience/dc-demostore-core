@@ -54,6 +54,7 @@ export interface SimpleBannerProps {
             }
         };
         disablePoiAspectRatio: boolean;
+        imageAltText: string;
     },
 
     /**
@@ -152,7 +153,7 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({
                 }>
                 {imageLoading ? <DefaultAdaptiveImageSkeleton/> : null}
                 <Box style={{display: `${imageLoading ? 'none': 'block'}`}}>
-                    <DefaultAdaptiveImage ref={imageRef} onLoad={() => handleImageLoaded()} image={img?.image.image} transformations={transformations} className={classes.image} />
+                    <DefaultAdaptiveImage ref={imageRef} onLoad={() => handleImageLoaded()} image={img?.image.image} imageAltText={image?.imageAltText} transformations={transformations} className={classes.image} />
                 </Box>
     
             </Overlay>

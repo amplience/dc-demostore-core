@@ -266,7 +266,6 @@ export const WithNavigationContext: FC<{
 
         for (let rootItem of rootItems) {
             walkNavigation(rootItem, (node: NavigationItem, parents: NavigationItem[]) => {
-                //console.log(node.href + ' ==? ' + href)
                 if (`${node.href}` === href) {
                     result = node;
                 }

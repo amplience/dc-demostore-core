@@ -92,7 +92,7 @@ const CuratedProductGridCard: React.SFC<Props> = (props) => {
             <a onClick={handleClickProduct}>
                 <div className={clsx(classes.root, className)} {...other}>
                     <div className={classes.imageContainer}>
-                        {result.variants[0] && <img src={imageUrl} className={classes.image} alt={result.slug} />}
+                        {result.variants[0] && <img src={imageUrl} className={classes.image} alt={result.name} />}
                     </div>
                     <div className={classes.details}>
                         <Typography variant="h4" component="h4" className={classes.name}>

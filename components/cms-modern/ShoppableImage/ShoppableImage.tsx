@@ -60,9 +60,6 @@ const ShoppableImage: FC<Props> = ({
         if (imageRef.current) {
             setTargetHeight(imageRef.current.height);
             setTargetWidth(imageRef.current.width);
-            //console.log('ratio:', ratio)
-            //console.log('imageSize:', imageSize) 
-            console.log('targetHeight:', targetHeight)
         }
     }
 
@@ -78,7 +75,6 @@ const ShoppableImage: FC<Props> = ({
                 h: refContainer.current.offsetHeight,
             });
             setTargetWidth(refContainer.current.offsetWidth);
-            console.log('tW', targetWidth)
         }
     }, [refContainer]);
 
@@ -96,7 +92,6 @@ const ShoppableImage: FC<Props> = ({
 
     const hotspotLink = (hotspot: ShoppableImageHotspot | ShoppableImagePolygon) => {
         let url = '#';
-        //console.log('hotspot: ', hotspot);
         switch (hotspot.selector) {
             case '.page':
                 url = `/${hotspot.target}`;

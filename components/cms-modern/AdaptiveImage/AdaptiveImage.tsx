@@ -6,6 +6,7 @@ export interface AdaptiveImageProps extends React.DetailedHTMLProps<React.ImgHTM
     transformations?: ImageTransformations;
     imageRef?:any;
     children?: React.ReactElement[];
+    imageAltText?: string;
 }
 
 type ContextState = {
@@ -22,6 +23,7 @@ export const AdaptiveImageContext = createContext<ContextState | null>(null);
 const AdaptiveImage: React.SFC<AdaptiveImageProps> = (props) => {
     const {
         image,
+        imageAltText = "",
         transformations,
         children,
         imageRef,
@@ -41,7 +43,7 @@ const AdaptiveImage: React.SFC<AdaptiveImageProps> = (props) => {
         }}>
             <picture>
                 {children}
-                <img alt={defaultImageUrl} ref={imageRef} src={defaultImageUrl} {...other} />
+                <img alt={imageAltText} ref={imageRef} src={defaultImageUrl} {...other} />
             </picture>
         </AdaptiveImageContext.Provider>
     );
