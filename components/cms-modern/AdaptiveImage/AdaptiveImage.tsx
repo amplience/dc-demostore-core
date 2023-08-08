@@ -34,7 +34,7 @@ const AdaptiveImage: React.SFC<AdaptiveImageProps> = (props) => {
         return null;
     }
 
-    const defaultImageUrl = getImageURL(image, transformations)
+    const defaultImageUrl = getImageURL(image, transformations);
 
     return (
         <AdaptiveImageContext.Provider value={{
