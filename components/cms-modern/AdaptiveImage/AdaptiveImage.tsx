@@ -6,7 +6,7 @@ export interface AdaptiveImageProps extends React.DetailedHTMLProps<React.ImgHTM
     transformations?: ImageTransformations;
     imageRef?:any;
     children?: React.ReactElement[];
-    imageAltText?:string;
+    imageAltText?: string;
 }
 
 type ContextState = {
