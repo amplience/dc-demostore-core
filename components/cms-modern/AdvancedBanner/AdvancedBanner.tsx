@@ -69,7 +69,7 @@ export interface AdvancedBannerProps {
       };
     };
     disablePoiAspectRatio: boolean;
-    imageAltText:string;
+    imageAltText: string;
   };
 
   /**
