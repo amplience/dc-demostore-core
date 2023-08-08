@@ -54,7 +54,7 @@ export interface SimpleBannerProps {
             }
         };
         disablePoiAspectRatio: boolean;
-        imageAltText:string;
+        imageAltText: string;
     },
 
     /**
