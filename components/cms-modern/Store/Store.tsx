@@ -11,6 +11,7 @@ interface Props {
         lateOpening: boolean;
     }
     image: any;
+    imageAltText: string;
     locationName: string;
     details: string;
 }
@@ -20,7 +21,8 @@ const Store: React.SFC<Props> = (props) => {
         details,
         keyElements,
         image,
-        locationName
+        imageAltText,
+        locationName = ""
     } = props;
 
     const options = {
@@ -40,6 +42,7 @@ const Store: React.SFC<Props> = (props) => {
           ) }
         }
       };
+
     return (
         <div>
             <div style={{marginBottom: 30}}>
@@ -49,7 +52,7 @@ const Store: React.SFC<Props> = (props) => {
                 </Grid>
                 <Grid container>
                     <Grid item xs={12} sm={6} style={{paddingTop: 30}}>
-                        <Image query={{}} image={image} alt={locationName} />
+                        <Image query={{}} image={image} alt={imageAltText ? imageAltText : locationName} imageAltText={imageAltText ? imageAltText : locationName} />
                         <Grid container style={{marginTop: 20}}>
                         {
                             keyElements.parking && 

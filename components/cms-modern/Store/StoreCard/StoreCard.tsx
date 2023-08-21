@@ -44,6 +44,7 @@ const StoreCard: React.SFC<Props> = (props) => {
         content,
         ...other
     } = props;
+
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} className={clsx(classes.root, className)} {...other}>
             <Paper style={{ backgroundColor: "#fcfcfc", width: "100%", padding: 15 }}>
@@ -55,7 +56,7 @@ const StoreCard: React.SFC<Props> = (props) => {
                         <Typography component="div" variant="body1" style={{ height: 70 }}>
                             <ReactMarkdown options={options}>{content.locationAddress}</ReactMarkdown>
                         </Typography>
-                        {content.image && <Image image={content.image} alt={content.locationName} />}
+                        {content.image && <Image image={content.image} alt={content.imageAltText ? content.imageAltText : content.locationName} imageAltText={content.imageAltText ? content.imageAltText : content.locationName}/>}
                         <Grid container spacing={1} alignContent={'center'} alignItems={'center'} justifyContent={'center'} style={{ width: "100%" }}>
                             <Box display="flex" alignItems="center" justifyContent="center">
                                 <Button color="primary" variant="contained" className={classes.button}>more info</Button>

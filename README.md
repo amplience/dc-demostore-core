@@ -1,5 +1,3 @@
-[![Amplience Dynamic Content](media/header.png)](https://amplience.com/dynamic-content)
-
 # Amplience Demo Store Core Package
 
 `dc-demostore-core` is a React/Material/NextJS front-end e-Commerce application, implemented with Typescript, showcasing Amplience Dynamic Media and Dynamic Content.
@@ -9,7 +7,6 @@ It includes Storybook, a visual documentation of the UI components, things like 
 The package also includes a Debug/X-Ray panel to help understand how the pages and components are structured, what context your are looking at the application in and the ability to click directly from the application to the related content in Amplience Dynamic Content.
 
 `dc-demostore-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
-
 
 # Table of Contents
 - [Getting Started](#getting-started)

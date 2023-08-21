@@ -116,9 +116,9 @@ const Masthead: FC<Props> = ({ children, variant = 'default', logo, navigationBa
                         <a>
                             {
                                 logo ? (
-                                    <img alt="" src={getImageURL(logo, { format: ImageFormat.PNG })} />
+                                    <img alt="logo" src={getImageURL(logo, { format: ImageFormat.PNG })} />
                                 ) : (
-                                    <img alt="" src="/images/AnyaFinn-Logo.svg" />
+                                    <img alt="logo" src="/images/AnyaFinn-Logo.svg" />
                                 )
                             }
                         </a>

@@ -22,6 +22,7 @@ const BlogCard: FC<Props> = ({
     keywords = [],
     _meta
 }) => {
+
     return (
         <div className={clsx(
             "amp-dc-blog-card",
@@ -32,7 +33,7 @@ const BlogCard: FC<Props> = ({
                 {
                     image ? (
                         <div className="amp-dc-image">
-                            <Image alt={title} {...image} />
+                            <Image alt={title} imageAltText={image.imageAltText ? image.imageAltText : title} {...image} />
                         </div>
                     ) : null
                 }

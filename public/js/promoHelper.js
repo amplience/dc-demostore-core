@@ -47,7 +47,6 @@ var promoBanner = function ($node) {
 
 
 $(function() {
-    console.log("Promo Item Ready")
     var arr = [].slice.call(
         document.querySelectorAll('.amp-dc-promo-banner-wrap')
     );
