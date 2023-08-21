@@ -464,7 +464,7 @@ Uses the [Amplience Stylitics Integration (See link for full documentation)](htt
 The demostore implementation includes the following:
 * Sample product set that can be used when selecting products (see [documentation](https://github.com/amplience/dc-integration-middleware/blob/main/docs/vendor/commerce/rest.md))
 * All of the component and implementation in React/NextJS
-* Sample implementation for overrriding link values
+* Sample implementation for overriding link values
 * Sample implementation of inheriting SKU from PDP
 
 [top](#table-of-content)
