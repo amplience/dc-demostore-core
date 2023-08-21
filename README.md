@@ -8,7 +8,6 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 
 `dc-demostore-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
 
-
 # Table of Contents
 - [Getting Started](#getting-started)
 - [Storybook](#storybook)
