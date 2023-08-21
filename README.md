@@ -84,6 +84,11 @@ At a high level the basic steps are:
 3. Configure & use `dc-demostore-cli` to populate content
 4. Point `dc-demostore-core` to your Dynamic Content Hub and run
 
+> Note: If you already have an Amplience Demostore account and are upgrading to verson `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
+
+Location: `examples/crs`
+Upload asset store in Content Hub: `Templates`
+
 ## Requesting an Amplience Demo Store Environment
 
 This application is setup to run with a predefined Amplience account structure to have all of the capabilities and organisational requirements to showcase capabilities effectively.
