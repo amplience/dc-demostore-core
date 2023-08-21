@@ -4,6 +4,7 @@ import { useProduct } from '../../product/WithProduct/WithProduct';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
 import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-integration-stylitics';
+import { useRouter } from 'next/router';
 
 const styles = (theme: Theme) => ({
 });
@@ -47,6 +48,10 @@ const Generic: React.FunctionComponent<Props> = (props) => {
 
     const container = createRef<HTMLDivElement>();
 
+    const {
+        push
+    } = useRouter();
+
     useEffect(() => {
         if (!window || !container.current) {
             return;
@@ -64,13 +69,17 @@ const Generic: React.FunctionComponent<Props> = (props) => {
 
         const args = fromContentItem(item as any);
 
+        const handleApply = async (props: any) => {
+            await push(`/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`)
+        }
+
         createWidget(target, args).then((widget: StyliticsWidget) => {
             if (active) {
                 widgetInstance = widget;
 
                 // Click override to redirect to Product page
                 widget.override("click", "item", function (props: any) {
-                    window.location.href = `/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`
+                    handleApply(props as any)
                 })
 
                 widget.start();
