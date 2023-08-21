@@ -9,5 +9,6 @@
 - GraphQL implentation to connect to e-Commerce (CommerceTools, BigCommerce, file based catalog, etc.)
 - Admin Panel (visualise content, slots, editons, switch between production and staging view)
 - Custom Dashboards (translation & production Kanban board, deep clone)
+- [Stylitics](https://stylitics.com) components for configuration in content not code
 
 [back](../README.md)

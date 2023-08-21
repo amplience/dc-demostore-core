@@ -4,6 +4,7 @@ import ProductAttribute from '@components/product/ProductAttribute';
 import ProductColor from '@components/product/ProductColor';
 import ProductHero from '@components/product/ProductHero';
 import ProductMediaViewer from '@components/product/ProductMediaViewer';
+import Generic from '@components/stylitics/Generic/Generic';
 import ProductRichText from '@components/product/ProductRichText';
 import ProductSize from '@components/product/ProductSize';
 import Accordion from '@components/ui/Accordion/Accordion';
@@ -49,6 +50,7 @@ const mapping: any = {
         return <Grid {...remappedProps} />;
     },
     'product_image_viewer': ProductMediaViewer,
+    'stylitics': Generic,
     'product_attribute': ProductAttribute,
     'product_atb': AddToBasket,
     'product_size': ProductSize,

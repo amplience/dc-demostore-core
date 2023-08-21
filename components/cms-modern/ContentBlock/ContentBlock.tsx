@@ -37,6 +37,8 @@ import ThemeWrapper             from '@components/cms-modern/ThemeWrapper';
 import Video                    from '@components/cms-modern/Video';
 
 import { useRouter } from 'next/router';
+import Generic from '@components/stylitics/Generic/Generic';
+
 
 export type ContentBlockType = 'SLOT' | 'CONTENT';
 
@@ -79,7 +81,13 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/slots/flexible'                 : FlexibleSlot,
     'https://demostore.amplience.com/slots/landing-page'             : BannerSlot,
     'https://demostore.amplience.com/slots/localized-banner'         : LocalizedBannerSlot,
-    'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot
+    'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot,
+    'https://demostore.amplience.com/content/stylitics/generic'      : Generic,
+    'https://demostore.amplience.com/content/stylitics/hotspots'     : Generic,
+    'https://demostore.amplience.com/content/stylitics/moodboard'    : Generic,
+    'https://demostore.amplience.com/content/stylitics/gallery'      : Generic,
+    'https://demostore.amplience.com/content/stylitics/classic'      : Generic,
+    'https://demostore.amplience.com/content/stylitics/main-and-detail'      : Generic,
     
 };
 
