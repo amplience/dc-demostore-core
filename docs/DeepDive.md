@@ -7,6 +7,7 @@
 - [Theming](#theming)
 - [Admin UI Panels](#admin-ui-panels)
 - [Shoppable Image](#shoppable-image)
+- [Stylitics](#stylitics)
 
 ## Fetching content
 
@@ -454,5 +455,16 @@ There are several options that you can put in the selector column that drive spe
 | Absolute URL to a page on any site<br/>`https://amplience.com` | `.link` |
 | The ID of the product<br/>`123456789` | `.product` |
 | The slug of the category<br/>`women-bags` | `.category` |
+
+
+## Stylitics
+
+Uses the [Amplience Stylitics Integration (See link for full documentation)](https://github.com/amplience/dc-integration-stylitics) to render Stylitics widgets as a component. Stylitics and Amplience are a great fit for our creating automated shoppable experience using the great capabilities of Stylitics to increase AOV and basket size.
+
+The demostore implementation includes the following:
+* Sample product set that can be used when selecting products (see [documentation](https://github.com/amplience/dc-integration-middleware/blob/main/docs/vendor/commerce/rest.md))
+* All of the component and implementation in React/NextJS
+* Sample implementation for overrriding link values
+* Sample implementation of inheriting SKU from PDP
 
 [top](#table-of-content)

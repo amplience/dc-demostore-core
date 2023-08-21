@@ -34,5 +34,11 @@
 | text                         | Text                           | Markdown text                                                             |
 | themeWrapper                 | ThemeWrapper                   | Wrapper to change theme for any component                                 |
 | video                        | Video                          | Video element                                                             |
+| stylitics/generic            | stylitics/Generic              | ![Stylitics Generic](../media/component-stylitics-generic.png) Can render all stylitics widgets from a single content type with all available options |
+| stylitics/hotspots            | stylitics/Generic             | ![Stylitics Hotspots](../media/component-stylitics-hotspots.png) Only options for a Stylitics Hotspot Widget |
+| stylitics/moodboard            | stylitics/Generic             | ![Stylitics Moodboard](../media/component-stylitics-moodboard.png) Only options for a Stylitics Moodboard Widget |
+| stylitics/gallery            | stylitics/Generic             | ![Stylitics Gallery](../media/component-stylitics-gallery.png) Only options for a Stylitics Gallery Widget |
+| stylitics/classic            | stylitics/Generic             | ![Stylitics Classic](../media/component-stylitics-classic.png) Only options for a Stylitics Classic Widget |
+| stylitics/main-and-detail            | stylitics/Generic             | ![Stylitics Main & Detail](../media/component-stylitics-main-and-detail.png) Only options for a Stylitics Main & Detail Widget |
 
 [back](../README.md)
