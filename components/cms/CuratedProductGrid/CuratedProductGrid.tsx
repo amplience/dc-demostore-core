@@ -9,7 +9,7 @@ import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
-import { Product } from '@amplience/dc-demostore-integration';
+import { Product } from '@amplience/dc-integration-middleware';
 
 const styles = (theme: Theme) => ({
   root: {

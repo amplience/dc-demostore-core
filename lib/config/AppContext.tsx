@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
-import { DemoStoreConfiguration, getConfig } from '@amplience/dc-demostore-integration';
+import { DemoStoreConfiguration } from './locator/types';
+import { getConfig } from './locator/config-locator';
 import { CmsContent } from '@lib/cms/CmsContent';
 
 const Context = React.createContext<DemoStoreConfiguration | null>(null);

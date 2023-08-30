@@ -3,7 +3,7 @@ import SearchResultsListing from './SearchResultsListing';
 import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/dc-demostore-integration'
+import { Product } from '@amplience/dc-integration-middleware'
 import _ from 'lodash'
 
 interface Props {

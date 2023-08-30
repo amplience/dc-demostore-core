@@ -41,7 +41,7 @@ async function fetchPageData<
         content: await enrichPageContent(content, cmsContext),
         hierarchies: await enrichPageContent(hierarchies, cmsContext),
         ecommerce: {
-            categories: await commerceApi.getMegaMenu({ ...cmsContext, ...userContext })
+            categories: await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })
         }
     }
 }

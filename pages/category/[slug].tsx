@@ -16,7 +16,7 @@ import { withStyles, WithStyles } from '@mui/styles';
 
 import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/dc-demostore-integration';
+import { Product } from '@amplience/dc-integration-middleware';
 import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'
@@ -52,7 +52,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let category
     if (data.content.page?.name){
         const cmsslug = data.content.page?.name
-        category = await commerceApi.getCategory({ id: cmsslug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+
+        // TODO: find category by ID here
+        category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
     }else{
         category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
     }
