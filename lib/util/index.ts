@@ -28,14 +28,12 @@ export function objectToSize(obj: any) {
     return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
 }
 
-type TreeNode = { [key: string]: TreeNode | null | undefined } | Array<TreeNode | null | undefined>
-
 /**
  * Deletes undefined properties and nullifies undefined array items.
  * Useful to perform before JSON stringify.
  * Only use if the object structure is not recursive.
  */
-export function clearUndefined(root: TreeNode) {
+export function clearUndefined(root: any): any {
     if (root != null) {
         if (Array.isArray(root)) {
             for (let i = 0; i < root.length; i++) {

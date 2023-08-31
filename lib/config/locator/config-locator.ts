@@ -14,5 +14,10 @@ export async function getApiConfig(config_locator: string) {
         config = await getContentItem(hub, config.commerce)
     }
 
+    // HACK: remove when the configuration type includes the `vendor` property.
+    if (config.site_id === 'RefArchGlobal') {
+        config.vendor = 'sfcc';
+    }
+
     return config;
 }

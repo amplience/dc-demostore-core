@@ -11,6 +11,7 @@ import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
 import { commerceApi } from '@pages/api';
 import { clearUndefined } from '@lib/util';
+import { Category } from '@amplience/dc-integration-middleware';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
@@ -33,7 +34,7 @@ async function fetchPageData<
     const content = await fetchContentMap(input.content, cmsContext)
     const hierarchies = await fetchHierarchyMap(input.hierarchies || {}, cmsContext)
 
-    const categories = clearUndefined((await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })) as any)
+    const categories = clearUndefined((await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })) as any) as Category[]
 
     return {
         context: {

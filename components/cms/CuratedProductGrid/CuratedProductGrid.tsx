@@ -63,7 +63,7 @@ const CuratedProductGrid: FC<Props> = ({
         // reorder based on the original ordering because these are not ordered
         let orderedProducts: Product[] = []
         _.each(products, product => {
-          let ordered: any = _.find(prods, prod => prod.id === product)
+          let ordered: any = _.find(prods, prod => prod?.id === product)
           if (ordered) {
             orderedProducts.push(ordered)
           }

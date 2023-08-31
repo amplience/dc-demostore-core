@@ -21,7 +21,7 @@ export type NavigationItem = {
 
 export type NavigationState = {
     rootItems: NavigationItem[];
-    findByHref: (href: string) => NavigationItem | undefined
+    findByHref: (href: string) => NavigationItem | undefined,
 };
 
 const NavigationContext = createContext<NavigationState | null>(null);
@@ -250,6 +250,62 @@ export const WithNavigationContext: FC<{
             return children.map(buildCmsItem).filter(x => x != null) as NavigationItem[];
         }
 
+        const enrichCmsEntries = (children: CmsHierarchyNode[] = [], categories: any): CmsHierarchyNode[] => {
+            // Generate fake cms entries for categories that exist on the backend,
+            // are flagged as being visible in menu, and don't have an existing cms entry.
+            
+            for (const category of categories) {
+                // Does a CMS category exist for this entry?
+
+                let cmsEntry = children.find(child => {
+                    const type = getTypeFromSchema(child.content?._meta?.schema);
+                    if (!type) {
+                        return false;
+                    }
+
+                    return type === 'category' && child.content.name === category.id;
+                });
+
+                if (!cmsEntry && category.showInMenu) {
+                    // Create a dummy one, if it's meant to be visible
+
+                    cmsEntry = {
+                        content: {
+                            _meta: {
+                                name: category.name,
+                                schema: 'https://demostore.amplience.com/site/pages/category',
+                                deliveryKey: 'category/' + category.slug,
+                                hierarchy: {
+                                    parentId: 'generated',
+                                    root: false
+                                },
+                                deliveryId: category.id
+                            },
+                            hideProductList: false,
+                            components: [],
+                            slots: [],
+                            menu: {
+                                hidden: false,
+                                priority: 0,
+                            },
+                            name: category.id
+                        },
+                        children: []
+                    }
+
+                    children.push(cmsEntry)
+                }
+
+                if (cmsEntry) {
+                    enrichCmsEntries(cmsEntry.children, category.children);
+                }
+            }
+
+            return children;
+        }
+
+        enrichCmsEntries(pages.children, categories);
+
         const rootEntries = buildCmsEntries(pages.children);
         rootEntries.forEach(rootEntry => {
             walkNavigation(rootEntry, (node: NavigationItem, parents: NavigationItem[]) => {
@@ -258,7 +314,7 @@ export const WithNavigationContext: FC<{
         })
         return rootEntries as NavigationItem[];
 
-    }, [pages, categoriesBySlug, language]);
+    }, [pages, categories, categoriesBySlug, language]);
 
 
     const findByHref = (href: string) => {
