@@ -10,6 +10,7 @@ import { enrichPageContent } from "./pageContent/enrichPageContent";
 import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
 import { commerceApi } from '@pages/api';
+import { clearUndefined } from '@lib/util';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
@@ -32,6 +33,8 @@ async function fetchPageData<
     const content = await fetchContentMap(input.content, cmsContext)
     const hierarchies = await fetchHierarchyMap(input.hierarchies || {}, cmsContext)
 
+    const categories = clearUndefined((await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })) as any)
+
     return {
         context: {
             cmsContext,
@@ -41,7 +44,7 @@ async function fetchPageData<
         content: await enrichPageContent(content, cmsContext),
         hierarchies: await enrichPageContent(hierarchies, cmsContext),
         ecommerce: {
-            categories: await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })
+            categories
         }
     }
 }

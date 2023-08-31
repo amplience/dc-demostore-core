@@ -21,7 +21,7 @@ import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'
 import DEFAULT_FACETS from '@lib/util/default-search-facets'
-import { mapToID } from '@lib/util';
+import { clearUndefined, mapToID } from '@lib/util';
 import { configLocator } from '@lib/config/AppContext';
 
 type CategoryPageConfig = {
@@ -68,7 +68,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         props: {
             ...data,
             vse: vse || "",
-            category: JSON.parse(JSON.stringify(category)),
+            category: JSON.parse(JSON.stringify(clearUndefined(category as any))),
             slots: slots.content.slots
         }
     }
