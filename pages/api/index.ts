@@ -8,17 +8,25 @@ export default middleware
 enableMiddleware(true);
 
 let configuredApi: CommerceAPI
+let apiConfig: any
+
+const cacheApiConfig = async (locator: string) => {
+    if (!apiConfig) {
+        apiConfig = await getApiConfig(locator);
+    }
+
+    return apiConfig;
+}
+
 const initCommerceAPI = async (locator: string) => {
     if (configuredApi) {
         return configuredApi;
     }
 
-    const config = await getApiConfig(locator);
-
-    return configuredApi = await integrationGetCommerceAPI(config)
+    return configuredApi = await integrationGetCommerceAPI(await cacheApiConfig(locator))
 }
 
-let commerceApi: CommerceAPI = {
+let commerceApi: CommerceAPI | { vendor: () => Promise<string> } = {
     getProduct: async function (args: GetCommerceObjectArgs): Promise<Product> {
         return await (await initCommerceAPI(configLocator)).getProduct(args)
     },
@@ -36,6 +44,9 @@ let commerceApi: CommerceAPI = {
     },
     getCustomerGroups: async function (args: CommonArgs): Promise<CustomerGroup[]> {
         return await (await initCommerceAPI(configLocator)).getCustomerGroups(args)
+    },
+    vendor: async function (): Promise<string> {
+        return (await cacheApiConfig(configLocator)).vendor
     }
 }
 
