@@ -11,14 +11,16 @@ import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
 import { commerceApi } from '@pages/api';
 import { clearUndefined } from '@lib/util';
-import { Category } from '@amplience/dc-integration-middleware';
+import { Category, CustomerGroup } from '@amplience/dc-integration-middleware';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
-    CH extends FetchMapInput<CmsHierarchyRequest>
+    CH extends FetchMapInput<CmsHierarchyRequest>,
+    ES extends FetchMapInput<CustomerGroup[]>
 > = {
     content: CT,
-    hierarchies?: CH
+    hierarchies?: CH,
+    segments?: ES
 };
 
 /**
@@ -26,8 +28,9 @@ export type FetchPageDataInput<
  */
 async function fetchPageData<
     CT extends FetchMapInput<CmsRequest>, 
-    CH extends FetchMapInput<CmsHierarchyRequest>
->(input: FetchPageDataInput<CT, CH>, context: GetServerSidePropsContext) {
+    CH extends FetchMapInput<CmsHierarchyRequest>,
+    ES extends FetchMapInput<CustomerGroup[]>
+>(input: FetchPageDataInput<CT, CH, ES>, context: GetServerSidePropsContext) {
     const cmsContext = await createCmsContext(context.req);
     const userContext = await createUserContext(context);
 
@@ -35,6 +38,7 @@ async function fetchPageData<
     const hierarchies = await fetchHierarchyMap(input.hierarchies || {}, cmsContext)
 
     const categories = clearUndefined((await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })) as any) as Category[]
+    const segments = await commerceApi.getCustomerGroups({ ...cmsContext, ...userContext }) as CustomerGroup[]
 
     return {
         context: {
@@ -45,6 +49,7 @@ async function fetchPageData<
         content: await enrichPageContent(content, cmsContext),
         hierarchies: await enrichPageContent(hierarchies, cmsContext),
         ecommerce: {
+            segments,
             categories
         }
     }

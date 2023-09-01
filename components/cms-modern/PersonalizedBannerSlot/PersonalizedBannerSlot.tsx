@@ -5,7 +5,7 @@ import ContentBlock from '../ContentBlock';
 
 type Props = {
     segments: {
-        segment: string;
+        segment: string[];
         content: CmsContent;
     }[];
 } & CmsContent;
@@ -15,11 +15,12 @@ const PersonalizedBannerSlot: FC<Props> = ({ segments }) => {
         segment: userSegment = ''
     } = useUserContext() || {};
 
+    // TO UPDATE
     const matchedSegment = useMemo(() => {
         if(!segments) return null;
         let result = segments[0];
         for (const segment of segments) {
-            if (segment.segment === userSegment) {
+            if (segment.segment && segment.segment.length > 0 && segment.segment[0] === userSegment) {
                 result = segment;
             }
         }

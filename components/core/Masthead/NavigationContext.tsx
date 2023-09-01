@@ -44,8 +44,9 @@ const getTypeFromSchema = (schema: string) => {
 
 export const WithNavigationContext: FC<{
     pages: CmsHierarchyNode,
+    segments: any,
     categories: any
-}> = ({ pages, categories, children }) => {
+}> = ({ pages, segments, categories, children }) => {
 
     // Retrieve locale/country code from context
     const { locale } = useCmsContext() || {}
@@ -314,7 +315,7 @@ export const WithNavigationContext: FC<{
         })
         return rootEntries as NavigationItem[];
 
-    }, [pages, categories, categoriesBySlug, language]);
+    }, [pages, segments, categories, categoriesBySlug, language]);
 
 
     const findByHref = (href: string) => {
