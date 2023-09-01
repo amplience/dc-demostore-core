@@ -19,6 +19,7 @@ const StandaloneLayout: FC<Props> = ({ children, pageProps }) => {
             >
                 <WithNavigationContext
                     pages={pageProps.hierarchies.pages}
+                    segments={pageProps.ecommerce.segments}
                     categories={pageProps.ecommerce.categories}
                 >
                     <div>

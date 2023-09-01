@@ -19,6 +19,7 @@ import { WithCMSTheme, WithThemesContext } from '../WithCMSTheme';
 interface Props {
     pageProps: {
         content: any;
+        segments: any;
         hierarchies: any;
         ecommerce: any;
     };
@@ -60,6 +61,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             >
                 <WithNavigationContext
                     pages={pageProps.hierarchies.pages}
+                    segments={pageProps.ecommerce.segments}
                     categories={pageProps.ecommerce.categories}
                 >
                     <div>
@@ -70,7 +72,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
 
                         <Footer />
                         <Modal open={currentModal !== 'NONE'} onClose={closeModal}>
-                            {currentModal === 'ACCOUNT' && <AccountModal />}
+                            {currentModal === 'ACCOUNT' && <AccountModal segments={pageProps.ecommerce.segments} />}
                             {currentModal === 'LOCALE' && <LocaleModal />}
                         </Modal>
 

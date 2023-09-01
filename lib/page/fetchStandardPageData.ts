@@ -5,13 +5,18 @@ import fetchContent, { CmsRequest } from "@lib/cms/fetchContent";
 import { CmsHierarchyRequest, CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
 import { findInHierarchy } from "@utils/findInHierarchy";
 import { findInContentMap } from "@utils/findInContentMap";
+import { CustomerGroup } from "@amplience/dc-integration-middleware";
 
 async function fetchStandardPageData<
     CT extends FetchMapInput<CmsRequest>,
-    CH extends FetchMapInput<CmsHierarchyRequest>
->(input: FetchPageDataInput<CT, CH>, context: GetServerSidePropsContext) {
+    CH extends FetchMapInput<CmsHierarchyRequest>,
+    ES extends FetchMapInput<CustomerGroup[]>
+>(input: FetchPageDataInput<CT, CH, ES>, context: GetServerSidePropsContext) {
     const data = await fetchPageData({
         ...input,
+        segments: {
+            ...input.segments
+        },
         content: {
             ...input.content,
             configComponents: { key: 'config/components' }
