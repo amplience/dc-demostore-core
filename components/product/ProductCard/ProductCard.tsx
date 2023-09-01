@@ -62,6 +62,23 @@ interface Props extends WithStyles<typeof styles> {
     data: Product;
 }
 
+const stripHtml = /(<([^>]+)>)/gi;
+
+const sentenceEnd = /(\.|\?|\!)/gi;
+
+function limitSentences(text: string, sentences: number, charLength: number) {
+    const matches = text.matchAll(sentenceEnd);
+
+    let count = 0;
+    for (const match of matches) {
+        if (++count === sentences || (match.index ?? 0) >= charLength) {
+            return text.substring(0, (match.index ?? 0) + 1);
+        }
+    }
+
+    return text;
+}
+
 const ProductCardSkeleton: React.SFC<Props> = (props) => {
     const {
         classes,
@@ -74,7 +91,7 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
         variants, 
         name,
         slug,
-        longDescription,
+        shortDescription,
         id
     } = data;
 
@@ -104,6 +121,8 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
         }
     }
 
+    const sanitaryDescription = shortDescription == null ? shortDescription : limitSentences(shortDescription.replace(stripHtml, ""), 2, 100);
+
     return (
         <Link href={`/product/${id}/${slug}`}>
             <a>
@@ -121,7 +140,7 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
                             {name}
                         </Typography>
                         <Typography variant="body2" component="div" className={classes.overview}>
-                            {longDescription}
+                            {sanitaryDescription}
                         </Typography>
                         { (!variant.salePrice || variant.listPrice === variant.salePrice || _.isEmpty(variant.salePrice)) &&
                             variant.listPrice
