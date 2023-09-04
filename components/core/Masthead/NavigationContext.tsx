@@ -1,7 +1,7 @@
 import { createContext, FC, useMemo, useContext } from "react";
 import { CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
 import { CmsContent } from "@lib/cms/CmsContent";
-import walkNavigation from "./walkNavigation";
+import walkNavigation, { enrichCmsEntries, getTypeFromSchema } from "./walkNavigation";
 import { useCmsContext } from "@lib/cms/CmsContext";
 import { useUserContext } from "@lib/user/UserContext";
 
@@ -25,22 +25,6 @@ export type NavigationState = {
 };
 
 const NavigationContext = createContext<NavigationState | null>(null);
-
-
-const getTypeFromSchema = (schema: string) => {
-    switch (schema) {
-        case 'https://demostore.amplience.com/site/pages/landing':
-            return 'page';
-        case 'https://demostore.amplience.com/site/pages/external':
-            return 'external-page';
-        case 'https://demostore.amplience.com/site/page-group':
-            return 'group';
-        case 'https://demostore.amplience.com/site/pages/category':
-            return 'category';
-    }
-    return null;
-}
-
 
 export const WithNavigationContext: FC<{
     pages: CmsHierarchyNode,
@@ -251,61 +235,7 @@ export const WithNavigationContext: FC<{
             return children.map(buildCmsItem).filter(x => x != null) as NavigationItem[];
         }
 
-        const enrichCmsEntries = (children: CmsHierarchyNode[] = [], categories: any): CmsHierarchyNode[] => {
-            // Generate fake cms entries for categories that exist on the backend,
-            // are flagged as being visible in menu, and don't have an existing cms entry.
-            
-            for (const category of categories) {
-                // Does a CMS category exist for this entry?
-
-                let cmsEntry = children.find(child => {
-                    const type = getTypeFromSchema(child.content?._meta?.schema);
-                    if (!type) {
-                        return false;
-                    }
-
-                    return type === 'category' && child.content.name === category.id;
-                });
-
-                if (!cmsEntry && category.showInMenu) {
-                    // Create a dummy one, if it's meant to be visible
-
-                    cmsEntry = {
-                        content: {
-                            _meta: {
-                                name: category.name,
-                                schema: 'https://demostore.amplience.com/site/pages/category',
-                                deliveryKey: 'category/' + category.slug,
-                                hierarchy: {
-                                    parentId: 'generated',
-                                    root: false
-                                },
-                                deliveryId: category.id
-                            },
-                            hideProductList: false,
-                            components: [],
-                            slots: [],
-                            menu: {
-                                hidden: false,
-                                priority: 0,
-                            },
-                            name: category.id
-                        },
-                        children: []
-                    }
-
-                    children.push(cmsEntry)
-                }
-
-                if (cmsEntry) {
-                    enrichCmsEntries(cmsEntry.children, category.children);
-                }
-            }
-
-            return children;
-        }
-
-        enrichCmsEntries(pages.children, categories);
+        enrichCmsEntries(pages, categoriesById, categories);
 
         const rootEntries = buildCmsEntries(pages.children);
         rootEntries.forEach(rootEntry => {
@@ -315,7 +245,7 @@ export const WithNavigationContext: FC<{
         })
         return rootEntries as NavigationItem[];
 
-    }, [pages, segments, categories, categoriesBySlug, language]);
+    }, [pages, segments, categories, categoriesBySlug, categoriesById, language]);
 
 
     const findByHref = (href: string) => {
