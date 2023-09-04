@@ -1,9 +1,7 @@
-import { enableMiddleware, middleware, CommerceAPI, getCommerceAPI as integrationGetCommerceAPI, Category, CommonArgs, CustomerGroup, GetCommerceObjectArgs, GetProductsArgs, Product } from '@amplience/dc-integration-middleware'
+import { enableMiddleware, middleware as integrationMiddleware, CommerceAPI, getCommerceAPI as integrationGetCommerceAPI, Category, CommonArgs, CustomerGroup, GetCommerceObjectArgs, GetProductsArgs, Product } from '@amplience/dc-integration-middleware'
 import { configLocator } from '@lib/config/AppContext'
 import { getApiConfig } from '@lib/config/locator/config-locator'
-
-// add the /api route
-export default middleware
+import isServer from '@utils/isServer';
 
 enableMiddleware(true);
 
@@ -11,6 +9,10 @@ let configuredApi: CommerceAPI
 let apiConfig: any
 
 const cacheApiConfig = async (locator: string) => {
+    if (!isServer()) {
+        return {};
+    }
+
     if (!apiConfig) {
         apiConfig = await getApiConfig(locator);
     }
@@ -49,5 +51,18 @@ let commerceApi: CommerceAPI | { vendor: () => Promise<string> } = {
         return (await cacheApiConfig(configLocator)).vendor
     }
 }
+
+export const middleware = async (req: any, res: any) => {
+    const serverConfig = await cacheApiConfig(configLocator)
+
+	const config = {...(req.body || req.query), ...serverConfig}
+
+    req.body = config
+    req.query = {}
+
+    return await integrationMiddleware(req, res);
+}
+
+export default middleware;
 
 export { initCommerceAPI, commerceApi }
