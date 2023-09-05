@@ -20,18 +20,20 @@ export const getContentItem = async (hub: string, args: any): Promise<any> => {
  * @returns Demostore config content item
  */
 export const getContentItemFromConfigLocator = async (configLocator: string): Promise<any> => {
-	let [hub, lookup] = configLocator.split(':')
+	let [hub, lookup, integration] = configLocator.split(':')
 
     if (lookup.indexOf('/') === -1) {
-        lookup = `config/${lookup}`
+        lookup = `demostore/config/${lookup}`
     }
 
-	const contentItem = await getContentItem(hub, { key: `demostore/${lookup}` })
+	const contentItem = await getContentItem(hub, { key: lookup })
 
 	if (!contentItem) {
 		// todo: add help url
 		throw new Error(`no content item found for config_locator ${configLocator}`)
 	}
+
+
 	return contentItem
 }
 
