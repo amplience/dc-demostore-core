@@ -46,7 +46,7 @@ function onlyUnique(value: any, index: any, self: any) {
 }
 
 import { commerceApi } from '@pages/api';
-import { configLocator, useAppContext } from '@lib/config/AppContext';
+import { useAppContext } from '@lib/config/AppContext';
 
 const SearchResults: React.FC<Props> = (props) => {
   const { rootItems } = useNavigation();

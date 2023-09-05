@@ -10,9 +10,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { withStyles, WithStyles } from '@mui/styles'
 
 import WithAdminTheme from '@components/admin/AdminTheme';
-import { configLocator } from '@lib/config/AppContext';
 import ComponentsPanel from './panels/ComponentsPanel';
 import ContentPreviewPanel from './panels/ContentPreviewPanel';
+import { getHubName } from '@lib/config/locator/config-locator';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -39,10 +39,8 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
     classes,
     ...other
   } = props;
-
-  const configArray = configLocator.split(":");
-  const hubname = configArray[0];
-  const env = configArray[1];
+  const hubname = getHubName();
+  const env = 'env';
 
   return (
     <WithAdminTheme>

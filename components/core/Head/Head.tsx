@@ -1,13 +1,11 @@
 import React, { FC } from 'react'
 import NextHead from 'next/head'
 import { DefaultSeo } from 'next-seo'
-import { configLocator } from '@lib/config/AppContext'
+import { getHubName } from '@lib/config/locator/config-locator'
 
 const Head: FC = () => {
-
-    const configArray = configLocator.split(":");
-    const hubname = configArray[0];
-    const env = configArray[1];
+    const hubname = getHubName();
+    const env = 'env';
 
     return (
         <>

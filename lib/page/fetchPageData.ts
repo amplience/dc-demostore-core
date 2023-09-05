@@ -5,7 +5,7 @@ import fetchContentMap from "@lib/cms/fetchContentMap";
 import { GetServerSidePropsContext } from "next";
 import { createCmsContext } from "@lib/cms/CmsContext";
 import { createUserContext } from "@lib/user/UserContext";
-import { configLocator, createAppContext } from "@lib/config/AppContext";
+import { createAppContext } from "@lib/config/AppContext";
 import { enrichPageContent } from "./pageContent/enrichPageContent";
 import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
