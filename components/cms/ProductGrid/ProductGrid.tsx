@@ -4,7 +4,7 @@ import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
 import { useUserContext } from '@lib/user/UserContext';
-import { Category, Product } from '@amplience/dc-integration-middleware';
+import { Category, CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 import { commerceApi } from '@pages/api'
 
 type Props = {
@@ -24,8 +24,8 @@ const ProductGrid: FC<Props> = ({
     const userContext = useUserContext()
 
     useEffect(() => {
-        let isMounted: boolean = true
-        commerceApi.getCategory({ id: category, ...cmsContext, ...userContext }).then((c: Category) => {
+        let isMounted: boolean = true;
+        (commerceApi as CommerceAPI).getCategory({ id: category, ...cmsContext, ...userContext }).then((c: Category) => {
             if (isMounted && c?.products) {
                 setProducts(c.products.filter(product => !query || product.name.toLowerCase().indexOf(query.toLowerCase()) > -1))
             }

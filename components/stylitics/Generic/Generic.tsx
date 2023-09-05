@@ -77,8 +77,8 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         createWidget(target, args).then((widget: StyliticsWidget) => {
             if (active) {
                 widgetInstance = widget;
-
-                commerceApi.vendor().then((vendor: string) => {
+                
+                (commerceApi as any).vendor().then((vendor: string) => {
                     const isRest = vendor === 'rest';
 
                     if (isRest && active) {
