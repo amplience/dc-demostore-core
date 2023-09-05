@@ -15,13 +15,16 @@ const PersonalizedBannerSlot: FC<Props> = ({ segments }) => {
         segment: userSegment = ''
     } = useUserContext() || {};
 
-    // TO UPDATE
     const matchedSegment = useMemo(() => {
         if(!segments) return null;
         let result = segments[0];
         for (const segment of segments) {
-            if (segment.segment && segment.segment.length > 0 && segment.segment[0] === userSegment) {
-                result = segment;
+            if (segment.segment && segment.segment.length > 0) {
+                for (const item in segment.segment) {
+                    if (segment.segment[item] === userSegment) {
+                        result = segment;
+                    }
+                }
             }
         }
         return result;
