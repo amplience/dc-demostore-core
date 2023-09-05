@@ -28,7 +28,7 @@ const initCommerceAPI = async (locator: string) => {
     return configuredApi = await integrationGetCommerceAPI(await cacheApiConfig(locator))
 }
 
-let commerceApi: CommerceAPI | { vendor: () => Promise<string> } = {
+let commerceApi: CommerceAPI & { vendor: () => Promise<string> } = {
     getProduct: async function (args: GetCommerceObjectArgs): Promise<Product> {
         return await (await initCommerceAPI(configLocator)).getProduct(args)
     },
