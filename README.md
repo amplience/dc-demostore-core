@@ -72,14 +72,14 @@ Then go to http://localhost:6006. More details may be found in our [Storybook RE
 
 # Provisioning your own Amplience Environment
 
-The main tool for using your own Amplience environment with `dc-demostore-core` is `dc-demostore-cli`. The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amplience acount. Basically, everything you'd see running `dc-demostore-core` OOTB against our 'core public' Amplience Environment.
+The main tool for using your own Amplience environment with `dc-demostore-core` is [`dc-demostore-cli`](https://github.com/amplience/dc-demostore-cli). The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amplience acount. Basically, everything you'd see running `dc-demostore-core` OOTB against our 'core public' Amplience Environment.
 
 At a high level the basic steps are:
 
 1. [Request an Amplience Media and Dynamic Account (if you don't already have one)](#requesting-an-amplience-environment)
 2. [Deploy a fork of `dc-demostore-core` (we'll cover deploying on Vercel)](#fork--deploy-dc-demostore-core)
 3. Configure & use `dc-demostore-cli` to populate content
-4. Point `dc-demostore-core` to your Dynamic Content Hub and run
+4. Update your local / deployed `dc-demostore-core` with environment variables to your account.
 
 > Note: If you already have an Amplience Demostore account and are upgrading to verson `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
 
@@ -124,32 +124,47 @@ info: run [ env,add ]: started at Mon Mar 28 2022 12:39:21 GMT+0200 (Central Eur
 
 ```sh
 % demostore import --latest
-info: run [ import ]: started at Mon Mar 28 2022 12:45:26 GMT+0200 (Central European Summer Time)
+info: run [ import ]: started at XXX XXX XX XXXX XX:XX:XX GMT+0200 (Central European Summer Time)
 ...
+info: .env.local file format
+info: 
+----------------------- COPY START ----------------------
+NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON='{"url":"XXX","algolia":{"appId":"XXX","apiKey":"XXX"},"cms":{"hub":"XXX","stagingApi":"XXX","imageHub":"XXX"}}'
+------------------------ COPY END -----------------------
+info: 
+info: Vercel format
+info: 
+----------------------- COPY START ----------------------
+{"url":"XXX","algolia":{"appId":"XXX","apiKey":"XXX"},"cms":{"hub":"XXX","stagingApi":"XXX","imageHub":"XXX"}}
+------------------------ COPY END -----------------------
 ...
-...
-info: run completed in [ 3m20s ]
+info: run completed in [ 1m47s ]
 ```
+
+Once ran, you will be provided with your own specific value for the `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` environment variable to replace in both your `.env.local` file and in your Vercel deployment environment variable
 
 > Note: If you ever need to revert, simply run the `cleanup` command.
 
 ## Change dc-demostore-core Config / Point to your account
-- Create a .env.local file on the root of your project:
 
-Default setting:
+In the [Fork and Deploy](#fork--deploy-dc-demostore-core) section you will have already created your local environment variable and the same on your vercel deployment.
 
-```sh
-NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR=amprsaprod:default
-```
+We just need to change `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` to the outputs from the dc-demostore-cli import for both local and in Vercel.
 
-Your setting with your Hub Name {hubname}
+The outputs for both are in friendly copy and paste formats, see below for more details.
 
-```sh
-NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR={hubname}:default
-```
+### Local
 
+In your `.env.local` at the root of the project replace the current line of `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` with your item from the automation. (.env.local file format)
 
-If you are using services like Vercel, you can configure the environment variable in the settings, and re-deploy your application.
+> Note: You will have to stop your server and run `npm run dev` again to see the change.
+
+### Vercel
+
+In your Vercel project browse to Settings --> Environment Variables and edit the existing `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` variable and replace the value with that from the dc-demostore-cli import. (Vercel format)
+
+> Note: You will have to redeploy your application to see the change.
+
 
 [top](#table-of-content)
 
