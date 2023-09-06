@@ -18,7 +18,7 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 # Getting Started
 
 ## Dependency versions
-This demo appliction was developed and tested with:
+This demo application was developed and tested with:
 
 - Node version `18.x`
 - NPM version `9.x`
@@ -149,7 +149,7 @@ Once ran, you will be provided with your own specific value for the `NEXT_PUBLIC
 
 In the [Fork and Deploy](#fork--deploy-dc-demostore-core) section you will have already created your local environment variable and the same on your vercel deployment.
 
-We just need to change `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` to the outputs from the dc-demostore-cli import for both local and in Vercel.
+We just need to change `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` to the outputs from the dc-demostore-cli import for both local and in Vercel (Settings --> Environment Variables)
 
 The outputs for both are in friendly copy and paste formats, see below for more details.
 
