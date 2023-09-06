@@ -13,6 +13,7 @@ import WithAdminTheme from '@components/admin/AdminTheme';
 import ComponentsPanel from './panels/ComponentsPanel';
 import ContentPreviewPanel from './panels/ContentPreviewPanel';
 import { getHubName } from '@lib/config/locator/config-locator';
+import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -40,7 +41,7 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
     ...other
   } = props;
   const hubname = getHubName();
-  const env = 'env';
+  const vendor = useECommerce().vendor;
 
   return (
     <WithAdminTheme>
@@ -54,7 +55,7 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
             <span>hub</span> <span><b>{hubname}</b></span>
           </div>
           <div style={{ marginLeft: '40px' }}>
-            <span>env</span> <span><b>{env}</b></span>
+            <span>vendor</span> <span><b>{vendor}</b></span>
           </div>
         </div>
         <Divider />

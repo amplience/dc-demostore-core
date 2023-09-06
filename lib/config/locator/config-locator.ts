@@ -14,10 +14,13 @@ const defaultConfig = {
 };
 
 const defaultApiConfig = {
-    "productURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/products.json",
-    "categoryURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/categories.json",
-    "customerGroupURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/customerGroups.json",
-    "translationsURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/translations.json"
+    "vendor": "rest",
+    "codec_params": {
+        "productURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/products.json",
+        "categoryURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/categories.json",
+        "customerGroupURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/customerGroups.json",
+        "translationsURL": "https://demostore-catalog.s3.us-east-2.amazonaws.com/translations.json"
+    }
 };
 
 let configObj: DemoStoreConfiguration | undefined = undefined;
@@ -44,5 +47,9 @@ export function getApiConfig() {
 }
 
 export function getHubName() {
-    return getConfig().cms.hub;
+    return getConfig()?.cms?.hub ?? 'unknown';
+}
+
+export function getVendorName() {
+    return getApiConfig()?.vendor ?? 'unknown';
 }
