@@ -242,6 +242,19 @@ let filterRequest: GetByFilterRequest =
 The `Site Pages` hierarchy defines the top navigation of the site.
 This hierarchy is always loaded server-side and available for the Next.js pages.
 
+Each commerce related node (Site Pages and Category Page) have an option populate sub nodes from commerce.
+
+![Site Pages](../media/site-pages-sub.png)
+
+When set to true, the navigation will auto populate sub items from the commerce category (or root).
+
+If set to false, only CMS managed sub items will appear.
+
+CMS managed sub items will display AFTER the commerce items.
+
+The default automation has the Site Pages node set to true to automatically render sub items from commerce.
+
+
 Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
 
 ```js
