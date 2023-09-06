@@ -10,9 +10,10 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { withStyles, WithStyles } from '@mui/styles'
 
 import WithAdminTheme from '@components/admin/AdminTheme';
-import { configLocator } from '@lib/config/AppContext';
 import ComponentsPanel from './panels/ComponentsPanel';
 import ContentPreviewPanel from './panels/ContentPreviewPanel';
+import { getHubName } from '@lib/config/locator/config-locator';
+import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -39,10 +40,8 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
     classes,
     ...other
   } = props;
-
-  const configArray = configLocator.split(":");
-  const hubname = configArray[0];
-  const env = configArray[1];
+  const hubname = getHubName();
+  const vendor = useECommerce().vendor;
 
   return (
     <WithAdminTheme>
@@ -56,7 +55,7 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
             <span>hub</span> <span><b>{hubname}</b></span>
           </div>
           <div style={{ marginLeft: '40px' }}>
-            <span>env</span> <span><b>{env}</b></span>
+            <span>vendor</span> <span><b>{vendor}</b></span>
           </div>
         </div>
         <Divider />

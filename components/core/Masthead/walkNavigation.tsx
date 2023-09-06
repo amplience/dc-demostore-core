@@ -66,6 +66,8 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                 return type === 'category' && child.content.name === category.id;
             });
 
+            let pushCount = 0;
+
             if (!cmsEntry && category.showInMenu) {
                 // Create a dummy one, if it's meant to be visible
 
@@ -94,7 +96,7 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                     children: []
                 }
 
-                children.push(cmsEntry)
+                children.splice(pushCount++, 0, cmsEntry)
             }
 
             if (cmsEntry) {

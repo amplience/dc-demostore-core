@@ -5,13 +5,14 @@ import fetchContentMap from "@lib/cms/fetchContentMap";
 import { GetServerSidePropsContext } from "next";
 import { createCmsContext } from "@lib/cms/CmsContext";
 import { createUserContext } from "@lib/user/UserContext";
-import { configLocator, createAppContext } from "@lib/config/AppContext";
+import { createAppContext } from "@lib/config/AppContext";
 import { enrichPageContent } from "./pageContent/enrichPageContent";
 import { CmsHierarchyRequest } from "@lib/cms/fetchHierarchy";
 import fetchHierarchyMap from "@lib/cms/fetchHierarchyMap";
 import { commerceApi } from '@pages/api';
 import { clearUndefined } from '@lib/util';
 import { Category, CustomerGroup } from '@amplience/dc-integration-middleware';
+import { getVendorName } from '@lib/config/locator/config-locator';
 
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>, 
@@ -39,6 +40,7 @@ async function fetchPageData<
 
     const categories = clearUndefined((await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })) as any) as Category[]
     const segments = await commerceApi.getCustomerGroups({ ...cmsContext, ...userContext }) as CustomerGroup[]
+    const vendor = getVendorName()
 
     return {
         context: {
@@ -50,7 +52,8 @@ async function fetchPageData<
         hierarchies: await enrichPageContent(hierarchies, cmsContext),
         ecommerce: {
             segments,
-            categories
+            categories,
+            vendor
         }
     }
 }

@@ -18,7 +18,6 @@ export type NavigationItem = {
     nodeContentItem?: CmsContent;
 };
 
-
 export type NavigationState = {
     rootItems: NavigationItem[];
     findByHref: (href: string) => NavigationItem | undefined,
@@ -28,9 +27,8 @@ const NavigationContext = createContext<NavigationState | null>(null);
 
 export const WithNavigationContext: FC<{
     pages: CmsHierarchyNode,
-    segments: any,
     categories: any
-}> = ({ pages, segments, categories, children }) => {
+}> = ({ pages, categories, children }) => {
 
     // Retrieve locale/country code from context
     const { locale } = useCmsContext() || {}
@@ -245,8 +243,7 @@ export const WithNavigationContext: FC<{
         })
         return rootEntries as NavigationItem[];
 
-    }, [pages, segments, categories, categoriesBySlug, categoriesById, language]);
-
+    }, [pages, categories, categoriesBySlug, categoriesById, language]);
 
     const findByHref = (href: string) => {
         let result: NavigationItem | undefined;
@@ -264,7 +261,6 @@ export const WithNavigationContext: FC<{
 
         return result;
     }
-
     
     return <NavigationContext.Provider value={{
         rootItems,

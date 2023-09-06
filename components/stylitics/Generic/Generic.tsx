@@ -78,16 +78,16 @@ const Generic: React.FunctionComponent<Props> = (props) => {
             if (active) {
                 widgetInstance = widget;
                 
-                (commerceApi as any).vendor().then((vendor: string) => {
-                    const isRest = vendor === 'rest';
+                const vendor = (commerceApi as any).vendor();
 
-                    if (isRest && active) {
-                        // Click override to redirect to Product page
-                        widget.override("click", "item", function (props: any) {
-                            handleApply(props as any)
-                        })
-                    }
-                })
+                const isRest = vendor === 'rest';
+
+                if (isRest && active) {
+                    // Click override to redirect to Product page
+                    widget.override("click", "item", function (props: any) {
+                        handleApply(props as any)
+                    })
+                }
 
                 widget.start();
             } else {

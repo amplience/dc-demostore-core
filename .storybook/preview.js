@@ -8,8 +8,9 @@ import { WithCmsContext } from '@lib/cms/CmsContext';
 import WithCart from '@components/cart/CartContext';
 import { WithUserContext } from '@lib/user/UserContext';
 
-import { configLocator, WithLazyAppContext } from '@lib/config/AppContext'
-let contentApi = `${configLocator.hub}.cdn.content.amplience.net`
+import { WithLazyAppContext } from '@lib/config/AppContext'
+
+let contentApi = `${getHubName()}.cdn.content.amplience.net`
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

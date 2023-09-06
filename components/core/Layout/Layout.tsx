@@ -15,6 +15,7 @@ import AdminPanel from '@components/admin/AdminPanel/AdminPanel';
 import { Masthead } from '@components/core';
 import { WithNavigationContext } from '../Masthead';
 import { WithCMSTheme, WithThemesContext } from '../WithCMSTheme';
+import { WithECommerceContext } from '../Masthead/ECommerceContext';
 
 interface Props {
     pageProps: {
@@ -61,29 +62,34 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             >
                 <WithNavigationContext
                     pages={pageProps.hierarchies.pages}
-                    segments={pageProps.ecommerce.segments}
                     categories={pageProps.ecommerce.categories}
                 >
-                    <div>
-                        {/* <DebugToolbar /> */}
-                        <PreviewToolbar />
-                        <Masthead />
-                        {children}
+                    <WithECommerceContext
+                        segments={pageProps.ecommerce.segments}
+                        categories={pageProps.ecommerce.categories}
+                        vendor={pageProps.ecommerce.vendor}
+                    >
+                        <div>
+                            {/* <DebugToolbar /> */}
+                            <PreviewToolbar />
+                            <Masthead />
+                            {children}
 
-                        <Footer />
-                        <Modal open={currentModal !== 'NONE'} onClose={closeModal}>
-                            {currentModal === 'ACCOUNT' && <AccountModal segments={pageProps.ecommerce.segments} />}
-                            {currentModal === 'LOCALE' && <LocaleModal />}
-                        </Modal>
+                            <Footer />
+                            <Modal open={currentModal !== 'NONE'} onClose={closeModal}>
+                                {currentModal === 'ACCOUNT' && <AccountModal segments={pageProps.ecommerce.segments} />}
+                                {currentModal === 'LOCALE' && <LocaleModal />}
+                            </Modal>
 
-                        <Sidebar
-                            variant={'left'}
-                            open={debugging}
-                            onClose={handleCloseDebug}
-                        >
-                            <AdminPanel />
-                        </Sidebar>
-                    </div>
+                            <Sidebar
+                                variant={'left'}
+                                open={debugging}
+                                onClose={handleCloseDebug}
+                            >
+                                <AdminPanel />
+                            </Sidebar>
+                        </div>
+                    </WithECommerceContext>
                 </WithNavigationContext>
             </WithCMSTheme>
         </WithThemesContext>
