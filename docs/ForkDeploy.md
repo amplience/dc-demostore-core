@@ -46,7 +46,7 @@ Value:
 { "cms": { "hub": "automation01", "stagingApi": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io", "imageHub": "willow" }, "algolia": { "appId": "4BS5I6EVVD", "apiKey": "e34456b7d52beaa2b34b447efd7e4f52" }, "url": "https://dc-demostore-core-nm.vercel.app" }
 ```
 
-Name: `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON`
+Name: `DEMOSTORE_CONFIG_ECOMM_JSON`
 Value:
 ```
 {"vendor":"rest","codec_params":{"productURL":"https://demostore-catalog.s3.us-east-2.amazonaws.com/products.json","categoryURL":"https://demostore-catalog.s3.us-east-2.amazonaws.com/categories.json","customerGroupURL":"https://demostore-catalog.s3.us-east-2.amazonaws.com/customerGroups.json","translationsURL":"https://demostore-catalog.s3.us-east-2.amazonaws.com/translations.json"}}
