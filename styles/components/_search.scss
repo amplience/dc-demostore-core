@@ -17,6 +17,8 @@
     width: 14px;
     fill: #999;
     top: 4px;
+    top: 50%;
+    transform: translateY(-50%);
   }
   &__input {
     width: 170px;
