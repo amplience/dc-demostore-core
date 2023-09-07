@@ -17,16 +17,30 @@ const PersonalizedBannerSlot: FC<Props> = ({ segments }) => {
 
     const matchedSegment = useMemo(() => {
         if(!segments) return null;
+        // default to the first
         let result = segments[0];
-        for (const segment of segments) {
-            if (segment.segment && segment.segment.length > 0) {
-                for (const item in segment.segment) {
-                    if (segment.segment[item] === userSegment) {
-                        result = segment;
+        if(userSegment){
+            // This path if there is a user segment in place
+            for (const segment of segments) {
+                if (segment.segment && segment.segment.length > 0) {
+                    for (const item in segment.segment) {
+                        if (segment.segment[item] === userSegment) {
+                            result = segment;
+                            break;
+                        }
                     }
                 }
             }
+        } else{
+            // We should try and find the first without any segments
+            for (const segment of segments) {
+                if (!segment.segment) {
+                    result = segment;
+                    break
+                }
+            }
         }
+        
         return result;
     }, [userSegment, segments]);
 
