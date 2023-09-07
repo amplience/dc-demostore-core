@@ -10,6 +10,7 @@
   border-left: 1px solid $textColor;
   position: relative;
   display: block;
+  z-index: 1201;
   &__icon {
     position: absolute;
     right: 15px;
@@ -38,15 +39,17 @@
   &__results {
     position: absolute;
     padding: 0 10px 10px 10px;
-    top: 30px;
+    //top: 30px;
     right: -10px;
-    z-index: 101;
+    z-index: 1201;
     display: none;
     overflow: hidden;
+   
     &__container {
       padding: 20px 0;
       background-color: white;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      
     }
     &--active {
       display: inherit;
@@ -130,4 +133,7 @@
 .search__results__listing__list {
   display: flex;
   list-style-type: none;
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
 }

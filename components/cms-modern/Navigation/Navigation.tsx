@@ -100,7 +100,10 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
             </li>
           );
         })}
-        <li className="navigation__list__item navigation__list__item--search" key={pages.length}>
+        
+      </ul>
+      <ul className="navigation__list--search">
+      <li className="navigation__list__item navigation__list__item--search" key={pages.length}>
           <Search />
         </li>
       </ul>
