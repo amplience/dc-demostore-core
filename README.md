@@ -1,10 +1,10 @@
-# Amplience Demo Store Core Package
+# Amplience Demostore Core Package
 
 `dc-demostore-core` is a React/Material/NextJS front-end e-Commerce application, implemented with Typescript, showcasing Amplience Dynamic Media and Dynamic Content.
 
 It includes Storybook, a visual documentation of the UI components, things like Product Lists, Banners, Blogs & Blog posts, Stores, etc.
 
-The package also includes a Debug/X-Ray panel to help understand how the pages and components are structured, what context your are looking at the application in and the ability to click directly from the application to the related content in Amplience Dynamic Content.
+The package also includes a Debug/X-Ray panel to help understand how the pages and components are structured, what context you are looking at the application in and the ability to click directly from the application to the related content in Amplience Dynamic Content.
 
 `dc-demostore-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
 
@@ -141,7 +141,7 @@ info:
 info: run completed in [ 1m47s ]
 ```
 
-Once ran, you will be provided with your own specific value for the `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` environment variable to replace in both your `.env.local` file and in your Vercel deployment environment variable
+Once ran, you will be provided with your own specific value for the `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` environment variable to replace in both your `.env.local` file and in your Vercel deployment environment variable.
 
 > Note: If you ever need to revert, simply run the `cleanup` command.
 
