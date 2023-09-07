@@ -38,7 +38,7 @@ const AccountModal: FC<Props> = ({segments}) => {
                     <option value="" placeholder="select..."></option>
                     {
                         segments?.map((segment: any, i: number) => {
-                            return <option key={i} value={segment.name}>{segment.name}</option>
+                            return <option key={i} value={segment.id}>{segment.name}</option>
                         })
                     }
                 </select>
