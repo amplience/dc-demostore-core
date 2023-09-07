@@ -3,7 +3,9 @@
         font-family: 'Roboto Condensed', sans-serif;
     }
     display: flex;
-    height: 30px;
+    min-height: 30px;
+    overflow-y: hidden;
+    overflow-x: auto;
     background-color: $primaryGrey;
     z-index: 1200;
     &__list {
