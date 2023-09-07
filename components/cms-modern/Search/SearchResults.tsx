@@ -87,7 +87,7 @@ const SearchResults: React.FC<Props> = (props) => {
     // end algolia
 
     if (!_.isEmpty(searchTerm)) {
-      (commerceApi as CommerceAPI).getProducts({ keyword: searchTerm, ...cmsContext, ...userContext }).then(products => {
+      (commerceApi as CommerceAPI).getProducts({ keyword: searchTerm, ...cmsContext, ...userContext, pageSize: 6, pageCount: 1 }).then(products => {
         setSearchResults(products.map((prod: Product) => ({
           ...prod,
           href: `/product/${prod.id}/${prod.slug}`

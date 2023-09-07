@@ -39,7 +39,7 @@ const SearchResultsListing: React.FC<Props> = (props) => {
                             }
                         }
 
-                      let price = variants[0].prices.list
+                      let price = variants[0].listPrice
                       return (
                         <li key={index}>
                           <a href={href}>
