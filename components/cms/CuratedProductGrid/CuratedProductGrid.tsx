@@ -58,19 +58,21 @@ const CuratedProductGrid: FC<Props> = ({
 
   useEffect(() => {
     let isMounted: boolean = true;
-    (commerceApi as CommerceAPI).getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
-      if (isMounted) {
-        // reorder based on the original ordering because these are not ordered
-        let orderedProducts: Product[] = []
-        _.each(products, product => {
-          let ordered: any = _.find(prods, prod => prod?.id === product)
-          if (ordered) {
-            orderedProducts.push(ordered)
-          }
-        })
-        setProductList(orderedProducts)
-      }
-    })
+    if(products && products?.length){
+      (commerceApi as CommerceAPI).getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
+        if (isMounted) {
+          // reorder based on the original ordering because these are not ordered
+          let orderedProducts: Product[] = []
+          _.each(products, product => {
+            let ordered: any = _.find(prods, prod => prod?.id === product)
+            if (ordered) {
+              orderedProducts.push(ordered)
+            }
+          })
+          setProductList(orderedProducts)
+        }
+      })
+    }
     return () => { isMounted = false }
   }, [products, cmsContext, userContext])
 
