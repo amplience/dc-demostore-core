@@ -20,12 +20,15 @@ const PersonalizedBannerSlot: FC<Props> = ({ segments }) => {
         // default to the first
         let result = null;
         if(userSegment){
+            let isBreak = false
             // This path if there is a user segment in place
             for (const segment of segments) {
+                if(isBreak) break;
                 if (segment.segment && segment.segment.length > 0) {
                     for (const item in segment.segment) {
                         if (segment.segment[item] === userSegment) {
                             result = segment;
+                            isBreak = true
                             break;
                         }
                     }
