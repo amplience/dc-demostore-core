@@ -3,6 +3,8 @@ import { Category, CustomerGroup } from "@amplience/dc-integration-middleware";
 
 export type ECommerceState = {
     categories: Category[]
+    categoriesById: { [key: string]: Category }
+    categoriesBySlug: { [key: string]: Category }
     segments: CustomerGroup[]
     vendor: string
 };
@@ -15,10 +17,41 @@ export const WithECommerceContext: FC<{
     vendor: string
 }> = ({ segments, categories, vendor, children }) => {
 
+    // Flatten a hierarchy of children
+    const flattenCategories = (categories: any[]) => {
+        const allCategories: any[] = []
+        const bulldozeCategories = (cat: any) => {
+            allCategories.push(cat)
+            cat.children && cat.children.forEach(bulldozeCategories)
+        }
+        categories.forEach(bulldozeCategories)
+        return allCategories
+    }
+
+    // Merge together CMS + commerce categories into a single navigation structure
+    const categoriesBySlug = useMemo(() => {
+        const result: { [key: string]: Category } = {};
+        for (let item of flattenCategories(categories)) {
+            result[item.slug] = item;
+        }
+        return result;
+    }, [categories]);
+
+    // Merge together CMS + commerce categories into a single navigation structure
+    const categoriesById = useMemo(() => {
+        const result: { [key: string]: Category } = {};
+        for (let item of flattenCategories(categories)) {
+            result[item.id] = item;
+        }
+        return result;
+    }, [categories]);
+
     return <ECommerceContext.Provider value={{
-        segments,
         categories,
-        vendor
+        categoriesById,
+        categoriesBySlug,
+        segments,
+        vendor,
     }}>
         {children}
     </ECommerceContext.Provider>;
