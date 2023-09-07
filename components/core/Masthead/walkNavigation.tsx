@@ -57,7 +57,7 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
         for (const category of categories) {
             // Does a CMS category exist for this entry?
 
-            let cmsEntry = children.find(child => {
+            let cmsChild = children.find(child => {
                 const type = getTypeFromSchema(child.content?._meta?.schema);
                 if (!type) {
                     return false;
@@ -68,10 +68,10 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
 
             let pushCount = 0;
 
-            if (!cmsEntry && category.showInMenu) {
+            if (!cmsChild && category.showInMenu) {
                 // Create a dummy one, if it's meant to be visible
 
-                cmsEntry = {
+                cmsChild = {
                     content: {
                         _meta: {
                             name: category.name,
@@ -96,13 +96,13 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                     children: []
                 }
 
-                children.splice(pushCount++, 0, cmsEntry)
+                children.splice(pushCount++, 0, cmsChild)
             }
 
-            if (cmsEntry) {
-                enrichCmsEntries(cmsEntry, categoriesById, category.children);
+            if (cmsChild) {
+                enrichCmsEntries(cmsChild, categoriesById, category.children);
 
-                remainingChildren.splice(remainingChildren.indexOf(cmsEntry), 1);
+                remainingChildren.splice(remainingChildren.indexOf(cmsChild), 1);
             }
         }
 

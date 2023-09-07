@@ -89,33 +89,9 @@ export const WithNavigationContext: FC<{
 
             // Add any content groups first
             const contentChildren = cmsCategory ? buildCmsEntries(cmsCategory.children) as NavigationItem[] : [];
-            let categoryChildren: NavigationItem[] = [];
-
-            // Then add sub-categories (don't add sub-categories already managed by the cms)
-            if (ecommerceCategory) {
-                let subCategories = (ecommerceCategory.children || [])
-                // originally 'categories'
-                // .filter((category: any) => {
-                    //     return category && category.parent && category.parent.id === ecommerceCategory.id;
-                    // })
-                    .filter((category: any) => {
-                        // filter out categories already managed by the cms
-                        return !contentChildren?.find(x => x.category === category);
-                    });
-                
-                // sort by user defined order
-                subCategories.sort((a: any, b: any) => {
-                    return Number(b.orderHint) - Number(a.orderHint)
-                });
-                
-                categoryChildren = subCategories.map((category: any) => {
-                    return buildCategoryItem(undefined, category);
-                }).filter((x: any) => x != null)
-            }
 
             result.children = [
-                ...contentChildren,
-                ...categoryChildren
+                ...contentChildren
             ];
 
             return result as NavigationItem;
