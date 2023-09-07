@@ -23,7 +23,17 @@ const PreviewToolbar: FC<Props> = ({ children }) => {
     return (
         <div className={clsx(s.root, 'alert alert-danger')}>
             <div className={s.info}>
-                <Calendar /> Currently previewing: <Moment format="YYYY/MM/DD, h:mm:ss a">{Number(timestamp)}</Moment>
+                {
+                    timestamp ? (
+                        <>
+                        <Calendar />Currently previewing: <Moment format="YYYY/MM/DD, h:mm:ss a">{Number(timestamp)}</Moment>
+                        </>
+                      ) : (
+                        <>
+                        <Calendar /> Currently previewing: Quick Preview mode
+                        </>
+                      )
+                }
             </div>
             <div className={s.controls}>
                 <a href="/current">

@@ -51,7 +51,11 @@ const ContentPreviewPanel: FC<Props> = (props) => {
         return 'PRODUCTION';
     });
     const [date, setDate] = useState(() => {
-        const dateObject = timestamp ? new Date(Number(timestamp)) : new Date();
+        let dateObject = new Date();
+        if(timestamp && timestamp > 0){
+            dateObject = new Date(Number(timestamp));
+        }
+        
         let value = dateObject.toISOString();
         value = value.slice(0, value.lastIndexOf('.'));
         return value;
