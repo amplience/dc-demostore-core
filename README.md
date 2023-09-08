@@ -157,7 +157,7 @@ The outputs for both are in friendly copy and paste formats, see below for more 
 
 In your `.env.local` at the root of the project replace the current line of `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` with your item from the automation. (.env.local file format)
 
-> Note: You will have to stop your server and run `npm run dev` again to see the change.
+> Note: Reloading your page in development mode should be enough to take the new values into account.
 
 ### Vercel
 
