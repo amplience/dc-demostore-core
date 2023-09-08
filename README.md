@@ -11,7 +11,7 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 # Table of Contents
 - [Getting Started](#getting-started)
 - [Storybook](#storybook)
-- [Provisioning your own Amplience Environment)](#provisioning-your-own-amplience-environment)
+- [Provisioning your own Amplience Environment](#provisioning-your-own-amplience-environment)
 - [Additional Topics](#additional-topics)
 
 
@@ -81,7 +81,7 @@ At a high level the basic steps are:
 3. Configure & use `dc-demostore-cli` to populate content
 4. Update your local / deployed `dc-demostore-core` with environment variables to your account.
 
-> Note: If you already have an Amplience Demostore account and are upgrading to verson `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
+> Note: If you already have an Amplience Demostore account and are upgrading to version `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
 
 Location: `examples/crs`
 Upload asset store in Content Hub: `Templates`
@@ -149,7 +149,7 @@ Once ran, you will be provided with your own specific value for the `NEXT_PUBLIC
 
 In the [Fork and Deploy](#fork--deploy-dc-demostore-core) section you will have already created your local environment variable and the same on your vercel deployment.
 
-We just need to change `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` to the outputs from the dc-demostore-cli import for both local and in Vercel (Settings --> Environment Variables)
+We just need to change `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` to the outputs from the `dc-demostore-cli` import for both local and in Vercel (Settings --> Environment Variables)
 
 The outputs for both are in friendly copy and paste formats, see below for more details.
 
@@ -161,7 +161,7 @@ In your `.env.local` at the root of the project replace the current line of `NEX
 
 ### Vercel
 
-In your Vercel project browse to Settings --> Environment Variables and edit the existing `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` variable and replace the value with that from the dc-demostore-cli import. (Vercel format)
+In your Vercel project browse to Settings --> Environment Variables and edit the existing `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` variable and replace the value with that from the `dc-demostore-cli` import. (Vercel format)
 
 > Note: You will have to redeploy your application to see the change.
 
