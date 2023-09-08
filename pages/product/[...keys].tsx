@@ -49,6 +49,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return create404Error(data, context);
   }
 
+  if (data.content.productContent?.active) {
+    // The cms content shouldn't be respected.
+    data.content.productContent = null;
+}
+
   const experienceConfigRequests: GetByFilterRequest[] = [];
 
   // config based on category
