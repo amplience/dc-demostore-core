@@ -295,11 +295,10 @@ In the code, the Filter API is used to search Commerce Experiences based on the 
 
 In order to illustrate a personalisation approach this project contains a slot type which allows a user to associate content to user segments.
 
-Repository: `slots`
-Content type: `Personalized Banner Slot`
-Schema: `https://demostore.amplience.com/slots/personalized-banner`
-Component: `components/cms-modern/PersonalizedBannerSlot/PersonalizedBannerSlot.tsx`
-
+- Repository: `slots`
+- Content type: `Personalized Banner Slot`
+- Schema: `https://demostore.amplience.com/slots/personalized-banner`
+- Component: `components/cms-modern/PersonalizedBannerSlot/PersonalizedBannerSlot.tsx`
 
 ### Authoring
 
@@ -343,8 +342,6 @@ The following rules will apply to all instances of the personalized banner slot 
   * If no matches are found it will:
     * Display default content (the FIRST item without a user segment aassociated)
     * If no content is found without a segment it will display nothing
-
-
 
 ### Layouts
 
