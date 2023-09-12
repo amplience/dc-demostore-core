@@ -91,7 +91,7 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                         active: true,
                         menu: {
                             hidden: false,
-                            priority: 10 + generated*10,
+                            priority: generated*10,
                         },
                         name: category.id
                     },

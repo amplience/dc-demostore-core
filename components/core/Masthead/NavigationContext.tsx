@@ -165,6 +165,7 @@ export const WithNavigationContext: FC<{
                 href: node.content.href,
                 children: buildCmsEntries(node.children),
                 parents: [],
+                content: node?.content,
                 nodeContentItem: node?.content
             };
         };
