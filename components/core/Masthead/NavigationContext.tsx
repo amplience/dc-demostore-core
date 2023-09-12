@@ -114,6 +114,7 @@ export const WithNavigationContext: FC<{
             return {
                 type: 'group',
                 title: title?.value,
+                content: node?.content,
                 children: buildCmsEntries(node.children),
                 parents: []
             };
@@ -139,6 +140,7 @@ export const WithNavigationContext: FC<{
                 href: node.content._meta?.deliveryKey ? `/${node.content._meta?.deliveryKey}` : undefined,
                 children: buildCmsEntries(node.children),
                 parents: [],
+                content: node.content,
                 nodeContentItem: node.content
             };
         };
@@ -163,6 +165,7 @@ export const WithNavigationContext: FC<{
                 href: node.content.href,
                 children: buildCmsEntries(node.children),
                 parents: [],
+                content: node?.content,
                 nodeContentItem: node?.content
             };
         };
@@ -173,8 +176,8 @@ export const WithNavigationContext: FC<{
                 return null;
             }
 
-            if (node.content?.menu?.hidden) {
-            // if (!node.content?.active) {
+            // if (node.content?.menu?.hidden) {
+            if (!node.content?.active) {
                 return null;
             }
 

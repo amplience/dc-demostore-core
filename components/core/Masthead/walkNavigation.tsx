@@ -54,6 +54,7 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
         const children = cmsEntry.children;
         const remainingChildren = [...children]
         
+        let generated = 0
         for (const category of categories) {
             // Does a CMS category exist for this entry?
 
@@ -70,7 +71,7 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
 
             if (!cmsChild && category.showInMenu) {
                 // Create a dummy one, if it's meant to be visible
-
+                generated++
                 cmsChild = {
                     content: {
                         _meta: {
@@ -87,9 +88,10 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                         hideProductList: false,
                         components: [],
                         slots: [],
+                        active: true,
                         menu: {
                             hidden: false,
-                            priority: 0,
+                            priority: generated*10,
                         },
                         name: category.id
                     },

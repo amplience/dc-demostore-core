@@ -66,10 +66,13 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
   return (
     <nav className="navigation" style={style}>
       <ul className="navigation__list">
-        {pages.map(({ title, href, children = [], content, category }, index) => {
-          // make sure these categories have children or they won't display properly
-          let categoriesWithChildren = children.filter(child => child.children.length > 0)
-
+        {pages
+          .sort((p1, p2) => 
+            (p1.content?.menu.priority > p2.content?.menu.priority) ? 1 
+            : (p1.content?.menu.priority < p2.content?.menu.priority) ? -1 
+            : 0)
+          .map(({ title, href, children = [], content, category }, index) => {
+          
           return (
             <li
               key={index}
@@ -83,8 +86,9 @@ const Navigation: React.FC<Props> = ({ pages, style }) => {
                   <a
                     onClick={(event) => children.length === 0 ? handleRouteChange() : handleClick(event, index)}
                     className="navigation__list__item__link"
+                    title={`priority: ${content?.menu?.priority}`}
                   >
-                    {title}
+                    {title} 
                   </a>
                 </Link>
               )}
