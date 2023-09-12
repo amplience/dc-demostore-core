@@ -9,7 +9,7 @@ interface Props {
     seo:any;
 }
 
-const LandingPage: FC<Props> = ({contentTypes = [], seo = {}}) => {
+const ContentPage: FC<Props> = ({contentTypes = [], seo = {}}) => {
     return <Box>
         <Typography variant='h1' component='h1'>
             {seo.title}
@@ -27,4 +27,4 @@ const LandingPage: FC<Props> = ({contentTypes = [], seo = {}}) => {
     </Box>;
 }
 
-export default LandingPage;
+export default ContentPage;
