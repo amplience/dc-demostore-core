@@ -173,7 +173,8 @@ export const WithNavigationContext: FC<{
                 return null;
             }
 
-            if (!node.content?.active) {
+            if (node.content?.menu?.hidden) {
+            // if (!node.content?.active) {
                 return null;
             }
 
