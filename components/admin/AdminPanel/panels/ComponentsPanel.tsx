@@ -80,12 +80,13 @@ const ComponentsPanel: FC<Props> = (props) => {
                         <VisibilityToggle selected={showSlots} onClick={toggleSlots} />
                     </TableCell>
                 </TableRow>
-                <TableRow key={"editions"}>
+                { /*<TableRow key={"editions"}>
                     <TableCell>All Editions</TableCell>
                     <TableCell align="right">
                         <VisibilityToggle selected={showEditions} onClick={toggleEditions} />
                     </TableCell>
                 </TableRow>
+                */}
             </TableBody>
         </Table>
     </>);

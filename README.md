@@ -176,6 +176,7 @@ In your Vercel project browse to Settings --> Environment Variables and edit the
 - [Exploring features](docs/DeepDive.md)
 - [Changing eCommerce Configuration](docs/ECommerceConfiguration.md)
 - [Working with Pages](docs/WorkingWithPages.md)
+- [Debug / X-Ray Panel](docs/Debug-Xray-Panel.md)
 - [Contribution Model (fork, PR, etc.)](https://github.com/amplience/dc-cli/blob/master/CONTRIBUTING.md)
 - [FAQ](docs/FAQ.md)
 - [v2.0.0 Upgrade](docs/v2.0.0-upgrade.md)
