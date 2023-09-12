@@ -36,7 +36,7 @@ const resolveContent = (requests: CmsRequest[]): Promise<CmsContent[]> => {
     };
 ```
 
-[top](#table-of-contents)
+[top](#table-of-content)
 
 ## Filter API
 
@@ -93,7 +93,7 @@ let filterRequest: GetByFilterRequest =
     }
 ```
 
-[top](#table-of-contents)
+[top](#table-of-content)
 
 ## Amplience Search
 
@@ -234,7 +234,7 @@ let filterRequest: GetByFilterRequest =
             </PageContent>
 ```
 
-[top](#table-of-contents)
+[top](#table-of-content)
 
 ## Navigation Hierarchy
 
@@ -277,7 +277,7 @@ Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
     }, context);
 ```
 
-[top](#table-of-contents)
+[top](#table-of-content)
 
 ## Product Detail Page Layout
 
@@ -457,7 +457,7 @@ const [data, product] = await Promise.all(
   }
 ```
 
-[top](#table-of-contents)
+[top](#table-of-content)
 
 ## Theming
 
@@ -480,7 +480,7 @@ You can define a default theme, and additional ones. Some components like `Blog`
 
 ![Theme Wrapper](../media/themeWrapper.png)
 
-[top](#table-of-contents)
+[top](#table-of-content)
 
 ## Admin UI Panels
 
@@ -533,4 +533,4 @@ The demostore implementation includes the following:
 * Sample implementation for overriding link values
 * Sample implementation of inheriting SKU from PDP
 
-[top](#table-of-contents)
+[top](#table-of-content)

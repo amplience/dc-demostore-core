@@ -9,17 +9,17 @@ Demostore Core uses the [dc-integration-middleware project](https://github.com/a
 
 This project comes with an integration with a demo commerce platform. This is a REST configuration which mimics data from a commerce platform. For full details see [here](https://github.com/amplience/dc-integration-middleware/blob/main/docs/vendor/commerce/rest.md).
 
-As this integration middleware supports multiple eCommerce vendors, you can easily tell your demostore to work with any of the supported eCommerce Vendors.
+As this integration middleware supports multiple eCommerce vendors, you can easily tell your your demostore to work with any of the supported eCommerce Vendors.
 
 See [dc-integration-middleware](https://github.com/amplience/dc-integration-middleware) directly for a list.
 
 ## Setting up your integration
 
-For any of the supported integrations, you will need to follow the guidance to setup access from these vendors first and get your required credentials.
+For any of the supported integrations, you will need follow the guidance to setup access from these vendors first and get your required credentials.
 
 Details can be found in [dc-demostore-integration](https://github.com/amplience/dc-integration-middleware) for each of the supported commerce vendors.
 
-## What do I need to change?
+## What do i need to change?
 
 There are 2 elements that you need to change to have your demostore work with a different supported eCommerce Vendor:
 
