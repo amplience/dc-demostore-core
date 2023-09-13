@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook --no-dll"
   },
   "dependencies": {
-    "@amplience/dc-integration-middleware": "github:amplience/dc-integration-middleware#feat/showInMenu",
+    "@amplience/dc-integration-middleware": "github:amplience/dc-integration-middleware#v2.2.0",
     "@amplience/dc-integration-stylitics": "^1.0.0",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.7.1",
