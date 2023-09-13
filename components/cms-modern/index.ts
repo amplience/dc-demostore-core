@@ -8,7 +8,7 @@ export { default as BannerSlot } from './BannerSlot';
 export { default as ExternalBlock } from './ExternalBlock';
 export { default as FlexibleSlot } from './FlexibleSlot';
 export { default as Image } from './Image';
-export { default as LandingPage } from './LandingPage';
+export { default as ContentPage } from './ContentPage';
 export { default as LocalizedBannerSlot } from './LocalizedBannerSlot';
 export { default as PersonalizedBannerSlot } from './PersonalizedBannerSlot';
 export { default as SimpleBanner } from './SimpleBanner';

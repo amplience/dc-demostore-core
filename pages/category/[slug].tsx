@@ -16,13 +16,12 @@ import { withStyles, WithStyles } from '@mui/styles';
 
 import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/dc-demostore-integration';
+import { Category, Product } from '@amplience/dc-integration-middleware';
 import { nanoid } from 'nanoid'
 import { useContent } from '@components/core/WithVisualization';
 import styles from '../../components/ui/category-styles'
 import DEFAULT_FACETS from '@lib/util/default-search-facets'
-import { mapToID } from '@lib/util';
-import { configLocator } from '@lib/config/AppContext';
+import { clearUndefined, mapToID } from '@lib/util';
 
 type CategoryPageConfig = {
     facets?: {
@@ -30,6 +29,22 @@ type CategoryPageConfig = {
         field: string,
         title: string
     }[]
+}
+
+function findCategory(categories: Category[], predicate: (category: Category) => boolean): Category | null {
+    for (const category of categories) {
+        if (predicate(category)) {
+            return category;
+        }
+
+        const child = findCategory(category.children, predicate);
+
+        if (child) {
+            return child;
+        }
+    }
+
+    return null;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -46,28 +61,45 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    slug = Array.isArray(slug) ? slug.join('/') : slug
-    
-    // use the content to get by ID if available in the content to control. Otherwise use the slug
-    let category
-    if (data.content.page?.name){
-        const cmsslug = data.content.page?.name
-        category = await commerceApi.getCategory({ id: cmsslug, ...await createCmsContext(context.req), ...await createUserContext(context) })
-    }else{
-        category = await commerceApi.getCategory({ slug, ...await createCmsContext(context.req), ...await createUserContext(context) })
+    if (data.content.page && !data.content.page.active) {
+        // The cms content shouldn't be respected.
+        data.content.page = null;
     }
-    const slots = await fetchPageData({
+
+    slug = Array.isArray(slug) ? slug.join('/') : slug
+
+    const props = await fetchPageData({
         content: {
             slots: (data.content.page?.slots || []).map(mapToID)
         }
     }, context)
+    
+    // use the content to get by ID if available in the content to control. Otherwise use the slug
+    let category
+    if (data.content.page?.name) {
+        const cmsslug = data.content.page?.name
+
+        category = findCategory(props.ecommerce.categories, (cat) => cat.id === cmsslug);
+    } else {
+        category = findCategory(props.ecommerce.categories, (cat) => cat.slug === slug);
+    }
+
+    if (!category) {
+        return create404Error(data, context);
+    }
+
+    category = _.cloneDeep(category);
+
+    const products = await commerceApi.getProducts({ category, ...await createCmsContext(context.req), ...await createUserContext(context), pageSize: 30, pageCount: 1 })
+
+    category.products = products;
 
     return {
         props: {
             ...data,
             vse: vse || "",
-            category: JSON.parse(JSON.stringify(category)),
-            slots: slots.content.slots
+            category: clearUndefined(category),
+            slots: props.content.slots
         }
     }
 }

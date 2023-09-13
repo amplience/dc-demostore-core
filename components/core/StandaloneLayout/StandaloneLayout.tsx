@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { WithNavigationContext } from '../Masthead';
 import { WithCMSTheme, WithThemesContext } from '../WithCMSTheme';
+import { WithECommerceContext } from '../Masthead/ECommerceContext';
 
 interface Props {
     pageProps: {
@@ -21,9 +22,15 @@ const StandaloneLayout: FC<Props> = ({ children, pageProps }) => {
                     pages={pageProps.hierarchies.pages}
                     categories={pageProps.ecommerce.categories}
                 >
-                    <div>
-                        {children}
-                    </div>
+                    <WithECommerceContext
+                        segments={pageProps.ecommerce.segments}
+                        categories={pageProps.ecommerce.categories}
+                        vendor={pageProps.ecommerce.vendor}
+                    >
+                        <div>
+                            {children}
+                        </div>
+                    </WithECommerceContext>
                 </WithNavigationContext>
             </WithCMSTheme>
         </WithThemesContext>

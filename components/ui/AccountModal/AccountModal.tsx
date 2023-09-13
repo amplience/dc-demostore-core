@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react'
 import { useUI } from '../UIContext';
 import { useUserContext } from '@lib/user/UserContext';
+import { CustomerGroup } from '@amplience/dc-integration-middleware';
 
 interface Props {
+    segments?: CustomerGroup[]
 }
 
-const AccountModal: FC<Props> = ({ }) => {
-
+const AccountModal: FC<Props> = ({segments}) => {
     const { closeModal } = useUI();
 
     const { segment: initialSegment } = useUserContext();
@@ -31,17 +32,15 @@ const AccountModal: FC<Props> = ({ }) => {
     return (
         <>
             <h2>Sign In</h2>
-
             <div className="af-form-field">
                 <label role="text">Username</label>
                 <select className="af-select" id="username" value={segment || undefined} onChange={handleChangeSegment}>
                     <option value="" placeholder="select..."></option>
-                    <option value="vip">VIP</option>
-                    <option value="bargain-hunter">Bargain Hunter</option>
-                    <option value="fashionista">Fashionista</option>
-                    <option value="home-trendsetter">Home Trendsetter</option>
-                    <option value="globe-trotter">Globe Trotter</option>
-                    <option value="guest">Guest</option>
+                    {
+                        segments?.map((segment: any, i: number) => {
+                            return <option key={i} value={segment.id}>{segment.name}</option>
+                        })
+                    }
                 </select>
             </div>
 

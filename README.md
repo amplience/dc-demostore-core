@@ -1,24 +1,24 @@
-# Amplience Demo Store Core Package
+# Amplience Demostore Core Package
 
 `dc-demostore-core` is a React/Material/NextJS front-end e-Commerce application, implemented with Typescript, showcasing Amplience Dynamic Media and Dynamic Content.
 
 It includes Storybook, a visual documentation of the UI components, things like Product Lists, Banners, Blogs & Blog posts, Stores, etc.
 
-The package also includes a Debug/X-Ray panel to help understand how the pages and components are structured, what context your are looking at the application in and the ability to click directly from the application to the related content in Amplience Dynamic Content.
+The package also includes a Debug/X-Ray panel to help understand how the pages and components are structured, what context you are looking at the application in and the ability to click directly from the application to the related content in Amplience Dynamic Content.
 
 `dc-demostore-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
 
 # Table of Contents
 - [Getting Started](#getting-started)
 - [Storybook](#storybook)
-- [Provisioning your own Amplience Environment)](#provisioning-your-own-amplience-environment)
+- [Provisioning your own Amplience Environment](#provisioning-your-own-amplience-environment)
 - [Additional Topics](#additional-topics)
 
 
 # Getting Started
 
 ## Dependency versions
-This demo appliction was developed and tested with:
+This demo application was developed and tested with:
 
 - Node version `18.x`
 - NPM version `9.x`
@@ -72,16 +72,16 @@ Then go to http://localhost:6006. More details may be found in our [Storybook RE
 
 # Provisioning your own Amplience Environment
 
-The main tool for using your own Amplience environment with `dc-demostore-core` is `dc-demostore-cli`. The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amplience acount. Basically, everything you'd see running `dc-demostore-core` OOTB against our 'core public' Amplience Environment.
+The main tool for using your own Amplience environment with `dc-demostore-core` is [`dc-demostore-cli`](https://github.com/amplience/dc-demostore-cli). The CLI tool allows you to quickly import a pre-configured set of Content Schemas, Content Types, Images, etc. to your Amplience acount. Basically, everything you'd see running `dc-demostore-core` OOTB against our 'core public' Amplience Environment.
 
 At a high level the basic steps are:
 
 1. [Request an Amplience Media and Dynamic Account (if you don't already have one)](#requesting-an-amplience-environment)
 2. [Deploy a fork of `dc-demostore-core` (we'll cover deploying on Vercel)](#fork--deploy-dc-demostore-core)
 3. Configure & use `dc-demostore-cli` to populate content
-4. Point `dc-demostore-core` to your Dynamic Content Hub and run
+4. Update your local / deployed `dc-demostore-core` with environment variables to your account.
 
-> Note: If you already have an Amplience Demostore account and are upgrading to verson `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
+> Note: If you already have an Amplience Demostore account and are upgrading to version `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
 
 Location: `examples/crs`
 Upload asset store in Content Hub: `Templates`
@@ -124,32 +124,47 @@ info: run [ env,add ]: started at Mon Mar 28 2022 12:39:21 GMT+0200 (Central Eur
 
 ```sh
 % demostore import --latest
-info: run [ import ]: started at Mon Mar 28 2022 12:45:26 GMT+0200 (Central European Summer Time)
+info: run [ import ]: started at XXX XXX XX XXXX XX:XX:XX GMT+0200 (Central European Summer Time)
 ...
+info: .env.local file format
+info: 
+----------------------- COPY START ----------------------
+NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON='{"url":"XXX","algolia":{"appId":"XXX","apiKey":"XXX"},"cms":{"hub":"XXX","stagingApi":"XXX","imageHub":"XXX"}}'
+------------------------ COPY END -----------------------
+info: 
+info: Vercel format
+info: 
+----------------------- COPY START ----------------------
+{"url":"XXX","algolia":{"appId":"XXX","apiKey":"XXX"},"cms":{"hub":"XXX","stagingApi":"XXX","imageHub":"XXX"}}
+------------------------ COPY END -----------------------
 ...
-...
-info: run completed in [ 3m20s ]
+info: run completed in [ 1m47s ]
 ```
+
+Once ran, you will be provided with your own specific value for the `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` environment variable to replace in both your `.env.local` file and in your Vercel deployment environment variable.
 
 > Note: If you ever need to revert, simply run the `cleanup` command.
 
 ## Change dc-demostore-core Config / Point to your account
-- Create a .env.local file on the root of your project:
 
-Default setting:
+In the [Fork and Deploy](#fork--deploy-dc-demostore-core) section you will have already created your local environment variable and the same on your vercel deployment.
 
-```sh
-NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR=amprsaprod:default
-```
+We just need to change `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` to the outputs from the `dc-demostore-cli` import for both local and in Vercel (Settings --> Environment Variables)
 
-Your setting with your Hub Name {hubname}
+The outputs for both are in friendly copy and paste formats, see below for more details.
 
-```sh
-NEXT_PUBLIC_DEMOSTORE_CONFIG_LOCATOR={hubname}:default
-```
+### Local
 
+In your `.env.local` at the root of the project replace the current line of `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` with your item from the automation. (.env.local file format)
 
-If you are using services like Vercel, you can configure the environment variable in the settings, and re-deploy your application.
+> Note: Reloading your page in development mode should be enough to take the new values into account.
+
+### Vercel
+
+In your Vercel project browse to Settings --> Environment Variables and edit the existing `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` variable and replace the value with that from the `dc-demostore-cli` import. (Vercel format)
+
+> Note: You will have to redeploy your application to see the change.
+
 
 [top](#table-of-content)
 
@@ -159,5 +174,9 @@ If you are using services like Vercel, you can configure the environment variabl
 - [High-Level Architecture](docs/ArchDiagram.md)
 - [Available Components](docs/Components.md)
 - [Exploring features](docs/DeepDive.md)
+- [Changing eCommerce Configuration](docs/ECommerceConfiguration.md)
+- [Working with Pages](docs/WorkingWithPages.md)
+- [Debug / X-Ray Panel](docs/Debug-Xray-Panel.md)
 - [Contribution Model (fork, PR, etc.)](https://github.com/amplience/dc-cli/blob/master/CONTRIBUTING.md)
 - [FAQ](docs/FAQ.md)
+- [v2.0.0 Upgrade](docs/v2.0.0-upgrade.md)

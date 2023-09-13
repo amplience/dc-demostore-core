@@ -27,3 +27,39 @@ export function objectToSize(obj: any) {
     if (i === 0) return `${bytes} ${sizes[i]}`
     return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
 }
+
+/**
+ * Deletes undefined properties and nullifies undefined array items.
+ * Useful to perform before JSON stringify.
+ * Only use if the object structure is not recursive.
+ */
+export function clearUndefined(root: any): any {
+    if (root != null) {
+        if (Array.isArray(root)) {
+            for (let i = 0; i < root.length; i++) {
+                const child = root[i];
+                if (child == null) {
+                    root[i] = null;
+                } else {
+                    clearUndefined(child);
+                }
+            }
+        } else if (typeof root === 'object') {
+            const keys = Object.keys(root);
+
+            for (const key of keys) {
+                const child = root[key];
+
+                if (child == null) {
+                    if (child === undefined) {
+                        delete root[key];
+                    }
+                } else {
+                    clearUndefined(child);
+                }
+            }
+        }
+    }
+
+    return root;
+}

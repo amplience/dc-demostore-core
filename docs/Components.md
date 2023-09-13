@@ -18,8 +18,8 @@
 | externalBlock                | ExternalBlock                  | External block of HTML code                                               |
 | flexibleSlot                 | FlexibleSlot                   | Slot that allows a number of any content type                             |
 | image                        | Image                          | Basic image with SEO information                                          |
-| landingPage                  | LandingPage                    | ![Landing Page](../media/component-landingPage.png) A re-usable container for all content types with SEO information          |
-| landingpageSlot              | BannerSlot                     | Slot that can contain a landing page                                      |
+| contentPage                  | ContentPage                    | ![Content Page](../media/component-contentPage.png) A re-usable container for all content types with SEO information          |
+| contentpageSlot              | BannerSlot                     | Slot that can contain a content page                                      |
 | localizedBannerSlot          | LocalizedBannerSlot            | Slot for localized banner                                                 |
 | personalizedBannerSlot       | PersonalizedBannerSlot         | Slot that can accept multiple banner for different segments               |
 | productGrid                  | ProductGrid                    | ![Dynamic Product Grid](../media/component-dynamicProductGrid.png) Dynamic product grid based on a query and category                        |

@@ -3,7 +3,7 @@ import SearchResultsListing from './SearchResultsListing';
 import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
-import { Product } from '@amplience/dc-demostore-integration'
+import { CommerceAPI, Product } from '@amplience/dc-integration-middleware'
 import _ from 'lodash'
 
 interface Props {
@@ -46,7 +46,7 @@ function onlyUnique(value: any, index: any, self: any) {
 }
 
 import { commerceApi } from '@pages/api';
-import { configLocator, useAppContext } from '@lib/config/AppContext';
+import { useAppContext } from '@lib/config/AppContext';
 
 const SearchResults: React.FC<Props> = (props) => {
   const { rootItems } = useNavigation();
@@ -87,7 +87,7 @@ const SearchResults: React.FC<Props> = (props) => {
     // end algolia
 
     if (!_.isEmpty(searchTerm)) {
-      commerceApi.getProducts({ keyword: searchTerm, ...cmsContext, ...userContext }).then(products => {
+      (commerceApi as CommerceAPI).getProducts({ keyword: searchTerm, ...cmsContext, ...userContext, pageSize: 6, pageCount: 1 }).then(products => {
         setSearchResults(products.map((prod: Product) => ({
           ...prod,
           href: `/product/${prod.id}/${prod.slug}`

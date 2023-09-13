@@ -9,7 +9,7 @@ import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
-import { Product } from '@amplience/dc-demostore-integration';
+import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -57,20 +57,22 @@ const CuratedProductGrid: FC<Props> = ({
   const userContext = useUserContext()
 
   useEffect(() => {
-    let isMounted: boolean = true
-    commerceApi.getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
-      if (isMounted) {
-        // reorder based on the original ordering because these are not ordered
-        let orderedProducts: Product[] = []
-        _.each(products, product => {
-          let ordered: any = _.find(prods, prod => prod.id === product)
-          if (ordered) {
-            orderedProducts.push(ordered)
-          }
-        })
-        setProductList(orderedProducts)
-      }
-    })
+    let isMounted: boolean = true;
+    if(products && products?.length){
+      (commerceApi as CommerceAPI).getProducts({ productIds: products.join(','), ...cmsContext, ...userContext }).then((prods: Product[]) => {
+        if (isMounted) {
+          // reorder based on the original ordering because these are not ordered
+          let orderedProducts: Product[] = []
+          _.each(products, product => {
+            let ordered: any = _.find(prods, prod => prod?.id === product)
+            if (ordered) {
+              orderedProducts.push(ordered)
+            }
+          })
+          setProductList(orderedProducts)
+        }
+      })
+    }
     return () => { isMounted = false }
   }, [products, cmsContext, userContext])
 

@@ -4,19 +4,23 @@ import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
 import { useUserContext } from '@lib/user/UserContext';
-import { Category, Product } from '@amplience/dc-demostore-integration';
+import { Category, CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 import { commerceApi } from '@pages/api'
+import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
 type Props = {
 } & CmsContent;
 
 const ProductGrid: FC<Props> = ({
     category,
-    query
+    query,
+    limit
 }) => {
     const {
         trackEvent
     } = useContentAnalytics();
+
+    const {categoriesById} = useECommerce();
 
     const [products, setProducts] = useState<Product[]>([])
 
@@ -24,14 +28,28 @@ const ProductGrid: FC<Props> = ({
     const userContext = useUserContext()
 
     useEffect(() => {
-        let isMounted: boolean = true
-        commerceApi.getCategory({ id: category, ...cmsContext, ...userContext }).then((c: Category) => {
-            if (isMounted && c?.products) {
-                setProducts(c.products.filter(product => !query || product.name.toLowerCase().indexOf(query.toLowerCase()) > -1))
+        let isMounted: boolean = true;
+        const c = categoriesById[category];
+        if (c != null) {
+            if (query != null && query.length > 0) {
+                // Request filtered by query, then only get product matches.
+                (commerceApi as CommerceAPI).getProducts({ keyword: query, ...cmsContext, ...userContext }).then((products: Product[]) => {
+                    if (isMounted && products) {
+                        setProducts(products.filter(product => product.categories.findIndex(cat => cat.id === category) !== -1))
+                    }
+                })
+            } else {
+                // Request expected number of category products.
+
+                (commerceApi as CommerceAPI).getProducts({ category: c, ...cmsContext, ...userContext, pageSize: limit, pageCount: 1 }).then((products: Product[]) => {
+                    if (isMounted && products) {
+                        setProducts(products)
+                    }
+                })
             }
-        })
+        }
         return () => { isMounted = false }
-    }, [category, cmsContext, userContext, query])
+    }, [category, cmsContext, userContext, query, categoriesById])
 
     return (
         <div className="amp-dc-card-list product-grid-container">

@@ -1,7 +1,7 @@
 import { createContext, FC, useMemo, useContext } from "react";
 import { CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
 import { CmsContent } from "@lib/cms/CmsContent";
-import walkNavigation from "./walkNavigation";
+import walkNavigation, { enrichCmsEntries, getTypeFromSchema } from "./walkNavigation";
 import { useCmsContext } from "@lib/cms/CmsContext";
 import { useUserContext } from "@lib/user/UserContext";
 
@@ -18,29 +18,12 @@ export type NavigationItem = {
     nodeContentItem?: CmsContent;
 };
 
-
 export type NavigationState = {
     rootItems: NavigationItem[];
-    findByHref: (href: string) => NavigationItem | undefined
+    findByHref: (href: string) => NavigationItem | undefined,
 };
 
 const NavigationContext = createContext<NavigationState | null>(null);
-
-
-const getTypeFromSchema = (schema: string) => {
-    switch (schema) {
-        case 'https://demostore.amplience.com/site/pages/landing':
-            return 'page';
-        case 'https://demostore.amplience.com/site/pages/external':
-            return 'external-page';
-        case 'https://demostore.amplience.com/site/page-group':
-            return 'group';
-        case 'https://demostore.amplience.com/site/pages/category':
-            return 'category';
-    }
-    return null;
-}
-
 
 export const WithNavigationContext: FC<{
     pages: CmsHierarchyNode,
@@ -106,33 +89,9 @@ export const WithNavigationContext: FC<{
 
             // Add any content groups first
             const contentChildren = cmsCategory ? buildCmsEntries(cmsCategory.children) as NavigationItem[] : [];
-            let categoryChildren: NavigationItem[] = [];
-
-            // Then add sub-categories (don't add sub-categories already managed by the cms)
-            if (ecommerceCategory) {
-                let subCategories = (ecommerceCategory.children || [])
-                // originally 'categories'
-                // .filter((category: any) => {
-                    //     return category && category.parent && category.parent.id === ecommerceCategory.id;
-                    // })
-                    .filter((category: any) => {
-                        // filter out categories already managed by the cms
-                        return !contentChildren?.find(x => x.category === category);
-                    });
-                
-                // sort by user defined order
-                subCategories.sort((a: any, b: any) => {
-                    return Number(b.orderHint) - Number(a.orderHint)
-                });
-                
-                categoryChildren = subCategories.map((category: any) => {
-                    return buildCategoryItem(undefined, category);
-                }).filter((x: any) => x != null)
-            }
 
             result.children = [
-                ...contentChildren,
-                ...categoryChildren
+                ...contentChildren
             ];
 
             return result as NavigationItem;
@@ -155,6 +114,7 @@ export const WithNavigationContext: FC<{
             return {
                 type: 'group',
                 title: title?.value,
+                content: node?.content,
                 children: buildCmsEntries(node.children),
                 parents: []
             };
@@ -180,6 +140,7 @@ export const WithNavigationContext: FC<{
                 href: node.content._meta?.deliveryKey ? `/${node.content._meta?.deliveryKey}` : undefined,
                 children: buildCmsEntries(node.children),
                 parents: [],
+                content: node.content,
                 nodeContentItem: node.content
             };
         };
@@ -204,6 +165,7 @@ export const WithNavigationContext: FC<{
                 href: node.content.href,
                 children: buildCmsEntries(node.children),
                 parents: [],
+                content: node?.content,
                 nodeContentItem: node?.content
             };
         };
@@ -214,7 +176,8 @@ export const WithNavigationContext: FC<{
                 return null;
             }
 
-            if (node.content?.menu?.hidden) {
+            // if (node.content?.menu?.hidden) {
+            if (!node.content?.active) {
                 return null;
             }
 
@@ -250,6 +213,8 @@ export const WithNavigationContext: FC<{
             return children.map(buildCmsItem).filter(x => x != null) as NavigationItem[];
         }
 
+        enrichCmsEntries(pages, categoriesById, categories);
+
         const rootEntries = buildCmsEntries(pages.children);
         rootEntries.forEach(rootEntry => {
             walkNavigation(rootEntry, (node: NavigationItem, parents: NavigationItem[]) => {
@@ -258,8 +223,7 @@ export const WithNavigationContext: FC<{
         })
         return rootEntries as NavigationItem[];
 
-    }, [pages, categoriesBySlug, language]);
-
+    }, [pages, categories, categoriesBySlug, categoriesById, language]);
 
     const findByHref = (href: string) => {
         let result: NavigationItem | undefined;
@@ -277,7 +241,6 @@ export const WithNavigationContext: FC<{
 
         return result;
     }
-
     
     return <NavigationContext.Provider value={{
         rootItems,
