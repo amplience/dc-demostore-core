@@ -6,6 +6,7 @@ import { withStyles, WithStyles } from '@mui/styles'
 import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-integration-stylitics';
 import { useRouter } from 'next/router';
 import { commerceApi } from '@pages/api';
+import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
 const styles = (theme: Theme) => ({
 });
@@ -53,6 +54,8 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         push
     } = useRouter();
 
+    const vendor = useECommerce().vendor;
+
     useEffect(() => {
         if (!window || !container.current) {
             return;
@@ -78,8 +81,6 @@ const Generic: React.FunctionComponent<Props> = (props) => {
             if (active) {
                 widgetInstance = widget;
                 
-                const vendor = (commerceApi as any).vendor();
-
                 const isRest = vendor === 'rest';
 
                 if (isRest && active) {
