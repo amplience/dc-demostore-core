@@ -11,6 +11,7 @@ import WithProduct from "@components/product/WithProduct";
 import { createUserContext } from '@lib/user/UserContext';
 import _ from 'lodash'
 import { nanoid } from 'nanoid'
+import { clearUndefined } from "@lib/util";
 
 function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undefined {
   const configs = [];
@@ -42,11 +43,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   }, context)
 
-  const product = await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext })
+  const product = clearUndefined(await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext }))
 
   if (!product) {
     return create404Error(data, context);
   }
+
+  if (data.content.productContent?.active) {
+    // The cms content shouldn't be respected.
+    data.content.productContent = null;
+}
 
   const experienceConfigRequests: GetByFilterRequest[] = [];
 

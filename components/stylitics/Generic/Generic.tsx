@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
 import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-integration-stylitics';
 import { useRouter } from 'next/router';
+import { commerceApi } from '@pages/api';
 
 const styles = (theme: Theme) => ({
 });
@@ -76,11 +77,17 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         createWidget(target, args).then((widget: StyliticsWidget) => {
             if (active) {
                 widgetInstance = widget;
+                
+                const vendor = (commerceApi as any).vendor();
 
-                // Click override to redirect to Product page
-                widget.override("click", "item", function (props: any) {
-                    handleApply(props as any)
-                })
+                const isRest = vendor === 'rest';
+
+                if (isRest && active) {
+                    // Click override to redirect to Product page
+                    widget.override("click", "item", function (props: any) {
+                        handleApply(props as any)
+                    })
+                }
 
                 widget.start();
             } else {

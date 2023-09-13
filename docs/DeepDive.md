@@ -4,6 +4,7 @@
 - [Amplience Search](#amplience-search)
 - [Navigation Hierarchy](#navigation-hierarchy)
 - [Product Detail Page Layout](#product-detail-page-layout)
+- [Personalisation](#personalisation)
 - [Theming](#theming)
 - [Admin UI Panels](#admin-ui-panels)
 - [Shoppable Image](#shoppable-image)
@@ -242,6 +243,19 @@ let filterRequest: GetByFilterRequest =
 The `Site Pages` hierarchy defines the top navigation of the site.
 This hierarchy is always loaded server-side and available for the Next.js pages.
 
+Each commerce related node (Site Pages and Category Page) have an option populate sub nodes from commerce.
+
+![Site Pages](../media/site-pages-sub.png)
+
+When set to true, the navigation will auto populate sub items from the commerce category (or root).
+
+If set to false, only CMS managed sub items will appear.
+
+CMS managed sub items will display AFTER the commerce items.
+
+The default automation has the Site Pages node set to true to automatically render sub items from commerce.
+
+
 Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
 
 ```js
@@ -267,7 +281,7 @@ Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
 
 ## Product Detail Page Layout
 
-Amp RSA features product detail page layouts that can be specific to:
+Demostore features product detail page layouts that can be specific to:
 - a category
 - a product
 - a Designer (could be any product attribute)
@@ -276,6 +290,58 @@ A specific UI Extension allows you to change the whole layout of the product det
 There is a default product layout with delivery key `layout/default-pdp`.
 The `Commerce Experiences` hierarchy allows you to map categories, products, designers to specific layouts.
 In the code, the Filter API is used to search Commerce Experiences based on the context (product categories, product ID, product attributes).
+
+## Personalisation
+
+In order to illustrate a personalisation approach this project contains a slot type which allows a user to associate content to user segments.
+
+- Repository: `slots`
+- Content type: `Personalized Banner Slot`
+- Schema: `https://demostore.amplience.com/slots/personalized-banner`
+- Component: `components/cms-modern/PersonalizedBannerSlot/PersonalizedBannerSlot.tsx`
+
+### Authoring
+
+When using this slot type in the scheduler you can add multiple items and associate user segments to each item in order to illustate working with personalised content in Amplience.
+
+> Note about slots usage: Slots are designed to be created in the content library but the content of which is designed to be used in the Scheduling.
+
+![User Authoring](../media/user-segments-authoring.png)
+
+
+#### Rules
+
+* You can have multiple items in your slot
+* Each item can be associated to one or more segments
+* An item without segments associated is 'default' content
+
+> Note: This is just one approach for demonstration purposes.
+
+### Previewing (Site preview)
+
+When previewing and testing your personlized banner slot behavior, you must be in a FULL site preview, not just the slot preview.
+
+To select a user segment click on the user icon in the top nav:
+
+![User Icon](../media/user-login-icon.png)
+
+Then select a segment to preview, or select the blank item to behave as if you are not signed in:
+
+![Segment Selection](../media/user-login-selection.png)
+
+The following rules will apply to all instances of the personalized banner slot in your application.
+
+#### Rules
+
+* If there are no items, nothing will display
+* If you are NOT signed in (with a user segment):
+  * It will display the FIRST item without a user segment associated
+  * If no content is found without a segment it will display nothing
+* If you ARE signed in (with a user segment):
+  * It will display the FIRST item matching the user segment signed in with
+  * If no matches are found it will:
+    * Display default content (the FIRST item without a user segment aassociated)
+    * If no content is found without a segment it will display nothing
 
 ### Layouts
 

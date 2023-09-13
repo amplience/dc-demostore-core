@@ -14,8 +14,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         }
     }, context);
 
-
-    if (!data.page) {
+    if (!data.page || !data.content.page?.active) {
         return create404Error(data, context);
     }
 

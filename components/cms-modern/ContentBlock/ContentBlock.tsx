@@ -20,7 +20,7 @@ import DynamicBlogList          from '@components/cms/DynamicBlogList';
 import ExternalBlock            from '@components/cms-modern/ExternalBlock';
 import FlexibleSlot             from '@components/cms-modern/FlexibleSlot';
 import Image                    from '@components/cms-modern/Image';
-import LandingPage              from '@components/cms-modern/LandingPage';
+import ContentPage              from '@components/cms-modern/ContentPage';
 import LocalizedBannerSlot      from '@components/cms-modern/LocalizedBannerSlot';
 import PersonalizedBannerSlot   from '@components/cms-modern/PersonalizedBannerSlot';
 import ProductGrid              from '@components/cms/ProductGrid';
@@ -61,7 +61,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/dynamic-blog-list'      : DynamicBlogList,
     'https://demostore.amplience.com/content/html'                   : ExternalBlock,
     'https://demostore.amplience.com/content/image'                  : Image,
-    'https://demostore.amplience.com/content/landing-page'           : LandingPage,
+    'https://demostore.amplience.com/content/content-page'           : ContentPage,
     'https://demostore.amplience.com/content/product-grid'           : ProductGrid,
     'https://demostore.amplience.com/content/rich-text'              : CustomRichText,
     'https://demostore.amplience.com/content/shoppable-image'        : ShoppableImage,
@@ -79,7 +79,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/slots/banner'                   : BannerSlot,
     'https://demostore.amplience.com/slots/container'                : BannerSlot,
     'https://demostore.amplience.com/slots/flexible'                 : FlexibleSlot,
-    'https://demostore.amplience.com/slots/landing-page'             : BannerSlot,
+    'https://demostore.amplience.com/slots/content-page'             : BannerSlot,
     'https://demostore.amplience.com/slots/localized-banner'         : LocalizedBannerSlot,
     'https://demostore.amplience.com/slots/personalized-banner'      : PersonalizedBannerSlot,
     'https://demostore.amplience.com/content/stylitics/generic'      : Generic,

@@ -5,7 +5,7 @@ import ContentBlock from '../ContentBlock';
 
 type Props = {
     segments: {
-        segment: string;
+        segment: string[];
         content: CmsContent;
     }[];
 } & CmsContent;
@@ -17,12 +17,33 @@ const PersonalizedBannerSlot: FC<Props> = ({ segments }) => {
 
     const matchedSegment = useMemo(() => {
         if(!segments) return null;
-        let result = segments[0];
-        for (const segment of segments) {
-            if (segment.segment === userSegment) {
-                result = segment;
+        // default to the first
+        let result = null;
+        if(userSegment){
+            let isBreak = false
+            // This path if there is a user segment in place
+            for (const segment of segments) {
+                if(isBreak) break;
+                if (segment.segment && segment.segment.length > 0) {
+                    for (const item in segment.segment) {
+                        if (segment.segment[item] === userSegment) {
+                            result = segment;
+                            isBreak = true
+                            break;
+                        }
+                    }
+                }
+            }
+        } else{
+            // We should try and find the first without any segments
+            for (const segment of segments) {
+                if (!segment.segment) {
+                    result = segment;
+                    break
+                }
             }
         }
+        
         return result;
     }, [userSegment, segments]);
 
