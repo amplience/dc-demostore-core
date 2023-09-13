@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <!-- Import the Amplience Delivery SDK -->
+        <script src="https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js"></script>
+        <!-- Import the Amplience Visualization SDK -->
+        <script src="https://unpkg.com/dc-visualization-sdk/dist/lib/dc-visualization-sdk.umd.js"></script>
+        <!-- Import the Amplience Stylitics Helper scripts -->
+        <script src="https://unpkg.com/@amplience/dc-integration-stylitics/dist/ampStylitics.browser.umd.min.js"></script>
+    </head>
+    <body>
+         <!-- Add a DIV with a container -->
+        <div class="amp-stylitics-container" id="vis-target"></div>
+        <script>
+            const elem = document.getElementById('vis-target');
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            elem.setAttribute('data-widget-id', urlParams.get('content'))
+        </script>
+        <script src="https://unpkg.com/@amplience/dc-integration-stylitics/examples/stylitics-widget.js"></script>
+    </body>
+</html>

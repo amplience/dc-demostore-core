@@ -8,7 +8,6 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 
 `dc-demostore-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
 
-
 # Table of Contents
 - [Getting Started](#getting-started)
 - [Storybook](#storybook)
@@ -81,6 +80,11 @@ At a high level the basic steps are:
 2. [Deploy a fork of `dc-demostore-core` (we'll cover deploying on Vercel)](#fork--deploy-dc-demostore-core)
 3. Configure & use `dc-demostore-cli` to populate content
 4. Point `dc-demostore-core` to your Dynamic Content Hub and run
+
+> Note: If you already have an Amplience Demostore account and are upgrading to verson `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
+
+Location: `examples/crs`
+Upload asset store in Content Hub: `Templates`
 
 ## Requesting an Amplience Demo Store Environment
 
