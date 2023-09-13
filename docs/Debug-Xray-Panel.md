@@ -43,10 +43,10 @@ The Components preview panel allow you to toggle overlays on the website to give
 
 ![X-Ray Content Overlay](../media/xray-content-overlay.png)
 
-* Click the pencil icon to go directly into the Authoring this content item
+* Click the pencil icon to go directly into Authoring this content item
 * Click the 'eye-con' to view the published version of this content in isolation 
 
 ![X-Ray Slots Overlay](../media/xray-slot-overlay.png)
 
-* Click the pencil icon to go directly into the Authoring this slot
+* Click the pencil icon to go directly into Authoring this slot
 * Click the 'eye-con' to view the published version of this slot in isolation 
