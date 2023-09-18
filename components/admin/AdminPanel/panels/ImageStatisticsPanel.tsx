@@ -176,7 +176,7 @@ const ImageStatisticsPanel: FC<Props> = (props) => {
                       <Typography component="p">
                         {stat.name}
                       </Typography>
-                      {Object.keys(stat.sizes).map(key => {
+                      {Object.keys(stat.sizes).sort().map(key => {
                         const size = stat.sizes[key];
                         const pctMax = (size / maxSize);
                         const lowest = isLowest(stat, key);
