@@ -142,7 +142,7 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         }
     }
 
-    query.push('fmt=avif')
+    query.push('fmt=webp')
     query.push('qlt=default')
     // query.push('fmt.jpeg.qlt=75')
     // query.push('fmt.webp.qlt=60')

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { Theme, Divider, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ImageIcon from '@mui/icons-material/Image';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Accordion from '@mui/material/Accordion';
@@ -14,6 +15,7 @@ import ComponentsPanel from './panels/ComponentsPanel';
 import ContentPreviewPanel from './panels/ContentPreviewPanel';
 import { getHubName } from '@lib/config/locator/config-locator';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
+import ImageStatisticsPanel from './panels/ImageStatisticsPanel';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -76,6 +78,16 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
           </AccordionSummary>
           <AccordionDetails>
             <ComponentsPanel />
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion key={'Image Statistics'}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
+            <ImageIcon className={classes.icon} />
+            <Typography variant="button">{'Image Statistics'}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ImageStatisticsPanel />
           </AccordionDetails>
         </Accordion>
       </div>
