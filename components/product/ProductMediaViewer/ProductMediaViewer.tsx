@@ -5,6 +5,7 @@ import { useProduct } from '../WithProduct/WithProduct';
 import ImageGallery from 'react-image-gallery';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
+import { getImageURL } from '@utils/getImageURL';
 
 const styles = (theme: Theme) => ({
 });
@@ -50,18 +51,18 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
                     view: variant,
                     secure: true,
                     templates: {
-                        thumb: 'w=85&h=85&qlt=65&unsharp=0,1,1,7&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40',
+                        thumb: 'w=85&h=85&qlt=65&unsharp=0,1,1,7',
                         desktop: {
-                            main: 'w=600&qlt=75&upscale=false&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40',
-                            mainRetina: 'w=1200&qlt=75&upscale=false&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40',
+                            main: 'w=600&qlt=75&upscale=false',
+                            mainRetina: 'w=1200&qlt=75&upscale=false',
                         },
                         desktopFull: {
-                            main: 'w=1000&upscale=false&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40',
-                            mainRetina: 'w=2000&upscale=false&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40',
+                            main: 'w=1000&upscale=false',
+                            mainRetina: 'w=2000&upscale=false',
                         },
                         mobile: {
-                            main: 'w=500&h=500&upscale=false&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40',
-                            mainRetina: 'w=1000&h=1000&upscale=false&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40',
+                            main: 'w=500&h=500&upscale=false',
+                            mainRetina: 'w=1000&h=1000&upscale=false',
                         },
                     },
                     ampConfigs: {
@@ -95,8 +96,8 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
     else {
         return (
             <ImageGallery items={_.uniqBy(_.map(_.flatten(_.map(product.variants, 'images')), image => ({
-                original: image.url,
-                thumbnail: image.thumb || image.url
+                original: getImageURL(image.url),
+                thumbnail: getImageURL(image.thumb || image.url)
             })), 'original')} />
         );
     }

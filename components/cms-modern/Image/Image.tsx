@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
+import { getImageURL } from '@utils/getImageURL';
 
 type Props = {
     image: any;
@@ -87,8 +88,7 @@ const Image: FC<Props> = ({
         if (roundel && roundel[0] && roundel[0].roundel && roundel[0].roundelPosition && roundel[0].roundelRatio) {
             queryString += `&$roundel$&${getRoundelConfig(roundel)}`
         }
-        queryString += '&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40'
-        return `${baseUrl}?${queryString}`;
+        return getImageURL(`${baseUrl}?${queryString}`);
     };
 
     const source = ({ minWidth, maxWidth, width, highDensityWidth, format, poiAspect }: any) => {

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useContentAnalytics } from '@lib/analytics';
 import { withStyles, WithStyles } from '@mui/styles'
+import { getImageURL } from '@utils/getImageURL';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -83,9 +84,8 @@ const CuratedProductGridCard: React.SFC<Props> = (props) => {
     }
 
     let imageUrl = result.overrides?.image
-        ? `https://${result.overrides.image?.defaultHost}/i/${result.overrides.image?.endpoint}/${result.overrides.image?.name}`
-        : `${result.variants[0].images[0].url}`;
-    imageUrl += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&h=812'
+        ? getImageURL(result.overrides.image, {width: 540, height: 812})
+        : getImageURL(result.variants[0].images[0].url, {width: 540, height: 812})
 
     return (
         <Link href={`/product/${result.id}/${result.slug}`}>

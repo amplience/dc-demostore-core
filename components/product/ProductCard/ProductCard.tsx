@@ -6,6 +6,7 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 import { Product } from '@amplience/dc-integration-middleware';
 import _ from 'lodash'
 import { withStyles, WithStyles } from '@mui/styles'
+import { getImageURL } from '@utils/getImageURL';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -110,13 +111,13 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
             
             firstImage = variant.images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
             if(firstImage.indexOf('cdn.media.amplience.net') > 0){
-                firstImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&h=812'
+                firstImage = getImageURL(firstImage, {width: 540, height: 812})
             }
         }
         if (variant.images[1] && variant.images[1].url){
             secondImage = variant.images[1].url.replace("i8.amplience.net", "cdn.media.amplience.net");
             if(secondImage.indexOf('cdn.media.amplience.net') > 0){
-                secondImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&h=812'
+                secondImage = getImageURL(firstImage, {width: 540, height: 812})
             }
         }
     }

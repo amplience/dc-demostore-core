@@ -147,9 +147,14 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
     query.push('fmt.jpeg.qlt=75')
     query.push('fmt.webp.qlt=60')
     query.push('fmt.jp2.qlt=40')
+    query.push('fmt.avif.qlt=60')
 
     if (query.length > 0) {
-        url += `?${query.join('&')}`;
+        if (url.indexOf('?') > -1) {
+            url += `&${query.join('&')}`;
+        } else {
+            url += `?${query.join('&')}`;
+        }
     }
 
     return url;
