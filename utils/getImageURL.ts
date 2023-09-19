@@ -1,4 +1,4 @@
-import { useAcceleratedMedia } from "@components/admin/AdminPanel/AcceleratedMediaContext";
+import { useAcceleratedMedia } from "@components/admin/AdminPanel/context/AcceleratedMediaContext";
 
 export type CmsImage = {
     defaultHost: string;

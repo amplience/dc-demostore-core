@@ -13,7 +13,7 @@ import TableRow from '@mui/material/TableRow';
 
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { useAcceleratedMedia } from '../AcceleratedMediaContext';
+import { useAcceleratedMedia } from '../context/AcceleratedMediaContext';
 
 export interface ImageStatistics {
     src: string;
