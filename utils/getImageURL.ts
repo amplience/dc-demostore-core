@@ -9,6 +9,7 @@ export enum ImageFormat {
     JPEG = 'jpeg',
     PNG = 'png',
     GIF = 'gif',
+    AVIF = 'avif',
     DEFAULT = 'default'
 }
 
@@ -68,7 +69,7 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
 
     const {
         seoFileName,
-        format,
+        format = ImageFormat.DEFAULT,
         width,
         height,
         poi,
@@ -142,12 +143,8 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         }
     }
 
-    query.push('fmt=webp')
+    query.push(`fmt=${format}`)
     query.push('qlt=default')
-    // query.push('fmt.jpeg.qlt=75')
-    // query.push('fmt.webp.qlt=60')
-    // query.push('fmt.jp2.qlt=40')
-    // query.push('fmt.avif.qlt=60')
 
     if (query.length > 0) {
         if (url.indexOf('?') > -1) {
