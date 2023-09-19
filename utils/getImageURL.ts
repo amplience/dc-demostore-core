@@ -69,7 +69,7 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
 
     const {
         seoFileName,
-        format = ImageFormat.DEFAULT,
+        format = ImageFormat.AVIF,
         width,
         height,
         poi,
