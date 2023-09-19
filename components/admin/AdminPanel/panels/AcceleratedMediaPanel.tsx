@@ -13,7 +13,7 @@ import TableRow from '@mui/material/TableRow';
 
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { useDebug } from '@components/ui';
+import { useAcceleratedMedia } from '../AcceleratedMediaContext';
 
 export interface ImageStatistics {
     src: string;
@@ -156,12 +156,12 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
     }
 
     const {
-        showContent,
-        setShowContent,
-    } = useDebug();
+        acceleratedMedia,
+        setAcceleratedMedia
+    } = useAcceleratedMedia();
 
-    const toggleContent = () => {
-        setShowContent(!showContent);
+    const toggleAcceleratedMedia = () => {
+        setAcceleratedMedia(!acceleratedMedia);
     }
 
     return (<>
@@ -176,7 +176,7 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
                 <TableRow key={"content"}>
                     <TableCell>Enable Accelerated Media</TableCell>
                     <TableCell align="right">
-                        <VisibilityToggle selected={showContent} onClick={toggleContent} />
+                        <VisibilityToggle selected={acceleratedMedia} onClick={toggleAcceleratedMedia} />
                     </TableCell>
                 </TableRow>
             </TableBody>

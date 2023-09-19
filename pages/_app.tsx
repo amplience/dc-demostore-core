@@ -9,7 +9,8 @@ import { WithUserContext } from '@lib/user/UserContext'
 import { WithCmsContext } from '@lib/cms/CmsContext'
 import { WithAppContext } from '@lib/config/AppContext'
 import { WithDebugState, WithUI } from '@components/ui'
-import { WithWindowContext } from '@components/core/WithWindowContext/WindowContext';
+import { WithAcceleratedMediaState } from '@components/admin/AdminPanel/AcceleratedMediaContext'
+import { WithWindowContext } from '@components/core/WithWindowContext/WindowContext'
 import { configureAnalytics } from '@lib/analytics/configureAnalytics'
 import WithCart from '@components/cart/CartContext'
 
@@ -58,13 +59,15 @@ export default class MyApp extends NextApp<AppProps> {
               <WithCart>
                 <WithUserContext value={(pageProps as any).context?.userContext}>
                   <WithCmsContext value={(pageProps as any).context?.cmsContext}>
-                    <ConfigContext.Provider value={{values: (pageProps as any).content?.configComponents}}>
+                    <ConfigContext.Provider value={{ values: (pageProps as any).content?.configComponents }}>
                       <WithDebugState>
-                      <WithWindowContext>
-                        <Layout pageProps={pageProps}>
-                          <Component {...pageProps} />
-                        </Layout>
-                        </WithWindowContext>
+                        <WithAcceleratedMediaState>
+                          <WithWindowContext>
+                            <Layout pageProps={pageProps}>
+                              <Component {...pageProps} />
+                            </Layout>
+                          </WithWindowContext>
+                        </WithAcceleratedMediaState>
                       </WithDebugState>
                     </ConfigContext.Provider>
                   </WithCmsContext>
