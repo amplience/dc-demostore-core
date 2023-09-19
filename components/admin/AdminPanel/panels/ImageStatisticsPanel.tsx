@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Button, Chip, CircularProgress, Divider, LinearProgress, Theme, Typography } from '@mui/material';
 import { withStyles, WithStyles } from '@mui/styles'
+import ImageStatisticsModal from '../modals/ImageStatisticsModal';
+import Modal from '@components/ui/Modal';
 
-interface ImageStatistics {
+export interface ImageStatistics {
   src: string;
   name: string;
   types: { [key: string]: string }
@@ -57,7 +59,8 @@ async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) => void)
           try {
             const response = await fetch(src);
 
-            const size = Number(response.headers.get("content-length"));
+            const headLength = response.headers.get("content-length");
+            const size = headLength ? Number(headLength) : (await response.arrayBuffer()).byteLength;
     
             imageResult.sizes[format] = size;
             imageResult.types[format] = response.headers.get("content-type") ?? '';
@@ -148,7 +151,16 @@ const ImageStatisticsPanel: FC<Props> = (props) => {
     } = props;
 
     const [calculating, setCalculating] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const [result, setResult] = useState<ImageStatistics[]>([]);
+
+    const closeModal = () => {
+      setModalOpen(false);
+    }
+
+    const openModal = () => {
+      setModalOpen(true);
+    }
 
     const startCalculating = async () => {
       setCalculating(true);
@@ -161,6 +173,16 @@ const ImageStatisticsPanel: FC<Props> = (props) => {
             <Button startIcon={calculating && <CircularProgress className={classes.progress} size="1em" color="primary" />} variant="contained" color="primary" onClick={startCalculating} disabled={calculating}>
                 Get Image Statistics
             </Button>
+            <Modal open={modalOpen} onClose={closeModal}>
+              {modalOpen && <ImageStatisticsModal stats={result} />}
+            </Modal>
+            {
+              false && !calculating && result.length > 0 && <>
+                <Button variant="contained" color="primary" onClick={openModal}>
+                  Open Details
+                </Button>
+              </>
+            }
             {
               result.length > 0 && <>
                 <Typography component="p">
