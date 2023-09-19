@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { ImageStatistics } from "../panels/AcceleratedMediaPanel";
-import { Button, Card, CardContent, CardMedia, Chip, Grid } from "@mui/material";
+import { Button, Card, CardContent, CardMedia, Chip, Grid, Typography } from "@mui/material";
+import ImageStatisticsStack from "../ImageStatisticsStack";
 
 const expectedTypes: { [key: string]: string } = {
   webp: 'image/webp',
@@ -61,7 +62,11 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                     title="green iguana"
                   />
                   <CardContent sx={{display: 'flex', gap: '5px', flexWrap: 'wrap', justifyContent: 'center'}}>
-                    {Object.keys(stat.sizes)
+                    <Typography sx={{ fontSize: 14, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'noWrap' }} color="text.secondary" gutterBottom>
+                      {stat.name}
+                    </Typography>
+                    <ImageStatisticsStack stat={stat} />
+                    {/**Object.keys(stat.sizes)
                       .sort()
                       .map((key) => {
                         const size = stat.sizes[key];
@@ -78,7 +83,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                             variant={lowest ? "filled" : "outlined"}
                           />
                         );
-                      })}
+                      }) **/}
                   </CardContent>
                 </Card>
               </Grid>
