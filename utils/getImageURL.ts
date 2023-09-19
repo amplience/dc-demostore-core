@@ -1,3 +1,5 @@
+import { useAcceleratedMedia } from "@components/admin/AdminPanel/AcceleratedMediaContext";
+
 export type CmsImage = {
     defaultHost: string;
     name: string;
@@ -69,7 +71,7 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
 
     const {
         seoFileName,
-        format = ImageFormat.AVIF,
+        format = ImageFormat.DEFAULT,
         width,
         height,
         poi,
@@ -88,6 +90,13 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         strip,
         quality
     } = transformations;
+
+    const {
+        acceleratedMedia
+    } = useAcceleratedMedia();
+
+    let finalFormat = format
+    if (acceleratedMedia) finalFormat = ImageFormat.AVIF
 
     const getImageHost = (host: string) => {
         if (host === 'i1.adis.ws') {
@@ -143,7 +152,7 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         }
     }
 
-    query.push(`fmt=${format}`)
+    query.push(`fmt=${finalFormat}`)
     query.push('qlt=default')
 
     if (query.length > 0) {
