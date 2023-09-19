@@ -3,6 +3,7 @@ import { Button, Chip, CircularProgress, Divider, LinearProgress, Theme, Typogra
 import { withStyles, WithStyles } from '@mui/styles'
 import ImageStatisticsModal from '../modals/ImageStatisticsModal';
 import Modal from '@components/ui/Modal';
+import ImageStatisticsGraph from '../ImageStatisticsGraph';
 
 export interface ImageStatistics {
   src: string;
@@ -13,14 +14,7 @@ export interface ImageStatistics {
   total: number
 }
 
-const formatTests = ['auto', 'webp', 'jpeg', 'png', 'avif'];
-
-const expectedTypes: { [key: string]: string } = {
-  webp: 'image/webp',
-  jpeg: 'image/jpeg',
-  png: 'image/png',
-  avif: 'image/avif'
-};
+const formatTests = ['auto', 'webp', 'jpeg', 'avif']; // png deliberately excluded
 
 async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) => void) {
   const images = Array.from(document.images);
@@ -98,40 +92,12 @@ function getProgress(stats: ImageStatistics[]): number {
   return 100 * (completed / total);
 }
 
-function getMaxSize(stat: ImageStatistics): number {
-  let maxSize = 0;
-
-  for (const key of Object.keys(stat.sizes)) {
-    maxSize = Math.max(maxSize, stat.sizes[key]);
-  }
-
-  return maxSize;
-}
-
-function isLowest(stat: ImageStatistics, key: string): boolean {
-  let minSize = stat.sizes[key];
-
-  for (const key of Object.keys(stat.sizes)) {
-    if (stat.sizes[key] < minSize) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function isValid(stat: ImageStatistics, key: string): boolean {
-  let type = stat.types[key];
-
-  return key === 'auto' || type === expectedTypes[key];
-}
-
 const styles = (theme: Theme) => ({
     root: {
-        width: '100%'
+      width: '100%'
     },
-    formControl: {
-        marginBottom: 10
+    button: {
+      marginBottom: 6
     },
     input: {
     },
@@ -170,50 +136,25 @@ const ImageStatisticsPanel: FC<Props> = (props) => {
 
     return (<>
         <form noValidate>
-            <Button startIcon={calculating && <CircularProgress className={classes.progress} size="1em" color="primary" />} variant="contained" color="primary" onClick={startCalculating} disabled={calculating}>
+            <Button className={classes.button} startIcon={calculating && <CircularProgress className={classes.progress} size="1em" color="primary" />} variant="contained" color="primary" onClick={startCalculating} disabled={calculating}>
                 Get Image Statistics
             </Button>
             <Modal open={modalOpen} onClose={closeModal}>
-              {modalOpen && <ImageStatisticsModal stats={result} />}
+              {modalOpen && <ImageStatisticsModal stats={result} onClose={closeModal} />}
             </Modal>
-            {
-              false && !calculating && result.length > 0 && <>
-                <Button variant="contained" color="primary" onClick={openModal}>
-                  Open Details
-                </Button>
-              </>
-            }
             {
               result.length > 0 && <>
                 <Typography component="p">
                   {result.length} Amplience Images detected.
                 </Typography>
                 <LinearProgress variant="determinate" value={getProgress(result)} />
+                <ImageStatisticsGraph stats={result} />
                 {
-                  result.map(stat => {
-                    const maxSize = getMaxSize(stat);
-
-                    return <>
-                      <Divider sx={{margin: '10px'}} />
-                      <Typography component="p">
-                        {stat.name}
-                      </Typography>
-                      {Object.keys(stat.sizes).sort().map(key => {
-                        const size = stat.sizes[key];
-                        const pctMax = (size / maxSize);
-                        const lowest = isLowest(stat, key);
-                        const valid = isValid(stat, key);
-
-                        return <Chip 
-                          key={key}
-                          label={`${key}: ${Math.round(pctMax * 1000) / 10}%`}
-                          size="small"
-                          color={valid ? (lowest ? 'success' : 'primary') : 'error'}
-                          variant={lowest ? 'filled' : 'outlined'}
-                          />
-                      })}
-                    </>
-                  })
+                  !calculating && result.length > 0 && <>
+                    <Button variant="outlined" color="primary" onClick={openModal}>
+                      Open Details
+                    </Button>
+                  </>
                 }
               </>
             }
