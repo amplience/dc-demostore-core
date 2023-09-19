@@ -15,7 +15,7 @@ import ComponentsPanel from './panels/ComponentsPanel';
 import ContentPreviewPanel from './panels/ContentPreviewPanel';
 import { getHubName } from '@lib/config/locator/config-locator';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
-import ImageStatisticsPanel from './panels/ImageStatisticsPanel';
+import AcceleratedMediaPanel from './panels/AcceleratedMediaPanel';
 
 const styles = (theme: Theme) => ({
   root: {
@@ -81,13 +81,13 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion key={'Image Statistics'}>
+        <Accordion key={'Accelerated Media'}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
             <ImageIcon className={classes.icon} />
-            <Typography variant="button">{'Image Statistics'}</Typography>
+            <Typography variant="button">{'Accelerated Media'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ImageStatisticsPanel />
+            <AcceleratedMediaPanel />
           </AccordionDetails>
         </Accordion>
       </div>

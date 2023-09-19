@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useUI } from "../../../ui/UIContext";
-import { ImageStatistics } from "../panels/ImageStatisticsPanel";
+import { ImageStatistics } from "../panels/AcceleratedMediaPanel";
 import { Button, Chip, Divider, Typography } from "@mui/material";
 
 const expectedTypes: { [key: string]: string } = {
@@ -77,7 +77,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
           );
         })}
       </div>
-      <Button variant="contained" color="primary" onClick={onClose}>
+      <Button variant="contained" color="primary" onClick={onClose} size='small'>
         Done
       </Button>
     </>

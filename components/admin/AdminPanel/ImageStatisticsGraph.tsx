@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useUI } from '../../ui/UIContext';
-import { ImageStatistics } from './panels/ImageStatisticsPanel';
+import { ImageStatistics } from './panels/AcceleratedMediaPanel';
 import { Button, Theme } from '@mui/material';
 import { WithStyles, withStyles } from '@mui/styles';
 
