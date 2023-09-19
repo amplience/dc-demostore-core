@@ -13,10 +13,10 @@ const styles = (theme: Theme) => ({
         width: '0'
     },
     weightHead: {
-        textAlign: 'center'
+        textAlign: 'center' as 'center'
     },
     format: {
-        textAlign: 'end',
+        textAlign: 'end' as 'end',
         verticalAlign: 'middle',
         borderRight: '1px solid gray',
         paddingRight: '4px'
