@@ -24,7 +24,7 @@ export interface ImageStatistics {
     total: number
 }
 
-const formatTests = ['auto', 'webp', 'jpeg', 'avif']; // png deliberately excluded
+const formatTests = ['auto', 'jpeg', 'webp', 'avif']; // png deliberately excluded
 
 async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) => void) {
     const images = Array.from(document.images);

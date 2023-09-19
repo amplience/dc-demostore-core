@@ -23,11 +23,13 @@ const styles = (theme: Theme) => ({
     },
     barWinner: {
         backgroundColor: '#65CC02',
-        padding: '4px 0px'
+        padding: '4px 0px 4px 4px',
+        color: 'white'
     },
     barLoser: {
         backgroundColor: '#8F9496',
-        padding: '4px 0px'
+        padding: '4px 0px 4px 4px',
+        color: 'white'
     }
 });
 
