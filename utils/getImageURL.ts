@@ -67,7 +67,7 @@ export type ImageTransformations = {
     templates?: string[];
 };
 
-export function getImageURL(image: string | CmsImage, transformations: ImageTransformations = {}): string {
+export function getImageURL(image: string | CmsImage, transformations: ImageTransformations = {}, removeAllParams = false): string {
 
     const {
         seoFileName,
@@ -110,6 +110,10 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
 
     if (seoFileName) {
         url += `/${encodeURIComponent(seoFileName)}`;
+    }
+
+    if (removeAllParams && url.indexOf('?') > -1) {
+        url = url.split('?')[0]
     }
 
     const query: string[] = [];

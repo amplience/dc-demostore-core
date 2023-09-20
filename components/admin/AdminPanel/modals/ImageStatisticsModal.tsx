@@ -12,7 +12,7 @@ import {
 const expectedTypes: { [key: string]: string } = {
   webp: 'image/webp',
   jpeg: 'image/jpeg',
-  png: 'image/png',
+  // png: 'image/png', // exclude png
   avif: 'image/avif'
 };
 
@@ -53,30 +53,53 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
   const [gridView, setGridView] = useState(true)
 
   const headers = [
-    { label: "First Name", key: "firstName" },
-    { label: "Last Name", key: "lastName" },
-    { label: "Email", key: "email" },
-    { label: "Age", key: "age" }
+    { label: "Name", key: "name" },
+    { label: "Source", key: "src" }
   ];
-   
-  const data = [
-    { firstName: "Warren", lastName: "Morrow", email: "sokyt@mailinator.com", age: "36" },
-    { firstName: "Gwendolyn", lastName: "Galloway", email: "weciz@mailinator.com", age: "76" },
-    { firstName: "Astra", lastName: "Wyatt", email: "quvyn@mailinator.com", age: "57" },
-    { firstName: "Jasmine", lastName: "Wong", email: "toxazoc@mailinator.com", age: "42" },
-    { firstName: "Brooke", lastName: "Mcconnell", email: "vyry@mailinator.com", age: "56" },
-    { firstName: "Christen", lastName: "Haney", email: "pagevolal@mailinator.com", age: "23" },
-    { firstName: "Tate", lastName: "Vega", email: "dycubo@mailinator.com", age: "87" },
-    { firstName: "Amber", lastName: "Brady", email: "vyconixy@mailinator.com", age: "78" },
-    { firstName: "Philip", lastName: "Whitfield", email: "velyfi@mailinator.com", age: "22" },
-    { firstName: "Kitra", lastName: "Hammond", email: "fiwiloqu@mailinator.com", age: "35" },
-    { firstName: "Charity", lastName: "Mathews", email: "fubigonero@mailinator.com", age: "63" }
-  ];
-   
+
+  Object.keys(expectedTypes).forEach((key: string) => {
+    headers.push({
+      label: key,
+      key
+    })
+    headers.push({
+      label: '% of max',
+      key: `${key}_pct_of_max`
+    })
+    headers.push({
+      label: 'Valid',
+      key: `${key}_valid`
+    })
+    headers.push({
+      label: 'Lowest',
+      key: `${key}_lowest`
+    })
+  })
+
+  const data: any = []
+  stats.forEach((stat, index) => {
+    const entry: any = {}
+    entry['name'] = stat.name
+    entry['src'] = stat.src
+    const maxSize = getMaxSize(stat);
+    Object.keys(stat.sizes).forEach((key: string) => {
+      const size = stat.sizes[key];
+      const pctMax = size / maxSize;
+      const lowest = isLowest(stat, key);
+      const valid = isValid(stat, key);
+      const pct = `${Math.round(pctMax * 1000) / 10}%`
+      entry[key] = size
+      entry[`${key}_pct_of_max`] = pct
+      entry[`${key}_valid`] = valid
+      entry[`${key}_lowest`] = lowest
+    })
+    data.push(entry)
+  })
+
   const csvReport = {
     data: data,
     headers: headers,
-    filename: 'demsostore-maccelerated-media-report.csv'
+    filename: 'demsostore-accelerated-media-report.csv'
   };
 
   return (
@@ -88,6 +111,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
         {gridView && <ListOutlined />}
         {!gridView && <AppsOutlined />}
       </IconButton>
+      <CSVLink {...csvReport}>Export to CSV</CSVLink>
       {gridView &&
         <div className="af-form-field" style={{ height: '70vh', width: '90vw', overflow: 'hidden auto' }}>
           <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 8, xl: 12 }}>
@@ -117,7 +141,6 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
       }
       {!gridView &&
         <div style={{ height: '70vh', width: '90vw', overflow: 'hidden auto' }}>
-        <CSVLink {...csvReport}>Export to CSV</CSVLink>
           <Table>
             <TableHead>
               <TableRow>
@@ -170,7 +193,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                   return (
                     <TableRow key={index}>
                       <TableCell>
-                        <img src={getImageURL(stat.src, { width: 32, height: 32 })} width={32} alt={stat.name} />
+                        <img src={getImageURL(stat.src, { width: 32, height:32 }, true)} width={32} height={32} alt={stat.name} />
                       </TableCell>
                       <TableCell>
                         {stat.name}
