@@ -12,7 +12,6 @@ import {
 const expectedTypes: { [key: string]: string } = {
   webp: 'image/webp',
   jpeg: 'image/jpeg',
-  // png: 'image/png', // exclude png
   avif: 'image/avif'
 };
 
@@ -82,7 +81,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
     entry['name'] = stat.name
     entry['src'] = stat.src
     const maxSize = getMaxSize(stat);
-    Object.keys(stat.sizes).forEach((key: string) => {
+    Object.keys(expectedTypes).forEach((key: string) => {
       const size = stat.sizes[key];
       const pctMax = size / maxSize;
       const lowest = isLowest(stat, key);
@@ -103,8 +102,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
   };
 
   return (
-    <div style={{
-    }}>
+    <div>
       <h2>Image Statistics</h2>
       <p>{stats.length} Amplience Images detected.</p>
       <IconButton size="small" onClick={() => setGridView(!gridView)}>
@@ -199,7 +197,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                         {stat.name}
                       </TableCell>
                       {
-                        Object.keys(stat.sizes).map((key: string) => {
+                        Object.keys(expectedTypes).map((key: string) => {
                           const size = stat.sizes[key];
                           const pctMax = size / maxSize;
                           const lowest = isLowest(stat, key);

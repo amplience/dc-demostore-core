@@ -13,7 +13,7 @@ export function useAcceleratedMedia(): AcceleratedMediaState {
 }
 
 export const WithAcceleratedMediaState: FC = ({children}) => {
-    const [acceleratedMedia, setAcceleratedMedia] = useState(false)
+    const [acceleratedMedia, setAcceleratedMedia] = useState(true)
 
     return <Context.Provider value={{
         acceleratedMedia,
