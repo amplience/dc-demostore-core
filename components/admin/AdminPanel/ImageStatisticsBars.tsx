@@ -73,7 +73,7 @@ const ImageStatisticsBars: FC<Props> = ({stat, classes}) => {
     const ordered = getOrderedFormats(stat);
     const maxSize = ordered[ordered.length - 1].size;
     const maxKey = ordered[ordered.length - 1].key;
-    ordered.reverse();
+    // ordered.reverse();
 
     return <div className={classes.container}>
         {
