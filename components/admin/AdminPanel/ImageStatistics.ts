@@ -10,6 +10,14 @@ export interface ImageStatistics {
 
 const formatTests = ['auto', 'jpeg', 'webp', 'avif']; // png deliberately excluded
 
+export const formatColors: { [key: string]: string } = {
+    jpeg: '#FFA200',
+    webp: '#00B6FF',
+    avif: '#65CC02',
+    auto: '#8F9496',
+    png: '#E94420'
+}
+
 export const typeFromFormat: { [key: string]: string } = {
     'image/webp': 'webp',
     'image/jpeg': 'jpeg',

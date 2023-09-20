@@ -140,7 +140,7 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
                                 onChange={(event) => setExcludeInvalid(event.target.checked)}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
-                        } label={<Typography variant='caption'>Exclude images that can't be accelerated ({invalidImages.length})</Typography>}/>
+                        } label={<Typography variant='caption'>Exclude images that can&apos;t be accelerated ({invalidImages.length})</Typography>}/>
                     }
                     <ImageStatisticsGraph stats={excludeInvalid ? result.filter(stat => !hasInvalid(stat)) : result} />
                     {

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { ImageStatistics, typeFromFormat } from './ImageStatistics';
+import { ImageStatistics, typeFromFormat, formatColors } from './ImageStatistics';
 import { Theme, Tooltip } from '@mui/material';
 import { WithStyles, withStyles } from '@mui/styles';
 
@@ -31,14 +31,6 @@ const styles = (theme: Theme) => ({
     overflow: 'hidden'
   }
 });
-
-const colors: { [key: string]: string } = {
-  jpeg: '#FFA200',
-  webp: '#00B6FF',
-  avif: '#65CC02',
-  auto: '#8F9496',
-  png: '#E94420'
-}
 
 interface Props extends WithStyles<typeof styles> {
   stat: ImageStatistics;
@@ -94,7 +86,7 @@ const ImageStatisticsBars: FC<Props> = ({stat, classes}) => {
 
             return <Tooltip key={elem.key} title={title}>
               <div className={classes.barBase} style={{
-                backgroundColor: colors[invalid ? 'auto' : elem.key],
+                backgroundColor: formatColors[invalid ? 'auto' : elem.key],
                 width: `${(size / maxSize) * 100}%`,
                 outline: invalid ? '1px solid red' : ''
               }}>
