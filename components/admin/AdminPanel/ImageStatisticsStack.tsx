@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { ImageStatistics } from './panels/AcceleratedMediaPanel';
+import { ImageStatistics } from './ImageStatistics';
 import { Theme, Tooltip } from '@mui/material';
 import { WithStyles, withStyles } from '@mui/styles';
 

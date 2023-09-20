@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { CSVLink } from "react-csv";
-import { ImageStatistics } from "../panels/AcceleratedMediaPanel";
+import { ImageStatistics } from "../ImageStatistics";
 import { Box, Button, Card, CardContent, CardMedia, Chip, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import ImageStatisticsStack from "../ImageStatisticsStack";
 import { getImageURL } from "@utils/getImageURL";
