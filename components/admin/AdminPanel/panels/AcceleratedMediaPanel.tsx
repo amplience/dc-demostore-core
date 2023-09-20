@@ -38,7 +38,7 @@ async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) => void)
         try {
             const url = new URL(src);
 
-            const isAmplienceRequest = url.pathname.startsWith('/i/');
+            const isAmplienceRequest = url.pathname.startsWith('/i/') || url.pathname.startsWith('/s/');
             const accountName = url.pathname.split('/')[2];
 
             if (isAmplienceRequest) {
