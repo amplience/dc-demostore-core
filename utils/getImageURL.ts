@@ -118,12 +118,6 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
 
     const query: string[] = [];
 
-    const regex = /[?&]([^=#]+)=([^&#]*)/g;
-    let match;
-    while ((match = regex.exec(url))) {
-        query.push(`${match[1]}=${match[2]}`)
-    }
-
     const params: any = {
         'w': width,
         'h': height,
@@ -140,6 +134,12 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         'strip': strip,
         'qlt': quality
     };
+
+    const regex = /[?&]([^=#]+)=([^&#]*)/g;
+    let match;
+    while ((match = regex.exec(url))) {
+        if (params[match[1]] == undefined || params[match[1]] == null) params[match[1]] = match[2]
+    }
 
     for (let param of Object.keys(params)) {
         const value = params[param];
