@@ -106,14 +106,17 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
   return (
     <div style={{
       width: '95vw',
+      height: '95vh',
       margin: '20px auto',
       backgroundColor: 'white',
       borderRadius: '8px',
       padding: '15px',
+      display: 'flex', 
+      flexDirection: 'column',
       overflow: 'hidden auto'
     }}>
       <Typography variant="h4">Image Statistics</Typography>
-      <Typography variant="body1">{stats.length} Amplience Images detected.</Typography>
+      <Typography variant="body1">{stats.length} Amplience image{stats.length > 0 && 's'} detected.</Typography>
       {gridView &&
         <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'scroll' }}>
           <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 8, xl: 12 }}>
@@ -236,6 +239,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
           </Table>
         </div>
       }
+      <div style={{ flexGrow: 1 }} />
       <div style={{ paddingTop: '12px', display: 'flex', justifyContent: 'end' }}>
 
         <Button
