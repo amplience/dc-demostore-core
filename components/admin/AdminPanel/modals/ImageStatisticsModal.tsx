@@ -1,12 +1,13 @@
 import React, { FC, useState } from "react";
 import { CSVLink } from "react-csv";
 import { ImageStatistics } from "../panels/AcceleratedMediaPanel";
-import { Button, Card, CardContent, CardMedia, Chip, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, Chip, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import ImageStatisticsStack from "../ImageStatisticsStack";
 import { getImageURL } from "@utils/getImageURL";
 import {
   ListOutlined,
-  AppsOutlined
+  AppsOutlined,
+  FileDownload
 } from '@mui/icons-material'
 
 const expectedTypes: { [key: string]: string } = {
@@ -105,11 +106,29 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
     <div>
       <h2>Image Statistics</h2>
       <p>{stats.length} Amplience Images detected.</p>
-      <IconButton size="small" onClick={() => setGridView(!gridView)}>
-        {gridView && <ListOutlined />}
-        {!gridView && <AppsOutlined />}
-      </IconButton>
-      <CSVLink {...csvReport}>Export to CSV</CSVLink>
+
+      <Box sx={{display: "flex"}}>
+      <Button 
+        sx={{m :1, mb: 2}}
+        title={gridView ? 'List View' : 'Grid View'}
+        variant='outlined' 
+        startIcon={gridView ? <ListOutlined /> : <AppsOutlined />}
+        onClick={() => setGridView(!gridView)}
+        size="small"
+      >
+        {gridView ? 'List View' : 'Grid View'}
+      </Button>
+
+      <Button 
+        sx={{m :1, mb: 2}}
+        title='Export as CSV'
+        variant='outlined' 
+        startIcon={<FileDownload />}
+        size="small"
+      >
+        <CSVLink {...csvReport}>Export as CSV</CSVLink>
+      </Button>
+      </Box>
       {gridView &&
         <div className="af-form-field" style={{ height: '70vh', width: '90vw', overflow: 'hidden auto' }}>
           <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 8, xl: 12 }}>
