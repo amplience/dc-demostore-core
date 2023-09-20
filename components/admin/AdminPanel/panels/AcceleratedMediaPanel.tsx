@@ -192,9 +192,13 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
                 <ImageStatisticsModal stats={result} onClose={closeModal} />
             </Modal>
             {
+                result.length == 0 &&
+                <Typography component="p">No Amplience image detected.</Typography>
+            }
+            {
                 result.length > 0 && <>
                     <Typography component="p">
-                        {result.length} Amplience Images detected.
+                        {result.length} Amplience image{result.length > 1 && 's'} detected.
                     </Typography>
                     <LinearProgress variant="determinate" value={getProgress(result)} />
                     <ImageStatisticsGraph stats={result} />

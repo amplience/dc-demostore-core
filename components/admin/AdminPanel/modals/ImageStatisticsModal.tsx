@@ -116,7 +116,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
       overflow: 'hidden auto'
     }}>
       <Typography variant="h4">Image Statistics</Typography>
-      <Typography variant="body1">{stats.length} Amplience image{stats.length > 0 && 's'} detected.</Typography>
+      <Typography variant="body1">{stats.length} Amplience image{stats.length > 1 && 's'} detected.</Typography>
       {gridView &&
         <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'scroll' }}>
           <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 8, xl: 12 }}>
