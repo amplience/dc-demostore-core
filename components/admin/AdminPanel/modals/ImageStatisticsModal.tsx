@@ -104,12 +104,18 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
   };
 
   return (
-    <div>
-      <h2>Image Statistics</h2>
-      <p>{stats.length} Amplience Images detected.</p>
-
+    <div style={{ 
+      width: '95vw', 
+      margin: '20px auto', 
+      backgroundColor: 'white', 
+      borderRadius: '8px',
+      padding: '15px',
+      overflow: 'hidden auto' 
+    }}>
+      <Typography variant="h4">Image Statistics</Typography>
+      <Typography variant="body1">{stats.length} Amplience Images detected.</Typography>
       {gridView &&
-        <div className="af-form-field" style={{ height: '70vh', width: '90vw', overflow: 'hidden auto' }}>
+        <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'scroll' }}>
           <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 8, xl: 12 }}>
             {
               stats.map((stat, index) => {
@@ -136,7 +142,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
         </div>
       }
       {!gridView &&
-        <div style={{ height: '70vh', width: '90vw', overflow: 'hidden auto' }}>
+        <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'scroll' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -226,7 +232,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
           </Table>
         </div>
       }
-      <div style={{ paddingTop: '12px', height: '100%', display: 'flex', justifyContent: 'end' }}>
+      <div style={{ paddingTop: '12px', display: 'flex', justifyContent: 'end' }}>
 
       <Button 
         sx={{m :1, mb: 2}}

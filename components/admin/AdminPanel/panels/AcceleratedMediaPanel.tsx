@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Button, Chip, CircularProgress, Divider, IconButton, LinearProgress, Theme, Typography } from '@mui/material';
 import { withStyles, WithStyles } from '@mui/styles'
 import ImageStatisticsModal from '../modals/ImageStatisticsModal';
-import Modal from '@components/ui/Modal';
+import Modal from '@mui/material/Modal';
 import ImageStatisticsGraph from '../ImageStatisticsGraph';
 
 import Table from '@mui/material/Table';
@@ -185,8 +185,11 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
             <Button className={classes.button} startIcon={calculating && <CircularProgress className={classes.progress} size="1em" color="primary" />} variant="contained" color="primary" size='small' onClick={startCalculating} disabled={calculating}>
                 Get Image Statistics
             </Button>
-            <Modal open={modalOpen} onClose={closeModal}>
-                {modalOpen && <ImageStatisticsModal stats={result} onClose={closeModal} />}
+            <Modal 
+                open={modalOpen} 
+                onClose={closeModal}
+            >
+                <ImageStatisticsModal stats={result} onClose={closeModal} />
             </Modal>
             {
                 result.length > 0 && <>
