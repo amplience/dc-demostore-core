@@ -111,7 +111,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
       backgroundColor: 'white',
       borderRadius: '8px',
       padding: '15px',
-      display: 'flex', 
+      display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden auto'
     }}>
@@ -125,8 +125,8 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                 const maxSize = getMaxSize(stat);
 
                 return <Grid item xs={2} key={index}>
-                  <Card sx={{mt: 1, mb: 1}}>
-                    <a href={stat.src} target="_blank">
+                  <Card sx={{ mt: 1, mb: 1 }}>
+                    <a href={stat.src} target="_blank" rel="noreferrer">
                       <CardMedia
                         sx={{ aspectRatio: '1' }}
                         image={stat.src}
@@ -200,7 +200,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                   return (
                     <TableRow key={index}>
                       <TableCell>
-                        <a href={stat.src} target="_blank">
+                        <a href={stat.src} target="_blank" rel="noreferrer">
                           <img src={getImageURL(stat.src, { width: 32, height: 32 }, true)} width={32} height={32} alt={stat.name} />
                         </a>
                       </TableCell>
