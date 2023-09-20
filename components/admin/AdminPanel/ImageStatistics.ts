@@ -35,6 +35,11 @@ export function hasInvalid(stat: ImageStatistics): boolean {
     return false;
 }
 
+function getAcceptHeader(): string {
+    // TODO: guess accept header based on browser version?
+    return 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8';
+}
+
 export async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) => void) {
     const images = Array.from(document.images);
 
@@ -79,7 +84,7 @@ export async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) =
                     const src = url.toString();
 
                     try {
-                        const response = await fetch(src);
+                        const response = await fetch(src, { headers: { Accept: getAcceptHeader() }});
 
                         const headLength = response.headers.get("content-length");
                         const size = headLength ? Number(headLength) : (await response.arrayBuffer()).byteLength;
