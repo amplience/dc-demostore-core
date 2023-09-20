@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Theme, Divider, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ImageIcon from '@mui/icons-material/Image';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import { withStyles, WithStyles } from '@mui/styles'
 
 import WithAdminTheme from '@components/admin/AdminTheme';
@@ -89,7 +89,7 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
 
         <Accordion key={'Accelerated Media'}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-            <ImageIcon className={classes.icon} />
+            <ElectricBoltIcon className={classes.icon} />
             <Typography variant="button">{'Accelerated Media'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
