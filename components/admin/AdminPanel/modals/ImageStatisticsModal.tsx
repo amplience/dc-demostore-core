@@ -118,7 +118,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
       <Typography variant="h4">Image Statistics</Typography>
       <Typography variant="body1">{stats.length} Amplience image{stats.length > 1 && 's'} detected.</Typography>
       {gridView &&
-        <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'scroll' }}>
+        <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'auto' }}>
           <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 8, xl: 12 }}>
             {
               stats.map((stat, index) => {
@@ -147,7 +147,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
         </div>
       }
       {!gridView &&
-        <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'scroll' }}>
+        <div className="af-form-field" style={{ marginTop: '10px', maxHeight: '70vh', overflow: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
