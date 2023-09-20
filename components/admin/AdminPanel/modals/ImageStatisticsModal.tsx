@@ -265,7 +265,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
         <Button
           sx={{ m: 1, mb: 2 }}
           variant="contained" color="primary" onClick={onClose} size='small'>
-          Done
+          Close
         </Button>
       </div>
     </div>
