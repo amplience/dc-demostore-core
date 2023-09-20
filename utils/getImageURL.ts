@@ -72,7 +72,7 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
     const {
         seoFileName,
         format = ImageFormat.DEFAULT,
-        width = 2000,
+        width = 1500,
         height,
         poi,
         scaleMode,
