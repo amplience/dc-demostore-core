@@ -107,28 +107,6 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
       <h2>Image Statistics</h2>
       <p>{stats.length} Amplience Images detected.</p>
 
-      <Box sx={{display: "flex"}}>
-      <Button 
-        sx={{m :1, mb: 2}}
-        title={gridView ? 'List View' : 'Grid View'}
-        variant='outlined' 
-        startIcon={gridView ? <ListOutlined /> : <AppsOutlined />}
-        onClick={() => setGridView(!gridView)}
-        size="small"
-      >
-        {gridView ? 'List View' : 'Grid View'}
-      </Button>
-
-      <Button 
-        sx={{m :1, mb: 2}}
-        title='Export as CSV'
-        variant='outlined' 
-        startIcon={<FileDownload />}
-        size="small"
-      >
-        <CSVLink {...csvReport}>Export as CSV</CSVLink>
-      </Button>
-      </Box>
       {gridView &&
         <div className="af-form-field" style={{ height: '70vh', width: '90vw', overflow: 'hidden auto' }}>
           <Grid container spacing={2} columns={{ xs: 4, sm: 6, md: 8, xl: 12 }}>
@@ -248,7 +226,31 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
         </div>
       }
       <div style={{ paddingTop: '12px', height: '100%', display: 'flex', justifyContent: 'end' }}>
-        <Button variant="contained" color="primary" onClick={onClose} size='small'>
+
+      <Button 
+        sx={{m :1, mb: 2}}
+        title={gridView ? 'List View' : 'Grid View'}
+        variant='outlined' 
+        startIcon={gridView ? <ListOutlined /> : <AppsOutlined />}
+        onClick={() => setGridView(!gridView)}
+        size="small"
+      >
+        {gridView ? 'List View' : 'Grid View'}
+      </Button>
+
+      <Button 
+        sx={{m :1, mb: 2}}
+        title='Export as CSV'
+        variant='outlined' 
+        startIcon={<FileDownload />}
+        size="small"
+      >
+        <CSVLink {...csvReport}>Export as CSV</CSVLink>
+      </Button>
+
+        <Button 
+        sx={{m :1, mb: 2}}
+        variant="contained" color="primary" onClick={onClose} size='small'>
           Done
         </Button>
       </div>
