@@ -17,6 +17,24 @@ export const typeFromFormat: { [key: string]: string } = {
     'image/png': 'png'
 };
 
+
+export function isValid(stat: ImageStatistics, key: string): boolean {
+    let type = stat.types[key];
+    let realKey = typeFromFormat[type] ?? key;
+  
+    return key === 'auto' || key === realKey;
+}
+
+export function hasInvalid(stat: ImageStatistics): boolean {
+    for (const key of Object.keys(stat.sizes)) {
+        if (!isValid(stat, key)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) => void) {
     const images = Array.from(document.images);
 

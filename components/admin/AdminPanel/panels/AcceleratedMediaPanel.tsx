@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Button, Chip, CircularProgress, Divider, IconButton, LinearProgress, Theme, Typography } from '@mui/material';
+import { Button, Checkbox, Chip, CircularProgress, Divider, FormControlLabel, IconButton, LinearProgress, Theme, Typography } from '@mui/material';
 import { withStyles, WithStyles } from '@mui/styles'
 import ImageStatisticsModal from '../modals/ImageStatisticsModal';
 import Modal from '@mui/material/Modal';
@@ -14,7 +14,7 @@ import TableRow from '@mui/material/TableRow';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useAcceleratedMedia } from '../context/AcceleratedMediaContext';
-import { DetermineImageSizes, ImageStatistics } from '../ImageStatistics';
+import { DetermineImageSizes, ImageStatistics, hasInvalid } from '../ImageStatistics';
 
 function getProgress(stats: ImageStatistics[]): number {
     let completed = 0;
@@ -67,6 +67,7 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [result, setResult] = useState<ImageStatistics[]>([]);
     const [hasResult, setHasResult] = useState(false);
+    const [excludeInvalid, setExcludeInvalid] = useState(true);
 
     const closeModal = () => {
         setModalOpen(false);
@@ -90,6 +91,8 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
     const toggleAcceleratedMedia = () => {
         setAcceleratedMedia(!acceleratedMedia);
     }
+
+    const invalidImages = result.filter(stat => hasInvalid(stat));
 
     return (<>
         <Table size="small" className={classes.table}>
@@ -128,7 +131,17 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
                         {result.length} Amplience image{result.length > 1 && 's'} detected.
                     </Typography>
                     <LinearProgress variant="determinate" value={getProgress(result)} />
-                    <ImageStatisticsGraph stats={result} />
+                    {
+                        invalidImages.length > 0 &&
+                        <FormControlLabel control={
+                            <Checkbox 
+                                checked={excludeInvalid}
+                                onChange={(event) => setExcludeInvalid(event.target.checked)}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        } label={`Exclude images that can't be accelerated (${invalidImages.length})`}/>
+                    }
+                    <ImageStatisticsGraph stats={excludeInvalid ? result.filter(stat => !hasInvalid(stat)) : result} />
                     {
                         !calculating && result.length > 0 && <>
                             <Button variant="outlined" color="primary" onClick={openModal} size='small'>
