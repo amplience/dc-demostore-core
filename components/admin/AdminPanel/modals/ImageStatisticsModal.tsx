@@ -104,13 +104,13 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
   };
 
   return (
-    <div style={{ 
-      width: '95vw', 
-      margin: '20px auto', 
-      backgroundColor: 'white', 
+    <div style={{
+      width: '95vw',
+      margin: '20px auto',
+      backgroundColor: 'white',
       borderRadius: '8px',
       padding: '15px',
-      overflow: 'hidden auto' 
+      overflow: 'hidden auto'
     }}>
       <Typography variant="h4">Image Statistics</Typography>
       <Typography variant="body1">{stats.length} Amplience Images detected.</Typography>
@@ -123,11 +123,13 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
 
                 return <Grid item xs={2} key={index}>
                   <Card>
-                    <CardMedia
-                      sx={{ aspectRatio: '1' }}
-                      image={stat.src}
-                      title="green iguana"
-                    />
+                    <a href={stat.src} target="_blank">
+                      <CardMedia
+                        sx={{ aspectRatio: '1' }}
+                        image={stat.src}
+                        title="green iguana"
+                      />
+                    </a>
                     <CardContent sx={{ display: 'flex', gap: '5px', flexWrap: 'wrap', justifyContent: 'center' }}>
                       <Typography sx={{ fontSize: 14, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'noWrap' }} color="text.secondary" gutterBottom>
                         {stat.name}
@@ -195,7 +197,9 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                   return (
                     <TableRow key={index}>
                       <TableCell>
-                        <img src={getImageURL(stat.src, { width: 32, height:32 }, true)} width={32} height={32} alt={stat.name} />
+                        <a href={stat.src} target="_blank">
+                          <img src={getImageURL(stat.src, { width: 32, height: 32 }, true)} width={32} height={32} alt={stat.name} />
+                        </a>
                       </TableCell>
                       <TableCell>
                         {stat.name}
@@ -234,30 +238,30 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
       }
       <div style={{ paddingTop: '12px', display: 'flex', justifyContent: 'end' }}>
 
-      <Button 
-        sx={{m :1, mb: 2}}
-        title={gridView ? 'List View' : 'Grid View'}
-        variant='outlined' 
-        startIcon={gridView ? <ListOutlined /> : <AppsOutlined />}
-        onClick={() => setGridView(!gridView)}
-        size="small"
-      >
-        {gridView ? 'List View' : 'Grid View'}
-      </Button>
+        <Button
+          sx={{ m: 1, mb: 2 }}
+          title={gridView ? 'List View' : 'Grid View'}
+          variant='outlined'
+          startIcon={gridView ? <ListOutlined /> : <AppsOutlined />}
+          onClick={() => setGridView(!gridView)}
+          size="small"
+        >
+          {gridView ? 'List View' : 'Grid View'}
+        </Button>
 
-      <Button 
-        sx={{m :1, mb: 2}}
-        title='Export as CSV'
-        variant='outlined' 
-        startIcon={<FileDownload />}
-        size="small"
-      >
-        <CSVLink {...csvReport}>Export as CSV</CSVLink>
-      </Button>
+        <Button
+          sx={{ m: 1, mb: 2 }}
+          title='Export as CSV'
+          variant='outlined'
+          startIcon={<FileDownload />}
+          size="small"
+        >
+          <CSVLink {...csvReport}>Export as CSV</CSVLink>
+        </Button>
 
-        <Button 
-        sx={{m :1, mb: 2}}
-        variant="contained" color="primary" onClick={onClose} size='small'>
+        <Button
+          sx={{ m: 1, mb: 2 }}
+          variant="contained" color="primary" onClick={onClose} size='small'>
           Done
         </Button>
       </div>
