@@ -135,11 +135,12 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
                         invalidImages.length > 0 &&
                         <FormControlLabel control={
                             <Checkbox 
+                                size='small'
                                 checked={excludeInvalid}
                                 onChange={(event) => setExcludeInvalid(event.target.checked)}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
-                        } label={`Exclude images that can't be accelerated (${invalidImages.length})`}/>
+                        } label={<Typography variant='caption'>Exclude images that can't be accelerated ({invalidImages.length})</Typography>}/>
                     }
                     <ImageStatisticsGraph stats={excludeInvalid ? result.filter(stat => !hasInvalid(stat)) : result} />
                     {
