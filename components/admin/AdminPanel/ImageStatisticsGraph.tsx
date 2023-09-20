@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { ImageStatistics } from './ImageStatistics';
+import { ImageStatistics, formatColors } from './ImageStatistics';
 import { Theme, Typography } from '@mui/material';
 import { WithStyles, withStyles } from '@mui/styles';
 
@@ -20,16 +20,10 @@ const styles = (theme: Theme) => ({
         borderRight: '1px solid gray',
         paddingRight: '4px'
     },
-    barWinner: {
-        backgroundColor: '#65CC02',
+    bar: {
         padding: '4px 0px 4px 4px',
-        color: '#555555'
+        color: '#444444'
     },
-    barLoser: {
-        backgroundColor: '#8F9496',
-        padding: '4px 0px 4px 4px',
-        color: '#555555'
-    }
 });
 
 interface Props extends WithStyles<typeof styles> {
@@ -109,7 +103,7 @@ const ImageStatisticsGraph: FC<Props> = ({stats, classes}) => {
             const size = sumSizes(stats, format);
             return <tr key={format}>
                 <td className={classes.format}>{format}</td>
-                <td><div className={size === minSize ? classes.barWinner : classes.barLoser} style={{width: `${100 * size / maxSize}%`}}><Typography variant="caption">{size}</Typography></div></td>
+                <td><div className={classes.bar} style={{width: `${100 * size / maxSize}%`, backgroundColor: formatColors[format]}}><Typography variant="caption">{size}</Typography></div></td>
             </tr>
         })}
     </table>
