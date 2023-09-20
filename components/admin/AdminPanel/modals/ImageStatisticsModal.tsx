@@ -125,7 +125,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                 const maxSize = getMaxSize(stat);
 
                 return <Grid item xs={2} key={index}>
-                  <Card>
+                  <Card sx={{mt: 1, mb: 1}}>
                     <a href={stat.src} target="_blank">
                       <CardMedia
                         sx={{ aspectRatio: '1' }}
