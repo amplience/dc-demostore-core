@@ -62,6 +62,7 @@ function getRealType(stat: ImageStatistics, key: string): string | null {
 function getOrderedFormats(stat: ImageStatistics): OrderedFormat[] {
     // Formats ordered by size.
     const formatSizes = Object.keys(stat.sizes)
+      .sort()
       .filter(key => key !== 'auto')
       .map(key => ({
         key,
