@@ -103,7 +103,7 @@ const Image: FC<Props> = ({
         </picture>
     ) : (
             <picture className="amp-dc-image">
-                {source({ minWidth: '1280', width: '1600', highDensityWidth: '3200', poiAspect: '2:1' })}
+                {source({ minWidth: '1280', width: '1500', highDensityWidth: '3000', poiAspect: '2:1' })}
                 {source({ minWidth: '1024', width: '1280', highDensityWidth: '2560', poiAspect: '2:1' })}
                 {source({ minWidth: '768', width: '1024', highDensityWidth: '2048', poiAspect: '1.5:1' })}
                 {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', poiAspect: '1:1' })}
