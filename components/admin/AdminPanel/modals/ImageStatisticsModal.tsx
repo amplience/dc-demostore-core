@@ -2,12 +2,12 @@ import React, { FC, useState } from "react";
 import { CSVLink } from "react-csv";
 import { ImageStatistics } from "../panels/AcceleratedMediaPanel";
 import { Button, Card, CardContent, CardMedia, Chip, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
-import ImageStatisticsStack from "../ImageStatisticsStack";
 import { getImageURL } from "@utils/getImageURL";
 import {
   ListOutlined,
   AppsOutlined
 } from '@mui/icons-material'
+import ImageStatisticsBars from "../ImageStatisticsBars";
 
 const expectedTypes: { [key: string]: string } = {
   webp: 'image/webp',
@@ -128,7 +128,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
                       <Typography sx={{ fontSize: 14, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'noWrap' }} color="text.secondary" gutterBottom>
                         {stat.name}
                       </Typography>
-                      <ImageStatisticsStack stat={stat} />
+                      <ImageStatisticsBars stat={stat} />
                     </CardContent>
                   </Card>
                 </Grid>
