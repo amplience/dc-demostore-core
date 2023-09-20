@@ -228,7 +228,7 @@ const ImageStatisticsModal: FC<Props> = ({ stats, onClose }) => {
           </Table>
         </div>
       }
-      <div style={{ height: '100%', display: 'flex', justifyContent: 'end' }}>
+      <div style={{ paddingTop: '12px', height: '100%', display: 'flex', justifyContent: 'end' }}>
         <Button variant="contained" color="primary" onClick={onClose} size='small'>
           Done
         </Button>
