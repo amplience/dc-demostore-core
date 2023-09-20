@@ -20,12 +20,20 @@ export const typeFromFormat: { [key: string]: string } = {
 export async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) => void) {
     const images = Array.from(document.images);
 
+    const uniqueSrc = new Set<string>();
     const result: ImageStatistics[] = [];
 
     const promises: Promise<any>[] = [];
 
     for (const image of images) {
         const src = image.currentSrc;
+
+        if (uniqueSrc.has(src)) {
+            continue;
+        }
+
+        uniqueSrc.add(src);
+
         try {
             const url = new URL(src);
 

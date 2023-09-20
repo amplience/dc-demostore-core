@@ -66,6 +66,7 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
     const [calculating, setCalculating] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [result, setResult] = useState<ImageStatistics[]>([]);
+    const [hasResult, setHasResult] = useState(false);
 
     const closeModal = () => {
         setModalOpen(false);
@@ -77,7 +78,7 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
 
     const startCalculating = async () => {
         setCalculating(true);
-        await DetermineImageSizes((result) => { setResult([...result]) });
+        await DetermineImageSizes((result) => { setResult([...result]); setHasResult(true); });
         setCalculating(false);
     }
 
@@ -118,8 +119,8 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
                 <ImageStatisticsModal stats={result} onClose={closeModal} />
             </Modal>
             {
-                result.length == 0 &&
-                <Typography component="p">No Amplience image detected.</Typography>
+                result.length == 0 && hasResult &&
+                <Typography component="p">No Amplience images detected.</Typography>
             }
             {
                 result.length > 0 && <>
