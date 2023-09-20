@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { useUI } from '../../ui/UIContext';
 import { ImageStatistics } from './panels/AcceleratedMediaPanel';
-import { Button, Theme } from '@mui/material';
+import { Button, Theme, Typography } from '@mui/material';
 import { WithStyles, withStyles } from '@mui/styles';
 
 const styles = (theme: Theme) => ({
@@ -24,12 +24,12 @@ const styles = (theme: Theme) => ({
     barWinner: {
         backgroundColor: '#65CC02',
         padding: '4px 0px 4px 4px',
-        color: 'white'
+        color: '#555555'
     },
     barLoser: {
         backgroundColor: '#8F9496',
         padding: '4px 0px 4px 4px',
-        color: 'white'
+        color: '#555555'
     }
 });
 
@@ -104,13 +104,13 @@ const ImageStatisticsGraph: FC<Props> = ({stats, classes}) => {
     return <table className={classes.table}>
         <tr>
             <th className={classes.formatHead}></th>
-            <th className={classes.weightHead}>Image Weight (bytes)</th>
+            <th className={classes.weightHead}>Images Weight (bytes)</th>
         </tr>
         {formats.map(format => {
             const size = sumSizes(stats, format);
             return <tr key={format}>
                 <td className={classes.format}>{format}</td>
-                <td><div className={size === minSize ? classes.barWinner : classes.barLoser} style={{width: `${100 * size / maxSize}%`}}>{size}</div></td>
+                <td><div className={size === minSize ? classes.barWinner : classes.barLoser} style={{width: `${100 * size / maxSize}%`}}><Typography variant="caption">{size}</Typography></div></td>
             </tr>
         })}
     </table>
