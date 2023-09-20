@@ -23,7 +23,12 @@ const styles = (theme: Theme) => ({
   logo: {
     display: 'flex',
     padding: '10px 10px 4px 10px',
-    justifyContent: 'left'
+    justifyContent: 'center'
+  },
+  environment: {
+    display: 'flex',
+    justifyContent: 'left',
+    padding: '8px'
   },
   icon: {
     marginRight: '0.4rem',
@@ -52,11 +57,12 @@ const AdminPanel: React.FunctionComponent<Props> = (props) => {
           <Image src="/images/amplience.png" width={247} height={100} alt='amplience' />
         </div>
         <Divider />
-        <div className={classes.logo}>
+        <div className={classes.environment}>
           <div>
             <span>hub</span> <span><b>{hubname}</b></span>
           </div>
-          <div style={{ marginLeft: '40px' }}>
+          <div style={{flexGrow: 1}} />
+          <div style={{justifyContent: 'right'}}>
             <span>vendor</span> <span><b>{vendor}</b></span>
           </div>
         </div>
