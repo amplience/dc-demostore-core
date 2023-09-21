@@ -9,6 +9,7 @@
 - [Admin UI Panels](#admin-ui-panels)
 - [Shoppable Image](#shoppable-image)
 - [Stylitics](#stylitics)
+- [Accelerated Media](#accelerated-media)
 
 ## Fetching content
 
@@ -532,5 +533,47 @@ The demostore implementation includes the following:
 * All of the component and implementation in React/NextJS
 * Sample implementation for overriding link values
 * Sample implementation of inheriting SKU from PDP
+
+[top](#table-of-content)
+
+## Accelerated Media
+
+A new [Accelerated Media](https://amplience.com/add-on/accelerated-media) Admin Panel has been added to the demostore implementation.
+
+### Enable / Disable Accelerated Media
+
+You can enable / disable Accelerated Media in the Admin Panel:
+
+![Accelerated Media Flag](../media/accelerated-media-flag.png)
+
+The use of AVIF format is globally controled on the Front-End in all demostore pages:
+
+* Home page
+* Category pages
+* Product detail pages, including Product Content
+* Blog page & blog entry pages
+* Stores page & store detail pages
+
+### Getting Image Statistics
+
+You can request image statistics for the current page:
+
+![Getting Image Statistics](../media/accelerated-media-get-statistics.png)
+
+The number of Amplience images in the page is displayed, and a summary graph is displayed in the Admin Panel with total sizes by image formats
+
+### Image Statistics Details
+
+Once image statistics are retrieved, you can access details in a new modal window:
+
+![Details Grid View](../media/accelerated-media-details-modal-grid-view.png)
+
+A grid view shows you all images with a bar chart showing each possible formats and their sizes, ordered by size.
+
+![Details List View](../media/accelerated-media-details-modal-list-view.png)
+
+A list view shows the same information in a table view that you can export as CSV.
+
+![Export as CSV](../media/accelerated-media-csv-export.png)
 
 [top](#table-of-content)
