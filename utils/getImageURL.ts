@@ -112,12 +112,14 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         url += `/${encodeURIComponent(seoFileName)}`;
     }
 
+    // Remove all existing URL parameters
     if (removeAllParams && url.indexOf('?') > -1) {
         url = url.split('?')[0]
     }
 
     const query: string[] = [];
 
+    // Get parameters from Transformations
     const params: any = {
         'w': width,
         'h': height,
@@ -135,12 +137,14 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         'qlt': quality
     };
 
+    // Re-add existing parameters from URL
     const regex = /[?&]([^=#]+)=([^&#]*)/g;
     let match;
     while ((match = regex.exec(url))) {
         if (params[match[1]] == undefined || params[match[1]] == null) params[match[1]] = match[2]
     }
 
+    // Add all parameters to query
     for (let param of Object.keys(params)) {
         const value = params[param];
         if (value !== undefined && value !== null && value != 0) {
@@ -162,16 +166,15 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         }
     }
 
+    // Add format and quality
     query.push(`fmt=${finalFormat}`)
     query.push('qlt=default')
 
-    if (query.length > 0) {
-        if (url.indexOf('?') > -1) {
-            url += `&${query.join('&')}`;
-        } else {
-            url += `?${query.join('&')}`;
-        }
+    // Rebuild URL
+    if (url.indexOf('?') > -1) {
+        url = url.split('?')[0]
     }
+    url += `?${query.join('&')}`;
 
     return url;
 }
