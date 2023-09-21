@@ -84,8 +84,8 @@ const CuratedProductGridCard: React.SFC<Props> = (props) => {
     }
 
     let imageUrl = result.overrides?.image
-        ? getImageURL(result.overrides.image, {width: 540, height: 812})
-        : getImageURL(result.variants[0].images[0].url, {width: 540, height: 812})
+        ? getImageURL(result.overrides.image, {width: 540, height: 810})
+        : getImageURL(result.variants[0].images[0].url, {width: 540, height: 810})
 
     return (
         <Link href={`/product/${result.id}/${result.slug}`}>
