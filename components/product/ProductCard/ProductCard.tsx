@@ -111,13 +111,13 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
             
             firstImage = variant.images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
             if(firstImage.indexOf('cdn.media.amplience.net') > 0){
-                firstImage = getImageURL(firstImage, {width: 540, height: 812}, true)
+                firstImage = getImageURL(firstImage, {width: 540, height: 810}, true)
             }
         }
         if (variant.images[1] && variant.images[1].url){
             secondImage = variant.images[1].url.replace("i8.amplience.net", "cdn.media.amplience.net");
             if(secondImage.indexOf('cdn.media.amplience.net') > 0){
-                secondImage = getImageURL(firstImage, {width: 540, height: 812}, true)
+                secondImage = getImageURL(firstImage, {width: 540, height: 810}, true)
             }
         }
     }
