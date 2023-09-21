@@ -13,10 +13,9 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    color: 'white',
+    color: '#444444',
     height: '20px',
     margin: '2px 0',
-    overflow: 'hidden',
     fontSize: '12px',
     gap: '5px'
   },
@@ -28,8 +27,6 @@ const styles = (theme: Theme) => ({
   size: {
     fontSize: '12px',
     marginRight: '4px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden'
   }
 });
 
