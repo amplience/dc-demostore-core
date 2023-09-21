@@ -67,7 +67,84 @@ export type ImageTransformations = {
     templates?: string[];
 };
 
+const avifMaxPixels = 2500000;
+
+function limitSize(width: number, height: number, maxPixels: number): { width: number, height: number } | undefined {
+    const pixels = width * height;
+
+    if (pixels <= maxPixels) {
+        return undefined;
+    }
+    
+    const heightFromWidth = height / width;
+
+    const newWidth = Math.floor(Math.sqrt(maxPixels / heightFromWidth));
+    const newHeight = Math.floor(newWidth * heightFromWidth);
+
+    return {
+        width: newWidth,
+        height: newHeight
+    }
+}
+
+function constrainMaxSize(transformations: ImageTransformations, maxPixels: number): ImageTransformations {
+    // Given a max number of pixels,
+    // Constrain the size of the image, while also keeping its aspect ratio.
+    // If it's not possible, leave it untouched.
+    const aspect = transformations.aspectRatio;
+
+    if (transformations.width == null && transformations.height == null) {
+        return transformations;
+    }
+
+    // Both dimensions can be controlled.
+    if (transformations.width != null && transformations.height != null) {
+        const newSize = limitSize(transformations.width, transformations.height, maxPixels);
+
+        return (newSize == null) ? transformations : {
+            ...transformations,
+            width: newSize.width,
+            height: newSize.height
+        };
+    }
+
+    // Can only control scale if we know the aspect.
+    if (aspect == null) {
+        return transformations;
+    }
+
+    const aspectSplit = aspect.split(':');
+    const widthFromHeight = Number(aspectSplit[0])/Number(aspectSplit[1]);
+    const heightFromWidth = 1/widthFromHeight;
+
+    if (isNaN(widthFromHeight)) {
+        return transformations;
+    }
+
+    if (transformations.width != null) {
+        // Scale the width to be within the maxPixels.
+        const newSize = limitSize(transformations.width, transformations.width * heightFromWidth, maxPixels);
+
+        return (newSize == null) ? transformations : {
+            ...transformations,
+            width: newSize.width
+        };
+    } else if (transformations.height != null) {
+        // Height must be defined instead.
+        const newSize = limitSize(transformations.height * widthFromHeight, transformations.height, maxPixels);
+
+        return (newSize == null) ? transformations : {
+            ...transformations,
+            height: newSize.height
+        };
+    }
+
+    // Not really possible to get here, but typescript doesn't know that.
+    return transformations;
+}
+
 export function getImageURL(image: string | CmsImage, transformations: ImageTransformations = {}, removeAllParams = false): string {
+    transformations = constrainMaxSize(transformations, avifMaxPixels);
 
     const {
         seoFileName,

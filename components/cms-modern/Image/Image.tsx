@@ -103,9 +103,10 @@ const Image: FC<Props> = ({
         </picture>
     ) : (
             <picture className="amp-dc-image">
-                {source({ minWidth: '1280', width: '1500', highDensityWidth: '3000', poiAspect: '2:1' })}
-                {source({ minWidth: '1024', width: '1280', highDensityWidth: '2560', poiAspect: '2:1' })}
-                {source({ minWidth: '768', width: '1024', highDensityWidth: '2048', poiAspect: '1.5:1' })}
+                {/* High density widths selected to be below max avif image size at aspect ratio. (2.5mil pixels) */}
+                {source({ minWidth: '1280', width: '1500', highDensityWidth: '2234', poiAspect: '2:1' })}
+                {source({ minWidth: '1024', width: '1280', highDensityWidth: '2234', poiAspect: '2:1' })}
+                {source({ minWidth: '768', width: '1024', highDensityWidth: '1920', poiAspect: '1.5:1' })}
                 {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', poiAspect: '1:1' })}
 
                 <img loading="lazy" src={buildSrcUrl({ width: '1600' })} className="amp-dc-image-pic" alt={imageAltText} title={seoText} />
