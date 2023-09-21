@@ -247,6 +247,10 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
     query.push(`fmt=${finalFormat}`)
     query.push('qlt=default')
 
+    // Set max sizes
+    if (params['h'] == null ) query.push('maxH=1500')
+    if (params['w'] == null ) query.push('maxW=1500')
+
     // Rebuild URL
     if (url.indexOf('?') > -1) {
         url = url.split('?')[0]
