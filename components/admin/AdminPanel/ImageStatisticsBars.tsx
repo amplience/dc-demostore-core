@@ -22,7 +22,8 @@ const styles = (theme: Theme) => ({
   },
   format: {
     fontSize: '12px',
-    marginLeft: '4px'
+    marginLeft: '4px',
+    whiteSpace: 'nowrap' as 'nowrap'
   },
   size: {
     fontSize: '12px',
