@@ -108,7 +108,7 @@ const Image: FC<Props> = ({
                 {source({ minWidth: '768', width: '1024', highDensityWidth: '2048', poiAspect: '1.5:1' })}
                 {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', poiAspect: '1:1' })}
 
-                <img loading="lazy" src={buildSrcUrl({ width: '1600' })} className="amp-dc-image-pic" alt={imageAltText} title={seoText} />
+                <img loading="lazy" src={buildSrcUrl({ width: '1500' })} className="amp-dc-image-pic" alt={imageAltText} title={seoText} />
             </picture>
         );
 
