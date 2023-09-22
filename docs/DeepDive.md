@@ -37,7 +37,7 @@ const resolveContent = (requests: CmsRequest[]): Promise<CmsContent[]> => {
     };
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Filter API
 
@@ -94,7 +94,7 @@ let filterRequest: GetByFilterRequest =
     }
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Amplience Search
 
@@ -235,7 +235,7 @@ let filterRequest: GetByFilterRequest =
             </PageContent>
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Navigation Hierarchy
 
@@ -278,7 +278,7 @@ Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
     }, context);
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Product Detail Page Layout
 
@@ -320,7 +320,7 @@ When using this slot type in the scheduler you can add multiple items and associ
 
 ### Previewing (Site preview)
 
-When previewing and testing your personlized banner slot behavior, you must be in a FULL site preview, not just the slot preview.
+When previewing and testing your personlised banner slot behavior, you must be in a FULL site preview, not just the slot preview.
 
 To select a user segment click on the user icon in the top nav:
 
@@ -330,7 +330,7 @@ Then select a segment to preview, or select the blank item to behave as if you a
 
 ![Segment Selection](../media/user-login-selection.png)
 
-The following rules will apply to all instances of the personalized banner slot in your application.
+The following rules will apply to all instances of the personalised banner slot in your application.
 
 #### Rules
 
@@ -458,7 +458,7 @@ const [data, product] = await Promise.all(
   }
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Theming
 
@@ -481,7 +481,7 @@ You can define a default theme, and additional ones. Some components like `Blog`
 
 ![Theme Wrapper](../media/themeWrapper.png)
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Admin UI Panels
 
@@ -534,7 +534,7 @@ The demostore implementation includes the following:
 * Sample implementation for overriding link values
 * Sample implementation of inheriting SKU from PDP
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Accelerated Media
 
@@ -546,7 +546,7 @@ You can enable / disable Accelerated Media in the Admin Panel:
 
 ![Accelerated Media Flag](../media/accelerated-media-flag.png)
 
-The use of AVIF format is globally controled on the Front-End in all demostore pages:
+The use of AVIF format is globally controlled on the Front-End in all demostore pages:
 
 * Home page
 * Category pages
@@ -560,7 +560,9 @@ You can request image statistics for the current page:
 
 ![Getting Image Statistics](../media/accelerated-media-get-statistics.png)
 
-The number of Amplience images in the page is displayed, and a summary graph is displayed in the Admin Panel with total sizes by image formats
+The number of Amplience images in the page is displayed, and a summary graph is displayed in the Admin Panel with total sizes by image formats.
+
+> Note: you should scroll down the current page to get all images due to lazy loading
 
 ### Image Statistics Details
 
@@ -576,4 +578,4 @@ A list view shows the same information in a table view that you can export as CS
 
 ![Export as CSV](../media/accelerated-media-csv-export.png)
 
-[top](#table-of-content)
+[top](#table-of-contents)
