@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
-import { getImageURL } from '@utils/getImageURL';
+import { ImageTransformations, getImageURL } from '@utils/getImageURL';
 
 type Props = {
     image: any;
@@ -75,12 +75,20 @@ const Image: FC<Props> = ({
 
     const buildSrcUrl = ({ width, poiAspect, format }: any) => {
         let baseUrl = `https://${getImageHost(image.defaultHost)}/i/${image.endpoint}/${encodeURIComponent(image.name)}`;
+        const transformations: ImageTransformations = {};
+
         if (seoText) {
             baseUrl += `/${encodeURIComponent(seoText)}`
         };
-        let queryString = `w=${width}&upscale=false&strip=true`;
+
+        transformations.width = width;
+        transformations.upscale = false;
+        transformations.strip = true;
+        let queryString = '';
+
         if (display == 'Point of Interest' && poiAspect) {
-            queryString += `&{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&aspect=${poiAspect}`
+            transformations.aspectRatio = poiAspect;
+            queryString += `&{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect`
         }
         if (query) {
             queryString += `&${query}`;
@@ -88,7 +96,7 @@ const Image: FC<Props> = ({
         if (roundel && roundel[0] && roundel[0].roundel && roundel[0].roundelPosition && roundel[0].roundelRatio) {
             queryString += `&$roundel$&${getRoundelConfig(roundel)}`
         }
-        return getImageURL(`${baseUrl}?${queryString}`);
+        return getImageURL(`${baseUrl}?${queryString}`, transformations);
     };
 
     const source = ({ minWidth, maxWidth, width, highDensityWidth, format, poiAspect }: any) => {
