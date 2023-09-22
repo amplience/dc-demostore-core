@@ -15,6 +15,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { useAcceleratedMedia } from '../context/AcceleratedMediaContext';
 import { DetermineImageSizes, ImageStatistics, hasInvalid } from '../ImageStatistics';
+import { useRouter } from 'next/router';
 
 function getProgress(stats: ImageStatistics[]): number {
     let completed = 0;
@@ -63,11 +64,21 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
         ...other
     } = props;
 
+    const {
+        asPath
+    } = useRouter();
+
     const [calculating, setCalculating] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [result, setResult] = useState<ImageStatistics[]>([]);
-    const [hasResult, setHasResult] = useState(false);
+    const [resultPath, setResultPath] = useState<string>('!');
     const [excludeInvalid, setExcludeInvalid] = useState(true);
+
+    const hasResult = resultPath === asPath;
+
+    if (!hasResult && result.length > 0) {
+        setResult([]);
+    }
 
     const closeModal = () => {
         setModalOpen(false);
@@ -79,7 +90,7 @@ const AcceleratedMediaPanel: FC<Props> = (props) => {
 
     const startCalculating = async () => {
         setCalculating(true);
-        await DetermineImageSizes((result) => { setResult([...result]); setHasResult(true); });
+        await DetermineImageSizes((result) => { setResult([...result]); setResultPath(asPath); });
         setCalculating(false);
     }
 
