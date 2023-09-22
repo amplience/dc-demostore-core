@@ -562,7 +562,9 @@ You can request image statistics for the current page:
 
 The number of Amplience images in the page is displayed, and a summary graph is displayed in the Admin Panel with total sizes by image formats.
 
-> Note: you should scroll down the current page to get all images due to lazy loading
+> Note: the last image statistics graph will be displayed when opening the Admin Panel. Don't forget to get the statistics for the current page again.
+
+> Note: you should scroll down the current page to get all images due to lazy loading.
 
 ### Image Statistics Details
 
