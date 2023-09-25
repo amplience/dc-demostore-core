@@ -10,7 +10,7 @@
   border-left: 1px solid $textColor;
   position: relative;
   display: block;
-  z-index: 1201;
+  z-index: 1000;
   &__icon {
     position: absolute;
     right: 15px;
@@ -43,7 +43,7 @@
     padding: 0 10px 10px 10px;
     //top: 30px;
     right: -10px;
-    z-index: 1201;
+    z-index: 1000;
     display: none;
     overflow: hidden;
    

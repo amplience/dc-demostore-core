@@ -170,7 +170,7 @@ In your Vercel project browse to Settings --> Environment Variables and edit the
 
 
 ## Additional Topics
-- [Features Highlights](docs/FeatureHiLites.md)
+- [Features Highlights](docs/FeatureHighlights.md)
 - [High-Level Architecture](docs/ArchDiagram.md)
 - [Available Components](docs/Components.md)
 - [Exploring features](docs/DeepDive.md)

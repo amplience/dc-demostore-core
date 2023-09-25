@@ -25,20 +25,20 @@ const styles = (theme: Theme) => ({
     },
     panel: {
         position: 'fixed' as 'fixed',
-        width: 300,
+        width: 400,
         bottom: 0,
         top: 0,
         zIndex: 1100,
         transition: 'all 200ms ease-out',
     },
     left: {
-        left: -300,
+        left: -400,
         '&$open': {
             left: 0
         }
     },
     right: {
-        right: -300,
+        right: -400,
         '&$open': {
             right: 0
         }

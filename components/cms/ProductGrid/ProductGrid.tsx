@@ -7,6 +7,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import { Category, CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 import { commerceApi } from '@pages/api'
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
+import { getImageURL } from '@utils/getImageURL';
 
 type Props = {
 } & CmsContent;
@@ -81,9 +82,9 @@ const ProductGrid: FC<Props> = ({
                         let firstImage: string = '';
                         if (images) {
                             if (images[0] && images[0].url) {
-                                firstImage = images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
+                                firstImage = images[0].url
                                 if (firstImage.indexOf('cdn.media.amplience.net') > 0) {
-                                    firstImage += '?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40&w=540&upscale=false'
+                                    firstImage = getImageURL(firstImage, {width: 540})
                                 }
                             }
                         }

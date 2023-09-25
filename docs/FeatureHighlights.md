@@ -10,5 +10,6 @@
 - Admin Panel (visualise content, slots, editons, switch between production and staging view)
 - Custom Dashboards (translation & production Kanban board, deep clone)
 - [Stylitics](https://stylitics.com) components for configuration in content not code
+- Accelerated Media Admin Panel with page statistics and detailed images statistics
 
 [back](../README.md)

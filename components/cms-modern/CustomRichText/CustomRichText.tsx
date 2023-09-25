@@ -4,6 +4,7 @@ import ReactMarkdown from 'markdown-to-jsx';
 import { ContentBlock } from '@components/cms-modern';
 import { Box, Link, Typography } from '@mui/material';
 import { nanoid } from 'nanoid'
+import { getImageURL } from '@utils/getImageURL';
 
 type Props = {
 } & CmsContent;
@@ -57,7 +58,7 @@ const Text: FC<Props> = ({
                             return (
                                 data && <picture key={data.name} className="amp-dc-image">
                                     <img 
-                                        src={`https://${data.defaultHost}/i/${data.endpoint}/${encodeURIComponent(data.name)}?upscale=false&strip=true`} 
+                                        src={getImageURL(data, {strip: true})} 
                                         className="amp-dc-image-pic"
                                         alt={data.name}
                                     />

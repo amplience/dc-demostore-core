@@ -10,7 +10,7 @@ const DefaultAdaptiveImage: React.SFC<Omit<AdaptiveImageProps, 'children'>> = (p
             <AdaptiveImageSource
                 media="(min-width: 1280px)"
                 transformations={{
-                    width: 1600,
+                    width: 1500,
                     aspectRatio: '2:1'
                 }} />
             <AdaptiveImageSource

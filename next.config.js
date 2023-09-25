@@ -27,7 +27,7 @@ module.exports = (phase, { defaultConfig }) => {
             includePaths: [path.join(__dirname, 'styles')],
         },
         images: {
-            domains: ['qrickit.com', 'elyseo.eu', 'i8.amplience.net'],
+            domains: ['qrickit.com', 'elyseo.eu'],
         },
         rewrites() {
             return [

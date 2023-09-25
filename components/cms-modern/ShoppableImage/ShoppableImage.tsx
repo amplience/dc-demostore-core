@@ -14,6 +14,7 @@ import { useWindowContext } from '../../core/WithWindowContext/WindowContext';
 import clsx from 'clsx';
 import { CircularProgress, Tooltip } from '@mui/material';
 import Link from 'next/link';
+import { getImageURL } from '@utils/getImageURL';
 
 type Props = {
     shoppableImage: any;
@@ -228,10 +229,7 @@ const ShoppableImage: FC<Props> = ({
     let image: JSX.Element | undefined;
     let src = "invalid";
     if (shoppableImage && shoppableImage.image.id) {
-        const imageHost = shoppableImage.image.defaultHost;
-        src = `https://${imageHost}/i/${shoppableImage.image.endpoint}/${encodeURIComponent(
-            shoppableImage.image.name
-        )}?fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40`;
+        src = getImageURL(shoppableImage.image)
 
         image = (
             <img
