@@ -175,15 +175,8 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
     let finalFormat = format
     if (acceleratedMedia) finalFormat = ImageFormat.AVIF
 
-    const getImageHost = (host: string) => {
-        if (host === 'i1.adis.ws') {
-            return 'cdn.media.amplience.net';
-        }
-        return host;
-    }
-
     let url = typeof image === 'string' ? image :
-        `https://${getImageHost(image.defaultHost)}/i/${encodeURIComponent(image.endpoint)}/${encodeURIComponent(image.name)}`;
+        `https://${image.defaultHost}/i/${encodeURIComponent(image.endpoint)}/${encodeURIComponent(image.name)}`;
 
     if (seoFileName) {
         url += `/${encodeURIComponent(seoFileName)}`;

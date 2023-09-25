@@ -80,10 +80,6 @@ function limitSentences(text: string, sentences: number, charLength: number) {
     return text;
 }
 
-function replaceOldImageHosts(image: string) {
-    return image.replace("i8.amplience.net", "cdn.media.amplience.net").replace("i1.adis.ws", "cdn.media.amplience.net");
-}
-
 const ProductCardSkeleton: React.SFC<Props> = (props) => {
     const {
         classes,
@@ -105,7 +101,6 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
     // Smart Imaging from Amplience
     /*
      In here we need to do the following
-      - if the domain is i8.amplience.net for images[0].url and images[1].url then we need to change to cdn.media.amplience.net
       - We need to append transformations at the end of this for auto-formatting: 
     */
     let firstImage:string = '';
@@ -113,13 +108,13 @@ const ProductCardSkeleton: React.SFC<Props> = (props) => {
     if(variant.images){
         if (variant.images[0] && variant.images[0].url){
             
-            firstImage = replaceOldImageHosts(variant.images[0].url)
+            firstImage = variant.images[0].url
             if(firstImage.indexOf('cdn.media.amplience.net') > 0){
                 firstImage = getImageURL(firstImage, {width: 540, height: 810}, true)
             }
         }
         if (variant.images[1] && variant.images[1].url){
-            secondImage = replaceOldImageHosts(variant.images[1].url)
+            secondImage = variant.images[1].url
             if(secondImage.indexOf('cdn.media.amplience.net') > 0){
                 secondImage = getImageURL(firstImage, {width: 540, height: 810}, true)
             }

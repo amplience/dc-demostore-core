@@ -33,7 +33,7 @@ const SearchResultsListing: React.FC<Props> = (props) => {
                       let firstImage:string = '';
                         if(variants[0].images){
                             if (variants[0].images[0] && variants[0].images[0].url){ 
-                                firstImage = variants[0].images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
+                                firstImage = variants[0].images[0].url
                                 if(firstImage.indexOf('cdn.media.amplience.net') > 0){
                                     firstImage = getImageURL(firstImage)
                                 }

@@ -66,15 +66,8 @@ const Image: FC<Props> = ({
         }
     }
 
-    const getImageHost = (host: string) => {
-        if (host === 'i1.adis.ws') {
-            return 'cdn.media.amplience.net';
-        }
-        return host;
-    }
-
     const buildSrcUrl = ({ width, poiAspect, format }: any) => {
-        let baseUrl = `https://${getImageHost(image.defaultHost)}/i/${image.endpoint}/${encodeURIComponent(image.name)}`;
+        let baseUrl = `https://${image.defaultHost}/i/${image.endpoint}/${encodeURIComponent(image.name)}`;
         const transformations: ImageTransformations = {};
 
         if (seoText) {

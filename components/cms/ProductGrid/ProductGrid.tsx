@@ -82,7 +82,7 @@ const ProductGrid: FC<Props> = ({
                         let firstImage: string = '';
                         if (images) {
                             if (images[0] && images[0].url) {
-                                firstImage = images[0].url.replace("i8.amplience.net", "cdn.media.amplience.net");
+                                firstImage = images[0].url
                                 if (firstImage.indexOf('cdn.media.amplience.net') > 0) {
                                     firstImage = getImageURL(firstImage, {width: 540})
                                 }
