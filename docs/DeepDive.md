@@ -566,6 +566,10 @@ The number of Amplience images in the page is displayed, and a summary graph is 
 
 > Note: you should scroll down the current page to get all images due to lazy loading.
 
+![Excluding Images](../media/accelerated-media-exclude-images.png)
+
+When images can't be converted to AVIF, a checkbox will appear to exclude these images from the summary graph calculation.
+
 ### Image Statistics Details
 
 Once image statistics are retrieved, you can access details in a new modal window:
@@ -575,6 +579,10 @@ Once image statistics are retrieved, you can access details in a new modal windo
 A grid view shows you all images with a bar chart showing each possible formats and their sizes, ordered by size.
 
 ![Details List View](../media/accelerated-media-details-modal-list-view.png)
+
+In the details modal, images that can't be converted will appear with a red outline, showing the original request type, and the acutal type that is returned.
+
+![Invalid Images](../media/accelerated-media-invalid-images.png)
 
 A list view shows the same information in a table view that you can export as CSV.
 
