@@ -48,9 +48,19 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
         if (product.imageSetId) {
             const { amp } = window as any;
             let target = container.current;
-            const mediaSet = product.imageSetId.padStart(6, '0');
+            let mediaSet = product.imageSetId
 
             if (cms.imageHub) {
+
+                // Get Image Set ID from image URL
+                const mainImageURL = new URL(product.variants[0]?.images[0]?.url)
+                if (mainImageURL) {
+                    const match = mainImageURL.pathname.match(`\/s\/${cms.imageHub}\/(.*)`)      
+                    if (match) {
+                        mediaSet = match[1]
+                    }
+                }
+
                 new amp.Viewer({
                     target,
                     client: cms.imageHub,
