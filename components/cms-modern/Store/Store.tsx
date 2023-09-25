@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Typography, Link, Grid, Paper, Box } from '@mui/material';
+import { Typography, Grid, Paper, Box } from '@mui/material';
 import ReactMarkdown from 'markdown-to-jsx';
 import Image from '@components/cms-modern/Image';
 import { useAppContext }from '@lib/config/AppContext'
+import Link from 'next/link';
 
 interface Props {
     keyElements: {
@@ -47,7 +48,7 @@ const Store: React.SFC<Props> = (props) => {
         <div>
             <div style={{marginBottom: 30}}>
                 <Grid container>
-                    <Link href="/store"><Typography style={{marginTop: 20, marginBottom: 20}} variant="h2" component="h2">Our Stores</Typography></Link>
+                    <Link href="/store" passHref><Typography style={{marginTop: 20, marginBottom: 20}} variant="h2" component="a">Our Stores</Typography></Link>
                     <Typography style={{marginTop: 20, marginBottom: 20}} variant="h2" component="h2">&nbsp;&gt; {locationName}</Typography>
                 </Grid>
                 <Grid container>

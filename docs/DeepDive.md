@@ -9,6 +9,7 @@
 - [Admin UI Panels](#admin-ui-panels)
 - [Shoppable Image](#shoppable-image)
 - [Stylitics](#stylitics)
+- [Accelerated Media](#accelerated-media)
 
 ## Fetching content
 
@@ -36,7 +37,7 @@ const resolveContent = (requests: CmsRequest[]): Promise<CmsContent[]> => {
     };
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Filter API
 
@@ -93,7 +94,7 @@ let filterRequest: GetByFilterRequest =
     }
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Amplience Search
 
@@ -234,7 +235,7 @@ let filterRequest: GetByFilterRequest =
             </PageContent>
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Navigation Hierarchy
 
@@ -277,7 +278,7 @@ Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
     }, context);
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Product Detail Page Layout
 
@@ -319,7 +320,7 @@ When using this slot type in the scheduler you can add multiple items and associ
 
 ### Previewing (Site preview)
 
-When previewing and testing your personlized banner slot behavior, you must be in a FULL site preview, not just the slot preview.
+When previewing and testing your personlised banner slot behavior, you must be in a FULL site preview, not just the slot preview.
 
 To select a user segment click on the user icon in the top nav:
 
@@ -329,7 +330,7 @@ Then select a segment to preview, or select the blank item to behave as if you a
 
 ![Segment Selection](../media/user-login-selection.png)
 
-The following rules will apply to all instances of the personalized banner slot in your application.
+The following rules will apply to all instances of the personalised banner slot in your application.
 
 #### Rules
 
@@ -457,7 +458,7 @@ const [data, product] = await Promise.all(
   }
 ```
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Theming
 
@@ -480,7 +481,7 @@ You can define a default theme, and additional ones. Some components like `Blog`
 
 ![Theme Wrapper](../media/themeWrapper.png)
 
-[top](#table-of-content)
+[top](#table-of-contents)
 
 ## Admin UI Panels
 
@@ -533,4 +534,58 @@ The demostore implementation includes the following:
 * Sample implementation for overriding link values
 * Sample implementation of inheriting SKU from PDP
 
-[top](#table-of-content)
+[top](#table-of-contents)
+
+## Accelerated Media
+
+A new [Accelerated Media](https://amplience.com/add-on/accelerated-media) Admin Panel has been added to the demostore implementation.
+
+### Enable / Disable Accelerated Media
+
+You can enable / disable Accelerated Media in the Admin Panel:
+
+![Accelerated Media Flag](../media/accelerated-media-flag.png)
+
+The use of AVIF format is globally controlled on the Front-End in all demostore pages:
+
+* Home page
+* Category pages
+* Product detail pages, including Product Content
+* Blog page & blog entry pages
+* Stores page & store detail pages
+
+### Getting Image Statistics
+
+You can request image statistics for the current page:
+
+![Getting Image Statistics](../media/accelerated-media-get-statistics.png)
+
+The number of Amplience images in the page is displayed, and a summary graph is displayed in the Admin Panel with total sizes by image formats.
+
+> Note: images statistics are cleared each time you navigate to a different page.
+
+> Note: you should scroll down the current page to get all images due to lazy loading.
+
+![Excluding Images](../media/accelerated-media-exclude-images.png)
+
+When images can't be converted to AVIF, a checkbox will appear to exclude these images from the summary graph calculation.
+
+### Image Statistics Details
+
+Once image statistics are retrieved, you can access details in a new modal window:
+
+![Details Grid View](../media/accelerated-media-details-modal-grid-view.png)
+
+A grid view shows you all images with a bar chart showing each possible formats and their sizes, ordered by size.
+
+![Details List View](../media/accelerated-media-details-modal-list-view.png)
+
+In the details modal, images that can't be converted will appear with a red outline, showing the original request type, and the acutal type that is returned.
+
+![Invalid Images](../media/accelerated-media-invalid-images.png)
+
+A list view shows the same information in a table view that you can export as CSV.
+
+![Export as CSV](../media/accelerated-media-csv-export.png)
+
+[top](#table-of-contents)

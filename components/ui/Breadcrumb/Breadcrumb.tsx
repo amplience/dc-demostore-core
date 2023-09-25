@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { Theme, Breadcrumbs, Link } from '@mui/material';
+import { Theme, Breadcrumbs, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { NavigationItem, useNavigation } from '@components/core/Masthead';
 import { useUserContext } from '@lib/user/UserContext';
 import { nanoid } from 'nanoid'
 import { withStyles, WithStyles } from '@mui/styles'
+import Link from 'next/link';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -65,17 +66,17 @@ const Breadcrumb: React.SFC<Props> = (props) => {
     // NOVADEV-18: Add 'loading' skeleton for breadcrumb and category name on PLP
     return loading ? 
             <Breadcrumbs aria-label="breadcrumb" className={clsx(classes.root, className)} {...other}>
-                <Link variant="h4" color="inherit" href="/" className={classes.link}>&nbsp;</Link>
+                <Link color="inherit" href="/" passHref className={classes.link}>&nbsp;</Link>
             </Breadcrumbs>
         : 
             <Breadcrumbs aria-label="breadcrumb" className={clsx(classes.root, className)} {...other}>
-                <Link variant="h4" color="inherit" href="/" className={classes.link}>
-                    { language === "de" ? 'Haupt' : 'Home' }
+                <Link color="inherit" href="/" passHref className={classes.link}>
+                    <a href="#"><Typography variant="h4">{ language === "de" ? 'Haupt' : 'Home' }</Typography></a>
                 </Link>
                 {
                     nodes.map(node => {
-                        return <Link key={ nanoid() } variant="h4" color="inherit" href={node.href} className={classes.link}>
-                            {node.title}
+                        return <Link key={ nanoid() } color="inherit" href={node.href as string} passHref className={classes.link}>
+                            <a><Typography variant="h4">{node.title}</Typography></a>
                         </Link>
                     })
                 }

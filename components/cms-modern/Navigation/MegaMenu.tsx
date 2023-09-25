@@ -44,7 +44,9 @@ const MegaMenu: React.FC<Props> = ({
             <div className="megaMenu__list__container">
                 {children.map((child: any, index: number) => <ul className="megaMenu__list" key={index}>
                     <h3 className="megaMenu__subCategory">
-                        <a href={child.href} className="megaMenu__list__item__link" onClick={handleRouteChange}>{child.title}</a>
+                        <Link href={child.href}>
+                            <a className="megaMenu__list__item__link" onClick={handleRouteChange}>{child.title}</a>
+                        </Link>
                     </h3>
                     {child.children.map((child2: any, index2: number) => <li className="megaMenu__list__item" key={index2}>
                         <Link href={child2.href}>

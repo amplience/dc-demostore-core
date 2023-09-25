@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
+import { ImageTransformations, getImageURL } from '@utils/getImageURL';
 
 type Props = {
     image: any;
@@ -65,21 +66,22 @@ const Image: FC<Props> = ({
         }
     }
 
-    const getImageHost = (host: string) => {
-        if (host === 'i1.adis.ws') {
-            return 'cdn.media.amplience.net';
-        }
-        return host;
-    }
-
     const buildSrcUrl = ({ width, poiAspect, format }: any) => {
-        let baseUrl = `https://${getImageHost(image.defaultHost)}/i/${image.endpoint}/${encodeURIComponent(image.name)}`;
+        let baseUrl = `https://${image.defaultHost}/i/${image.endpoint}/${encodeURIComponent(image.name)}`;
+        const transformations: ImageTransformations = {};
+
         if (seoText) {
             baseUrl += `/${encodeURIComponent(seoText)}`
         };
-        let queryString = `w=${width}&upscale=false&strip=true`;
+
+        transformations.width = width;
+        transformations.upscale = false;
+        transformations.strip = true;
+        let queryString = '';
+
         if (display == 'Point of Interest' && poiAspect) {
-            queryString += `&{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&aspect=${poiAspect}`
+            transformations.aspectRatio = poiAspect;
+            queryString += `&{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect`
         }
         if (query) {
             queryString += `&${query}`;
@@ -87,8 +89,7 @@ const Image: FC<Props> = ({
         if (roundel && roundel[0] && roundel[0].roundel && roundel[0].roundelPosition && roundel[0].roundelRatio) {
             queryString += `&$roundel$&${getRoundelConfig(roundel)}`
         }
-        queryString += '&fmt=auto&qlt=default&fmt.jpeg.qlt=75&fmt.webp.qlt=60&fmt.jp2.qlt=40'
-        return `${baseUrl}?${queryString}`;
+        return getImageURL(`${baseUrl}?${queryString}`, transformations);
     };
 
     const source = ({ minWidth, maxWidth, width, highDensityWidth, format, poiAspect }: any) => {
@@ -103,12 +104,13 @@ const Image: FC<Props> = ({
         </picture>
     ) : (
             <picture className="amp-dc-image">
-                {source({ minWidth: '1280', width: '1600', highDensityWidth: '3200', poiAspect: '2:1' })}
-                {source({ minWidth: '1024', width: '1280', highDensityWidth: '2560', poiAspect: '2:1' })}
-                {source({ minWidth: '768', width: '1024', highDensityWidth: '2048', poiAspect: '1.5:1' })}
+                {/* High density widths selected to be below max avif image size at aspect ratio. (2.5mil pixels) */}
+                {source({ minWidth: '1280', width: '1500', highDensityWidth: '2234', poiAspect: '2:1' })}
+                {source({ minWidth: '1024', width: '1280', highDensityWidth: '2234', poiAspect: '2:1' })}
+                {source({ minWidth: '768', width: '1024', highDensityWidth: '1920', poiAspect: '1.5:1' })}
                 {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', poiAspect: '1:1' })}
 
-                <img loading="lazy" src={buildSrcUrl({ width: '1600' })} className="amp-dc-image-pic" alt={imageAltText} title={seoText} />
+                <img loading="lazy" src={buildSrcUrl({})} className="amp-dc-image-pic" alt={imageAltText} title={seoText} />
             </picture>
         );
 

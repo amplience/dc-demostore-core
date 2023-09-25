@@ -23,7 +23,8 @@
         background: white;
         padding: 32px;
         margin: 32px;
-        overflow: scroll;
+        overflow: auto hidden;
+        border-radius: 8px;
 
         min-width: 500px;
         max-width: calc(100% - 64px);
