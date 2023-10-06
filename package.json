@@ -46,7 +46,7 @@
     "nextjs-cors": "^2.1.0",
     "nprogress": "^0.2.0",
     "object-sizeof": "^1.6.1",
-    "postcss": "^8.4.7",
+    "postcss": "^8.4.31",
     "prop-types": "^15.8.1",
     "pure-react-carousel": "^1.27.6",
     "query-string": "^7.1.1",
