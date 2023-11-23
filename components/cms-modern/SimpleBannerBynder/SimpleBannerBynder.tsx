@@ -134,7 +134,7 @@ const SimpleBannerBynder: React.FC<SimpleBannerProps> = ({
                     ) : null
                 }>
                 {imageLoading ? <DefaultAdaptiveImageSkeleton/> : null}
-                <Box style={{display: `${imageLoading ? 'none': 'block'}`}}>
+                <Box style={{display: 'block'}}>
                     <img loading="lazy" src={bynder?.originalUrl} onLoad={() => handleImageLoaded()} className={classes.image} alt={bynder?.name}/>
                 </Box>
     
