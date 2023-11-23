@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Theme, Typography } from '@mui/material';
 import { Overlay, InfoPanel } from '@components/ui';
 import { CallToAction } from '..';
@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 /**
- * SimpleBanner Props
+ * SimpleBannerBynder Props
  */
-export interface SimpleBannerProps {
+export interface SimpleBannerBynderProps {
     
     /**
      * Bynder content item
@@ -86,7 +86,7 @@ export interface SimpleBannerProps {
     }
 }
 
-const SimpleBannerBynder: React.FC<SimpleBannerProps> = ({
+const SimpleBannerBynder: React.FC<SimpleBannerBynderProps> = ({
         bynder,
         bannerText,
         ctaSettings,
@@ -102,12 +102,6 @@ const SimpleBannerBynder: React.FC<SimpleBannerProps> = ({
     const handleImageLoaded = () => {
       setImageLoading(false);
     }
-    
-    useEffect(() => {
-      if (imageRef?.current?.complete && imageLoading) {
-          setImageLoading(false);
-      }
-  }, [imageRef?.current?.complete, imageLoading]);
 
     const isOverlayVisible = bannerText?.header || bannerText?.subheader || bannerText?.description || ctaSettings?.buttonText;
 
@@ -130,8 +124,8 @@ const SimpleBannerBynder: React.FC<SimpleBannerProps> = ({
                     ) : null
                 }>
                 {imageLoading ? <DefaultAdaptiveImageSkeleton/> : null}
-                <Box style={{display: 'block'}}>
-                    <img loading="lazy" src={bynder?.originalUrl} onLoad={() => handleImageLoaded()} className={classes.image} alt={bynder?.name}/>
+                <Box style={{display: `${imageLoading ? 'none': 'block'}`}}>
+                    <img loading="lazy" src={bynder?.additionalInfo?.selectedFile?.url ?? bynder?.originalUrl} onLoad={() => handleImageLoaded()} className={classes.image} alt={bynder?.name}/>
                 </Box>
     
             </Overlay>
