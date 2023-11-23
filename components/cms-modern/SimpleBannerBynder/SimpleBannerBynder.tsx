@@ -109,10 +109,6 @@ const SimpleBannerBynder: React.FC<SimpleBannerProps> = ({
       }
   }, [imageRef?.current?.complete, imageLoading]);
 
-    const {
-        originalUrl
-    } = bynder || {};
-
     const isOverlayVisible = bannerText?.header || bannerText?.subheader || bannerText?.description || ctaSettings?.buttonText;
 
     return (
