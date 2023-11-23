@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Theme, Typography } from '@mui/material';
 import { Overlay, InfoPanel } from '@components/ui';
 import { CallToAction } from '..';
@@ -105,6 +105,12 @@ const SimpleBannerBynder: React.FC<SimpleBannerBynderProps> = ({
 
     const isOverlayVisible = bannerText?.header || bannerText?.subheader || bannerText?.description || ctaSettings?.buttonText;
 
+    useEffect(() => {
+        if (imageRef?.current?.complete && imageLoading) {
+            setImageLoading(false);
+        }
+    }, [imageRef?.current?.complete, imageLoading]);
+
     return (
         <Box className={classes.root} {...other}>
             <Overlay variant="responsive"
@@ -125,7 +131,11 @@ const SimpleBannerBynder: React.FC<SimpleBannerBynderProps> = ({
                 }>
                 {imageLoading ? <DefaultAdaptiveImageSkeleton/> : null}
                 <Box style={{display: `${imageLoading ? 'none': 'block'}`}}>
-                    <img loading="lazy" src={bynder?.additionalInfo?.selectedFile?.url ?? bynder?.originalUrl} onLoad={() => handleImageLoaded()} className={classes.image} alt={bynder?.name}/>
+                    <img className={classes.image} 
+                        src={bynder?.additionalInfo?.selectedFile?.url ?? bynder?.originalUrl} 
+                        ref={imageRef} 
+                        onLoad={() => handleImageLoaded()} 
+                        alt={bynder?.name}/>
                 </Box>
     
             </Overlay>
