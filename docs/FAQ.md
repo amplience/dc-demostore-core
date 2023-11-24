@@ -42,6 +42,6 @@ Please install the latest version of [dc-demostore-cli](https://github.com/ampli
 
 ## Bynder - Select an asset (INDD) but it does not render
 
-This components is setup as an example to render image assets from Bynder. Any other files fomats are not included in this example but you can easily extend the component `simpleBannerBynder` to render files based on the type if wanted.
+This component is setup as an example to render image assets that can be viewed in a browser from Bynder (_ie. jpg, png, gif_). Any other file formats are not included in this example but you can easily extend the component `simpleBannerBynder` to render files based on the type if wanted.
 
 You can also select a specific file when choosing an asset in Bynder. Most of which will have a JPG render even if a video / document.
