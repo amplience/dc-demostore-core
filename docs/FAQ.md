@@ -39,3 +39,9 @@ You do not have to run any code to resolve this issue. You can simply log into y
 ## Deep Copy Dashboard extension has no hub ID
 
 Please install the latest version of [dc-demostore-cli](https://github.com/amplience/dc-demostore-cli)
+
+## Bynder - Select an asset (INDD) but it does not render
+
+This components is setup as an example to render image assets from Bynder. Any other files fomats are not included in this example but you can easily extend the component `simpleBannerBynder` to render files based on the type if wanted.
+
+You can also select a specific file when choosing an asset in Bynder. Most of which will have a JPG render even if a video / document.
