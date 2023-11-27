@@ -26,6 +26,7 @@
 | shoppableImage               | ShoppableImage                 | ![Shoppable Image](../media/component-shoppableImage.jpg)Image that allows you to add focal points, hotspots and polygons to make shoppable                          |
 | simpleBanner                 | SimpleBanner                   | ![Simple Banner](../media/component-simpleBanner.png) Simple banner                                                             |
 | simpleLocalizedBanner        | SimpleBanner                   | ![Simple Localized Banner](../media/component-simpleLocalizedBanner.png) Simple localized banner                                                   |
+| simpleBannerBynder           | SimpleBannerBynder                | ![Simple Banner Bynder](../media/component-simpleBannerBynder.png) A variant of the simple banner component that serves its media from the selected asset from Bynder. See [Amplience Bynder Extension documentation](https://github.com/amplience/dc-extension-bynder) for more details.            |
 | slider                       | Slider                         | Slider that can contain images or videos                         |
 | slotBannerslot               | BannerSlot                     | Slot for banners, product carousel and more                               |
 | slotLocalizedbannerslot      | LocalizedBannerSlot            | Localized banner slot (list of components for each locale)                |
