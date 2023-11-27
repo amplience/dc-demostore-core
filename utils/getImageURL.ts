@@ -143,7 +143,7 @@ function constrainMaxSize(transformations: ImageTransformations, maxPixels: numb
     return transformations;
 }
 
-export function getImageURL(image: string | CmsImage, transformations: ImageTransformations = {}, removeAllParams = false, diParams: String): string {
+export function getImageURL(image: string | CmsImage, transformations: ImageTransformations = {}, removeAllParams = false, diParams: String = ""): string {
     transformations = constrainMaxSize(transformations, avifMaxPixels);
 
     const {
