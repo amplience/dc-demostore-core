@@ -1,20 +1,28 @@
 import { Tooltip } from '@mui/material';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
+import { ShoppableProductTooltip } from './ShoppableProductTooltip';
+
+export enum InteractableType {
+    PAGE = '.page',
+    LINK = '.link',
+    PRODUCT = '.product',
+    CATEGORY = '.category',
+}
 
 const urlBuilder = (selector: string, target: string) => {
     let url = '#';
     switch (selector) {
-        case '.page':
+        case InteractableType.PAGE:
             url = `/${target}`;
             break;
-        case '.link':
+        case InteractableType.LINK:
             url = target;
             break;
-        case '.product':
+        case InteractableType.PRODUCT:
             url = `/product/${target}`;
             break;
-        case '.category':
+        case InteractableType.CATEGORY:
             url = `/category/${target}`;
             break;
         default:
@@ -34,13 +42,26 @@ type ShoppableImageInteractableProps = {
 };
 
 const ShoppableImageInteractable = ({ children, selector, target }: ShoppableImageInteractableProps) => {
-    return (
-        <Link passHref href={urlBuilder(selector, target)}>
-            <Tooltip title={titleBuilder(selector, target)} followCursor>
-                {children}
-            </Tooltip>
-        </Link>
-    );
+    switch (selector) {
+        case InteractableType.PRODUCT: {
+            return (
+                <Link passHref href={urlBuilder(selector, target)}>
+                    <ShoppableProductTooltip title={urlBuilder(selector, target)} target={target}>
+                        {children}
+                    </ShoppableProductTooltip>
+                </Link>
+            );
+        }
+        default: {
+            return (
+                <Link passHref href={urlBuilder(selector, target)}>
+                    <Tooltip title={titleBuilder(selector, target)} followCursor>
+                        {children}
+                    </Tooltip>
+                </Link>
+            );
+        }
+    }
 };
 
 export default ShoppableImageInteractable;
