@@ -27,6 +27,7 @@ import ProductGrid              from '@components/cms/ProductGrid';
 import ProductContent           from '@components/cms-modern/ProductContent';
 import ShoppableImage           from '@components/cms-modern/ShoppableImage';
 import SimpleBanner             from '@components/cms-modern/SimpleBanner';
+import SimpleBannerBynder       from '@components/cms-modern/SimpleBannerBynder';
 import Slider                   from '@components/cms-modern/Slider';
 import SplitBlock               from '@components/cms-modern/SplitBlock';
 import Store                    from '@components/cms-modern/Store';
@@ -38,6 +39,7 @@ import Video                    from '@components/cms-modern/Video';
 
 import { useRouter } from 'next/router';
 import Generic from '@components/stylitics/Generic/Generic';
+
 
 
 export type ContentBlockType = 'SLOT' | 'CONTENT';
@@ -67,6 +69,7 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/shoppable-image'        : ShoppableImage,
     'https://demostore.amplience.com/content/simple-banner'          : SimpleBanner,
     'https://demostore.amplience.com/content/simple-localized-banner': SimpleBanner,
+    'https://demostore.amplience.com/content/simple-banner-bynder'   : SimpleBannerBynder,
     'https://demostore.amplience.com/content/slider'                 : Slider,
     'https://demostore.amplience.com/content/split-block'            : SplitBlock,
     'https://demostore.amplience.com/content/store'                  : Store,
