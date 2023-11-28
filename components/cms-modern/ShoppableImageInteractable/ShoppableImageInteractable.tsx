@@ -2,6 +2,7 @@ import { Tooltip } from '@mui/material';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 import { ShoppableProductTooltip } from './ShoppableProductTooltip';
+import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
 export enum InteractableType {
     PAGE = '.page',
@@ -43,6 +44,7 @@ type ShoppableImageInteractableProps = {
 };
 
 const ShoppableImageInteractable = ({ children, selector, target }: ShoppableImageInteractableProps) => {
+    const { categoriesBySlug } = useECommerce();
     switch (selector) {
         case InteractableType.PRODUCT: {
             return (
@@ -51,6 +53,15 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
                         {children}
                     </Link>
                 </ShoppableProductTooltip>
+            );
+        }
+        case InteractableType.CATEGORY: {
+            return (
+                <Link passHref href={urlBuilder(selector, target)}>
+                    <Tooltip title={categoriesBySlug[target]?.name ?? target} followCursor>
+                        {children}
+                    </Tooltip>
+                </Link>
             );
         }
         default: {
