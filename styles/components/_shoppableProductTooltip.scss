@@ -1,0 +1,21 @@
+.shoppable-product-tooltip {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        padding: 4px;
+    }
+
+    &__thumbnail {
+        img {
+            height: 80px;
+            max-width: 100px;
+            object-fit: scale-down;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+    }
+}

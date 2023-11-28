@@ -9,29 +9,50 @@ type ShoppableProductTooltipProps = {
     target: string;
 };
 
-const isProduct = (product: Product) => {
+const isProduct = (product?: Product) => {
     return product && product.name && product.variants[0];
 };
 
 export const ShoppableProductTooltip = ({ children, title, target }: ShoppableProductTooltipProps) => {
-    const [tooltip, setTooltip] = useState(title);
+    const [product, setProduct] = useState<Product>();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let useResult = true;
-        commerceApi.getProduct({ id: target }).then((product) => {
+        commerceApi.getProduct({ id: target }).then((result) => {
             if (useResult) {
-                const tooltip = isProduct(product)
-                    ? `${product?.name} - ${product?.variants[0]?.listPrice}`
-                    : 'Product not found';
-                setTooltip(tooltip);
+                setProduct(result);
+                setLoading(false);
             }
         });
         return () => {
             useResult = false;
         };
     }, [target]);
+
+    const enhancedTooltip = (product?: Product) => {
+        if (!isProduct(product)) {
+            return <div>Product not found</div>;
+        }
+
+        return (
+            <div className="shoppable-product-tooltip__container">
+                <div className="shoppable-product-tooltip__thumbnail">
+                    <img
+                        src={`${product?.variants[0]?.images[0]?.url}?h=80&qlt=70`}
+                        alt={product?.variants[0]?.images[0]?.url}
+                    />
+                </div>
+                <div className="shoppable-product-tooltip__content">
+                    <div>{product?.name}</div>
+                    <div>{product?.variants[0]?.listPrice}</div>
+                </div>
+            </div>
+        );
+    };
+
     return (
-        <Tooltip title={tooltip} followCursor>
+        <Tooltip title={!loading ? enhancedTooltip(product) : 'Loading...'} followCursor>
             <div>{children}</div>
         </Tooltip>
     );
