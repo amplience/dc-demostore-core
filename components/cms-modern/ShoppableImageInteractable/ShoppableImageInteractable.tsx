@@ -1,9 +1,10 @@
-import { Tooltip, useTheme } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 import { ShoppableProductTooltip } from './ShoppableProductTooltip';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { ShoppableContent } from './ShoppableContent';
 
 export enum InteractableType {
     PAGE = '.page',
@@ -97,6 +98,9 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
                     </Tooltip>
                 </a>
             );
+        }
+        case InteractableType.DELIVERY_KEY: {
+            return <ShoppableContent title={urlBuilder(selector, target)} target={target} />;
         }
         default: {
             return (
