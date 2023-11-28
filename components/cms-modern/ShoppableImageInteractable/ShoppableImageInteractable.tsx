@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { ReactElement } from 'react';
 import { ShoppableProductTooltip } from './ShoppableProductTooltip';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
+import { ShoppableContent } from './ShoppableContent';
 
 export enum InteractableType {
     PAGE = '.page',
@@ -65,6 +66,11 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
                         {children}
                     </Tooltip>
                 </Link>
+            );
+        }
+        case InteractableType.DELIVERY_KEY: {
+            return (
+                <ShoppableContent title={urlBuilder(selector, target)} target={target} />
             );
         }
         default: {
