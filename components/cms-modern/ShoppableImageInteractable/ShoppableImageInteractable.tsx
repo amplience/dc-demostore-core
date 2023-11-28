@@ -45,11 +45,11 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
     switch (selector) {
         case InteractableType.PRODUCT: {
             return (
-                <Link passHref href={urlBuilder(selector, target)}>
-                    <ShoppableProductTooltip title={urlBuilder(selector, target)} target={target}>
+                <ShoppableProductTooltip title={urlBuilder(selector, target)} target={target}>
+                    <Link passHref href={urlBuilder(selector, target)}>
                         {children}
-                    </ShoppableProductTooltip>
-                </Link>
+                    </Link>
+                </ShoppableProductTooltip>
             );
         }
         default: {
