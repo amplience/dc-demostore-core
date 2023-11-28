@@ -12,7 +12,7 @@ type ShoppableContentProps = {
 };
 
 const isContent = (content?: CmsContent) => {
-    return content && content.content;
+    return content && content.text;
 };
 
 export const ShoppableContent = ({ title, target }: ShoppableContentProps) => {
@@ -42,7 +42,7 @@ export const ShoppableContent = ({ title, target }: ShoppableContentProps) => {
         return (
             <div className="shoppable-product-tooltip__container">
                 <div className="shoppable-product-tooltip__content">
-                    <div>{JSON.stringify(content?.content)}</div>
+                    <div>{JSON.stringify(content?.text)}</div>
                 </div>
             </div>
         );
