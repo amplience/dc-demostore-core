@@ -8,6 +8,7 @@ export enum InteractableType {
     LINK = '.link',
     PRODUCT = '.product',
     CATEGORY = '.category',
+    DELIVERY_KEY = '.deliveryKey',
 }
 
 const urlBuilder = (selector: string, target: string) => {
