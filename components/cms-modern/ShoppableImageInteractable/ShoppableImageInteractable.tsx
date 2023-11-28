@@ -26,6 +26,9 @@ const urlBuilder = (selector: string, target: string) => {
         case InteractableType.CATEGORY:
             url = `/category/${target}`;
             break;
+        case InteractableType.DELIVERY_KEY:
+            url = target;
+            break;
         default:
             break;
     }
