@@ -1,12 +1,14 @@
-import { Tooltip } from '@mui/material';
+import { Tooltip, useTheme } from '@mui/material';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 import { ShoppableProductTooltip } from './ShoppableProductTooltip';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export enum InteractableType {
     PAGE = '.page',
     LINK = '.link',
+    LINK_NEW = '.linkNew',
     PRODUCT = '.product',
     CATEGORY = '.category',
     DELIVERY_KEY = '.deliveryKey',
@@ -19,6 +21,9 @@ const urlBuilder = (selector: string, target: string) => {
             url = `/${target}`;
             break;
         case InteractableType.LINK:
+            url = target;
+            break;
+        case InteractableType.LINK_NEW:
             url = target;
             break;
         case InteractableType.PRODUCT:
@@ -48,6 +53,7 @@ type ShoppableImageInteractableProps = {
 
 const ShoppableImageInteractable = ({ children, selector, target }: ShoppableImageInteractableProps) => {
     const { categoriesBySlug } = useECommerce();
+
     switch (selector) {
         case InteractableType.PRODUCT: {
             return (
@@ -65,6 +71,31 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
                         {children}
                     </Tooltip>
                 </Link>
+            );
+        }
+        case InteractableType.LINK: {
+            return (
+                <Link passHref href={urlBuilder(selector, target)}>
+                    <Tooltip title="View" followCursor>
+                        {children}
+                    </Tooltip>
+                </Link>
+            );
+        }
+        case InteractableType.LINK_NEW: {
+            return (
+                <a href={urlBuilder(selector, target)} target="_blank" rel="noopener noreferrer">
+                    <Tooltip
+                        title={
+                            <div style={{ fontSize: 12 }}>
+                                View <OpenInNewIcon fontSize="small" />
+                            </div>
+                        }
+                        followCursor
+                    >
+                        {children}
+                    </Tooltip>
+                </a>
             );
         }
         default: {
