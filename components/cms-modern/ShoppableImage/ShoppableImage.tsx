@@ -13,9 +13,16 @@ type Props = {
     hotspotHide: boolean;
     polygonHide: boolean;
     focalPointHide: boolean;
+    di:string;
 } & CmsContent;
 
-const ShoppableImage: FC<Props> = ({ shoppableImage, hotspotHide = false, polygonHide = false }) => {
+const ShoppableImage: FC<Props> = ({
+    shoppableImage,
+    hotspotHide = false,
+    polygonHide = false,
+    focalPointHide = true,
+    di = ""
+}) => {
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });
@@ -152,7 +159,7 @@ const ShoppableImage: FC<Props> = ({ shoppableImage, hotspotHide = false, polygo
     let image: JSX.Element | undefined;
     let src = 'invalid';
     if (shoppableImage && shoppableImage.image.id) {
-        src = getImageURL(shoppableImage.image);
+        src = getImageURL(shoppableImage.image, {}, false, di);
 
         image = (
             <img

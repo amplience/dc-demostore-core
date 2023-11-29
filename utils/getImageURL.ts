@@ -143,7 +143,7 @@ function constrainMaxSize(transformations: ImageTransformations, maxPixels: numb
     return transformations;
 }
 
-export function getImageURL(image: string | CmsImage, transformations: ImageTransformations = {}, removeAllParams = false): string {
+export function getImageURL(image: string | CmsImage, transformations: ImageTransformations = {}, removeAllParams = false, diParams: String = ""): string {
     transformations = constrainMaxSize(transformations, avifMaxPixels);
 
     const {
@@ -252,5 +252,14 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
     }
     url += `?${query.join('&')}`;
 
+    // Add the additional DI Params
+    if(diParams){
+        //check to add an ampersand first
+        if( diParams.charAt(0) != "&"){
+            diParams = "&" + diParams
+        }
+        url += diParams;
+    }
+    
     return url;
 }
