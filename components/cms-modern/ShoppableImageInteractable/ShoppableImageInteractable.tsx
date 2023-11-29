@@ -1,10 +1,11 @@
-import { Tooltip } from '@mui/material';
+import { Divider, Drawer, IconButton, Tooltip, styled } from '@mui/material';
 import Link from 'next/link';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ShoppableProductTooltip } from './ShoppableProductTooltip';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { ShoppableContent } from './ShoppableContent';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import AmplienceContent from '../AmplienceContent/AmplienceContent';
 
 export enum InteractableType {
     PAGE = '.page',
@@ -54,11 +55,12 @@ type ShoppableImageInteractableProps = {
 
 const ShoppableImageInteractable = ({ children, selector, target }: ShoppableImageInteractableProps) => {
     const { categoriesBySlug } = useECommerce();
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     switch (selector) {
         case InteractableType.PRODUCT: {
             return (
-                <ShoppableProductTooltip title={urlBuilder(selector, target)} target={target}>
+                <ShoppableProductTooltip target={target}>
                     <Link passHref href={urlBuilder(selector, target)}>
                         {children}
                     </Link>
@@ -100,7 +102,38 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
             );
         }
         case InteractableType.DELIVERY_KEY: {
-            return <ShoppableContent title={urlBuilder(selector, target)} target={target} />;
+            const DrawerHeader = styled('div')(({ theme }) => ({
+                display: 'flex',
+                alignItems: 'center',
+                padding: theme.spacing(0, 1),
+                // necessary for content to be below app bar
+                ...theme.mixins.toolbar,
+                justifyContent: 'flex-end',
+            }));
+
+            return (
+                <>
+                    <a role="button" onClick={() => setDrawerOpen(true)}>
+                        <Tooltip title="More Details" followCursor>
+                            {children}
+                        </Tooltip>
+                    </a>
+                    <Drawer
+                        anchor="right"
+                        open={drawerOpen}
+                        onClose={() => setDrawerOpen(false)}
+                        PaperProps={{ sx: { width: '75%' } }}
+                    >
+                        <DrawerHeader>
+                            <IconButton onClick={() => setDrawerOpen(false)}>
+                                <ChevronRightIcon />
+                            </IconButton>
+                        </DrawerHeader>
+                        <Divider />
+                        <AmplienceContent deliveryKey={target} />
+                    </Drawer>
+                </>
+            );
         }
         default: {
             return (

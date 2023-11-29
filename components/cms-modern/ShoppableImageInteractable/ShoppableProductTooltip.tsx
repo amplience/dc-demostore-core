@@ -5,7 +5,6 @@ import { Product } from '@amplience/dc-integration-middleware';
 
 type ShoppableProductTooltipProps = {
     children: ReactElement;
-    title: string;
     target: string;
 };
 
@@ -13,7 +12,7 @@ const isProduct = (product?: Product) => {
     return product && product.name && product.variants[0];
 };
 
-export const ShoppableProductTooltip = ({ children, title, target }: ShoppableProductTooltipProps) => {
+export const ShoppableProductTooltip = ({ children, target }: ShoppableProductTooltipProps) => {
     const [product, setProduct] = useState<Product>();
     const [loading, setLoading] = useState(true);
 
