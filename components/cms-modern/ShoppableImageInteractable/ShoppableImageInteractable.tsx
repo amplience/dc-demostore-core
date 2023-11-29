@@ -13,6 +13,7 @@ export enum InteractableType {
     PRODUCT = '.product',
     CATEGORY = '.category',
     DELIVERY_KEY = '.deliveryKey',
+    TOOLTIP = '.tooltip',
 }
 
 const urlBuilder = (selector: string, target: string) => {
@@ -50,9 +51,10 @@ type ShoppableImageInteractableProps = {
     children: ReactElement;
     selector: string;
     target: string;
+    tooltips: any[];
 };
 
-const ShoppableImageInteractable = ({ children, selector, target }: ShoppableImageInteractableProps) => {
+const ShoppableImageInteractable = ({ children, selector, target, tooltips }: ShoppableImageInteractableProps) => {
     const { categoriesBySlug } = useECommerce();
 
     switch (selector) {
@@ -101,6 +103,13 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
         }
         case InteractableType.DELIVERY_KEY: {
             return <ShoppableContent title={urlBuilder(selector, target)} target={target} />;
+        }
+        case InteractableType.TOOLTIP: {
+            return (
+                <Tooltip title={tooltips.find(item => item.key === target).value} followCursor>
+                    {children}
+                </Tooltip>
+            );
         }
         default: {
             return (

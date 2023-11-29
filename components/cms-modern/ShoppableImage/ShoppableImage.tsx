@@ -14,6 +14,7 @@ type Props = {
     polygonHide: boolean;
     focalPointHide: boolean;
     di:string;
+    tooltips: any[];
 } & CmsContent;
 
 const ShoppableImage: FC<Props> = ({
@@ -21,7 +22,8 @@ const ShoppableImage: FC<Props> = ({
     hotspotHide = false,
     polygonHide = false,
     focalPointHide = true,
-    di = ""
+    di = "",
+    tooltips = [],
 }) => {
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
@@ -123,6 +125,7 @@ const ShoppableImage: FC<Props> = ({
                         <ShoppableImageInteractable
                             target={shoppableImage.polygons[index]?.target}
                             selector={shoppableImage.polygons[index]?.selector}
+                            tooltips={tooltips}
                             key={index}
                         >
                             <PolygonForwardRef
@@ -138,7 +141,12 @@ const ShoppableImage: FC<Props> = ({
                 {shoppableImage &&
                     shoppableImage.hotspots &&
                     shoppableImage.hotspots.map((hotspot: any, index: number) => (
-                        <ShoppableImageInteractable target={hotspot?.target} selector={hotspot?.selector} key={index}>
+                        <ShoppableImageInteractable
+                            target={hotspot?.target}
+                            selector={hotspot?.selector}
+                            tooltips={tooltips}
+                            key={index}
+                        >
                             <div
                                 className={clsx('amp-vis-page__hotspot', {
                                     'amp-vis-page__hotspot--hidden': hiddenHotspots,
