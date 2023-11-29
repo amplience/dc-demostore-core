@@ -8,6 +8,7 @@ type Props = {
     query?: any;
     format?: string;
     imageAltText?: string;
+    di?: string;
 } & CmsContent;
 
 const Image: FC<Props> = ({
@@ -15,6 +16,7 @@ const Image: FC<Props> = ({
     image,
     imageAltText,
     seoText,
+    di = "",
     query,
     roundel
 }) => {
@@ -89,7 +91,7 @@ const Image: FC<Props> = ({
         if (roundel && roundel[0] && roundel[0].roundel && roundel[0].roundelPosition && roundel[0].roundelRatio) {
             queryString += `&$roundel$&${getRoundelConfig(roundel)}`
         }
-        return getImageURL(`${baseUrl}?${queryString}`, transformations);
+        return getImageURL(`${baseUrl}?${queryString}`, transformations, false, di);
     };
 
     const source = ({ minWidth, maxWidth, width, highDensityWidth, format, poiAspect }: any) => {

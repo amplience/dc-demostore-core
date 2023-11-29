@@ -13,9 +13,18 @@ type Props = {
     hotspotHide: boolean;
     polygonHide: boolean;
     focalPointHide: boolean;
+    di:string;
+    tooltips: any[];
 } & CmsContent;
 
-const ShoppableImage: FC<Props> = ({ shoppableImage, hotspotHide = false, polygonHide = false }) => {
+const ShoppableImage: FC<Props> = ({
+    shoppableImage,
+    hotspotHide = false,
+    polygonHide = false,
+    focalPointHide = true,
+    di = "",
+    tooltips = [],
+}) => {
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });
@@ -116,6 +125,7 @@ const ShoppableImage: FC<Props> = ({ shoppableImage, hotspotHide = false, polygo
                         <ShoppableImageInteractable
                             target={shoppableImage.polygons[index]?.target}
                             selector={shoppableImage.polygons[index]?.selector}
+                            tooltips={tooltips}
                             key={index}
                         >
                             <PolygonForwardRef
@@ -131,7 +141,12 @@ const ShoppableImage: FC<Props> = ({ shoppableImage, hotspotHide = false, polygo
                 {shoppableImage &&
                     shoppableImage.hotspots &&
                     shoppableImage.hotspots.map((hotspot: any, index: number) => (
-                        <ShoppableImageInteractable target={hotspot?.target} selector={hotspot?.selector} key={index}>
+                        <ShoppableImageInteractable
+                            target={hotspot?.target}
+                            selector={hotspot?.selector}
+                            tooltips={tooltips}
+                            key={index}
+                        >
                             <div
                                 className={clsx('amp-vis-page__hotspot', {
                                     'amp-vis-page__hotspot--hidden': hiddenHotspots,
@@ -152,7 +167,7 @@ const ShoppableImage: FC<Props> = ({ shoppableImage, hotspotHide = false, polygo
     let image: JSX.Element | undefined;
     let src = 'invalid';
     if (shoppableImage && shoppableImage.image.id) {
-        src = getImageURL(shoppableImage.image);
+        src = getImageURL(shoppableImage.image, {}, false, di);
 
         image = (
             <img

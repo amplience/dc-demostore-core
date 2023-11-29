@@ -14,6 +14,7 @@ export enum InteractableType {
     PRODUCT = '.product',
     CATEGORY = '.category',
     DELIVERY_KEY = '.deliveryKey',
+    TOOLTIP = '.tooltip',
 }
 
 const urlBuilder = (selector: string, target: string) => {
@@ -51,9 +52,10 @@ type ShoppableImageInteractableProps = {
     children: ReactElement;
     selector: string;
     target: string;
+    tooltips: any[];
 };
 
-const ShoppableImageInteractable = ({ children, selector, target }: ShoppableImageInteractableProps) => {
+const ShoppableImageInteractable = ({ children, selector, target, tooltips }: ShoppableImageInteractableProps) => {
     const { categoriesBySlug } = useECommerce();
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -133,6 +135,13 @@ const ShoppableImageInteractable = ({ children, selector, target }: ShoppableIma
                         <AmplienceContent deliveryKey={target} />
                     </Drawer>
                 </>
+            );
+        }
+        case InteractableType.TOOLTIP: {
+            return (
+                <Tooltip title={tooltips.find(item => item.key === target)?.value || target} followCursor>
+                    {children}
+                </Tooltip>
             );
         }
         default: {

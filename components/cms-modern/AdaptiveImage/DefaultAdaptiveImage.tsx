@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 import AdaptiveImage, { AdaptiveImageProps } from './AdaptiveImage';
 import AdaptiveImageSource from './AdaptiveImageSource';
-import { ImageFormat } from '@utils/getImageURL';
 
 const DefaultAdaptiveImage: React.SFC<Omit<AdaptiveImageProps, 'children'>> = (props) => {
     const {imageRef} = props;
