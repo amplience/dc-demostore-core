@@ -139,7 +139,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         }
         case InteractableType.TOOLTIP: {
             return (
-                <Tooltip title={tooltips.find(item => item.key === target)?.value || target} followCursor>
+                <Tooltip title={tooltips.find((item) => item.key === target)?.value || target} followCursor>
                     {children}
                 </Tooltip>
             );

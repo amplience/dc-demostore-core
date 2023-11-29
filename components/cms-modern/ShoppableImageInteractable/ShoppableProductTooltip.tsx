@@ -38,12 +38,12 @@ export const ShoppableProductTooltip = ({ children, target }: ShoppableProductTo
             <div className="shoppable-product-tooltip__container">
                 <div className="shoppable-product-tooltip__thumbnail">
                     <img
-                        src={`${product?.variants[0]?.images[0]?.url}?h=80&qlt=70`}
+                        src={`${product?.variants[0]?.images[0]?.url}?w=60&qlt=70`}
                         alt={product?.variants[0]?.images[0]?.url}
                     />
                 </div>
                 <div className="shoppable-product-tooltip__content">
-                    <div>{product?.name}</div>
+                    <div className="shoppable-product-tooltip__name">{product?.name}</div>
                     <div>{product?.variants[0]?.listPrice}</div>
                 </div>
             </div>
