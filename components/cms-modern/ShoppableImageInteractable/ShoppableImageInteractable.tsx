@@ -107,6 +107,10 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
                 // necessary for content to be below app bar
                 ...theme.mixins.toolbar,
                 justifyContent: 'flex-end',
+                position: 'fixed',
+                backgroundColor: 'white',
+                right: '0px',
+                zIndex: 1
             }));
             const DrawerBody = styled('div')(({ theme }) => ({
                 padding: theme.spacing(0, 1),
