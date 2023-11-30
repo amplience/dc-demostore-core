@@ -533,17 +533,31 @@ There are several options that you can put in the selector column that drive spe
 
 ![Shoppable Image](../media/component-shoppableImage-link-new.png)
 
+The specified link will open in a new tab.
+
 ### `.product` Product selector
 
 ![Shoppable Image](../media/component-shoppableImage-product.png)
+
+The tooltip with show the product thumbnail, title and price.
+
+When a product is not found, the tooltip will show "Product not found".
 
 ### `.category` Category selector
 
 ![Shoppable Image](../media/component-shoppableImage-category.png)
 
+The tooltip will show the category name.
+
+When a category is not found, the tooltip will show "Category not found".
+
 ### `.deliveryKey` Content selector
 
 ![Shoppable Image](../media/component-shoppableImage-content.png)
+
+![Shoppable Image](../media/component-shoppableImage-content-open.png)
+
+The piece of content matching the delivery key will appear in a drawer.
 
 ### `.tooltip` Tooltip selector
 
