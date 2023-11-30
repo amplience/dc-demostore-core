@@ -529,11 +529,13 @@ There are several options that you can put in the selector column that drive spe
 
 ![Shoppable Image](../media/component-shoppableImage-link.png)
 
+The target is a relative or absolute link.
+
 ### `.linkNew` Link New selector
 
 ![Shoppable Image](../media/component-shoppableImage-link-new.png)
 
-The specified link will open in a new tab.
+The specified absolute link will open in a new tab.
 
 ### `.product` Product selector
 
@@ -562,6 +564,8 @@ The piece of content matching the delivery key will appear in a drawer.
 ### `.tooltip` Tooltip selector
 
 ![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
+
+Tooltip texts are first defined in the Tooltips section of the content form. The keys can then be used in the targets of `.tooltip` selectors.
 
 ## Stylitics
 
