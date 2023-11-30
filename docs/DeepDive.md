@@ -565,6 +565,8 @@ The piece of content matching the delivery key will appear in a drawer.
 
 ![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
 
+Tooltip texts are first defined in the Tooltips section of the content form. The keys can then be used in the targets of `.tooltip` selectors.
+
 ## Stylitics
 
 Uses the [Amplience Stylitics Integration (See link for full documentation)](https://github.com/amplience/dc-integration-stylitics) to render Stylitics widgets as a component. Stylitics and Amplience are a great fit for our creating automated shoppable experience using the great capabilities of Stylitics to increase AOV and basket size.
