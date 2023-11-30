@@ -529,11 +529,13 @@ There are several options that you can put in the selector column that drive spe
 
 ![Shoppable Image](../media/component-shoppableImage-link.png)
 
+The target is a relative or absolute link.
+
 ### `.linkNew` Link New selector
 
 ![Shoppable Image](../media/component-shoppableImage-link-new.png)
 
-The specified link will open in a new tab.
+The specified absolute link will open in a new tab.
 
 ### `.product` Product selector
 
