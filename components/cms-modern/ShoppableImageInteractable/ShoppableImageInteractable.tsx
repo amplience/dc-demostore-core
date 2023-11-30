@@ -68,7 +68,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         case InteractableType.CATEGORY: {
             return (
                 <Link passHref href={urlBuilder(selector, target)}>
-                    <Tooltip title={categoriesBySlug[target]?.name ?? target} followCursor>
+                    <Tooltip title={categoriesBySlug[target]?.name ?? 'Category not found'} followCursor>
                         {children}
                     </Tooltip>
                 </Link>
