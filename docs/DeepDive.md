@@ -518,54 +518,55 @@ There are several options that you can put in the selector column that drive spe
 
 | Target          | Selector                |
 | --------------- | ----------------------- |
-| Absolute URL to a page on any site or relative page on this site<br/>`https://amplience.com` | `.link` |
-| Absolute URL to a page on any site or relative page on this site, opening in a new tab<br/>`https://amplience.com` | `.linkNew` |
-| The ID of the product<br/>`123456789` | `.product` |
-| The slug of the category<br/>`women-bags` | `.category` |
-| The delivery key of a content item<br/>`content/richttext1` | `.deliveryKey` |
-| The key of a tooltip<br/>`tooltip/tooltip1` | `.tooltip` |
-
-### `.link` Link selector
-
-![Shoppable Image](../media/component-shoppableImage-link.png)
-
-The target is a relative or absolute link.
-
-### `.linkNew` Link New selector
-
-![Shoppable Image](../media/component-shoppableImage-link-new.png)
-
-The specified absolute link will open in a new tab.
+| Links to a product by ID. On hover, will show the product name, price and thumbnail if available. On click it will go to the product details page.<br/>`123456789` | `.product` |
+| Links to a category by slug. On hover, will show the category name. On click it will go to the category page.<br/>`women-bags` | `.category` |
+| A link to any URL in the same tab. Can be relative or absolute.<br/>`https://amplience.com` | `.link` |
+| A link to any external URL in a new tab. Should be absolute.<br/>`https://amplience.com` | `.linkNew` |
+| Opens a drawer displaying Amplience content with the specified key.<br/>`content/richttext1` | `.deliveryKey` |
+| A tooltip that does nothing on click.<br/>`tooltip/tooltip1` | `.tooltip` |
 
 ### `.product` Product selector
 
+If you would like to link a particular Hotspot/Polygon to a product, paste the product ID in Target and change the Selector to `.product`. This adds the ID of the product, along with the type of media you are using.
+
+So you can see in the visualisation pane, we now have a product hotspot which shows a thumbnail image of the product along with the price and description.
+
 ![Shoppable Image](../media/component-shoppableImage-product.png)
-
-The tooltip will show the product thumbnail, title and price.
-
-When a product is not found, the tooltip will show "Product not found".
 
 ### `.category` Category selector
 
+You can use the `.category` selector with the category from your web application as the Target. This displays the Category name when you hover over that hotspot or polygon.
+
 ![Shoppable Image](../media/component-shoppableImage-category.png)
 
-The tooltip will show the category name.
+### `.link` Link selector
+The `.link` selector can be used with the link URL as the Target which opens the link in the same tab. This displays in the visualisations as View as it links to a web page.
 
-When a category is not found, the tooltip will show "Category not found".
+![Shoppable Image](../media/component-shoppableImage-link.png)
+
+### `.linkNew` Link New selector
+
+Use the `.linkNew` selector with the link URL as the Target which opens the link in a new tab. This, like Link, displays in the visualisations as View as it links to a web page, but also display the icon for opening in a new tab.
+
+![Shoppable Image](../media/component-shoppableImage-link-new.png)
 
 ### `.deliveryKey` Content selector
 
+The `.deliveryKey` selector can be used with the delivery key you have assigned to a content item. This displays as More Details and takes user to the content item which bears the corresponding delivery key.
+
 ![Shoppable Image](../media/component-shoppableImage-content.png)
+
+Once you click the More Details, it will open a side-drawer container the content items linked by the Delivery Key.
 
 ![Shoppable Image](../media/component-shoppableImage-content-open.png)
 
-The piece of content matching the delivery key will appear in a drawer.
-
 ### `.tooltip` Tooltip selector
 
-![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
+You can use the `.tooltip` selector where you can add a tooltip with bespoke text (which has no link attached). This will display the text defined in the settings.
 
-Tooltip texts are first defined in the Tooltips section of the content form. The keys can then be used in the targets of `.tooltip` selectors.
+![Shoppable Image](../media/component-shoppableImage-tooltip.png)
+
+![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
 
 ## Stylitics
 
