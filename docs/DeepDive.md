@@ -549,8 +549,6 @@ There are several options that you can put in the selector column that drive spe
 
 ![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
 
-![Shoppable Image](../media/component-shoppableImage-tooltip.png)
-
 ## Stylitics
 
 Uses the [Amplience Stylitics Integration (See link for full documentation)](https://github.com/amplience/dc-integration-stylitics) to render Stylitics widgets as a component. Stylitics and Amplience are a great fit for our creating automated shoppable experience using the great capabilities of Stylitics to increase AOV and basket size.
