@@ -510,7 +510,7 @@ const panels = [
 
 This extension allows users to define Focal Points and interactable Hotspots over an image, in a format similar to what Content Hub provides, but with the data being stored on a content item.
 
-![Shoppable Image](../media/component-shoppableImage.jpg)
+![Shoppable Image](../media/component-shoppableImage.png)
 
 The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub and this alpha version of the component has been added to Demo Store Core. Note: POI is not implemented in the Component yet but will be in a future release.
 
@@ -518,11 +518,38 @@ There are several options that you can put in the selector column that drive spe
 
 | Target          | Selector                |
 | --------------- | ----------------------- |
-| Relative path to a page on this site<br/>`mycategory/mypage` | `.page` |
-| Absolute URL to a page on any site<br/>`https://amplience.com` | `.link` |
+| Absolute URL to a page on any site or relative page on this site<br/>`https://amplience.com` | `.link` |
+| Absolute URL to a page on any site or relative page on this site, opening in a new tab<br/>`https://amplience.com` | `.linkNew` |
 | The ID of the product<br/>`123456789` | `.product` |
 | The slug of the category<br/>`women-bags` | `.category` |
+| The delivery key of a content item<br/>`content/richttext1` | `.deliveryKey` |
+| The key of a tooltip<br/>`tooltip/tooltip1` | `.tooltip` |
 
+### `.link` Link selector
+
+![Shoppable Image](../media/component-shoppableImage-link.png)
+
+### `.linkNew` Link New selector
+
+![Shoppable Image](../media/component-shoppableImage-link-new.png)
+
+### `.product` Product selector
+
+![Shoppable Image](../media/component-shoppableImage-product.png)
+
+### `.category` Category selector
+
+![Shoppable Image](../media/component-shoppableImage-category.png)
+
+### `.deliveryKey` Content selector
+
+![Shoppable Image](../media/component-shoppableImage-content.png)
+
+### `.tooltip` Tooltip selector
+
+![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
+
+![Shoppable Image](../media/component-shoppableImage-tooltip.png)
 
 ## Stylitics
 
