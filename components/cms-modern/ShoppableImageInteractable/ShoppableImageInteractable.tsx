@@ -8,7 +8,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import AmplienceContent from '../AmplienceContent/AmplienceContent';
 
 export enum InteractableType {
-    PAGE = '.page',
     LINK = '.link',
     LINK_NEW = '.linkNew',
     PRODUCT = '.product',
@@ -20,9 +19,6 @@ export enum InteractableType {
 const urlBuilder = (selector: string, target: string) => {
     let url = '#';
     switch (selector) {
-        case InteractableType.PAGE:
-            url = `/${target}`;
-            break;
         case InteractableType.LINK:
             url = target;
             break;
@@ -112,6 +108,9 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
                 ...theme.mixins.toolbar,
                 justifyContent: 'flex-end',
             }));
+            const DrawerBody = styled('div')(({ theme }) => ({
+                padding: theme.spacing(0, 1),
+            }));
 
             return (
                 <>
@@ -132,7 +131,9 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
                             </IconButton>
                         </DrawerHeader>
                         <Divider />
-                        <AmplienceContent deliveryKey={target} />
+                        <DrawerBody>
+                            <AmplienceContent deliveryKey={target} />
+                        </DrawerBody>
                     </Drawer>
                 </>
             );
