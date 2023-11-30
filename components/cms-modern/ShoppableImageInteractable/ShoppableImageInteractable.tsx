@@ -68,7 +68,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         case InteractableType.CATEGORY: {
             return (
                 <Link passHref href={urlBuilder(selector, target)}>
-                    <Tooltip title={categoriesBySlug[target]?.name ?? 'Category not found'} followCursor>
+                    <Tooltip title={categoriesBySlug[target]?.name ?? 'Category not found'} followCursor placement='top' arrow>
                         {children}
                     </Tooltip>
                 </Link>
@@ -77,7 +77,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         case InteractableType.LINK: {
             return (
                 <Link passHref href={urlBuilder(selector, target)}>
-                    <Tooltip title="View" followCursor>
+                    <Tooltip title="View" followCursor placement='top' arrow>
                         {children}
                     </Tooltip>
                 </Link>
@@ -93,6 +93,8 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
                             </div>
                         }
                         followCursor
+                        placement='top'
+                        arrow
                     >
                         {children}
                     </Tooltip>
@@ -119,7 +121,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
             return (
                 <>
                     <a role="button" onClick={() => setDrawerOpen(true)}>
-                        <Tooltip title="More Details" followCursor>
+                        <Tooltip title="More Details" followCursor placement='top' arrow>
                             {children}
                         </Tooltip>
                     </a>
@@ -144,7 +146,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         }
         case InteractableType.TOOLTIP: {
             return (
-                <Tooltip title={tooltips.find((item) => item.key === target)?.value || target} followCursor>
+                <Tooltip title={tooltips.find((item) => item.key === target)?.value || target} followCursor placement='top' arrow>
                     {children}
                 </Tooltip>
             );
@@ -152,7 +154,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         default: {
             return (
                 <Link passHref href={urlBuilder(selector, target)}>
-                    <Tooltip title={titleBuilder(selector, target)} followCursor>
+                    <Tooltip title={titleBuilder(selector, target)} followCursor placement='top' arrow>
                         {children}
                     </Tooltip>
                 </Link>

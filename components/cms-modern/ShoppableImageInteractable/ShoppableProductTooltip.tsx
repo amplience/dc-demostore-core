@@ -51,7 +51,7 @@ export const ShoppableProductTooltip = ({ children, target }: ShoppableProductTo
     };
 
     return (
-        <Tooltip title={!loading ? enhancedTooltip(product) : 'Loading...'} followCursor>
+        <Tooltip title={!loading ? enhancedTooltip(product) : 'Loading...'} followCursor placement='top' arrow>
             <div>{children}</div>
         </Tooltip>
     );
