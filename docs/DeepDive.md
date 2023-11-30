@@ -539,7 +539,7 @@ The specified link will open in a new tab.
 
 ![Shoppable Image](../media/component-shoppableImage-product.png)
 
-The tooltip with show the product thumbnail, title and price.
+The tooltip will show the product thumbnail, title and price.
 
 When a product is not found, the tooltip will show "Product not found".
 
