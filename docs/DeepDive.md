@@ -568,6 +568,39 @@ You can use the `.tooltip` selector where you can add a tooltip with bespoke tex
 
 ![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
 
+### How shoppable image interactions are rendered
+
+This section is a deeper look in to how the demostore handles the various shoppable image interactions.
+
+Each interaction (hotspot/polygon) will specify a "selector" and a "target" to define how a user will interact with it. Within the demostore we use the [ShoppableImageInteractable](../components/cms-modern/ShoppableImageInteractable/ShoppableImageInteractable.tsx) component to determine how all interactions should be rendered.
+
+For example, a category interaction would be configured with a "target" of `blue-shoes` and a "selector" of `.category`.
+
+Each interactable will initialise a `ShoppableImageInteractable` component and the selector will determine how it should be rendered e.g.
+
+```javascript
+const ShoppableImageInteractable = ({ children, selector, target, tooltips }: ShoppableImageInteractableProps) => {
+    const { categoriesBySlug } = useECommerce();
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    switch (selector) {
+        ...
+        case InteractableType.CATEGORY: {
+            return (
+                <Link passHref href={urlBuilder(selector, target)}>
+                    <Tooltip title={categoriesBySlug[target]?.name ?? 'Category not found'} followCursor>
+                        {children}
+                    </Tooltip>
+                </Link>
+            );
+        }
+        ...
+    }
+}
+```
+
+Using the code snippet above as an example, we configure a category interaction with a "target" of `blue-shoes` and a "selector" of `.category`. The `.category` selector matches `InteractableType.CATEGORY` in the selector switch statement. This renders the "category" view of a [ShoppableImageInteractable](../components/cms-modern/ShoppableImageInteractable/ShoppableImageInteractable.tsx), and in this case we wrap the `children` elements with a tooltip to display the category name (using the "target" as a lookup), and a clickable link to the category page.
+
 ## Stylitics
 
 Uses the [Amplience Stylitics Integration (See link for full documentation)](https://github.com/amplience/dc-integration-stylitics) to render Stylitics widgets as a component. Stylitics and Amplience are a great fit for our creating automated shoppable experience using the great capabilities of Stylitics to increase AOV and basket size.
