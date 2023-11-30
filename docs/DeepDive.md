@@ -519,7 +519,7 @@ There are several options that you can put in the selector column that drive spe
 | Target          | Selector                |
 | --------------- | ----------------------- |
 | Links to a product by ID. On hover, will show the product name, price and thumbnail if available. On click it will go to the product details page.<br/>`123456789` | `.product` |
-| Links to a category by slug. On hover, will show the category name. On click it will go to the category page.<br/>`women-bags` | `.category` |
+| Links to a category by ID. On hover, will show the category name. On click it will go to the category page.<br/>`women-bags` | `.category` |
 | A link to any URL in the same tab. Can be relative or absolute.<br/>`https://amplience.com` | `.link` |
 | A link to any external URL in a new tab. Should be absolute.<br/>`https://amplience.com` | `.linkNew` |
 | Opens a drawer displaying Amplience content with the specified key.<br/>`content/richttext1` | `.deliveryKey` |
