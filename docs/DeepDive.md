@@ -510,19 +510,127 @@ const panels = [
 
 This extension allows users to define Focal Points and interactable Hotspots over an image, in a format similar to what Content Hub provides, but with the data being stored on a content item.
 
-![Shoppable Image](../media/component-shoppableImage.jpg)
+![Shoppable Image](../media/component-shoppableImage.png)
 
-The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub and this alpha version of the component has been added to Demo Store Core. Note: POI is not implemented in the Component yet but will be in a future release.
+The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub. 
+> Note: POI is not implemented in the Component yet but will be in a future release.
 
 There are several options that you can put in the selector column that drive specific functionality from the information in the target.
 
 | Target          | Selector                |
 | --------------- | ----------------------- |
-| Relative path to a page on this site<br/>`mycategory/mypage` | `.page` |
-| Absolute URL to a page on any site<br/>`https://amplience.com` | `.link` |
-| The ID of the product<br/>`123456789` | `.product` |
-| The slug of the category<br/>`women-bags` | `.category` |
+| Links to a product by ID. On hover, will show the product name, price and thumbnail if available. On click it will go to the product details page.<br/>`123456789` | `.product` |
+| Links to a category by ID. On hover, will show the category name. On click it will go to the category page.<br/>`women-bags` | `.category` |
+| A link to any URL in the same tab. Can be relative or absolute.<br/>`https://amplience.com` | `.link` |
+| A link to any external URL in a new tab. Should be absolute.<br/>`https://amplience.com` | `.linkNew` |
+| Opens a drawer displaying Amplience content with the specified key.<br/>`content/richttext1` | `.deliveryKey` |
+| A tooltip that does nothing on click.<br/>`tooltip/tooltip1` | `.tooltip` |
 
+> Note: Products and categories are coming from your commerce integration (see [eCommerce Configuration](https://github.com/amplience/dc-demostore-core/blob/feat/shoppable-image/docs/ECommerceConfiguration.md)).
+
+### `.product` Product selector
+
+If you would like to link a particular Hotspot/Polygon to a product, paste the product ID in Target and change the Selector to `.product`. This adds the ID of the product, along with the type of media you are using.
+
+So you can see in the visualisation pane, we now have a product hotspot which shows a thumbnail image of the product along with the price and description.
+
+![Shoppable Image](../media/component-shoppableImage-product.png)
+
+### `.category` Category selector
+
+You can use the `.category` selector with the category from your web application as the Target. This displays the Category name when you hover over that hotspot or polygon.
+
+![Shoppable Image](../media/component-shoppableImage-category.png)
+
+### `.link` Link selector
+The `.link` selector can be used with the link URL as the Target which opens the link in the same tab. This displays in the visualisations as View as it links to a web page.
+
+![Shoppable Image](../media/component-shoppableImage-link.png)
+
+### `.linkNew` Link New selector
+
+Use the `.linkNew` selector with the link URL as the Target which opens the link in a new tab. This, like Link, displays in the visualisations as View as it links to a web page, but also display the icon for opening in a new tab.
+
+![Shoppable Image](../media/component-shoppableImage-link-new.png)
+
+### `.deliveryKey` Content selector
+
+The `.deliveryKey` selector can be used with the delivery key you have assigned to a content item. This displays as More Details and takes user to the content item which bears the corresponding delivery key.
+
+![Shoppable Image](../media/component-shoppableImage-content.png)
+
+Once you click the More Details, it will open a side-drawer container the content items linked by the Delivery Key.
+
+![Shoppable Image](../media/component-shoppableImage-content-open.png)
+
+### `.tooltip` Tooltip selector
+
+You can use the `.tooltip` selector where you can add a tooltip with bespoke text (which has no link attached). This will display the text defined in the settings.
+
+![Shoppable Image](../media/component-shoppableImage-tooltip.png)
+
+![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
+
+### AI Assistant
+
+You can now use AI to automatically detect objects to set focal points & hotspots within your images rapidly to make your digital experiences interactive and drive conversions (you can read more on the [blog post](https://amplience.com/blog/automatic-shoppable-images-ai)).
+
+![Shoppable Image](../media/component-shoppableImage-ai.png)
+
+#### Focal Point
+
+Once objects have been detected, you can use one of them to set the focal point.
+
+![Shoppable Image](../media/component-shoppableImage-ai-focal-point.png)
+
+In this example, you can set the focal point to a detected brush in the image.
+
+#### Hotspots
+
+In the following example, you can add hotspots from the AI Assistant to your list: 
+
+![Shoppable Image](../media/component-shoppableImage-ai-hotspot.png)
+
+It will automatically be added with the same name for selector and target, for instance `.lipstick` for the selector, and `lipstick` for the target. You can then change to one of the selectors above.
+
+#### Polygon
+
+AI Assistant is powerful enough to detect complex objects and create detailed polygons out of them. You can see in the following example how a bag is fully detected:
+
+![Shoppable Image](../media/component-shoppableImage-ai-polygon.png)
+
+### How shoppable image interactions are rendered
+
+This section is a deeper look in to how the demostore handles the various shoppable image interactions.
+
+Each interaction (hotspot/polygon) will specify a "selector" and a "target" to define how a user will interact with it. Within the demostore we use the [ShoppableImageInteractable](../components/cms-modern/ShoppableImageInteractable/ShoppableImageInteractable.tsx) component to determine how all interactions should be rendered.
+
+For example, a category interaction would be configured with a "target" of `blue-shoes` and a "selector" of `.category`.
+
+Each interactable will initialise a `ShoppableImageInteractable` component and the selector will determine how it should be rendered e.g.
+
+```javascript
+const ShoppableImageInteractable = ({ children, selector, target, tooltips }: ShoppableImageInteractableProps) => {
+    const { categoriesBySlug } = useECommerce();
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    switch (selector) {
+        ...
+        case InteractableType.CATEGORY: {
+            return (
+                <Link passHref href={urlBuilder(selector, target)}>
+                    <Tooltip title={categoriesBySlug[target]?.name ?? 'Category not found'} followCursor>
+                        {children}
+                    </Tooltip>
+                </Link>
+            );
+        }
+        ...
+    }
+}
+```
+
+Using the code snippet above as an example, we configure a category interaction with a "target" of `blue-shoes` and a "selector" of `.category`. The `.category` selector matches `InteractableType.CATEGORY` in the selector switch statement. This renders the "category" view of a [ShoppableImageInteractable](../components/cms-modern/ShoppableImageInteractable/ShoppableImageInteractable.tsx), and in this case we wrap the `children` elements with a tooltip to display the category name (using the "target" as a lookup), and a clickable link to the category page.
 
 ## Stylitics
 

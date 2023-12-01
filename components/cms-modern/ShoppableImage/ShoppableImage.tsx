@@ -1,20 +1,11 @@
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
-import {
-    pointsToSVGPath,
-    PolygonForwardRef,
-    SVGPath
-} from './polygon'
-import {
-    ShoppableImageHotspot,
-    ShoppableImagePoi,
-    ShoppableImagePolygon,
-} from "./ShoppableImageData";
-import { useWindowContext } from '../../core/WithWindowContext/WindowContext';
+import { pointsToSVGPath, PolygonForwardRef, SVGPath } from './polygon';
+import { ShoppableImageHotspot } from './ShoppableImageData';
 import clsx from 'clsx';
-import { CircularProgress, Tooltip } from '@mui/material';
-import Link from 'next/link';
+import { CircularProgress } from '@mui/material';
 import { getImageURL } from '@utils/getImageURL';
+import ShoppableImageInteractable from '../ShoppableImageInteractable';
 
 type Props = {
     shoppableImage: any;
@@ -22,31 +13,31 @@ type Props = {
     hotspotHide: boolean;
     polygonHide: boolean;
     focalPointHide: boolean;
+    di:string;
+    tooltips: any[];
 } & CmsContent;
 
 const ShoppableImage: FC<Props> = ({
     shoppableImage,
-    //scaleToFit = false,
     hotspotHide = false,
     polygonHide = false,
-    focalPointHide = true
+    focalPointHide = true,
+    di = "",
+    tooltips = [],
 }) => {
-    const windowSize = useWindowContext();
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });
     const [canvasSize, setCanvasSize] = useState({ w: -1, h: -1 });
     const [targetWidth, setTargetWidth] = useState(canvasSize.w);
     const [targetHeight, setTargetHeight] = useState(800);
-    const [targetAspect, setTargetAspect] = useState(targetWidth / targetHeight);
-    const [ratio, setRatio] = useState({ w: 1, h: 1 })
+    const [targetAspect] = useState(targetWidth / targetHeight);
 
     const gcd = (a: number, b: number): number => {
-        return (b == 0) ? a : gcd(b, a % b);
-    }
+        return b == 0 ? a : gcd(b, a % b);
+    };
 
-
-    const [imageRef, setImageRef] = useState(React.createRef<HTMLImageElement>());
+    const [imageRef] = useState(React.createRef<HTMLImageElement>());
     const canvasRef = React.createRef<HTMLDivElement>();
 
     const resizeWindow = () => {
@@ -62,12 +53,12 @@ const ShoppableImage: FC<Props> = ({
             setTargetHeight(imageRef.current.height);
             setTargetWidth(imageRef.current.width);
         }
-    }
+    };
 
     useEffect(() => {
-        window.addEventListener("resize", resizeWindow);
-        return () => window.removeEventListener("resize", resizeWindow);
-    }, [loaded])
+        window.addEventListener('resize', resizeWindow);
+        return () => window.removeEventListener('resize', resizeWindow);
+    }, [loaded]);
 
     useLayoutEffect(() => {
         if (refContainer.current) {
@@ -87,31 +78,6 @@ const ShoppableImage: FC<Props> = ({
         }
     };
 
-    const hotspotTitle = (hotspot: ShoppableImageHotspot | ShoppableImagePolygon) => {
-        return `Target: ${hotspot.target} | Selector: ${hotspot.selector}`;
-    };
-
-    const hotspotLink = (hotspot: ShoppableImageHotspot | ShoppableImagePolygon) => {
-        let url = '#';
-        switch (hotspot.selector) {
-            case '.page':
-                url = `/${hotspot.target}`;
-                break;
-            case '.link':
-                url = hotspot.target;
-                break;
-            case '.product':
-                url = `/product/${hotspot.target}`;
-                break;
-            case '.category':
-                url = `/category/${hotspot.target}`;
-                break;
-            default:
-                break;
-        }
-        return url;
-    };
-
     let polygons: SVGPath[] = [];
     if (shoppableImage && shoppableImage.polygons) {
         polygons = shoppableImage.polygons.map((polygon: any) => pointsToSVGPath(polygon.points));
@@ -121,7 +87,6 @@ const ShoppableImage: FC<Props> = ({
     let canvas: JSX.Element | undefined;
     const hiddenHotspots = hotspotHide;
     const hiddenPolygons = polygonHide;
-    const hiddenFocalPoint = focalPointHide;
 
     if (shoppableImage && loaded) {
         const widthBounded = imageSize.w / imageSize.h > targetAspect;
@@ -130,31 +95,17 @@ const ShoppableImage: FC<Props> = ({
 
         let offsetTransform = '';
 
-        canvasHeight = widthBounded
-            ? (imageSize.h / imageSize.w) * targetWidth
-            : targetHeight;
-        canvasWidth = widthBounded
-            ? targetWidth
-            : (imageSize.w / imageSize.h) * targetHeight;
+        canvasHeight = widthBounded ? (imageSize.h / imageSize.w) * targetWidth : targetHeight;
+        canvasWidth = widthBounded ? targetWidth : (imageSize.w / imageSize.h) * targetHeight;
 
-        imageStyle = widthBounded ? { minWidth: "100%" } : { minHeight: "100%" };
+        imageStyle = widthBounded ? { minWidth: '100%' } : { minHeight: '100%' };
 
         const size = { x: canvasWidth, y: canvasHeight };
 
-        const scaleSize = (poi: ShoppableImagePoi): any => {
-            return {
-                transform: `translate(${poi.x * canvasWidth}px, ${poi.y * canvasHeight
-                    }px)`,
-                width: poi.w * canvasWidth + "px",
-                height: poi.h * canvasHeight + "px",
-            };
-        };
-
         const scaleHotspot = (hotspot: ShoppableImageHotspot): any => {
             return {
-                transform: `translate(${hotspot.points.x * canvasWidth}px, ${hotspot.points.y * canvasHeight
-                    }px)`,
-                cursor: 'pointer'
+                transform: `translate(${hotspot.points.x * canvasWidth}px, ${hotspot.points.y * canvasHeight}px)`,
+                cursor: 'pointer',
             };
         };
 
@@ -162,74 +113,61 @@ const ShoppableImage: FC<Props> = ({
             <div
                 className="amp-vis-page__interactive"
                 style={{
-                    width: canvasWidth + "px",
-                    height: canvasHeight + "px",
-                    transform: offsetTransform
+                    width: canvasWidth + 'px',
+                    height: canvasHeight + 'px',
+                    transform: offsetTransform,
                 }}
                 ref={canvasRef}
             >
-
                 {shoppableImage &&
                     shoppableImage.polygons &&
                     polygons.map((polygon: any, index: number) => (
-                        <Link
+                        <ShoppableImageInteractable
+                            target={shoppableImage.polygons[index]?.target}
+                            selector={shoppableImage.polygons[index]?.selector}
+                            tooltips={tooltips}
                             key={index}
-                            href={hotspotLink(
-                                (shoppableImage.polygons as ShoppableImagePolygon[])[index]
-                            )}>
-                            <Tooltip
-                                title={hotspotTitle(
-                                    (shoppableImage.polygons as ShoppableImagePolygon[])[index]
-                                )}
-                                followCursor
-                            >
-                                <PolygonForwardRef
-                                    size={size}
-                                    className={clsx("amp-vis-page__polygon", {
-                                        "amp-vis-page__polygon--hidden": hiddenPolygons,
-                                    })}
-                                    polygon={polygon}
-                                ></PolygonForwardRef>
-                            </Tooltip>
-                        </Link>
+                        >
+                            <PolygonForwardRef
+                                size={size}
+                                className={clsx('amp-vis-page__polygon', {
+                                    'amp-vis-page__polygon--hidden': hiddenPolygons,
+                                })}
+                                polygon={polygon}
+                            ></PolygonForwardRef>
+                        </ShoppableImageInteractable>
                     ))}
 
                 {shoppableImage &&
                     shoppableImage.hotspots &&
                     shoppableImage.hotspots.map((hotspot: any, index: number) => (
-                        <Link
+                        <ShoppableImageInteractable
+                            target={hotspot?.target}
+                            selector={hotspot?.selector}
+                            tooltips={tooltips}
                             key={index}
-                            href={hotspotLink(hotspot)}
                         >
-                            <Tooltip
-                                title={hotspotTitle(hotspot)}
-                                followCursor
+                            <div
+                                className={clsx('amp-vis-page__hotspot', {
+                                    'amp-vis-page__hotspot--hidden': hiddenHotspots,
+                                })}
+                                style={scaleHotspot(hotspot)}
                             >
-                                <div
-                                    className={clsx("amp-vis-page__hotspot", {
-                                        "amp-vis-page__hotspot--hidden": hiddenHotspots,
-                                    })}
-                                    style={scaleHotspot(hotspot)}
-                                >
-                                    <svg
-                                        viewBox="0 0 20 20"
-                                        className={clsx("amp-vis-page__hotspotplus")}
-                                    >
-                                        <rect x="9.15" y="3.5" width="1.7" height="13"></rect>
-                                        <rect y="9.15" x="3.5" width="13" height="1.7"></rect>
-                                    </svg>
-                                </div>
-                            </Tooltip>
-                        </Link>
+                                <svg viewBox="0 0 20 20" className={clsx('amp-vis-page__hotspotplus')}>
+                                    <rect x="9.15" y="3.5" width="1.7" height="13"></rect>
+                                    <rect y="9.15" x="3.5" width="13" height="1.7"></rect>
+                                </svg>
+                            </div>
+                        </ShoppableImageInteractable>
                     ))}
             </div>
         );
     }
 
     let image: JSX.Element | undefined;
-    let src = "invalid";
+    let src = 'invalid';
     if (shoppableImage && shoppableImage.image.id) {
-        src = getImageURL(shoppableImage.image)
+        src = getImageURL(shoppableImage.image, {}, false, di);
 
         image = (
             <img
@@ -237,10 +175,10 @@ const ShoppableImage: FC<Props> = ({
                 ref={imageRef}
                 alt=""
                 crossOrigin="anonymous"
-                className={clsx("amp-vis-page__image", {
-                    "amp-vis-page__image--hide": !loaded,
+                className={clsx('amp-vis-page__image', {
+                    'amp-vis-page__image--hide': !loaded,
                 })}
-                style={{width: "100%", height: "auto"}}
+                style={{ width: '100%', height: 'auto' }}
                 onLoad={() => {
                     imageLoaded();
                 }}
@@ -259,6 +197,6 @@ const ShoppableImage: FC<Props> = ({
             {canvas || false}
         </div>
     );
-}
+};
 
 export default ShoppableImage;
