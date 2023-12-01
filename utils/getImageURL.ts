@@ -260,6 +260,6 @@ export function getImageURL(image: string | CmsImage, transformations: ImageTran
         }
         url += diParams;
     }
-
+    
     return url;
 }

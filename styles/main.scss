@@ -23,6 +23,7 @@
 @import './components/search';
 @import './components/megaMenu';
 @import './components/shoppableImage';
+@import './components/shoppableProductTooltip';
 
 @import './variables';
 @import './masthead';
@@ -36,4 +37,4 @@
 
 @import './debug';
 
-@import "~react-image-gallery/styles/scss/image-gallery.scss"
+@import '~react-image-gallery/styles/scss/image-gallery.scss';
