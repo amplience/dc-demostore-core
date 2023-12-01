@@ -1,0 +1,32 @@
+.shoppable-product-tooltip {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        padding: 4px;
+    }
+
+    &__thumbnail {
+        img {
+            height: 80px;
+            width: 60px;
+            object-fit: scale-down;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+
+        > div {
+            font-size: 12px;
+        }
+    }
+
+    &__name {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}

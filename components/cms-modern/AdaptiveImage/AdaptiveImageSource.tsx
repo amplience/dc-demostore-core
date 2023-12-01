@@ -14,7 +14,8 @@ const AdaptiveImageSource: React.SFC<Props> = (props) => {
 
     const {
         image,
-        transformations: rootTransformations
+        transformations: rootTransformations,
+        diParams
     } = useContext(AdaptiveImageContext) || {};
 
     const [imageUrl, imageUrl2x] = useMemo(() => {
@@ -28,15 +29,18 @@ const AdaptiveImageSource: React.SFC<Props> = (props) => {
         }
         else {
             return [
-                getImageURL(image, params),
+                getImageURL(image, params, false, diParams),
                 getImageURL(image, {
                     ...params,
                     width: params.width ? params.width * 2 : undefined,
                     height: params.height ? params.height * 2 : undefined
-                })
+                },
+                false,
+                diParams
+                )
             ]
         }
-    }, [image, rootTransformations, transformations]);
+    }, [image, rootTransformations, transformations, diParams]);
     return imageUrl ? <source srcSet={`${imageUrl} 1x, ${imageUrl2x} 2x`} src={imageUrl} {...other} /> : null
 };
 

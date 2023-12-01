@@ -1,4 +1,4 @@
-# Storybook for Amplience Retail Storefront Architecture (RSA)
+# Storybook for Amplience Dynamic Content Demostore Core (dc-demostore-core)
 
  - OWN README: Storybook Section:
     - Components
