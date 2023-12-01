@@ -512,7 +512,8 @@ This extension allows users to define Focal Points and interactable Hotspots ove
 
 ![Shoppable Image](../media/component-shoppableImage.png)
 
-The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub and this alpha version of the component has been added to Demo Store Core. Note: POI is not implemented in the Component yet but will be in a future release.
+The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub. 
+> Note: POI is not implemented in the Component yet but will be in a future release.
 
 There are several options that you can put in the selector column that drive specific functionality from the information in the target.
 
@@ -524,6 +525,8 @@ There are several options that you can put in the selector column that drive spe
 | A link to any external URL in a new tab. Should be absolute.<br/>`https://amplience.com` | `.linkNew` |
 | Opens a drawer displaying Amplience content with the specified key.<br/>`content/richttext1` | `.deliveryKey` |
 | A tooltip that does nothing on click.<br/>`tooltip/tooltip1` | `.tooltip` |
+
+> Note: Products and categories are coming from your commerce integration (see [eCommerce Configuration](https://github.com/amplience/dc-demostore-core/blob/feat/shoppable-image/docs/ECommerceConfiguration.md)).
 
 ### `.product` Product selector
 
@@ -567,6 +570,34 @@ You can use the `.tooltip` selector where you can add a tooltip with bespoke tex
 ![Shoppable Image](../media/component-shoppableImage-tooltip.png)
 
 ![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
+
+### AI Assistant
+
+You can now use AI to automatically detect objects to set focal points & hotspots within your images rapidly to make your digital experiences interactive and drive conversions (you can read more on the [blog post](https://amplience.com/blog/automatic-shoppable-images-ai)).
+
+![Shoppable Image](../media/component-shoppableImage-ai.png)
+
+#### Focal Point
+
+Once objects have been detected, you can use one of them to set the focal point.
+
+![Shoppable Image](../media/component-shoppableImage-ai-focal-point.png)
+
+In this example, you can set the focal point to a detected brush in the image.
+
+#### Hotspots
+
+In the following example, you can add hotspots from the AI Assistant to your list: 
+
+![Shoppable Image](../media/component-shoppableImage-ai-hotspot.png)
+
+It will automatically be added with the same name for selector and target, for instance `.lipstick` for the selector, and `lipstick` for the target. You can then change to one of the selectors above.
+
+#### Polygon
+
+AI Assistant is powerful enough to detect complex objects and create detailed polygons out of them. You can see in the following example how a bag is fully detected:
+
+![Shoppable Image](../media/component-shoppableImage-ai-polygon.png)
 
 ### How shoppable image interactions are rendered
 
