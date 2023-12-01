@@ -84,8 +84,8 @@ In the Tooltip fields, add whatever you entered in Target to Tooltip Key and ent
 
 *A.* You can see in the visualisation pane, the pop-out visualisation plus, if you you hover over an hotspot / polygon and there is an issue with your set up the action will not go to a valid page and the tooltip will not display. For each type the tooltip error is as follows:
 
-- `.product`: Product not found
-- `.category`: Category not found
+- `.product`: Displays "Product not found"
+- `.category`: Displays "Category not found"
 - `.link` / `.linkNew`: No Validation
 - `.deliveryKey`: No validation
 - `.tooltip`: Displays target if no custom tooltip mapping found
