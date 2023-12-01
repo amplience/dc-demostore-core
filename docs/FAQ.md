@@ -58,25 +58,25 @@ Shoppable Image extension in Demostore which assists the user in in creating com
 
 *Q.* How do I link to a Product in my web application?
 
-*A.* Copy the Product ID from the URL and paste into Target. Then change Selector to .product
+*A.* Copy the Product ID from the URL and paste into Target. Then change Selector to `.product`
 
-*NB:* the Product ID should just be the unique identifier not a full string eg it should be this 4c24d0c9-edac-418e-9007-22fec5df2c46 not this 4c24d0c9-edac-418e-9007-22fec5df2c46/gabs-bag-sofia-large-green
+> *NB:* the Product ID should just be the unique identifier not a full string eg it should be this `4c24d0c9-edac-418e-9007-22fec5df2c46` not this `4c24d0c9-edac-418e-9007-22fec5df2c46/gabs-bag-sofia-large-green`
 
 *Q.* How do I link to a Category in my web application?
 
-*A.* Copy the category ID from the URL eg men-shoes-sneakers and paste into Target. Then change Selector to .category
+*A.* Copy the category ID from the URL eg `men-shoes-sneakers` and paste into Target. Then change Selector to `.category`
 
 *Q.* How do I add a link to my web application/another web application?
 
-*A.* Paste a URL into Target. Then change Selector to .link or .linkNew dependent upon whether you want to open the link in the same tab or a new tab respectively.
+*A.* Paste a URL into Target. Then change Selector to `.link` or `.linkNew` dependent upon whether you want to open the link in the same tab or a new tab respectively.
 
 *Q.* How do I link to a Delivery Key in my web application?
 
-*A.* Copy the Delivery Key from the Content Item you want to link to, paste it in the Target and change the Selector to .deliveryKey. This will open the content in a side drawer
+*A.* Copy the Delivery Key from the Content Item you want to link to, paste it in the Target and change the Selector to `.deliveryKey`. This will open the content in a side drawer
 
 *Q.* How do I create a tooltip in my web application?
 
-*A.* First create your Hotspot or Polygon. In Target simply an an identifier for the tooltip text you would like to use. In Selector choose .tooltip. 
+*A.* First create your Hotspot or Polygon. In Target simply an an identifier for the tooltip text you would like to use. In Selector choose `.tooltip`. 
 
 In the Tooltip fields, add whatever you entered in Target to Tooltip Key and enter the text you want displayed on the tooltip, in Tooltip Text.
 
@@ -84,15 +84,11 @@ In the Tooltip fields, add whatever you entered in Target to Tooltip Key and ent
 
 *A.* You can see in the visualisation pane, the pop-out visualisation plus, if you you hover over an hotspot / polygon and there is an issue with your set up the action will not go to a valid page and the tooltip will not display. For each type the tooltip error is as follows:
 
-.product: Product not found
-
-.category: Category not found
-
-.link / linkNew: No Validation
-
-.deliveryKey: No validation
-
-.tooltip: Displays target if no custom tooltip mapping found
+- `.product`: Product not found
+- `.category`: Category not found
+- `.link` / `.linkNew`: No Validation
+- `.deliveryKey`: No validation
+- `.tooltip`: Displays target if no custom tooltip mapping found
 
 *Q.* Why doesn’t the visualisation pane display external web pages? 
 
