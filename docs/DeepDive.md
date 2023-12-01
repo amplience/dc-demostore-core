@@ -525,6 +525,8 @@ There are several options that you can put in the selector column that drive spe
 | Opens a drawer displaying Amplience content with the specified key.<br/>`content/richttext1` | `.deliveryKey` |
 | A tooltip that does nothing on click.<br/>`tooltip/tooltip1` | `.tooltip` |
 
+> Note: Products and categories are coming from your commerce integration (see [eCommerce Configuration](https://github.com/amplience/dc-demostore-core/blob/feat/shoppable-image/docs/ECommerceConfiguration.md)).
+
 ### `.product` Product selector
 
 If you would like to link a particular Hotspot/Polygon to a product, paste the product ID in Target and change the Selector to `.product`. This adds the ID of the product, along with the type of media you are using.
