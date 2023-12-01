@@ -1,4 +1,4 @@
-# FAQ for Amplience Retail Storefront Architecture (RSA)
+# FAQ for Amplience Dynamic Content Demostore Core (dc-demostore-core)
 
 Here you'll find answers to your frequently asked questions.
 
