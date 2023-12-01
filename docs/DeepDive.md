@@ -512,7 +512,8 @@ This extension allows users to define Focal Points and interactable Hotspots ove
 
 ![Shoppable Image](../media/component-shoppableImage.png)
 
-The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub and this alpha version of the component has been added to Demo Store Core. Note: POI is not implemented in the Component yet but will be in a future release.
+The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub. 
+> Note: POI is not implemented in the Component yet but will be in a future release.
 
 There are several options that you can put in the selector column that drive specific functionality from the information in the target.
 
