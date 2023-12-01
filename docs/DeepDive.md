@@ -568,6 +568,34 @@ You can use the `.tooltip` selector where you can add a tooltip with bespoke tex
 
 ![Shoppable Image](../media/component-shoppableImage-tooltip-form.png)
 
+### AI Assistant
+
+You can now use AI to automatically detect objects to set focal points & hotspots within your images rapidly to make your digital experiences interactive and drive conversions (you can read more on the [blog post](https://amplience.com/blog/automatic-shoppable-images-ai)).
+
+![Shoppable Image](../media/component-shoppableImage-ai.png)
+
+#### Focal Point
+
+Once objects have been detected, you can use one of them to set the focal point.
+
+![Shoppable Image](../media/component-shoppableImage-ai-focal-point.png)
+
+In this example, you can set the focal point to a detected brush in the image.
+
+#### Hotspots
+
+In the following example, you can add hotspots from the AI Assistant to your list: 
+
+![Shoppable Image](../media/component-shoppableImage-ai-hotspot.png)
+
+It will automatically be added with the same name for selector and target, for instance `.lipstick` for the selector, and `lipstick` for the target. You can then change to one of the selectors above.
+
+#### Polygon
+
+AI Assistant is powerful enough to detect complex objects and create detailed polygons out of them. You can see in the following example how a bag is fully detected:
+
+![Shoppable Image](../media/component-shoppableImage-ai-polygon.png)
+
 ### How shoppable image interactions are rendered
 
 This section is a deeper look in to how the demostore handles the various shoppable image interactions.
