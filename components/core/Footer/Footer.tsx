@@ -75,7 +75,7 @@ const [linkCategories, setLinkCategories] = useState([
       setLinkCategories(newLinkState);
 
     }
-  }, [isMobile, linkCategories])
+  }, [isMobile])
     return (
         <footer className="footer">
             <div className="footer__column-break">
