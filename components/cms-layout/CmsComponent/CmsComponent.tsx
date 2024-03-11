@@ -1,6 +1,7 @@
 import { ContentBlock } from '@components/cms-modern';
 import AddToBasket from '@components/product/AddToBasket';
 import ProductAttribute from '@components/product/ProductAttribute';
+import ProductAttributeOverride from '@components/product/ProductAttributeOverride';
 import ProductColor from '@components/product/ProductColor';
 import ProductHero from '@components/product/ProductHero';
 import ProductMediaViewer from '@components/product/ProductMediaViewer';
@@ -52,6 +53,7 @@ const mapping: any = {
     'product_image_viewer': ProductMediaViewer,
     'stylitics': Generic,
     'product_attribute': ProductAttribute,
+    'product_attribute_override': ProductAttributeOverride,
     'product_atb': AddToBasket,
     'product_size': ProductSize,
     'product_color': ProductColor,

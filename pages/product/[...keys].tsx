@@ -39,7 +39,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const data = await fetchStandardPageData({
     content: {
       defaultPDPLayout: pdpLayout ? { id: pdpLayout as string } : { key: 'layout/default-pdp' },
-      productContent: { key: "product/" + key }
+      productContent: { key: "product/" + key },
+      productOverride: { key: "product-override/" + key }
     },
   }, context)
 
@@ -157,8 +158,9 @@ export default function ProductPage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [layout] = useContent(experienceConfig?.experience?.pdpLayout && !forceDefaultLayout ? experienceConfig?.experience?.pdpLayout : content.defaultPDPLayout, vse);
   const [productContent] = useContent(content.productContent, vse);
+  const [productOverride] = useContent(content.productOverride, vse);
 
-  const compositeProduct = { ...product, ...productContent };
+  const compositeProduct = { ...product, ...productContent, ...productOverride };
 
   return (
     <WithProduct product={compositeProduct}>
