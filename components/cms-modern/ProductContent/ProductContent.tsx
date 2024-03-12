@@ -12,8 +12,10 @@ type Props = {
 const Text: FC<Props> = ({
     header,
     text = [],
+    textOverride = [],
     align = 'left'
 }) => {
+    if (textOverride) text = textOverride;
 
     const options = {
         overrides: {
@@ -41,7 +43,7 @@ const Text: FC<Props> = ({
                         {header}
                     </Typography>
                 )
-             },
+             }
              {
                 text.map((item: any) => {
                     const {
