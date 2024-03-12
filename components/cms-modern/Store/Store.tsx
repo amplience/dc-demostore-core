@@ -19,7 +19,7 @@ interface Props {
 
 const Store: React.SFC<Props> = (props) => {
     const {
-        details,
+        details = "",
         keyElements,
         image,
         imageAltText,
@@ -80,7 +80,7 @@ const Store: React.SFC<Props> = (props) => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sm={6} style={{paddingTop: 10, paddingLeft: 30}}>
-                        <ReactMarkdown style={{witdh: "70%"}} options={options}>{details}</ReactMarkdown>
+                        <ReactMarkdown style={{width: "70%"}} options={options}>{details}</ReactMarkdown>
                     </Grid>
                 </Grid>
             </div>
