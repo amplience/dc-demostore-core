@@ -56,7 +56,7 @@ const Store: React.SFC<Props> = (props) => {
                         <Image query={{}} image={image} alt={imageAltText ? imageAltText : locationName} imageAltText={imageAltText ? imageAltText : locationName} />
                         <Grid container style={{marginTop: 20}}>
                         {
-                            keyElements.parking && 
+                            keyElements?.parking && 
                                 <Grid item xs={4}>
                                     <Paper style={{backgroundColor: "#f6f6f6", padding: 15, paddingBottom: 30, margin: 5}}>
                                         <Typography variant="body2">Parking space</Typography>
@@ -67,7 +67,7 @@ const Store: React.SFC<Props> = (props) => {
                                 </Grid>
                         }
                         {
-                            keyElements.lateOpening &&
+                            keyElements?.lateOpening &&
                             <Grid item xs={4}>
                                 <Paper style={{backgroundColor: "#f6f6f6", padding: 15, paddingBottom: 30, margin: 5}}>
                                     <Typography variant="body2">Late opening</Typography>
