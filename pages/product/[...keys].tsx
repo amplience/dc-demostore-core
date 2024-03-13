@@ -28,23 +28,25 @@ function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undef
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { keys } = context.params || {};
-  const { vse } = context.query || {};
-
-  let key = _.first(keys)
+  const { vse, deliveryKey } = context.query || {};
+  const overrideKey = typeof deliveryKey === 'string' ? deliveryKey : undefined;
+  const productOverrideId = overrideKey ? overrideKey.split('/')[1] : undefined;
+  const productId = productOverrideId ? productOverrideId : _.first(keys);
+  const productOverrideKey = overrideKey ? overrideKey : `product-override/${productId}`;
 
   const { pdpLayout } = context.query;
   const cmsContext = await createCmsContext(context.req);
-  const userContext = await createUserContext(context)
+  const userContext = await createUserContext(context);
 
   const data = await fetchStandardPageData({
     content: {
       defaultPDPLayout: pdpLayout ? { id: pdpLayout as string } : { key: 'layout/default-pdp' },
-      productContent: { key: "product/" + key },
-      productOverride: { key: "product-override/" + key }
+      productContent: { key: `product/${productId}` },
+      productOverride: { key: productOverrideKey }
     },
-  }, context)
+  }, context);
 
-  const product = clearUndefined(await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext }))
+  const product = clearUndefined(await commerceApi.getProduct({ id: productId, ...cmsContext, ...userContext }));
 
   if (!product) {
     return create404Error(data, context);
@@ -141,7 +143,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       ...data,
       vse: vse || "",
-      key,
+      key: productId,
       product,
       experienceConfig,
       forceDefaultLayout: pdpLayout != null
