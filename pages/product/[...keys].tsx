@@ -32,7 +32,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const overrideKey = typeof deliveryKey === 'string' ? deliveryKey : undefined;
   const productOverrideId = overrideKey ? overrideKey.split('/')[1] : undefined;
   const productId = productOverrideId ? productOverrideId : _.first(keys);
-  const productOverrideKey = overrideKey ? overrideKey : `product-override/${productId}`;
 
   const { pdpLayout } = context.query;
   const cmsContext = await createCmsContext(context.req);
@@ -42,7 +41,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     content: {
       defaultPDPLayout: pdpLayout ? { id: pdpLayout as string } : { key: 'layout/default-pdp' },
       productContent: { key: `product/${productId}` },
-      productOverride: { key: productOverrideKey }
+      productOverride: { key: `product-override/${productId}` }
     },
   }, context);
 
