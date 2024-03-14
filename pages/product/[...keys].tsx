@@ -46,15 +46,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }, context);
 
   const product = clearUndefined(await commerceApi.getProduct({ id: productId, ...cmsContext, ...userContext }));
-
+  
   if (!product) {
     return create404Error(data, context);
   }
 
-  if (data.content.productContent?.active) {
+  if (!data.content.productContent?.active) {
     // The cms content shouldn't be respected.
     data.content.productContent = null;
-}
+  }
 
   const experienceConfigRequests: GetByFilterRequest[] = [];
 
@@ -162,7 +162,7 @@ export default function ProductPage({
   const [productOverride] = useContent(content.productOverride, vse);
 
   const compositeProduct = { ...product, ...productContent, ...productOverride };
-
+  
   return (
     <WithProduct product={compositeProduct}>
       <div style={{ flexGrow: 1 }}>
