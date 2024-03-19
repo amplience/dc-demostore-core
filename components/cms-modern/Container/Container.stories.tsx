@@ -5,8 +5,8 @@ import Container from '@components/cms-modern/Container';
 import ContentBlockStory from '@utils/storybook/ContentBlockStory';
 
 export default {
-  title: 'Organisms/Container',
-  component: Container,
+    title: 'Organisms/Container',
+    component: Container,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <ContentBlockStory request={{key: "docs/story/container/homepage"}} />;
+export const ExampleContent: Story = (args) => <ContentBlockStory request={{ key: 'docs/story/container/homepage' }} />;

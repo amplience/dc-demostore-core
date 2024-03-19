@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Theme, Paper } from '@mui/material';
-import { withStyles, WithStyles } from '@mui/styles'
 import clsx from 'clsx';
 import { alpha } from '@mui/material/styles';
 
 const styles = (theme: Theme) => ({
-    root: {
-
-    },
+    root: {},
     background: {
         position: 'fixed' as 'fixed',
         left: 0,
@@ -20,8 +17,8 @@ const styles = (theme: Theme) => ({
 
         '&$open': {
             background: alpha(theme.palette.common.black, 0.3),
-            display: 'unset'
-        }
+            display: 'unset',
+        },
     },
     panel: {
         position: 'fixed' as 'fixed',
@@ -34,26 +31,26 @@ const styles = (theme: Theme) => ({
     left: {
         left: -400,
         '&$open': {
-            left: 0
-        }
+            left: 0,
+        },
     },
     right: {
         right: -400,
         '&$open': {
-            right: 0
-        }
+            right: 0,
+        },
     },
     paper: {
         width: '100%',
         height: '100%',
-        overflowY: 'auto' as 'auto'
+        overflowY: 'auto' as 'auto',
     },
 
-    open: {
-    }
+    open: {},
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends PropsWithChildren {
+    classes?: any;
     className?: string;
     style?: React.CSSProperties;
     open: boolean;
@@ -61,15 +58,8 @@ interface Props extends WithStyles<typeof styles> {
     onClose?: () => void;
 }
 
-const Sidebar: React.SFC<Props> = (props) => {
-    const {
-        classes,
-        variant = 'left',
-        open,
-        children,
-        onClose,
-        ...other
-    } = props;
+const Sidebar = (props: Props) => {
+    const { classes, variant = 'left', open, children, onClose, ...other } = props;
 
     const handleClose = () => {
         if (onClose) {
@@ -78,17 +68,21 @@ const Sidebar: React.SFC<Props> = (props) => {
     };
 
     return (
-        <div className={classes.root} {...other}>
-            <div onClick={handleClose} className={clsx(classes.background, {
-                [classes.open]: open
-            })}>
-            </div>
-            <aside className={clsx(classes.panel, {
-                [classes.open]: open,
-                [classes.right]: variant === 'right',
-                [classes.left]: variant === 'left'
-            })}>
-                <Paper className={classes.paper} style={{width: '100%', height: '100%'}} elevation={3}>
+        <div className={classes?.root} {...other}>
+            <div
+                onClick={handleClose}
+                className={clsx(classes?.background, {
+                    [classes?.open]: open,
+                })}
+            ></div>
+            <aside
+                className={clsx(classes?.panel, {
+                    [classes?.open]: open,
+                    [classes?.right]: variant === 'right',
+                    [classes?.left]: variant === 'left',
+                })}
+            >
+                <Paper className={classes?.paper} style={{ width: '100%', height: '100%' }} elevation={3}>
                     {children}
                 </Paper>
             </aside>
@@ -96,4 +90,4 @@ const Sidebar: React.SFC<Props> = (props) => {
     );
 };
 
-export default withStyles(styles)(Sidebar);
+export default Sidebar;

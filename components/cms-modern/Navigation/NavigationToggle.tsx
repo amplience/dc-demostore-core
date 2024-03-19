@@ -1,10 +1,13 @@
 import { useUI } from '@components/ui';
 import { Theme } from '@mui/material';
 import clsx from 'clsx';
+import Link from 'next/link';
 import React from 'react';
-import { withStyles, WithStyles } from '@mui/styles'
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {
+    classes?: any;
+}
+
 const styles = (theme: Theme) => ({
     root: {
         display: 'none',
@@ -24,26 +27,16 @@ const styles = (theme: Theme) => ({
         width: '17px',
     },
 });
-const NavigationToggle: React.FC<Props> = ({ classes }) => {
+const NavigationToggle = ({ classes }: Props) => {
     const { navigationToggle, toggleNavigation } = useUI();
-    const handleToggleNavigation = (
-        event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-    ) => {
+    const handleToggleNavigation = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         event.preventDefault();
         toggleNavigation(navigationToggle);
     };
     return (
-        <a
-            href="#"
-            className={clsx(classes.root, classes.icons)}
-            onClick={handleToggleNavigation}
-        >
-            <img
-                className={classes.iconImage}
-                src="/images/ic-anyafinn-menu.svg"
-                alt="menu"
-            />
-        </a>
+        <Link href="#" className={clsx(classes?.root, classes?.icons)} onClick={handleToggleNavigation}>
+            <img className={classes?.iconImage} src="/images/ic-anyafinn-menu.svg" alt="menu" />
+        </Link>
     );
 };
-export default withStyles(styles)(NavigationToggle);
+export default NavigationToggle;

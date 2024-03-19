@@ -1,12 +1,8 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react';
 import { useUI } from '../UIContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 
-interface Props {
-}
-
-const LocaleModal: FC<Props> = ({}) => {
-
+const LocaleModal = () => {
     const { closeModal } = useUI();
 
     const { locale: initialLocale, currency: initialCurrency } = useCmsContext();
@@ -15,7 +11,8 @@ const LocaleModal: FC<Props> = ({}) => {
     const [currency, setCurrency] = useState(initialCurrency);
 
     const handleConfirm = () => {
-        window.location.href = '/locale/' + locale + '/currency/' + currency + '?redirect=' + encodeURIComponent(window.location.href);
+        window.location.href =
+            '/locale/' + locale + '/currency/' + currency + '?redirect=' + encodeURIComponent(window.location.href);
     };
 
     const handleHide = () => {
@@ -24,16 +21,16 @@ const LocaleModal: FC<Props> = ({}) => {
 
     const handleChange = (e: any) => {
         setLocale(e.target.value);
-    }
+    };
 
     const handleChangeCurrency = (e: any) => {
         setCurrency(e.target.value);
-    }
+    };
 
     return (
         <>
             <h2>Amplience Retail Storefront</h2>
-        
+
             <div className="af-form">
                 <div className="af-form-field">
                     <label role="text">Language</label>
@@ -64,12 +61,16 @@ const LocaleModal: FC<Props> = ({}) => {
 
             <div className="af-form">
                 <div className="af-form-field">
-                    <button className="af-button af-button-dark" onClick={handleConfirm}>Confirm</button>
-                    <button className="af-button af-button-light" onClick={handleHide}>Cancel</button>
+                    <button className="af-button af-button-dark" onClick={handleConfirm}>
+                        Confirm
+                    </button>
+                    <button className="af-button af-button-light" onClick={handleHide}>
+                        Cancel
+                    </button>
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default LocaleModal;

@@ -1,11 +1,10 @@
 import React, { PropsWithChildren } from 'react';
 import { Theme, Typography } from '@mui/material';
 import clsx from 'clsx';
-import { withStyles, WithStyles } from '@mui/styles'
 
 const styles = (theme: Theme) => ({
     root: {
-        padding: '40px 50px'
+        padding: '40px 50px',
     },
     title: {
         //color: '#bebebe',
@@ -17,43 +16,33 @@ const styles = (theme: Theme) => ({
         borderTop: '1px solid #bebebe',
         borderBottom: '1px solid #bebebe',
         '&:empty': {
-            display: 'none'
-        }
-    }
+            display: 'none',
+        },
+    },
 });
 
-interface Props extends PropsWithChildren<WithStyles<typeof styles>> {
+interface Props extends PropsWithChildren {
+    classes?: any;
     className?: string;
     style?: React.CSSProperties;
     title: string;
 }
 
-const Section: React.SFC<Props> = (props) => {
-    const {
-        classes,
-        className,
-        title,
-        children,
-        ...other
-    } = props;
+const Section = (props: Props) => {
+    const { classes, className, title, children, ...other } = props;
 
     return (
-        <div className={clsx(classes.root, className)}>
-            {
-                title && <div>
-                    <Typography className={classes.title} component={"div"} variant="h2">
+        <div className={clsx(classes?.root, className)}>
+            {title && (
+                <div>
+                    <Typography className={classes?.title} component={'div'} variant="h2">
                         {title}
                     </Typography>
                 </div>
-            }
-            {
-                children && <div className={classes.content}>
-                    {children}
-                </div>
-            }
-            
+            )}
+            {children && <div className={classes?.content}>{children}</div>}
         </div>
     );
 };
 
-export default withStyles(styles)(Section);
+export default Section;

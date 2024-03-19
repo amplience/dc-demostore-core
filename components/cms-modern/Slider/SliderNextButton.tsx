@@ -1,14 +1,12 @@
 import React from 'react';
 import { Theme } from '@mui/material';
-import { withStyles, WithStyles } from '@mui/styles'
-
 import { ButtonNext } from 'pure-react-carousel';
 import { NavigateNext } from '@components/icons';
 import clsx from 'clsx';
 
 const styles = (theme: Theme) => ({
     root: {
-        display: 'contents'
+        display: 'contents',
     },
     icon: {
         cursor: 'pointer',
@@ -19,27 +17,24 @@ const styles = (theme: Theme) => ({
         position: 'absolute' as 'absolute',
         top: '50%',
         right: 0,
-        transform: 'translateY(-50%)'
-    }
+        transform: 'translateY(-50%)',
+    },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
+    classes?: any;
     className?: string;
     style?: React.CSSProperties;
 }
 
-const SliderNextButton: React.SFC<Props> = (props) => {
-    const {
-        classes,
-        className,
-        ...other
-    } = props;
+const SliderNextButton = (props: Props) => {
+    const { classes, className, ...other } = props;
 
     return (
-        <ButtonNext className={clsx(classes.root, className)} {...other}>
-            <NavigateNext className={classes.icon} />
+        <ButtonNext className={clsx(classes?.root, className)} {...other}>
+            <NavigateNext className={classes?.icon} />
         </ButtonNext>
     );
 };
 
-export default withStyles(styles)(SliderNextButton);
+export default SliderNextButton;

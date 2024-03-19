@@ -1,39 +1,27 @@
-import { FC, useRef } from 'react'
+import { PropsWithChildren, useRef } from 'react';
 import s from './Modal.module.css';
 import clsx from 'clsx';
 
-interface Props {
+interface Props extends PropsWithChildren {
     className?: string;
-    open?: boolean
-    onClose: () => void
+    open?: boolean;
+    onClose: () => void;
 }
 
-const Modal: FC<Props> = ({
-    open = false,
-    onClose,
-    children,
-    ...other
-}) => {
-
-    let ref = useRef() as React.MutableRefObject<HTMLInputElement>
+const Modal = ({ open = false, onClose, children, ...other }: Props) => {
+    let ref = useRef() as React.MutableRefObject<HTMLInputElement>;
 
     return (
-        <div className={clsx(
-            'af-modal-content',
-            {
-                ['af-modal-content-active']: open
-            }
-        )}>
-            <div
-                className={s.modal}
-                ref={ref}
-                >
-                <div className="af-modal">
-                    {children}
-                </div>
+        <div
+            className={clsx('af-modal-content', {
+                ['af-modal-content-active']: open,
+            })}
+        >
+            <div className={s.modal} ref={ref}>
+                <div className="af-modal">{children}</div>
             </div>
         </div>
     );
-}
+};
 
 export default Modal;

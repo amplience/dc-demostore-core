@@ -4,8 +4,8 @@ import clsx from 'clsx';
 import Image from '@components/cms-modern/Image';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { useUserContext } from '@lib/user/UserContext';
-import { nanoid } from 'nanoid'
-import { withStyles, WithStyles } from '@mui/styles'
+import { nanoid } from 'nanoid';
+import Link from 'next/link';
 
 const styles = (theme: Theme) => ({
     button: {
@@ -14,11 +14,12 @@ const styles = (theme: Theme) => ({
         fontWeight: '400 !important',
         borderRadius: '3px !important',
         padding: '5px 30px !important',
-        marginTop: 30
-    }
+        marginTop: 30,
+    },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
+    classes?: any;
     className?: string;
     style?: React.CSSProperties;
     data: {
@@ -27,77 +28,78 @@ interface Props extends WithStyles<typeof styles> {
             blogdate: string;
             description: string;
             image: {
-                image: any
-                imageAltText: string
-            },
-            category: string[]
-        }
+                image: any;
+                imageAltText: string;
+            };
+            category: string[];
+        };
     } & CmsContent;
 }
 
-const DynamicBlogListCard: React.SFC<Props> = (props) => {
+const DynamicBlogListCard = (props: Props) => {
     const { language } = useUserContext();
 
-    const {
-        classes,
-        data,
-        className,
-        ...other
-    } = props;
+    const { classes, data, className, ...other } = props;
 
-    const {
-        _meta,
-        snippet,
-    } = data;
+    const { _meta, snippet } = data;
 
-    const {
-        title,
-        blogdate,
-        description,
-        image,
-        category = []
-    } = snippet;
+    const { title, blogdate, description, image, category = [] } = snippet;
 
     return (
-        <div className={clsx(
-            "amp-dc-blog-card",
-            "amp-dc-snippet",
-            "js_dc_snippet",
-            className
-        )}>
-            <a href={`/blog/${_meta?.deliveryKey}`}>
-                {
-                    image ? (
-                        <div className="amp-dc-image">
-                            <Image alt={image.imageAltText ? image.imageAltText : title} {...image as any}  query="w=500" />
-                        </div>
-                    ) : null
-                }
+        <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet', className)}>
+            <Link href={`/blog/${_meta?.deliveryKey}`}>
+                {image ? (
+                    <div className="amp-dc-image">
+                        <Image
+                            alt={image.imageAltText ? image.imageAltText : title}
+                            {...(image as any)}
+                            query="w=500"
+                        />
+                    </div>
+                ) : null}
 
                 <div className="amp-dc-category-container">
-                    {
-                        category.map((item: any) => {
-                            return <div key={ nanoid() }>
+                    {category.map((item: any) => {
+                        return (
+                            <div key={nanoid()}>
                                 <div className="amp-dc-category">{item}</div>
-                                <span className="line"></span> 
-                            </div>;
-                        })
-                    }
+                                <span className="line"></span>
+                            </div>
+                        );
+                    })}
                 </div>
                 <div className="amp-dc-blog-card-text-wrap">
-                    { title && <Box component="div" whiteSpace="normal"><Typography variant="h2" component="h2">{title}</Typography></Box> }
-                    { blogdate && <Typography variant="body2" component="p" style={{paddingTop: 15}}>{blogdate}</Typography>}
-                    { description && <Box component="div" whiteSpace="normal" style={{paddingTop: 15}}><Typography variant="body1" component="p">{description}</Typography></Box>}
-                    <Button color="primary" variant="contained" className={classes.button}
-                        style={{textAlign: 'center',
-                                textTransform: 'uppercase'
-                        }}>
-                        { language === 'de' ? 'WEITERLESEN' : 'READ MORE' }
+                    {title && (
+                        <Box component="div" whiteSpace="normal">
+                            <Typography variant="h2" component="h2">
+                                {title}
+                            </Typography>
+                        </Box>
+                    )}
+                    {blogdate && (
+                        <Typography variant="body2" component="p" style={{ paddingTop: 15 }}>
+                            {blogdate}
+                        </Typography>
+                    )}
+                    {description && (
+                        <Box component="div" whiteSpace="normal" style={{ paddingTop: 15 }}>
+                            <Typography variant="body1" component="p">
+                                {description}
+                            </Typography>
+                        </Box>
+                    )}
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        className={classes?.button}
+                        style={{ textAlign: 'center', textTransform: 'uppercase' }}
+                    >
+                        {language === 'de' ? 'WEITERLESEN' : 'READ MORE'}
                     </Button>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 };
 
-export default withStyles(styles)(DynamicBlogListCard);
+export default DynamicBlogListCard;

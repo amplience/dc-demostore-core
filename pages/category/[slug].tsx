@@ -10,26 +10,25 @@ import { Typography } from '@mui/material';
 import create404Error from '@lib/page/errors/create404Error';
 import withConfig from '@components/core/Config/withConfig';
 import { createCmsContext } from '@lib/cms/CmsContext';
-import fetchPageData from "@lib/page/fetchPageData";
-import _ from 'lodash'
-import { withStyles, WithStyles } from '@mui/styles';
+import fetchPageData from '@lib/page/fetchPageData';
+import _ from 'lodash';
 
 import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Category, Product } from '@amplience/dc-integration-middleware';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import { useContent } from '@components/core/WithVisualization';
-import styles from '../../components/ui/category-styles'
-import DEFAULT_FACETS from '@lib/util/default-search-facets'
+import styles from '../../components/ui/category-styles';
+import DEFAULT_FACETS from '@lib/util/default-search-facets';
 import { clearUndefined, mapToID } from '@lib/util';
 
 type CategoryPageConfig = {
     facets?: {
-        type: string,
-        field: string,
-        title: string
-    }[]
-}
+        type: string;
+        field: string;
+        title: string;
+    }[];
+};
 
 function findCategory(categories: Category[], predicate: (category: Category) => boolean): Category | null {
     for (const category of categories) {
@@ -51,11 +50,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let { slug } = context.params || {};
     const { vse } = context.query || {};
 
-    const data = await fetchStandardPageData({
-        content: {
-            page: { key: `category/${slug}` }
-        }
-    }, context);
+    const data = await fetchStandardPageData(
+        {
+            content: {
+                page: { key: `category/${slug}` },
+            },
+        },
+        context
+    );
 
     if (!data.page || !slug || slug === 'favicon.ico') {
         return create404Error(data, context);
@@ -66,18 +68,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         data.content.page = null;
     }
 
-    slug = Array.isArray(slug) ? slug.join('/') : slug
+    slug = Array.isArray(slug) ? slug.join('/') : slug;
 
-    const props = await fetchPageData({
-        content: {
-            slots: (data.content.page?.slots || []).map(mapToID)
-        }
-    }, context)
-    
+    const props = await fetchPageData(
+        {
+            content: {
+                slots: (data.content.page?.slots || []).map(mapToID),
+            },
+        },
+        context
+    );
+
     // use the content to get by ID if available in the content to control. Otherwise use the slug
-    let category
+    let category;
     if (data.content.page?.name) {
-        const cmsslug = data.content.page?.name
+        const cmsslug = data.content.page?.name;
 
         category = findCategory(props.ecommerce.categories, (cat) => cat.id === cmsslug);
     } else {
@@ -90,73 +95,84 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     category = _.cloneDeep(category);
 
-    const products = await commerceApi.getProducts({ category, ...await createCmsContext(context.req), ...await createUserContext(context), pageSize: 30, pageCount: 1 })
+    const products = await commerceApi.getProducts({
+        category,
+        ...(await createCmsContext(context.req)),
+        ...(await createUserContext(context)),
+        pageSize: 30,
+        pageCount: 1,
+    });
 
     category.products = products;
 
     return {
         props: {
             ...data,
-            vse: vse || "",
+            vse: vse || '',
             category: clearUndefined(category),
-            slots: props.content.slots
-        }
-    }
+            slots: props.content.slots,
+        },
+    };
 }
 
-function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSideProps> & WithStyles<typeof styles> & CategoryPageConfig) {
-    const {
-        vse,
-        classes,
-        content,
-        category,
-        slots
-    } = props;
+function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSideProps> & CategoryPageConfig) {
+    const { vse, classes, content, category, slots } = props;
 
     const [config] = useContent(content.configComponents, vse);
 
-    let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS
-    let components: CmsContent[] = props.content?.page?.components || []
-    let pageSlots: CmsContent[] = slots
-    let products: Product[] = category?.products
+    let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS;
+    let components: CmsContent[] = props.content?.page?.components || [];
+    let pageSlots: CmsContent[] = slots;
+    let products: Product[] = category?.products;
 
-    return (<>
-        <PageContent>
-            { /* NOVADEV-15: Breadcrumb category updates before large category on PLP */}
-            {<div>
-                <Breadcrumb className={classes.breadcrumb} />
-                <div className={classes.header}>
-                    <Typography variant="h2">{category && category.name}</Typography>
-                </div>
-            </div>}
-
-            {/* Additional Components */}
-            <div className={classes.topComponents}>
-                {_.compact(components).map(content => <ContentBlock key={nanoid()} content={content} />)}
-
-                {/* Slots and Content */}
-                <div className="af-main-content">
-                    {_.compact(pageSlots).map(slot => <ContentBlock key={nanoid()} content={slot} type="SLOT" />)}
-                </div>
-            </div>
-            {!props.content?.page?.hideProductList &&
-                <div className={classes.container}>
-                    <div className={classes.facets}>
-                        {facets.map(facet => <ProductFacet key={nanoid()} title={facet.title} />)}
+    return (
+        <>
+            <PageContent>
+                {/* NOVADEV-15: Breadcrumb category updates before large category on PLP */}
+                {
+                    <div>
+                        <Breadcrumb className={classes?.breadcrumb} />
+                        <div className={classes?.header}>
+                            <Typography variant="h2">{category && category.name}</Typography>
+                        </div>
                     </div>
-                    <div className={classes.results}>
-                        <ProductGrid>
-                            {products?.map(product => <ProductCard key={nanoid()} data={product} />)}
-                        </ProductGrid>
+                }
+
+                {/* Additional Components */}
+                <div className={classes?.topComponents}>
+                    {_.compact(components).map((content) => (
+                        <ContentBlock key={nanoid()} content={content} />
+                    ))}
+
+                    {/* Slots and Content */}
+                    <div className="af-main-content">
+                        {_.compact(pageSlots).map((slot) => (
+                            <ContentBlock key={nanoid()} content={slot} type="SLOT" />
+                        ))}
                     </div>
                 </div>
-            }
-        </PageContent>
-    </>)
-};
+                {!props.content?.page?.hideProductList && (
+                    <div className={classes?.container}>
+                        <div className={classes?.facets}>
+                            {facets.map((facet) => (
+                                <ProductFacet key={nanoid()} title={facet.title} />
+                            ))}
+                        </div>
+                        <div className={classes?.results}>
+                            <ProductGrid>
+                                {products?.map((product) => (
+                                    <ProductCard key={nanoid()} data={product} />
+                                ))}
+                            </ProductGrid>
+                        </div>
+                    </div>
+                )}
+            </PageContent>
+        </>
+    );
+}
 
-
-const component = withConfig('categoryPage')(withStyles(styles)(CategoryPage));
+const component = withConfig('categoryPage')(CategoryPage);
 (component as any).Layout = Layout;
 
 export default component;

@@ -3,7 +3,7 @@ import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
 
 const SkeletonMapping: any = {
     'https://demostore.amplience.com/content/simple-banner': DefaultAdaptiveImageSkeleton,
-    'https://demostore.amplience.com/content/simple-localized-banner': DefaultAdaptiveImageSkeleton
+    'https://demostore.amplience.com/content/simple-localized-banner': DefaultAdaptiveImageSkeleton,
 };
 
 interface Props {
@@ -12,17 +12,12 @@ interface Props {
     schema: string;
 }
 
-const ContentBlockSkeleton: React.SFC<Props> = (props) => {
-    const {
-        schema,
-        ...other
-    } = props;
+const ContentBlockSkeleton = (props: Props) => {
+    const { schema, ...other } = props;
 
     const Component = SkeletonMapping[schema];
 
-    return (
-        Component ? <Component {...other} /> : null
-    );
+    return Component ? <Component {...other} /> : null;
 };
 
 export default ContentBlockSkeleton;

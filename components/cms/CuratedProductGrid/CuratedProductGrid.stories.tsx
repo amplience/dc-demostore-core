@@ -5,10 +5,10 @@ import CuratedProductGrid from '@components/cms/CuratedProductGrid';
 import ContentBlockStory from '@utils/storybook/ContentBlockStory';
 
 export default {
-  title: 'Organisms/CuratedProductGrid',
-  component: CuratedProductGrid,
+    title: 'Organisms/CuratedProductGrid',
+    component: CuratedProductGrid,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <ContentBlockStory request={{key: "docs/story/curatedproductgrid/grid1"}} />;
-
-
+export const ExampleContent: Story = (args) => (
+    <ContentBlockStory request={{ key: 'docs/story/curatedproductgrid/grid1' }} />
+);

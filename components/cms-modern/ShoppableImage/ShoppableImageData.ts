@@ -1,31 +1,31 @@
 export interface ShoppableImagePoi {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
 }
 
 export interface ShoppableImagePoint {
-  x: number;
-  y: number;
+    x: number;
+    y: number;
 }
 
 export interface ShoppableImageHotspot {
-  id: string;
-  selector: string;
-  points: ShoppableImagePoint;
-  target: string;
+    id: string;
+    selector: string;
+    points: ShoppableImagePoint;
+    target: string;
 }
 
 export interface ShoppableImagePolygon {
-  id: string;
-  selector: string;
-  points: ShoppableImagePoint[];
-  target: string;
+    id: string;
+    selector: string;
+    points: ShoppableImagePoint[];
+    target: string;
 }
 
 export interface ShoppableImageData {
-  poi?: ShoppableImagePoi;
-  hotspots?: ShoppableImageHotspot[];
-  polygons?: ShoppableImagePolygon[];
+    poi?: ShoppableImagePoi;
+    hotspots?: ShoppableImageHotspot[];
+    polygons?: ShoppableImagePolygon[];
 }

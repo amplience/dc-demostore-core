@@ -1,12 +1,7 @@
-import React, { FC, useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import { Footer } from '@components/core';
-import {
-    PreviewToolbar,
-    AccountModal,
-    LocaleModal,
-    useDebug,
-} from '@components/ui';
+import { PreviewToolbar, AccountModal, LocaleModal, useDebug } from '@components/ui';
 import { useUI } from '@components/ui/UIContext';
 import Modal from '@components/ui/Modal';
 import trackPageView from '@lib/analytics/trackPageView';
@@ -17,7 +12,7 @@ import { WithNavigationContext } from '../Masthead';
 import { WithCMSTheme, WithThemesContext } from '../WithCMSTheme';
 import { WithECommerceContext } from '../Masthead/ECommerceContext';
 
-interface Props {
+interface Props extends PropsWithChildren {
     pageProps: {
         content: any;
         segments: any;
@@ -26,7 +21,7 @@ interface Props {
     };
 }
 
-const Layout: FC<Props> = ({ children, pageProps }) => {
+const Layout = ({ children, pageProps }: Props) => {
     const { currentModal, closeModal } = useUI();
 
     const { debugging, setDebugging } = useDebug();
@@ -42,7 +37,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
             return;
         }
 
-        const { amp, loryHelpers, shoppableVideo } = window as any || {};
+        const { amp, loryHelpers, shoppableVideo } = (window as any) || {};
         if (!amp || !loryHelpers) {
             return;
         }
@@ -57,13 +52,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
 
     return (
         <WithThemesContext themes={pageProps.hierarchies.themes}>
-            <WithCMSTheme
-                themes={pageProps.hierarchies.themes}
-            >
-                <WithNavigationContext
-                    pages={pageProps.hierarchies.pages}
-                    categories={pageProps.ecommerce.categories}
-                >
+            <WithCMSTheme themes={pageProps.hierarchies.themes}>
+                <WithNavigationContext pages={pageProps.hierarchies.pages} categories={pageProps.ecommerce.categories}>
                     <WithECommerceContext
                         segments={pageProps.ecommerce.segments}
                         categories={pageProps.ecommerce.categories}
@@ -81,11 +71,7 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
                                 {currentModal === 'LOCALE' && <LocaleModal />}
                             </Modal>
 
-                            <Sidebar
-                                variant={'left'}
-                                open={debugging}
-                                onClose={handleCloseDebug}
-                            >
+                            <Sidebar variant={'left'} open={debugging} onClose={handleCloseDebug}>
                                 <AdminPanel />
                             </Sidebar>
                         </div>

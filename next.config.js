@@ -27,7 +27,20 @@ module.exports = (phase, { defaultConfig }) => {
             includePaths: [path.join(__dirname, 'styles')],
         },
         images: {
-            domains: ['qrickit.com', 'elyseo.eu'],
+            remotePatterns: [
+                {
+                    protocol: "https",
+                    hostname: "'qrickit.com",
+                },
+                {
+                    protocol: "https",
+                    hostname: "elyseo.eu",
+                },
+                {
+                    protocol: "http",
+                    hostname: "localhost",
+                },
+            ]
         },
         rewrites() {
             return [

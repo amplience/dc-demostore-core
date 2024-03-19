@@ -9,10 +9,9 @@ export type TrackingEvent = {
         cmsSlotId?: string;
         cmsEditionId?: string;
         cmsContentId?: string;
-    }
+    };
 };
 
 export default function trackEvent(event: TrackingEvent) {
-
     // Build arguments and track events
 }

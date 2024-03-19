@@ -2,21 +2,11 @@ import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 const Cookies = require('cookies');
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const {
-        res,
-        req,
-        query,
-        params
-    } = context;
-    
-    const {
-        locale,
-        currency
-    } = params || {};
+    const { res, req, query, params } = context;
 
-    const {
-        redirect = '/'
-    } = query || {};
+    const { locale, currency } = params || {};
+
+    const { redirect = '/' } = query || {};
 
     if (res) {
         const cookies = new Cookies(req, res);
@@ -25,19 +15,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
         res.setHeader('Cache-Control', 'no-cache ');
         res.writeHead(301, {
-            Location: redirect
+            Location: redirect,
         });
         res.end();
     }
 
     return {
-        props: {}
-    }
+        props: {},
+    };
 }
 
-export default function Locale({
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    return (
-        <div></div>
-    )
+export default function Locale({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    return <div></div>;
 }

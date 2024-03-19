@@ -8,17 +8,15 @@ interface Props {
 
 export type ProductAttributeVariant = 'text';
 
-const ProductRichText: React.FC<Props> = (props) => {
-    const {
-        variant = 'text'
-    } = props;
+const ProductRichText = (props: Props) => {
+    const { variant = 'text' } = props;
 
     const { product } = useProduct() || {};
     if (!product || !product[variant]) {
         return null;
     }
 
-    return <CustomRichText text={product[variant] as any} />
+    return <CustomRichText text={product[variant] as any} />;
 };
 
 export default ProductRichText;

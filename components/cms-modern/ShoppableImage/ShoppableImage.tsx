@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { pointsToSVGPath, PolygonForwardRef, SVGPath } from './polygon';
 import { ShoppableImageHotspot } from './ShoppableImageData';
@@ -13,18 +13,18 @@ type Props = {
     hotspotHide: boolean;
     polygonHide: boolean;
     focalPointHide: boolean;
-    di:string;
+    di: string;
     tooltips: any[];
 } & CmsContent;
 
-const ShoppableImage: FC<Props> = ({
+const ShoppableImage = ({
     shoppableImage,
     hotspotHide = false,
     polygonHide = false,
     focalPointHide = true,
-    di = "",
+    di = '',
     tooltips = [],
-}) => {
+}: Props) => {
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });

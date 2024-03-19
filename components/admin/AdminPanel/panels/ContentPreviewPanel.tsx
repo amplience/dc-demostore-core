@@ -1,45 +1,44 @@
-import React, { FC, useState } from 'react';
-import { Theme, Button, TextField, FormControl, InputLabel, Select, MenuItem, CircularProgress } from '@mui/material';
+import React, { useState } from 'react';
+import {
+    Theme,
+    Button,
+    TextField,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    CircularProgress,
+    styled,
+} from '@mui/material';
 import { useRouter } from 'next/router';
 import { StagingEnvironmentFactory } from 'dc-delivery-sdk-js';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useAppContext } from '@lib/config/AppContext';
-import { withStyles, WithStyles } from '@mui/styles'
 
 const styles = (theme: Theme) => ({
     root: {
-        width: '100%'
+        width: '100%',
     },
     formControl: {
-        marginBottom: 10
+        marginBottom: 10,
     },
-    input: {
-    },
-    progress: {
-    }
+    input: {},
+    progress: {},
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
+    classes?: any;
     className?: string;
-    style?: React.CSSProperties
+    style?: React.CSSProperties;
 }
 
-const ContentPreviewPanel: FC<Props> = (props) => {
-    const {
-        classes,
-        ...other
-    } = props;
+const ContentPreviewPanel = (props: Props) => {
+    const { classes, ...other } = props;
 
-    const { cms } = useAppContext()
-    const {
-        stagingApi: cmsContextStagingApi,
-        timestamp
-    } = useCmsContext() || {};
+    const { cms } = useAppContext();
+    const { stagingApi: cmsContextStagingApi, timestamp } = useCmsContext() || {};
 
-    const {
-        reload,
-        push
-    } = useRouter();
+    const { reload, push } = useRouter();
 
     const [mode, setMode] = useState(() => {
         if (timestamp) {
@@ -52,10 +51,10 @@ const ContentPreviewPanel: FC<Props> = (props) => {
     });
     const [date, setDate] = useState(() => {
         let dateObject = new Date();
-        if(timestamp && timestamp > 0){
+        if (timestamp && timestamp > 0) {
             dateObject = new Date(Number(timestamp));
         }
-        
+
         let value = dateObject.toISOString();
         value = value.slice(0, value.lastIndexOf('.'));
         return value;
@@ -64,11 +63,11 @@ const ContentPreviewPanel: FC<Props> = (props) => {
 
     const handleChangeMode = (e: any) => {
         setMode(e.target.value);
-    }
+    };
 
     const handleChangeDate = (e: any) => {
         setDate(e.target.value);
-    }
+    };
 
     const handleApply = async () => {
         setApplying(true);
@@ -81,13 +80,11 @@ const ContentPreviewPanel: FC<Props> = (props) => {
                 await fetch(`/cms/preview/timestamp?vse=${cms.stagingApi}`);
                 break;
             case 'TIME':
-                const factory = new StagingEnvironmentFactory(
-                    cms.stagingApi as string
-                );
+                const factory = new StagingEnvironmentFactory(cms.stagingApi as string);
                 const timestamp = new Date(date).getTime();
                 if (timestamp && cms.stagingApi) {
                     const stagingEnvironmentAtTimestamp = await factory.generateDomain({
-                        timestamp: timestamp
+                        timestamp: timestamp,
                     });
                     await fetch(`/cms/preview/timestamp?vse=${stagingEnvironmentAtTimestamp}&timestamp=${timestamp}`);
                 }
@@ -97,45 +94,51 @@ const ContentPreviewPanel: FC<Props> = (props) => {
         await push(window.location.href);
 
         setApplying(false);
-    }
+    };
 
-    return (<>
-        <div className={classes.root}>
-            <form noValidate>
-                <FormControl className={classes.formControl}>
-                    <InputLabel>Mode</InputLabel>
-                    <Select
-                        value={mode}
-                        onChange={handleChangeMode}
-                        className={classes.input}
-                    >
-                        <MenuItem value={'PRODUCTION'}>Production</MenuItem>
-                        <MenuItem value={'STAGING'}>Staging</MenuItem>
-                        <MenuItem value={'TIME'}>Time</MenuItem>
-                    </Select>
-                </FormControl>
-                {
-                    mode === 'TIME' ? (
-                        <FormControl className={classes.formControl}>
+    return (
+        <>
+            <div className={classes?.root}>
+                <form noValidate>
+                    <FormControl className={classes?.formControl}>
+                        <InputLabel>Mode</InputLabel>
+                        <Select value={mode} onChange={handleChangeMode} className={classes?.input}>
+                            <MenuItem value={'PRODUCTION'}>Production</MenuItem>
+                            <MenuItem value={'STAGING'}>Staging</MenuItem>
+                            <MenuItem value={'TIME'}>Time</MenuItem>
+                        </Select>
+                    </FormControl>
+                    {mode === 'TIME' ? (
+                        <FormControl className={classes?.formControl}>
                             <TextField
                                 id="datetime-local"
                                 label="Start Time"
                                 type="datetime-local"
-                                className={classes.input}
+                                className={classes?.input}
                                 value={date}
                                 onChange={handleChangeDate}
                             />
                         </FormControl>
-                    ) : null
-                }
-                <div>
-                    <Button startIcon={applying && <CircularProgress className={classes.progress} size="1em" color="primary" />} variant="contained" color="primary" onClick={handleApply} disabled={applying}>
-                        Preview
-                    </Button>
-                </div>
-            </form>
-        </div>
-    </>);
+                    ) : null}
+                    <div>
+                        <Button
+                            startIcon={
+                                applying && (
+                                    <CircularProgress className={classes?.progress} size="1em" color="primary" />
+                                )
+                            }
+                            variant="contained"
+                            color="primary"
+                            onClick={handleApply}
+                            disabled={applying}
+                        >
+                            Preview
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </>
+    );
 };
 
-export default withStyles(styles)(ContentPreviewPanel);
+export default ContentPreviewPanel;

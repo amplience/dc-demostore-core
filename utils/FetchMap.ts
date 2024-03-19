@@ -1,30 +1,29 @@
 export type FetchMapInput<T> = {
     [key: string]: T | T[];
-}
+};
 
-type FlatFetchFn<T, O> = (items: T[]) => Promise<O[]>
+type FlatFetchFn<T, O> = (items: T[]) => Promise<O[]>;
 
-type ExcludeMatchingProperties<T, V> = Pick<
-  T,
-  { [K in keyof T]-?: T[K] extends V ? never : K }[keyof T]
->;
+type ExcludeMatchingProperties<T, V> = Pick<T, { [K in keyof T]-?: T[K] extends V ? never : K }[keyof T]>;
 
 type RemapPropertyType<T, PT> = {
-    [P in keyof T]: PT
-}
+    [P in keyof T]: PT;
+};
 
-export type FetchMapOutput<T, I, O> = 
-    RemapPropertyType<ExcludeMatchingProperties<T, I[]>, O> &
+export type FetchMapOutput<T, I, O> = RemapPropertyType<ExcludeMatchingProperties<T, I[]>, O> &
     RemapPropertyType<ExcludeMatchingProperties<T, I>, O[]>;
 
 /**
  * Utility for fetching references to data items in a Map and
  * returning the fetched values in the same structure as the Map
- * 
- * @param input 
- * @param fetchFn 
+ *
+ * @param input
+ * @param fetchFn
  */
-export async function fetchMap<T extends FetchMapInput<I>, I, O>(input: T, fetchFn: FlatFetchFn<I, O>): Promise<FetchMapOutput<T, I, O>> {
+export async function fetchMap<T extends FetchMapInput<I>, I, O>(
+    input: T,
+    fetchFn: FlatFetchFn<I, O>
+): Promise<FetchMapOutput<T, I, O>> {
     const keys = Object.keys(input);
     const items: I[] = [];
 

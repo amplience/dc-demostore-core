@@ -3,52 +3,42 @@ import { Theme } from '@mui/material';
 import { useAppContext } from '@lib/config/AppContext';
 import { useProduct } from '../WithProduct/WithProduct';
 import ImageGallery from 'react-image-gallery';
-import _ from 'lodash'
-import { withStyles, WithStyles } from '@mui/styles'
+import _ from 'lodash';
 import { ImageFormat, getImageURL } from '@utils/getImageURL';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
 
-const styles = (theme: Theme) => ({
-});
+const styles = (theme: Theme) => ({});
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
+    classes?: any;
     className?: string;
     style?: React.CSSProperties;
-    variant?: 'portrait' | 'landscape',
+    variant?: 'portrait' | 'landscape';
     numItems?: number;
 }
 
 const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
-    const {
-        classes,
-        variant = 'portrait',
-        numItems = 2,
-        ...other
-    } = props;
+    const { classes, variant = 'portrait', numItems = 2, ...other } = props;
 
-    const {
-        product
-    } = useProduct() || {};
+    const { product } = useProduct() || {};
 
-    let { cms } = useAppContext()
+    let { cms } = useAppContext();
 
-    const {
-        acceleratedMedia
-    } = useAcceleratedMedia();
+    const { acceleratedMedia } = useAcceleratedMedia();
 
-    let format = 'auto'
-    if (acceleratedMedia) format = ImageFormat.AVIF
+    let format = 'auto';
+    if (acceleratedMedia) format = ImageFormat.AVIF;
 
     const container = createRef<HTMLDivElement>();
 
-    let mediaSet: string | null = null
+    let mediaSet: string | null = null;
 
     // Get Image Set ID from image URL
-    const mainImageURL = new URL(product.variants[0]?.images[0]?.url)
+    const mainImageURL = new URL(product.variants[0]?.images[0]?.url);
     if (mainImageURL) {
-        const match = mainImageURL.pathname.match(`\/s\/${cms.imageHub}\/(.*)`)      
+        const match = mainImageURL.pathname.match(`\/s\/${cms.imageHub}\/(.*)`);
         if (match) {
-            mediaSet = match[1]
+            mediaSet = match[1];
         }
     }
 
@@ -89,9 +79,8 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
                     },
                 },
             });
-        }
-        else {
-            console.error(`product image hub not found`)
+        } else {
+            console.error(`product image hub not found`);
         }
 
         return () => {
@@ -99,25 +88,27 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
                 target.innerHTML = '';
             }
         };
-
     }, [container, numItems, variant, cms, product]);
 
     if (mediaSet) {
         return (
             <div className="af-pdp-viewer">
-                <div ref={container} className="af-pdp-viewer__target" id="amp-container">
-                </div>
+                <div ref={container} className="af-pdp-viewer__target" id="amp-container"></div>
             </div>
         );
-    }
-    else {
+    } else {
         return (
-            <ImageGallery items={_.uniqBy(_.map(_.flatten(_.map(product.variants, 'images')), image => ({
-                original: getImageURL(image.url),
-                thumbnail: getImageURL(image.thumb || image.url)
-            })), 'original')} />
+            <ImageGallery
+                items={_.uniqBy(
+                    _.map(_.flatten(_.map(product.variants, 'images')), (image) => ({
+                        original: getImageURL(image.url),
+                        thumbnail: getImageURL(image.thumb || image.url),
+                    })),
+                    'original'
+                )}
+            />
         );
     }
 };
 
-export default withStyles(styles)(ProductMediaViewer);
+export default ProductMediaViewer;

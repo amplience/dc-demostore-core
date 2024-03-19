@@ -7,27 +7,25 @@ import { CmsContent } from '@lib/cms/CmsContent';
 
 interface Props {
     request: CmsRequest;
-    children: (args: {content?: CmsContent}) => React.ReactElement;
+    children: (args: { content?: CmsContent }) => React.ReactElement;
     cmsContextOverrides?: Partial<CmsContext>;
     enrichContent?: boolean;
 }
 
-const WithLazyContent: React.SFC<Props> = (props) => {
-    const {
-        request,
-        children,
-        cmsContextOverrides,
-        enrichContent
-    } = props;
+const WithLazyContent = (props: Props) => {
+    const { request, children, cmsContextOverrides, enrichContent } = props;
 
     const [content, setContent] = useState<any | null>(null);
-    
+
     const cmsContext = useCmsContext();
-        
+
     useEffect(() => {
-        let isMounted: boolean = true
+        let isMounted: boolean = true;
         const fetcher = async (input: CmsRequest) => {
-            let fetchedContent: CmsContent | null = await fetchContent([input], {...cmsContext, ...cmsContextOverrides }).then(x => x[0]);
+            let fetchedContent: CmsContent | null = await fetchContent([input], {
+                ...cmsContext,
+                ...cmsContextOverrides,
+            }).then((x) => x[0]);
             if (!fetchContent) {
                 return null;
             }
@@ -37,16 +35,18 @@ const WithLazyContent: React.SFC<Props> = (props) => {
             return fetchedContent;
         };
 
-        fetcher(request).then(content => {
+        fetcher(request).then((content) => {
             if (isMounted) {
-                setContent(content)
+                setContent(content);
             }
         });
-        return () => { isMounted = false }
+        return () => {
+            isMounted = false;
+        };
     }, [request, cmsContext, cmsContextOverrides, enrichContent]);
 
     return children({
-        content
+        content,
     });
 };
 

@@ -1,17 +1,9 @@
 import { WithTheme } from '@components/core';
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-} from '@mui/material';
-import React, { FC } from 'react';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import React from 'react';
 import './TableSpec.scss';
 
-const TableSpec: FC<any> = () => {
+const TableSpec = () => {
     const items = [
         { id: 1, label: 'One' },
         { id: 2, label: 'Two' },
@@ -41,7 +33,7 @@ const TableSpec: FC<any> = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            
+
             <h3 style={{ fontSize: '18px' }}>Compact</h3>
 
             <TableContainer component={Paper}>

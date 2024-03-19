@@ -5,8 +5,10 @@ import DynamicBlogList from './DynamicBlogList';
 import ContentBlockStory from '@utils/storybook/ContentBlockStory';
 
 export default {
-  title: 'Organisms/DynamicBlogList',
-  component: DynamicBlogList,
+    title: 'Organisms/DynamicBlogList',
+    component: DynamicBlogList,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <ContentBlockStory request={{key: "docs/story/dynamicbloglist/list1"}} />;
+export const ExampleContent: Story = (args) => (
+    <ContentBlockStory request={{ key: 'docs/story/dynamicbloglist/list1' }} />
+);

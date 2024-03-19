@@ -5,8 +5,8 @@ import Text from '@components/cms-modern/Text';
 import ContentBlockStory from '@utils/storybook/ContentBlockStory';
 
 export default {
-  title: 'Organisms/Text',
-  component: Text,
+    title: 'Organisms/Text',
+    component: Text,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <ContentBlockStory request={{key: "docs/story/text/text1"}} />;
+export const ExampleContent: Story = (args) => <ContentBlockStory request={{ key: 'docs/story/text/text1' }} />;

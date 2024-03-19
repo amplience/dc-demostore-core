@@ -7,5 +7,5 @@ export default function NavigatePrevious(props?: any) {
                 <path d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z" />
             </g>
         </svg>
-    )
-};
+    );
+}

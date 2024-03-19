@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
 import { Typography } from '@mui/material';
@@ -7,7 +7,6 @@ import { Typography } from '@mui/material';
  * BlogSnippet props
  */
 export type BlogSnippetProps = {
-
     /**
      * Image
      */
@@ -27,7 +26,7 @@ export type BlogSnippetProps = {
      * Blog author
      */
     author: string;
-    
+
     /**
      * Blog category
      */
@@ -54,7 +53,7 @@ export type BlogSnippetProps = {
     keywords: string[];
 };
 
-const BlogSnippet: FC<BlogSnippetProps> = ({
+const BlogSnippet = ({
     image,
     title,
     blogdate,
@@ -63,8 +62,8 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
     description,
     tags,
     cta,
-    keywords
-}) => {
+    keywords,
+}: BlogSnippetProps) => {
     return (
         <>
             <div className="amp-dc-banner js_dc_banner">
@@ -77,11 +76,7 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
 
             <div className="amp-dc-snippet-info-wrap">
                 {category?.length ? (
-                    <Typography
-                        variant="body2"
-                        component="div"
-                        className="amp-dc-snippet-info-wrap__categories"
-                    >
+                    <Typography variant="body2" component="div" className="amp-dc-snippet-info-wrap__categories">
                         {category.join(', ')}
                     </Typography>
                 ) : null}
@@ -92,20 +87,12 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
                 ) : null}
                 <div className="amp-dc-snippet-info-wrap__description">
                     {author ? (
-                        <Typography
-                            variant="h4"
-                            component="div"
-                            className="amp-dc-author"
-                        >
+                        <Typography variant="h4" component="div" className="amp-dc-author">
                             {author}
                         </Typography>
                     ) : null}
                     {blogdate ? (
-                        <Typography
-                            variant="h4"
-                            component="div"
-                            className="amp-dc-blogdate"
-                        >
+                        <Typography variant="h4" component="div" className="amp-dc-blogdate">
                             {blogdate}
                         </Typography>
                     ) : null}

@@ -1,23 +1,23 @@
-import React, { FC } from 'react'
+import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
 import { WithCMSTheme, useThemes } from '../../core/WithCMSTheme';
 import { Theme } from '@mui/material';
 import { Box } from '@mui/material';
-import { makeStyles } from '@mui/styles'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const styles = (theme: Theme) => ({
     root: {},
     content: {
         maxWidth: 1050,
-        margin: "auto"
-    }
-}));
+        margin: 'auto',
+    },
+});
 
 /**
  * Blog props
  */
 interface BlogProps {
+    classes?: any;
 
     /**
      * Blog snippet
@@ -40,27 +40,22 @@ interface BlogProps {
     theme?: CmsContent;
 }
 
-const Blog: FC<BlogProps> = ({
-    snippet,
-    content,
-    contentTypes = [],
-    theme
-}) => {
-    const classes = useStyles();
-
-    const Blog = <Box className={classes.root}>
-        <Box>
-            <ContentBlock content={snippet} />
+const Blog = ({ classes, snippet, content, contentTypes = [], theme }: BlogProps) => {
+    const Blog = (
+        <Box className={classes?.root}>
+            <Box>
+                <ContentBlock content={snippet} />
+            </Box>
+            <Box className={classes?.content}>
+                <ContentBlock content={content} />
+                {contentTypes.map((item: any, index: number) => (
+                    <Box key={index}>
+                        <ContentBlock content={item} />
+                    </Box>
+                ))}
+            </Box>
         </Box>
-        <Box className={classes.content}>
-            <ContentBlock content={content} />
-            {
-                contentTypes.map((item: any, index: number) => <Box key={index}>
-                    <ContentBlock content={item} />
-                </Box>)
-            }
-        </Box>
-    </Box>
+    );
 
     const { themes } = useThemes() || {};
     if (themes) {
@@ -68,9 +63,9 @@ const Blog: FC<BlogProps> = ({
             <WithCMSTheme themes={themes} themeOverride={theme}>
                 {Blog}
             </WithCMSTheme>
-        )
+        );
     }
-    return Blog
-}
+    return Blog;
+};
 
 export default Blog;

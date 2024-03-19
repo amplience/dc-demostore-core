@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { IncomingMessage } from 'http';
 import { parse } from 'url';
 
@@ -9,7 +9,7 @@ export type CmsContext = {
     locale?: string;
     currency?: string;
     timestamp?: number;
-}
+};
 
 const Context = React.createContext<CmsContext | null>(null);
 
@@ -17,25 +17,20 @@ export function useCmsContext(): CmsContext {
     return React.useContext(Context) as CmsContext;
 }
 
-export const WithCmsContext: FC<{ value: CmsContext }> = ({children, value}) => {
-    return <Context.Provider value={value}>
-        { children }
-    </Context.Provider>;
+interface Props extends PropsWithChildren {
+    value: CmsContext;
+}
+
+export const WithCmsContext = ({ children, value }: Props) => {
+    return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 export async function createCmsContext(req: IncomingMessage): Promise<CmsContext> {
-    const {
-        url = ''
-    } = req || {};
+    const { url = '' } = req || {};
 
-    const {
-        query
-    } = parse(url, true);
+    const { query } = parse(url, true);
 
-    const {
-        vse: queryStringVse,
-        locale: queryStringLocale
-    } = query || {};
+    const { vse: queryStringVse, locale: queryStringLocale } = query || {};
 
     const cookies = new Cookies(req);
     const cookieVse = cookies.get('amplience-host');
@@ -47,6 +42,6 @@ export async function createCmsContext(req: IncomingMessage): Promise<CmsContext
         stagingApi: queryStringVse || cookieVse || null,
         locale: queryStringLocale || cookieLocale || 'en-US',
         currency: cookieCurrency || 'USD',
-        timestamp: cookieTimestamp || null
+        timestamp: cookieTimestamp || null,
     };
 }

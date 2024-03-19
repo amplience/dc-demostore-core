@@ -1,8 +1,8 @@
-import { CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
-import { NavigationItem } from "./NavigationContext";
+import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
+import { NavigationItem } from './NavigationContext';
 
 export default function walkNavigation(
-    current: NavigationItem, 
+    current: NavigationItem,
     visitor: (item: NavigationItem, parents: NavigationItem[]) => void,
     parents: NavigationItem[] = []
 ) {
@@ -12,7 +12,10 @@ export default function walkNavigation(
     }
 }
 
-export function walkNavigationItems(items: NavigationItem[], visitor: (item: NavigationItem, parents: NavigationItem[]) => void) {
+export function walkNavigationItems(
+    items: NavigationItem[],
+    visitor: (item: NavigationItem, parents: NavigationItem[]) => void
+) {
     for (let item of items) {
         walkNavigation(item, visitor);
     }
@@ -52,13 +55,13 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
         }
     } else {
         const children = cmsEntry.children;
-        const remainingChildren = [...children]
-        
-        let generated = 0
+        const remainingChildren = [...children];
+
+        let generated = 0;
         for (const category of categories) {
             // Does a CMS category exist for this entry?
 
-            let cmsChild = children.find(child => {
+            let cmsChild = children.find((child) => {
                 const type = getTypeFromSchema(child.content?._meta?.schema);
                 if (!type) {
                     return false;
@@ -71,7 +74,7 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
 
             if (!cmsChild && category.showInMenu) {
                 // Create a dummy one, if it's meant to be visible
-                generated++
+                generated++;
                 cmsChild = {
                     content: {
                         _meta: {
@@ -80,9 +83,9 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                             deliveryKey: 'category/' + category.slug,
                             hierarchy: {
                                 parentId: 'generated',
-                                root: false
+                                root: false,
                             },
-                            deliveryId: category.id
+                            deliveryId: category.id,
                         },
                         ecommCategories: true,
                         hideProductList: false,
@@ -91,14 +94,14 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                         active: true,
                         menu: {
                             hidden: false,
-                            priority: generated*10,
+                            priority: generated * 10,
                         },
-                        name: category.id
+                        name: category.id,
                     },
-                    children: []
-                }
+                    children: [],
+                };
 
-                children.splice(pushCount++, 0, cmsChild)
+                children.splice(pushCount++, 0, cmsChild);
             }
 
             if (cmsChild) {

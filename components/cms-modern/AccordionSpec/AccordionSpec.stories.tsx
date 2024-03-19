@@ -4,8 +4,8 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import AccordionSpec from '@components/cms-modern/AccordionSpec';
 
 export default {
-  title: 'Molecules/Accordion',
-  component: AccordionSpec,
+    title: 'Molecules/Accordion',
+    component: AccordionSpec,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <AccordionSpec />
+export const ExampleContent: Story = (args) => <AccordionSpec />;

@@ -1,20 +1,17 @@
 import React, { createRef, useEffect } from 'react';
 import { Theme, Typography } from '@mui/material';
 import { useProduct } from '../../product/WithProduct/WithProduct';
-import _ from 'lodash'
-import { withStyles, WithStyles } from '@mui/styles'
+import _ from 'lodash';
 import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-integration-stylitics';
 import { useRouter } from 'next/router';
-import { commerceApi } from '@pages/api';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
-const styles = (theme: Theme) => ({
-});
+const styles = (theme: Theme) => ({});
 
 /**
  * Generic props
  */
-interface Props extends WithStyles<typeof styles> {
+interface Props {
     className?: string;
     style?: React.CSSProperties;
     header?: string;
@@ -28,31 +25,25 @@ interface Props extends WithStyles<typeof styles> {
     price?: any;
     account?: string;
     sku?: string;
-    view?:string;
-    variant?:string;
+    view?: string;
+    variant?: string;
     min: number;
     max: number;
 }
 
 /**
  * Generic Component that can handle all the different Stylitics views
- * @param props 
- * @returns 
+ * @param props
+ * @returns
  */
-const Generic: React.FunctionComponent<Props> = (props) => {
-    const {
-        header,
-    } = props;
+const Generic = (props: Props) => {
+    const { header } = props;
 
-    const {
-        product
-    } = useProduct() || {};
+    const { product } = useProduct() || {};
 
     const container = createRef<HTMLDivElement>();
 
-    const {
-        push
-    } = useRouter();
+    const { push } = useRouter();
 
     const vendor = useECommerce().vendor;
 
@@ -68,34 +59,34 @@ const Generic: React.FunctionComponent<Props> = (props) => {
         const item = {
             ...props,
             account: product?.categories[0]?.parent?.id || props.account || 'demo-womens',
-            sku: product ? product.id : props.sku
-        }
+            sku: product ? product.id : props.sku,
+        };
 
         const args = fromContentItem(item as any);
 
         const handleApply = async (props: any) => {
-            await push(`/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`)
-        }
+            await push(`/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`);
+        };
 
         createWidget(target, args).then((widget: StyliticsWidget) => {
             if (active) {
                 widgetInstance = widget;
-                
+
                 const isRest = vendor === 'rest';
 
                 if (isRest && active) {
                     // Click override to redirect to Product page
-                    widget.override("click", "item", function (props: any) {
-                        handleApply(props as any)
-                    })
+                    widget.override('click', 'item', function (props: any) {
+                        handleApply(props as any);
+                    });
                 }
 
                 widget.start();
             } else {
                 widget.destroy();
             }
-        })
-        
+        });
+
         // Cleanup
         return () => {
             if (widgetInstance) {
@@ -112,16 +103,14 @@ const Generic: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div>
-            {
-                header && ( 
-                    <Typography variant="h2" component="h2">
-                        {header}
-                    </Typography>
-                )
-            }
+            {header && (
+                <Typography variant="h2" component="h2">
+                    {header}
+                </Typography>
+            )}
             <div ref={container} className="stylitics"></div>
         </div>
     );
 };
 
-export default withStyles(styles)(Generic);
+export default Generic;

@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { Theme } from '@mui/material';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
-import { withStyles, WithStyles } from '@mui/styles'
 
 const styles = (theme: Theme) => ({
     root: {
@@ -14,50 +13,48 @@ const styles = (theme: Theme) => ({
 
         [theme.breakpoints.down('md')]: {
             flexDirection: 'column' as 'column',
-            alignItems: 'unset'
-        }
+            alignItems: 'unset',
+        },
     },
     column: {
         [theme.breakpoints.down('md')]: {
-            maxWidth: '100% !important'
+            maxWidth: '100% !important',
         },
-        paddingTop:'20px'
-    }
+        paddingTop: '20px',
+    },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
+    classes?: any;
     className?: string;
     style?: React.CSSProperties;
-    
     split: string;
     bgcol: string;
-    content: CmsContent[]
+    content: CmsContent[];
 }
 
-const SplitBlock: React.SFC<Props> = (props) => {
-    const {
-        classes,
-        split = '50/50',
-        bgcol,
-        content = [],
-        ...other
-    } = props;
+const SplitBlock = (props: Props) => {
+    const { classes, split = '50/50', bgcol, content = [], ...other } = props;
 
     const splits = useMemo(() => {
-        return split.split('/').map(x => Number(x) / 100);
+        return split.split('/').map((x: string) => Number(x) / 100);
     }, [split]);
 
     return (
-        <div className={classes.root} style={{backgroundColor: bgcol}}>
-            {
-                content.map((content, index) => {
-                    return <div key={index} className={classes.column} style={{flex: splits[index], maxWidth: `${splits[index]*100}%`}}>
+        <div className={classes?.root} style={{ backgroundColor: bgcol }}>
+            {content.map((content: any, index: number) => {
+                return (
+                    <div
+                        key={index}
+                        className={classes?.column}
+                        style={{ flex: splits[index], maxWidth: `${splits[index] * 100}%` }}
+                    >
                         <ContentBlock content={content} />
                     </div>
-                })
-            }
+                );
+            })}
         </div>
     );
 };
 
-export default withStyles(styles)(SplitBlock);
+export default SplitBlock;

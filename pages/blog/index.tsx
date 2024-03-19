@@ -28,9 +28,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
 }
 
-export default function Womens({
-    content,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Womens({ content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { stagingApi, locale } = useCmsContext() || {};
     const navigationItem: NavigationItem = {
         type: 'page',
@@ -40,23 +38,19 @@ export default function Womens({
         parents: [],
     };
 
-    let { algolia, cms } = useAppContext()
+    let { algolia, cms } = useAppContext();
 
-    const {
-        push
-    } = useRouter();
+    const { push } = useRouter();
 
-    const {
-        acceleratedMedia
-    } = useAcceleratedMedia();
+    const { acceleratedMedia } = useAcceleratedMedia();
 
-    let format = 'auto'
-    if (acceleratedMedia) format = ImageFormat.AVIF
+    let format = 'auto';
+    if (acceleratedMedia) format = ImageFormat.AVIF;
 
     useEffect(() => {
         let { instantsearch, algoliasearch } = window as any;
-        let hub = cms.hub
-        let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`
+        let hub = cms.hub;
+        let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`;
         let search = instantsearch({
             indexName,
             searchClient: algoliasearch(algolia.appId, algolia.apiKey),
@@ -64,11 +58,8 @@ export default function Womens({
         });
         search.addWidget(
             instantsearch.widgets.configure({
-                filters:
-                    (locale || 'en-US').indexOf('en-') === 0
-                        ? `locale:en-US`
-                        : `locale:${locale}`,
-            }),
+                filters: (locale || 'en-US').indexOf('en-') === 0 ? `locale:en-US` : `locale:${locale}`,
+            })
         );
 
         search.addWidget(
@@ -95,7 +86,7 @@ export default function Womens({
         (global as any).instantSearchRouting = (event: MouseEvent, url: string): void => {
             push(url);
             event.preventDefault();
-        }
+        };
 
         search.addWidget(
             instantsearch.widgets.hits({
@@ -108,19 +99,41 @@ export default function Womens({
                 templates: {
                     item: ({ snippet, _meta }: any) => {
                         return `
-                            <a class="amp-dc-card-wrap" href="/blog/${_meta.deliveryKey}" onclick="instantSearchRouting(event, '/blog/${_meta.deliveryKey}')">
+                            <a class="amp-dc-card-wrap" href="/blog/${
+                                _meta.deliveryKey
+                            }" onclick="instantSearchRouting(event, '/blog/${_meta.deliveryKey}')">
                                 <div class="amp-dc-card-img-wrap">
                                     <picture class="amp-dc-image">
-                                        <source type="image/webp" srcset="https://${snippet.image.image.defaultHost}/i/${snippet.image.image.endpoint}/${snippet.image.image.name}.webp?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}">
-                                        <source type="image/jp2" srcset="https://${snippet.image.image.defaultHost}/i/${snippet.image.image.endpoint}/${snippet.image.image.name}.jp2?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}">
-                                        <source type="image/jpeg" srcset="https://${snippet.image.image.defaultHost}/i/${snippet.image.image.endpoint}/${snippet.image.image.name}.jpg?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt${format}">
-                                        <img loading="lazy" src="https://${snippet.image.image.defaultHost}/i/${snippet.image.image.endpoint}/${snippet.image.image.name}?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}" class="amp-dc-image-pic" alt="${snippet.title}">
+                                        <source type="image/webp" srcset="https://${
+                                            snippet.image.image.defaultHost
+                                        }/i/${snippet.image.image.endpoint}/${
+                            snippet.image.image.name
+                        }.webp?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}">
+                                        <source type="image/jp2" srcset="https://${snippet.image.image.defaultHost}/i/${
+                            snippet.image.image.endpoint
+                        }/${
+                            snippet.image.image.name
+                        }.jp2?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}">
+                                        <source type="image/jpeg" srcset="https://${
+                                            snippet.image.image.defaultHost
+                                        }/i/${snippet.image.image.endpoint}/${
+                            snippet.image.image.name
+                        }.jpg?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt${format}">
+                                        <img loading="lazy" src="https://${snippet.image.image.defaultHost}/i/${
+                            snippet.image.image.endpoint
+                        }/${
+                            snippet.image.image.name
+                        }?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}" class="amp-dc-image-pic" alt="${
+                            snippet.title
+                        }">
                                     </picture>
                                 </div>
                                 <div class="amp-dc-card-text-wrap">
                                     <p class="amp-dc-card-category">${snippet?.category?.join(', ') || ''}</p>
                                     <div class="amp-dc-card-name">${snippet.title}</div>
-                                    <div class="amp-dc-card-description"><span>${snippet.author}</span><span>${snippet.blogdate}</span></div>
+                                    <div class="amp-dc-card-description"><span>${snippet.author}</span><span>${
+                            snippet.blogdate
+                        }</span></div>
                                 </div>
                             </a>
                     `;
