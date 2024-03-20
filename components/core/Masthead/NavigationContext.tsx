@@ -225,7 +225,7 @@ export const WithNavigationContext = ({ pages, categories, children }: Props) =>
             });
         });
         return rootEntries as NavigationItem[];
-    }, [pages, categories, categoriesBySlug, categoriesById, language]);
+    }, [pages, categories, categoriesById, language]);
 
     const findByHref = (href: string) => {
         let result: NavigationItem | undefined;

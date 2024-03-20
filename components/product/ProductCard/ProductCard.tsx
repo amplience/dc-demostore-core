@@ -113,7 +113,7 @@ const ProductCardSkeleton = (props: Props) => {
         shortDescription == null ? shortDescription : limitSentences(shortDescription.replace(stripHtml, ''), 2, 100);
 
     return (
-        <Link href={`/product/${id}/${slug}`}>
+        <Link passHref href={`/product/${id}/${slug}`}>
             <div className={clsx(classes?.root, className)} {...other}>
                 <div className={classes?.imageContainer}>
                     {firstImage && secondImage && (

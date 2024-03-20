@@ -42,7 +42,7 @@ const SearchResultsListing = (props: Props) => {
                                             let price = variants[0].listPrice;
                                             return (
                                                 <li key={index}>
-                                                    <Link href={href}>
+                                                    <Link passHref href={href}>
                                                         <span className="search__results__listing__term">
                                                             <img
                                                                 loading="lazy"
@@ -82,7 +82,7 @@ const SearchResultsListing = (props: Props) => {
                                         {categories.map(({ label, count, href }: any, index: number) => {
                                             return (
                                                 <li key={index}>
-                                                    <Link href={href}>
+                                                    <Link passHref href={href}>
                                                         <span className="search__results__listing__icon">
                                                             <SearchIcon />
                                                         </span>
@@ -127,7 +127,7 @@ const SearchResultsListing = (props: Props) => {
                                         {inspiration.map(({ label, href, count }: any, index: number) => {
                                             return (
                                                 <li key={index}>
-                                                    <Link href={href}>
+                                                    <Link passHref href={href}>
                                                         <span className="search__results__listing__icon">
                                                             <SearchIcon />
                                                         </span>

@@ -70,7 +70,7 @@ const CuratedProductGridCard = (props: Props) => {
         : getImageURL(result.variants[0].images[0].url, { width: 540, height: 810 });
 
     return (
-        <Link href={`/product/${result.id}/${result.slug}`} onClick={handleClickProduct}>
+        <Link passHref href={`/product/${result.id}/${result.slug}`} onClick={handleClickProduct}>
             <div className={clsx(classes?.root, className)} {...other}>
                 <div className={classes?.imageContainer}>
                     {result.variants[0] && <img src={imageUrl} className={classes?.image} alt={result.name} />}

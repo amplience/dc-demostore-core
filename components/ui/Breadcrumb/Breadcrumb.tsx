@@ -60,12 +60,12 @@ const Breadcrumb = (props: Props) => {
         </Breadcrumbs>
     ) : (
         <Breadcrumbs aria-label="breadcrumb" className={clsx(classes?.root, className)} {...other}>
-            <Link color="inherit" href="/" className={classes?.link}>
+            <Link passHref color="inherit" href="/" className={classes?.link}>
                 <Typography variant="h4">{language === 'de' ? 'Haupt' : 'Home'}</Typography>
             </Link>
             {nodes.map((node) => {
                 return (
-                    <Link key={nanoid()} color="inherit" href={node.href as string} className={classes?.link}>
+                    <Link passHref key={nanoid()} color="inherit" href={node.href as string} className={classes?.link}>
                         <Typography variant="h4">{node.title}</Typography>
                     </Link>
                 );

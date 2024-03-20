@@ -34,7 +34,7 @@ const NavigationToggle = ({ classes }: Props) => {
         toggleNavigation(navigationToggle);
     };
     return (
-        <Link href="#" className={clsx(classes?.root, classes?.icons)} onClick={handleToggleNavigation}>
+        <Link passHref href="#" className={clsx(classes?.root, classes?.icons)} onClick={handleToggleNavigation}>
             <img className={classes?.iconImage} src="/images/ic-anyafinn-menu.svg" alt="menu" />
         </Link>
     );

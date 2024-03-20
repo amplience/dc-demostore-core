@@ -109,7 +109,7 @@ function Sitemap({ classes, content, params }: InferGetServerSidePropsType<typeo
                 {sections.map((section) => {
                     return (
                         <div key={nanoid()}>
-                            <Link href={`${section.href}${urlSuffix}`} target="_blank" rel="noreferrer">
+                            <Link passHref href={`${section.href}${urlSuffix}`} target="_blank" rel="noreferrer">
                                 <Typography variant="h4" component="h3" className={classes?.section}>
                                     {section.title}
                                 </Typography>

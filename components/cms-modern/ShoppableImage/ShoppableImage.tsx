@@ -40,27 +40,27 @@ const ShoppableImage = ({
     const [imageRef] = useState(React.createRef<HTMLImageElement>());
     const canvasRef = React.createRef<HTMLDivElement>();
 
-    const resizeWindow = () => {
-        if (refContainer.current) {
-            setCanvasSize({
-                w: refContainer.current.offsetWidth,
-                h: refContainer.current.offsetHeight,
-            });
-            setTargetWidth(refContainer.current.offsetWidth);
-        }
-
-        if (imageRef.current) {
-            setTargetHeight(imageRef.current.height);
-            setTargetWidth(imageRef.current.width);
-        }
-    };
-
     useEffect(() => {
+        const resizeWindow = () => {
+            if (refContainer.current) {
+                setCanvasSize({
+                    w: refContainer.current.offsetWidth,
+                    h: refContainer.current.offsetHeight,
+                });
+                setTargetWidth(refContainer.current.offsetWidth);
+            }
+
+            if (imageRef.current) {
+                setTargetHeight(imageRef.current.height);
+                setTargetWidth(imageRef.current.width);
+            }
+        };
+
         window.addEventListener('resize', resizeWindow);
         return () => window.removeEventListener('resize', resizeWindow);
-    }, [loaded]);
+    }, [loaded, imageRef]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (refContainer.current) {
             setCanvasSize({
                 w: refContainer.current.offsetWidth,

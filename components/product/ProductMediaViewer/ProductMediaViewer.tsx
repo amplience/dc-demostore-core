@@ -88,7 +88,7 @@ const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
                 target.innerHTML = '';
             }
         };
-    }, [container, numItems, variant, cms, product]);
+    }, [container, numItems, variant, cms, product, format, mediaSet]);
 
     if (mediaSet) {
         return (

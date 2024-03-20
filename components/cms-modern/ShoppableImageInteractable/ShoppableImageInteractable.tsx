@@ -65,7 +65,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         }
         case InteractableType.CATEGORY: {
             return (
-                <Link href={urlBuilder(selector, target)}>
+                <Link passHref href={urlBuilder(selector, target)}>
                     <Tooltip
                         title={categoriesBySlug[target]?.name ?? 'Category not found'}
                         followCursor
@@ -79,7 +79,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         }
         case InteractableType.LINK: {
             return (
-                <Link href={urlBuilder(selector, target)}>
+                <Link passHref href={urlBuilder(selector, target)}>
                     <Tooltip title="View" followCursor placement="top" arrow>
                         {children}
                     </Tooltip>
@@ -88,7 +88,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         }
         case InteractableType.LINK_NEW: {
             return (
-                <Link href={urlBuilder(selector, target)} target="_blank" rel="noopener noreferrer">
+                <Link passHref href={urlBuilder(selector, target)} target="_blank" rel="noopener noreferrer">
                     <Tooltip
                         title={
                             <div style={{ fontSize: 12 }}>
@@ -123,7 +123,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
 
             return (
                 <>
-                    <Link href="#" role="button" onClick={() => setDrawerOpen(true)}>
+                    <Link passHref href="#" role="button" onClick={() => setDrawerOpen(true)}>
                         <Tooltip title="More Details" followCursor placement="top" arrow>
                             {children}
                         </Tooltip>
@@ -161,7 +161,7 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
         }
         default: {
             return (
-                <Link href={urlBuilder(selector, target)}>
+                <Link passHref href={urlBuilder(selector, target)}>
                     <Tooltip title={titleBuilder(selector, target)} followCursor placement="top" arrow>
                         {children}
                     </Tooltip>

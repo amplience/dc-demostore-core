@@ -44,6 +44,7 @@ const NavigationToggleState = ({ classes, children }: Props) => {
     return (
         <div className={navigationToggle ? 'navigation--open' : 'navigation--closed'}>
             <Link
+                passHref
                 href="#"
                 className={clsx(classes?.icon, {
                     [classes?.show]: isMobile && navigationToggle,

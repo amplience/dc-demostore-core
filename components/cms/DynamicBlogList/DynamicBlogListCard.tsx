@@ -47,7 +47,7 @@ const DynamicBlogListCard = (props: Props) => {
 
     return (
         <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet', className)}>
-            <Link href={`/blog/${_meta?.deliveryKey}`}>
+            <Link passHref href={`/blog/${_meta?.deliveryKey}`}>
                 {image ? (
                     <div className="amp-dc-image">
                         <Image

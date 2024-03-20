@@ -99,7 +99,7 @@ const Generic = (props: Props) => {
 
             active = false;
         };
-    }, [container, props, product]);
+    }, [container, props, product, push, vendor]);
 
     return (
         <div>

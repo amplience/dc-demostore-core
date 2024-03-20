@@ -43,7 +43,7 @@ const StoreCard = (props: Props) => {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} className={clsx(classes?.root, className)} {...other}>
             <Paper style={{ backgroundColor: '#fcfcfc', width: '100%', padding: 15 }}>
-                <Link href={'/' + content._meta.deliveryKey}>
+                <Link passHref href={'/' + content._meta.deliveryKey}>
                     <Box className={classes?.details}>
                         <Typography variant="h3" component="h3" className={classes?.name}>
                             {content.locationName}

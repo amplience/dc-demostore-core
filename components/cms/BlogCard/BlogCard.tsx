@@ -23,7 +23,7 @@ const BlogCard = ({
 }: Props) => {
     return (
         <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet')}>
-            <Link href={`/blog/post/${_meta?.deliveryKey}/${_.camelCase(title)}`}>
+            <Link passHref href={`/blog/post/${_meta?.deliveryKey}/${_.camelCase(title)}`}>
                 {image ? (
                     <div className="amp-dc-image">
                         <Image alt={title} imageAltText={image.imageAltText ? image.imageAltText : title} {...image} />

@@ -16,7 +16,7 @@ const Logo = (props: Props) => {
     const { classes, ...other } = props;
 
     return (
-        <Link href="/">
+        <Link passHref href="/">
             <img {...other} alt="" src="https://cdn.media.amplience.net/i/dcdemo/anyafinn-logo" />
         </Link>
     );

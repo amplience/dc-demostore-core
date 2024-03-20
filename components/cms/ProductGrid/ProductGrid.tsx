@@ -54,7 +54,7 @@ const ProductGrid = ({ category, query, limit }: Props) => {
         return () => {
             isMounted = false;
         };
-    }, [category, cmsContext, userContext, query, categoriesById]);
+    }, [category, limit, cmsContext, userContext, query, categoriesById]);
 
     return (
         <div className="amp-dc-card-list product-grid-container">
@@ -85,7 +85,7 @@ const ProductGrid = ({ category, query, limit }: Props) => {
 
                     return (
                         <div key={slug} className="amp-dc-card product-grid-item">
-                            <Link href={`/product/${id}/${slug}`} onClick={handleClickProduct}>
+                            <Link passHref href={`/product/${id}/${slug}`} onClick={handleClickProduct}>
                                 <div className="amp-dc-card-wrap">
                                     <div className="amp-dc-card-img-wrap">
                                         <picture>

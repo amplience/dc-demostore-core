@@ -145,7 +145,13 @@ const ImageStatisticsModal = ({ stats, onClose }: Props) => {
                             return (
                                 <Grid item xs={2} key={index}>
                                     <Card>
-                                        <Link href={stat.src} title={stat.src} target="_blank" rel="noreferrer">
+                                        <Link
+                                            passHref
+                                            href={stat.src}
+                                            title={stat.src}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
                                             <CardMedia sx={{ aspectRatio: '1' }} image={stat.src} />
                                         </Link>
                                         <CardContent
@@ -235,7 +241,13 @@ const ImageStatisticsModal = ({ stats, onClose }: Props) => {
                                 return (
                                     <TableRow key={index}>
                                         <TableCell>
-                                            <Link href={stat.src} target="_blank" rel="noreferrer" title={stat.src}>
+                                            <Link
+                                                passHref
+                                                href={stat.src}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                title={stat.src}
+                                            >
                                                 <img
                                                     src={getImageURL(stat.src, { width: 32, height: 32 }, true)}
                                                     width={32}

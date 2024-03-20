@@ -159,7 +159,7 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
         );
 
         search.start();
-    }, [locale]);
+    }, [locale, algolia.apiKey, algolia.appId, cms.hub, format, push, stagingApi]);
 
     return (
         <>

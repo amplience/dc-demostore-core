@@ -28,7 +28,7 @@ const PreviewToolbar = () => {
                 )}
             </div>
             <div className={s.controls}>
-                <Link href="/current">
+                <Link passHref href="/current">
                     <button type="button" className="btn btn-outline-danger btn-sm">
                         View Current
                     </button>

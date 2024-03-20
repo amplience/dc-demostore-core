@@ -111,6 +111,7 @@ const Masthead = ({ children, variant = 'default', logo, navigationBackgroundCol
                 <div className="af-banner__account-options">
                     <span>
                         <Link
+                            passHref
                             href="/store"
                             className="af-banner__account-option-icon af-banner__account-option-icon--locator"
                         >
@@ -118,6 +119,7 @@ const Masthead = ({ children, variant = 'default', logo, navigationBackgroundCol
                         </Link>
                     </span>
                     <Link
+                        passHref
                         href="#"
                         className="af-banner__account-option-icon af-banner__account-option-icon--locator"
                         onClick={handleShowLocaleModal}
@@ -125,6 +127,7 @@ const Masthead = ({ children, variant = 'default', logo, navigationBackgroundCol
                         <img src="https://dcdemo.a.bigcontent.io/v1/static/af-locator" alt="locale" />
                     </Link>
                     <Link
+                        passHref
                         href="#"
                         className="af-banner__account-option-icon af-banner__account-option-icon--account"
                         onClick={handleShowAccountModal}
@@ -132,6 +135,7 @@ const Masthead = ({ children, variant = 'default', logo, navigationBackgroundCol
                         <img src="https://dcdemo.a.bigcontent.io/v1/static/af-account" alt="account" />
                     </Link>
                     <Link
+                        passHref
                         href="#"
                         className="af-banner__account-option-icon af-banner__account-option-icon--cart"
                         onClick={handleToggleDebug}
