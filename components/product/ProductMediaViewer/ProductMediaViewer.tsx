@@ -17,7 +17,7 @@ interface Props {
     numItems?: number;
 }
 
-const ProductMediaViewer: React.FunctionComponent<Props> = (props) => {
+const ProductMediaViewer = (props: Props) => {
     const { classes, variant = 'portrait', numItems = 2, ...other } = props;
 
     const { product } = useProduct() || {};

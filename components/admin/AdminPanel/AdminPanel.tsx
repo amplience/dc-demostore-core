@@ -41,7 +41,7 @@ interface Props {
     style?: React.CSSProperties;
 }
 
-const AdminPanel: React.FunctionComponent<Props> = (props) => {
+const AdminPanel = (props: Props) => {
     const { classes, ...other } = props;
     const hubname = getHubName();
     const vendor = useECommerce().vendor;
