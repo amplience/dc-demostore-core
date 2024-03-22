@@ -7,12 +7,13 @@ import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
 interface Props {
+    className?: string;
     loading?: boolean;
     navigationItem?: NavigationItem;
 }
 
 const Breadcrumb = (props: Props) => {
-    const { navigationItem, loading = false, ...other } = props;
+    const { className, navigationItem, loading = false, ...other } = props;
     const { findByHref } = useNavigation();
     const { asPath } = useRouter();
     const nodes = useMemo(() => {
