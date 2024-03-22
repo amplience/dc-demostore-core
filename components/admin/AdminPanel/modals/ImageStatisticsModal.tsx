@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { CSVLink } from 'react-csv';
 import { ImageStatistics } from '../ImageStatistics';
 import {
-    Box,
     Button,
     Card,
     CardContent,
     CardMedia,
     Chip,
     Grid,
-    IconButton,
     Table,
     TableBody,
     TableCell,
@@ -17,7 +15,6 @@ import {
     TableRow,
     Typography,
 } from '@mui/material';
-import ImageStatisticsStack from '../ImageStatisticsStack';
 import { getImageURL } from '@utils/getImageURL';
 import { ListOutlined, AppsOutlined, FileDownload } from '@mui/icons-material';
 import ImageStatisticsBars from '../ImageStatisticsBars';

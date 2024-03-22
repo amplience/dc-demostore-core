@@ -3,17 +3,13 @@ import clsx from 'clsx';
 import { NavigatePrevious, NavigateNext } from '@components/icons';
 
 interface Props extends PropsWithChildren {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
-
     navigationDots?: boolean;
     infinite?: number;
     autoplay?: boolean;
 }
 
 const LegacySlider = (props: Props) => {
-    const { classes, children, className, navigationDots = false, infinite = 0, autoplay = false, ...other } = props;
+    const { children, navigationDots = false, infinite = 0, autoplay = false, ...other } = props;
     let numChildren = React.Children.count(children);
 
     const component = createRef<any>();
@@ -46,7 +42,7 @@ const LegacySlider = (props: Props) => {
     return (
         <div
             ref={component}
-            className={clsx('amp-dc-slider', 'amp-dc-card-list-slider', className)}
+            className={clsx('amp-dc-slider', 'amp-dc-card-list-slider')}
             data-infinite="true"
             data-autoplay="true"
             data-navigation="false"

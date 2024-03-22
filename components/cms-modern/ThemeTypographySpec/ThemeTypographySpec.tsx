@@ -1,16 +1,5 @@
-import { createTheme, Theme, ThemeProvider, StyledEngineProvider, Typography } from '@mui/material';
+import { createTheme, ThemeProvider, StyledEngineProvider, Typography } from '@mui/material';
 import React from 'react';
-
-const styles = (theme: Theme) => ({
-    root: {
-        marginTop: 30,
-        marginBottom: 30,
-    },
-    typo: {
-        marginTop: 10,
-        marginBottom: 10,
-    },
-});
 
 interface FontDefinition {
     fontFamily: string;
@@ -61,8 +50,6 @@ interface Props {
 }
 
 const ThemeTypographySpec = (props: Props) => {
-    const { classes, ...other } = props;
-
     const theme = createTheme({
         typography: {
             fontFamily: props.fontFamily,
@@ -191,69 +178,113 @@ const ThemeTypographySpec = (props: Props) => {
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
-                <div className={classes?.root}>
+                <div
+                    style={{
+                        marginTop: 30,
+                        marginBottom: 30,
+                    }}
+                >
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="h1"
                         component="h1"
                     >{`Heading 1 (H1) - ${props.h1.fontFamily}; font-size: ${props.h1.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="h2"
                         component="h2"
                     >{`Heading 2 (H2) - ${props.h2.fontFamily}; font-size: ${props.h2.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="h3"
                         component="h3"
                     >{`Heading 3 (H3) - ${props.h3.fontFamily}; font-size: ${props.h3.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="h4"
                         component="h4"
                     >{`Heading 4 (H4) - ${props.h4.fontFamily}; font-size: ${props.h4.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="h5"
                         component="h5"
                     >{`Heading 5 (H5) - ${props.h5.fontFamily}; font-size: ${props.h5.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="h6"
                         component="h6"
                     >{`Heading 6 (H6) - ${props.h6.fontFamily}; font-size: ${props.h6.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="subtitle1"
                         component="p"
                     >{`Subtitle 1 (S1) - ${props.subtitle1.fontFamily}; font-size: ${props.subtitle1.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="subtitle2"
                         component="p"
                     >{`Subtitle 2 (S2) - ${props.subtitle2.fontFamily}; font-size: ${props.subtitle2.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="body1"
                         component="p"
                     >{`Body 1 (B1) - ${props.body1.fontFamily}; font-size: ${props.body1.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="body2"
                         component="p"
                     >{`Body 2 (B2) - ${props.body2.fontFamily}; font-size: ${props.body2.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="button"
                         component="button"
                     >{`Button 2 (BU) - ${props.button.fontFamily}; font-size: ${props.button.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="caption"
                         component="p"
                     >{`Caption (CA) - ${props.caption.fontFamily}; font-size: ${props.caption.fontSize};`}</Typography>
                     <Typography
-                        className={classes?.typo}
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                        }}
                         variant="overline"
                         component="p"
                     >{`overline (O) - ${props.overline.fontFamily}; font-size: ${props.overline.fontSize};`}</Typography>

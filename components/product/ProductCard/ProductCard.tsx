@@ -1,12 +1,12 @@
 import React from 'react';
-import { Theme, Typography, Button } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useCmsContext } from '@lib/cms/CmsContext';
 import { Product } from '@amplience/dc-integration-middleware';
 import _ from 'lodash';
 import { getImageURL } from '@utils/getImageURL';
 
+// TODO: migrate styles
 const styles = (theme: Theme) => ({
     root: {
         display: 'flex',

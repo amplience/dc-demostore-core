@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { pointsToSVGPath, PolygonForwardRef, SVGPath } from './polygon';
 import { ShoppableImageHotspot } from './ShoppableImageData';

@@ -10,7 +10,6 @@ export type ProductAttributeVariant = 'text';
 
 const ProductRichText = (props: Props) => {
     const { variant = 'text' } = props;
-
     const { product } = useProduct() || {};
     if (!product || !product[variant]) {
         return null;

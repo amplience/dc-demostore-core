@@ -4,6 +4,7 @@ import { Overlay, InfoPanel } from '@components/ui';
 import { CallToAction } from '..';
 import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
 
+// TODO: migrate styles
 const styles = (theme: Theme) => ({
     root: {},
     image: {

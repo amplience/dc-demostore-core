@@ -3,6 +3,7 @@ import { Theme, Accordion, AccordionSummary, Typography, AccordionDetails } from
 import clsx from 'clsx';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+// TODO: migrate styles
 const styles = (theme: Theme) => ({
     root: {
         '&:first-child': {

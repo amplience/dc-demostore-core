@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import fetchContent, { CmsRequest } from '@lib/cms/fetchContent';
 import { enrichPageContent } from '@lib/page/pageContent/enrichPageContent';

@@ -1,21 +1,10 @@
 import React from 'react';
-import { Theme } from '@mui/material';
-import clsx from 'clsx';
 import { CmsImage, ImageScaleMode, ImageTransformations, ImageFormat, ImageScaleFit } from '@utils/getImageURL';
 import { Overlay } from '@components/ui';
 import { CallToAction } from '..';
 import AdaptiveImage, { AdaptiveImageSource } from '../AdaptiveImage';
 
-const styles = (theme: Theme) => ({
-    root: {},
-    image: {
-        width: '100%',
-    },
-});
-
 interface Props {
-    classes?: any;
-    className?: string;
     style?: React.CSSProperties;
     image: {
         img: {
@@ -36,7 +25,7 @@ interface Props {
 }
 
 const MegaMenuSimpleBanner = (props: Props) => {
-    const { classes, className, image, ctaSettings, bannerText, textPositioning, ...other } = props;
+    const { image, ctaSettings, bannerText, textPositioning, ...other } = props;
 
     const { img } = image || {};
 
@@ -53,7 +42,7 @@ const MegaMenuSimpleBanner = (props: Props) => {
     };
 
     return (
-        <div className={clsx(classes?.root, className)} {...other}>
+        <div {...other}>
             <Overlay
                 variant="responsive"
                 floatingHorizontalAlignment={'center'}
@@ -64,7 +53,13 @@ const MegaMenuSimpleBanner = (props: Props) => {
                     </CallToAction>
                 }
             >
-                <AdaptiveImage className={classes?.image} image={img.image.image} transformations={transformations}>
+                <AdaptiveImage
+                    style={{
+                        width: '100%',
+                    }}
+                    image={img.image.image}
+                    transformations={transformations}
+                >
                     <AdaptiveImageSource
                         type="image/webp"
                         transformations={{

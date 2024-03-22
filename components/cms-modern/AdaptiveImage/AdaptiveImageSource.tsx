@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { ImageTransformations, getImageURL } from '@utils/getImageURL';
 import { AdaptiveImageContext } from './AdaptiveImage';
 

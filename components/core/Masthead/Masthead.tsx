@@ -7,7 +7,6 @@ import withConfig from '@components/core/Config/withConfig';
 import { CmsImage, getImageURL, ImageFormat } from '@utils/getImageURL';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import getSymbolFromCurrency from 'currency-symbol-map';
-
 import AE from '@components/icons/Flags/AE';
 import CN from '@components/icons/Flags/CN';
 import DE from '@components/icons/Flags/DE';
@@ -23,25 +22,18 @@ interface Props extends PropsWithChildren {
 
 const Masthead = ({ children, variant = 'default', logo, navigationBackgroundColor }: Props) => {
     const { openModal } = useUI();
-
     const { locale = 'en-US', currency = 'USD' } = useCmsContext();
-
     const { rootItems } = useNavigation();
-
     const { debugging, setDebugging } = useDebug();
-
     const handleShowLocaleModal = () => {
         openModal('LOCALE');
     };
-
     const handleShowAccountModal = () => {
         openModal('ACCOUNT');
     };
-
     const handleToggleDebug = () => {
         setDebugging(!debugging);
     };
-
     const localeSettings = useMemo(() => {
         switch (locale) {
             case 'en-GB':
@@ -81,7 +73,6 @@ const Masthead = ({ children, variant = 'default', logo, navigationBackgroundCol
             label: 'United States',
         };
     }, [locale]);
-
     const { Flag, currency: localeCurrency, label: localeLabel } = localeSettings;
 
     return (

@@ -1,29 +1,23 @@
 import React, { PropsWithChildren } from 'react';
-import { Theme, Card, styled } from '@mui/material';
-import clsx from 'clsx';
+import { Card } from '@mui/material';
 
-const styles = (theme: Theme) => ({
-    root: {
-        borderLeft: `6px solid ${theme.palette.primary.main}`,
-        width: '100%',
-        marginBottom: theme.spacing(),
-    },
-});
-
-interface Props extends PropsWithChildren {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
-}
+interface Props extends PropsWithChildren {}
 
 const AdminCard = (props: Props) => {
-    const { classes, className, children, ...other } = props;
+    const { children, ...other } = props;
 
     return (
-        <Card className={clsx(classes?.root, className)} {...other}>
+        <Card
+            sx={{
+                borderLeft: '6px solid primary.main',
+                mb: 'auto',
+                width: '100%',
+            }}
+            {...other}
+        >
             {children}
         </Card>
     );
 };
 
-export default styled(AdminCard)(styles);
+export default AdminCard;

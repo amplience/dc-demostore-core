@@ -1,18 +1,6 @@
-import { Grid, Paper, Theme, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { nanoid } from 'nanoid';
-
-const styles = (theme: Theme) => ({
-    root: {
-        flexGrow: 1,
-        paddingTop: 50,
-        paddingBottom: 50,
-    },
-    paper: {
-        height: 120,
-        width: '90%',
-    },
-});
 
 interface Palette {
     light: string;
@@ -32,8 +20,6 @@ interface Props {
 }
 
 const ThemePaletteSpec = (props: Props) => {
-    const { classes, ...other } = props;
-
     const paletteList = [
         { name: 'primary', palette: props.primary },
         { name: 'secondary', palette: props.secondary },
@@ -43,12 +29,21 @@ const ThemePaletteSpec = (props: Props) => {
     ];
 
     return (
-        <Grid container spacing={3} className={classes?.root} justifyContent="center">
+        <Grid
+            style={{
+                flexGrow: 1,
+                paddingTop: 50,
+                paddingBottom: 50,
+            }}
+            container
+            spacing={3}
+            justifyContent="center"
+        >
             {paletteList.map((color: { name: string; palette: Palette }) => {
                 return (
                     <Grid key={nanoid()} container spacing={3}>
                         <Grid item xs={4}>
-                            <Paper style={{ backgroundColor: color.palette.light }} className={classes?.paper} />
+                            <Paper style={{ height: 120, width: '90%', backgroundColor: color.palette.light }} />
                             <Typography variant="body1" component="p">
                                 {color.name} light
                             </Typography>
@@ -57,7 +52,7 @@ const ThemePaletteSpec = (props: Props) => {
                             </Typography>
                         </Grid>
                         <Grid item xs={4}>
-                            <Paper style={{ backgroundColor: color.palette.main }} className={classes?.paper} />
+                            <Paper style={{ height: 120, width: '90%', backgroundColor: color.palette.main }} />
                             <Typography variant="body1" component="p">
                                 {color.name} main
                             </Typography>
@@ -66,7 +61,7 @@ const ThemePaletteSpec = (props: Props) => {
                             </Typography>
                         </Grid>
                         <Grid item xs={4}>
-                            <Paper style={{ backgroundColor: color.palette.dark }} className={classes?.paper} />
+                            <Paper style={{ height: 120, width: '90%', backgroundColor: color.palette.dark }} />
                             <Typography variant="body1" component="p">
                                 {color.name} dark
                             </Typography>

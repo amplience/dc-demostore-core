@@ -7,6 +7,7 @@ import { CallToAction } from '..';
 import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
 import { nanoid } from 'nanoid';
 
+// TODO - Migrate styles
 const styles = (theme: Theme) => ({
     root: {},
     image: {

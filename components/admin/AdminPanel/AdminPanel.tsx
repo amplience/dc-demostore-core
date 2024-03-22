@@ -16,44 +16,30 @@ import { getHubName } from '@lib/config/locator/config-locator';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 import AcceleratedMediaPanel from './panels/AcceleratedMediaPanel';
 
-const styles = (theme: Theme) => ({
-    root: {},
-    logo: {
-        display: 'flex',
-        padding: '10px 10px 4px 10px',
-        justifyContent: 'center',
-    },
-    environment: {
-        display: 'flex',
-        justifyContent: 'left',
-        padding: '8px',
-    },
-    icon: {
-        marginRight: '0.4rem',
-        width: 24,
-        height: 24,
-    },
-});
-
-interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
-}
-
-const AdminPanel = (props: Props) => {
-    const { classes, ...other } = props;
+const AdminPanel = () => {
     const hubname = getHubName();
     const vendor = useECommerce().vendor;
 
     return (
         <WithAdminTheme>
-            <div className={classes?.root}>
-                <div className={classes?.logo}>
+            <div
+                style={{
+                    display: 'flex',
+                    padding: '10px 10px 4px 10px',
+                    justifyContent: 'center',
+                }}
+            >
+                <div>
                     <Image src="/images/amplience.png" width={247} height={100} alt="amplience" />
                 </div>
                 <Divider />
-                <div className={classes?.environment}>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'left',
+                        padding: '8px',
+                    }}
+                >
                     <div>
                         <span>hub</span>{' '}
                         <span>
@@ -71,7 +57,13 @@ const AdminPanel = (props: Props) => {
                 <Divider />
                 <Accordion key={'Content Preview'}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-                        <VisibilityIcon className={classes?.icon} />
+                        <VisibilityIcon
+                            style={{
+                                marginRight: '0.4rem',
+                                width: 24,
+                                height: 24,
+                            }}
+                        />
                         <Typography variant="button">{'Content Preview'}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -81,7 +73,13 @@ const AdminPanel = (props: Props) => {
 
                 <Accordion key={'Components'}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-                        <ExtensionIcon className={classes?.icon} />
+                        <ExtensionIcon
+                            style={{
+                                marginRight: '0.4rem',
+                                width: 24,
+                                height: 24,
+                            }}
+                        />
                         <Typography variant="button">{'Components'}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -91,7 +89,13 @@ const AdminPanel = (props: Props) => {
 
                 <Accordion key={'Accelerated Media'}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-                        <ElectricBoltIcon className={classes?.icon} />
+                        <ElectricBoltIcon
+                            style={{
+                                marginRight: '0.4rem',
+                                width: 24,
+                                height: 24,
+                            }}
+                        />
                         <Typography variant="button">{'Accelerated Media'}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>

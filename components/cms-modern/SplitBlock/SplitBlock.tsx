@@ -3,6 +3,7 @@ import { Theme } from '@mui/material';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
 
+// TOOD: migrate styles
 const styles = (theme: Theme) => ({
     root: {
         display: 'flex',

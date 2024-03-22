@@ -9,8 +9,6 @@ import Link from 'next/link';
 type Props = {} & CmsContent;
 
 const BlogCard = ({
-    snippet,
-    id,
     viewType,
     title,
     blogdate,

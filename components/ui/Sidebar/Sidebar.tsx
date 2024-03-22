@@ -40,12 +40,6 @@ const styles = (theme: Theme) => ({
             right: 0,
         },
     },
-    paper: {
-        width: '100%',
-        height: '100%',
-        overflowY: 'auto' as 'auto',
-    },
-
     open: {},
 });
 
@@ -82,7 +76,14 @@ const Sidebar = (props: Props) => {
                     [classes?.left]: variant === 'left',
                 })}
             >
-                <Paper className={classes?.paper} style={{ width: '100%', height: '100%' }} elevation={3}>
+                <Paper
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        overflowY: 'auto' as 'auto',
+                    }}
+                    elevation={3}
+                >
                     {children}
                 </Paper>
             </aside>

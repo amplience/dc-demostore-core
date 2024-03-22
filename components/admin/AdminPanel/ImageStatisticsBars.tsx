@@ -2,35 +2,7 @@ import React from 'react';
 import { ImageStatistics, typeFromFormat, formatColors } from './ImageStatistics';
 import { Theme, Tooltip } from '@mui/material';
 
-const styles = (theme: Theme) => ({
-    container: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column' as 'column',
-    },
-    barBase: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        color: '#444444',
-        height: '20px',
-        margin: '2px 0',
-        fontSize: '12px',
-        gap: '5px',
-    },
-    format: {
-        fontSize: '12px',
-        marginLeft: '4px',
-        whiteSpace: 'nowrap' as 'nowrap',
-    },
-    size: {
-        fontSize: '12px',
-        marginRight: '4px',
-    },
-});
-
 interface Props {
-    classes?: any;
     stat: ImageStatistics;
 }
 
@@ -67,14 +39,20 @@ function getOrderedFormats(stat: ImageStatistics): OrderedFormat[] {
     return formatSizes;
 }
 
-const ImageStatisticsBars = ({ stat, classes }: Props) => {
+const ImageStatisticsBars = ({ stat }: Props) => {
     const ordered = getOrderedFormats(stat);
     const maxSize = ordered[ordered.length - 1].size;
     const maxKey = ordered[ordered.length - 1].key;
     // ordered.reverse();
 
     return (
-        <div className={classes?.container}>
+        <div
+            style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column' as 'column',
+            }}
+        >
             {ordered.map((elem) => {
                 const size = elem.size;
                 const name = elem.key;
@@ -87,21 +65,49 @@ const ImageStatisticsBars = ({ stat, classes }: Props) => {
                 return (
                     <Tooltip key={elem.key} title={title}>
                         <div
-                            className={classes?.barBase}
                             style={{
                                 backgroundColor: formatColors[invalid ? 'auto' : elem.key],
                                 width: `${(size / maxSize) * 100}%`,
                                 outline: invalid ? '1px solid red' : '',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                color: '#444444',
+                                height: '20px',
+                                margin: '2px 0',
+                                fontSize: '12px',
+                                gap: '5px',
                             }}
                         >
                             <span>
                                 <span
-                                    className={classes?.format}
-                                    style={{ textDecoration: invalid ? 'line-through' : '' }}
+                                    style={{
+                                        fontSize: '12px',
+                                        marginLeft: '4px',
+                                        whiteSpace: 'nowrap' as 'nowrap',
+                                        textDecoration: invalid ? 'line-through' : '',
+                                    }}
                                 >{`${name}${elem.auto ? ' (auto)' : ''}`}</span>
-                                {invalid ? <span className={classes?.format}>{elem.realKey}</span> : null}
+                                {invalid ? (
+                                    <span
+                                        style={{
+                                            fontSize: '12px',
+                                            marginLeft: '4px',
+                                            whiteSpace: 'nowrap' as 'nowrap',
+                                        }}
+                                    >
+                                        {elem.realKey}
+                                    </span>
+                                ) : null}
                             </span>
-                            <span className={classes?.size}>{elem.size}</span>
+                            <span
+                                style={{
+                                    fontSize: '12px',
+                                    marginRight: '4px',
+                                }}
+                            >
+                                {elem.size}
+                            </span>
                         </div>
                     </Tooltip>
                 );

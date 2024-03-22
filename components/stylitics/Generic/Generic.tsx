@@ -6,12 +6,7 @@ import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-in
 import { useRouter } from 'next/router';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
-const styles = (theme: Theme) => ({});
-
-/**
- * Generic props
- */
-interface Props {
+type Props = {
     className?: string;
     style?: React.CSSProperties;
     header?: string;
@@ -29,7 +24,7 @@ interface Props {
     variant?: string;
     min: number;
     max: number;
-}
+};
 
 /**
  * Generic Component that can handle all the different Stylitics views
@@ -38,13 +33,9 @@ interface Props {
  */
 const Generic = (props: Props) => {
     const { header } = props;
-
     const { product } = useProduct() || {};
-
     const container = createRef<HTMLDivElement>();
-
     const { push } = useRouter();
-
     const vendor = useECommerce().vendor;
 
     useEffect(() => {

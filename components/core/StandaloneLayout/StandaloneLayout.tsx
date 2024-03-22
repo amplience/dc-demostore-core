@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from 'react';
-
 import { WithNavigationContext } from '../Masthead';
 import { WithCMSTheme, WithThemesContext } from '../WithCMSTheme';
 import { WithECommerceContext } from '../Masthead/ECommerceContext';

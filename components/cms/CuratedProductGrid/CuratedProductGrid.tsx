@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useContentAnalytics } from '@lib/analytics';
-import { Theme } from '@mui/material';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { commerceApi } from '@pages/api';
 import { LegacySlider, LegacySliderSlide, Section } from '@components/ui';
@@ -10,28 +9,13 @@ import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 
-const styles = (theme: Theme) => ({
-    root: {},
-    list: {
-        listStyle: 'none',
-        margin: 0,
-        padding: 0,
-    },
-    item: {
-        margin: theme.spacing(),
-    },
-});
-
 interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
     header: string;
     products: any[];
     navigationDots?: any;
 }
 
-const CuratedProductGrid = ({ classes, className, header, products = [], navigationDots, ...other }: Props) => {
+const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }: Props) => {
     // Retrieve locale/country code from context - TODO: get language from user context
     const { locale: cmsLocale } = useCmsContext() || {};
     let locale = cmsLocale || 'en';
@@ -71,7 +55,7 @@ const CuratedProductGrid = ({ classes, className, header, products = [], navigat
     }, [products, cmsContext, userContext]);
 
     return (
-        <div className={clsx(classes?.root, className)} {...other}>
+        <div {...other}>
             <Section title={header}>
                 <LegacySlider>
                     {productList.map((result: any, index: number) => {
@@ -84,7 +68,7 @@ const CuratedProductGrid = ({ classes, className, header, products = [], navigat
                                     ['amp-length-3']: productList.length >= 3,
                                 })}
                             >
-                                <CuratedProductGridCard data={result} className={classes?.item} />
+                                <CuratedProductGridCard data={result} />
                             </LegacySliderSlide>
                         );
                     })}

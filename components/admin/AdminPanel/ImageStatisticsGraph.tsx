@@ -2,31 +2,7 @@ import React from 'react';
 import { ImageStatistics, formatColors } from './ImageStatistics';
 import { Theme, Typography } from '@mui/material';
 
-const styles = (theme: Theme) => ({
-    table: {
-        width: '100%',
-        margin: '12px 0px',
-    },
-    formatHead: {
-        width: '0',
-    },
-    weightHead: {
-        textAlign: 'center' as 'center',
-    },
-    format: {
-        textAlign: 'end' as 'end',
-        verticalAlign: 'middle',
-        borderRight: '1px solid gray',
-        paddingRight: '4px',
-    },
-    bar: {
-        padding: '4px 0px 4px 4px',
-        color: '#444444',
-    },
-});
-
 interface Props {
-    classes?: any;
     stats: ImageStatistics[];
 }
 
@@ -89,26 +65,54 @@ function getMinSize(stats: ImageStatistics[]): number {
     return minSize;
 }
 
-const ImageStatisticsGraph = ({ stats, classes }: Props) => {
+const ImageStatisticsGraph = ({ stats }: Props) => {
     const formats = getAllFormats(stats);
     const maxSize = getMaxSize(stats);
     const minSize = getMinSize(stats);
 
     return (
-        <table className={classes?.table}>
+        <table
+            style={{
+                width: '100%',
+                margin: '12px 0px',
+            }}
+        >
             <tr>
-                <th className={classes?.formatHead}></th>
-                <th className={classes?.weightHead}>Images Weight (bytes)</th>
+                <th
+                    style={{
+                        width: '0',
+                    }}
+                ></th>
+                <th
+                    style={{
+                        textAlign: 'center' as 'center',
+                    }}
+                >
+                    Images Weight (bytes)
+                </th>
             </tr>
             {formats.map((format) => {
                 const size = sumSizes(stats, format);
                 return (
                     <tr key={format}>
-                        <td className={classes?.format}>{format}</td>
+                        <td
+                            style={{
+                                textAlign: 'end' as 'end',
+                                verticalAlign: 'middle',
+                                borderRight: '1px solid gray',
+                                paddingRight: '4px',
+                            }}
+                        >
+                            {format}
+                        </td>
                         <td>
                             <div
-                                className={classes?.bar}
-                                style={{ width: `${(100 * size) / maxSize}%`, backgroundColor: formatColors[format] }}
+                                style={{
+                                    padding: '4px 0px 4px 4px',
+                                    color: '#444444',
+                                    width: `${(100 * size) / maxSize}%`,
+                                    backgroundColor: formatColors[format],
+                                }}
                             >
                                 <Typography variant="caption">{size}</Typography>
                             </div>

@@ -2,66 +2,22 @@ import React from 'react';
 import { Grid, CardContent, Typography, Card as MuiCard, CardActions, Button } from '@mui/material';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
-import { Theme } from '@mui/material';
-
-const styles = (theme: Theme) => ({
-    root: {},
-    container: {
-        border: 'none',
-    },
-    content: {
-        padding: 10,
-    },
-    actions: {
-        justifyContent: 'center',
-        paddingBottom: 20,
-    },
-    links: {
-        paddingLeft: 20,
-        paddingRight: 20,
-        color: '#fff',
-        backgroundColor: '#000',
-        borderRadius: 3,
-        '&:hover': {
-            backgroundColor: '#000',
-        },
-    },
-    linkText: {
-        color: '#fff',
-    },
-});
 
 export interface CardProps {
     classes?: any;
     className?: string;
-
-    /**
-     * Image Content Item
-     */
     image?: CmsContent;
-
-    /**
-     * Title of the Card
-     */
     cardName?: string;
-
-    /**
-     * Description
-     */
     description?: string;
-
-    /**
-     * Call-to-action Links
-     */
     links?: any[];
 }
 
-const Card = ({ image, cardName, description, links, classes }: CardProps) => {
+const Card = ({ image, cardName, description, links }: CardProps) => {
     return (
-        <Grid item xs={12} sm data-testid="Card" className={classes?.root}>
+        <Grid item xs={12} sm data-testid="Card">
             <MuiCard
-                className={classes?.container}
                 style={{
+                    border: 'none',
                     boxShadow: 'none',
                     display: 'flex',
                     flexDirection: 'column',
@@ -69,7 +25,11 @@ const Card = ({ image, cardName, description, links, classes }: CardProps) => {
                     textAlign: 'center',
                 }}
             >
-                <CardContent className={classes?.content}>
+                <CardContent
+                    style={{
+                        padding: 10,
+                    }}
+                >
                     {image && <ContentBlock content={image} />}
                     {cardName && (
                         <Typography variant="h2" component="h2" style={{ marginTop: 15, marginBottom: 15 }}>
@@ -78,13 +38,33 @@ const Card = ({ image, cardName, description, links, classes }: CardProps) => {
                     )}
                     {description && <Typography component="p">{description}</Typography>}
                 </CardContent>
-                <CardActions className={classes?.actions}>
+                <CardActions
+                    style={{
+                        justifyContent: 'center',
+                        paddingBottom: 20,
+                    }}
+                >
                     {links &&
                         links.map((link: any, i: number) => {
                             if (link.label) {
                                 return (
-                                    <Button className={classes?.links} href={link.value} key={i}>
-                                        <Typography variant="h4" className={classes?.linkText}>
+                                    <Button
+                                        style={{
+                                            paddingLeft: 20,
+                                            paddingRight: 20,
+                                            color: '#fff',
+                                            backgroundColor: '#000',
+                                            borderRadius: 3,
+                                        }}
+                                        href={link.value}
+                                        key={i}
+                                    >
+                                        <Typography
+                                            variant="h4"
+                                            style={{
+                                                color: '#fff',
+                                            }}
+                                        >
                                             {link.label}
                                         </Typography>
                                     </Button>

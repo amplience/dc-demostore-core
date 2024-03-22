@@ -2,24 +2,6 @@ import React from 'react';
 import { ImageStatistics } from './ImageStatistics';
 import { Theme, Tooltip } from '@mui/material';
 
-const styles = (theme: Theme) => ({
-    container: {
-        width: '100%',
-        height: '24px',
-        display: 'flex',
-    },
-    barBase: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'white',
-        height: '24px',
-        outline: '2px solid white',
-        overflow: 'hidden',
-        fontSize: '12px',
-    },
-});
-
 const colors: { [key: string]: string } = {
     jpeg: '#FFA200',
     webp: '#00B6FF',
@@ -51,13 +33,19 @@ function getOrderedFormats(stat: ImageStatistics): { key: string; size: number; 
     return formatSizes;
 }
 
-const ImageStatisticsStack = ({ stat, classes }: Props) => {
+const ImageStatisticsStack = ({ stat }: Props) => {
     const ordered = getOrderedFormats(stat);
     const maxSize = ordered[ordered.length - 1].size;
     const maxKey = ordered[ordered.length - 1].key;
 
     return (
-        <div className={classes?.container}>
+        <div
+            style={{
+                width: '100%',
+                height: '24px',
+                display: 'flex',
+            }}
+        >
             {ordered.map((elem, index) => {
                 const size = elem.size;
                 const lastSize = index === 0 ? 0 : ordered[index - 1].size;
@@ -71,8 +59,15 @@ const ImageStatisticsStack = ({ stat, classes }: Props) => {
                         }% of ${maxKey})`}
                     >
                         <div
-                            className={classes?.barBase}
                             style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                height: '24px',
+                                outline: '2px solid white',
+                                overflow: 'hidden',
+                                fontSize: '12px',
                                 backgroundColor: colors[elem.key],
                                 width: `${((size - lastSize) / maxSize) * 100}%`,
                             }}

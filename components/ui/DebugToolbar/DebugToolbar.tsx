@@ -1,14 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import s from './DebugToolbar.module.css';
 import clsx from 'clsx';
-import Moment from 'react-moment';
-import { useCmsContext } from '@lib/cms/CmsContext';
-import { Calendar } from '@components/icons';
 import { useDebug } from './DebugContext';
 
 interface Props extends PropsWithChildren {}
 
-const DebugToolbar = ({ children }: Props) => {
+const DebugToolbar = () => {
     const { debugging, showSlots, setShowSlots, showContent, setShowContent, showEditions, setShowEditions } =
         useDebug();
 

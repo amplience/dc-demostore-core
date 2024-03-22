@@ -1,5 +1,4 @@
 import React, { createRef, useEffect } from 'react';
-import { Theme } from '@mui/material';
 import { useAppContext } from '@lib/config/AppContext';
 import { useProduct } from '../WithProduct/WithProduct';
 import ImageGallery from 'react-image-gallery';
@@ -7,30 +6,19 @@ import _ from 'lodash';
 import { ImageFormat, getImageURL } from '@utils/getImageURL';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
 
-const styles = (theme: Theme) => ({});
-
 interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
     variant?: 'portrait' | 'landscape';
     numItems?: number;
 }
 
 const ProductMediaViewer = (props: Props) => {
-    const { classes, variant = 'portrait', numItems = 2, ...other } = props;
-
+    const { variant = 'portrait', numItems = 2 } = props;
     const { product } = useProduct() || {};
-
     let { cms } = useAppContext();
-
     const { acceleratedMedia } = useAcceleratedMedia();
-
     let format = 'auto';
     if (acceleratedMedia) format = ImageFormat.AVIF;
-
     const container = createRef<HTMLDivElement>();
-
     let mediaSet: string | null = null;
 
     // Get Image Set ID from image URL

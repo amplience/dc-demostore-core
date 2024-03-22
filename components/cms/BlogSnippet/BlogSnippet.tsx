@@ -3,67 +3,19 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
 import { Typography } from '@mui/material';
 
-/**
- * BlogSnippet props
- */
 export type BlogSnippetProps = {
-    /**
-     * Image
-     */
     image: CmsContent;
-
-    /**
-     * Blog title
-     */
     title: string;
-
-    /**
-     * Blog date
-     */
     blogdate: string;
-
-    /**
-     * Blog author
-     */
     author: string;
-
-    /**
-     * Blog category
-     */
     category: string[];
-
-    /**
-     * Blog description
-     */
     description: string;
-
-    /**
-     * Call-to-action configuration
-     */
     cta: any;
-
-    /**
-     * Tags from taxonomy hierarchy
-     */
     tags: any[];
-
-    /**
-     * Keywords
-     */
     keywords: string[];
 };
 
-const BlogSnippet = ({
-    image,
-    title,
-    blogdate,
-    author,
-    category,
-    description,
-    tags,
-    cta,
-    keywords,
-}: BlogSnippetProps) => {
+const BlogSnippet = ({ image, title, blogdate, author, category, description }: BlogSnippetProps) => {
     return (
         <>
             <div className="amp-dc-banner js_dc_banner">

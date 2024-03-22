@@ -8,6 +8,7 @@ interface Props extends PropsWithChildren {
     classes?: any;
 }
 
+// TODO: migrate styles
 const styles = (theme: Theme) => ({
     root: {},
     backdrop: {

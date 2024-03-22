@@ -1,5 +1,5 @@
 import React from 'react';
-import { Theme, Button, Typography, Box } from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
 import clsx from 'clsx';
 import Image from '@components/cms-modern/Image';
 import { CmsContent } from '@lib/cms/CmsContent';
@@ -7,21 +7,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
-const styles = (theme: Theme) => ({
-    button: {
-        fontFamily: '"Roboto Condensed",sans-serif !important',
-        border: '0 !important',
-        fontWeight: '400 !important',
-        borderRadius: '3px !important',
-        padding: '5px 30px !important',
-        marginTop: 30,
-    },
-});
-
 interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
     data: {
         snippet: {
             title: string;
@@ -38,15 +24,12 @@ interface Props {
 
 const DynamicBlogListCard = (props: Props) => {
     const { language } = useUserContext();
-
-    const { classes, data, className, ...other } = props;
-
+    const { data } = props;
     const { _meta, snippet } = data;
-
     const { title, blogdate, description, image, category = [] } = snippet;
 
     return (
-        <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet', className)}>
+        <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet')}>
             <Link passHref href={`/blog/${_meta?.deliveryKey}`}>
                 {image ? (
                     <div className="amp-dc-image">
@@ -91,8 +74,16 @@ const DynamicBlogListCard = (props: Props) => {
                     <Button
                         color="primary"
                         variant="contained"
-                        className={classes?.button}
-                        style={{ textAlign: 'center', textTransform: 'uppercase' }}
+                        style={{
+                            fontFamily: '"Roboto Condensed",sans-serif !important',
+                            border: '0 !important',
+                            fontWeight: '400 !important',
+                            borderRadius: '3px !important',
+                            padding: '5px 30px !important',
+                            marginTop: 30,
+                            textAlign: 'center',
+                            textTransform: 'uppercase',
+                        }}
                     >
                         {language === 'de' ? 'WEITERLESEN' : 'READ MORE'}
                     </Button>

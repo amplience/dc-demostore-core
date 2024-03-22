@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import SliderNextButton from './SliderNextButton';
 import SliderBackButton from './SliderBackButton';
 
+// TODO: migrate styles
 const styles = (theme: Theme) => ({
     root: {},
     dots: {

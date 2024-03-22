@@ -33,9 +33,7 @@ const TableSpec = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-
             <h3 style={{ fontSize: '18px' }}>Compact</h3>
-
             <TableContainer component={Paper}>
                 <Table size="small" aria-label="A table">
                     <TableHead>

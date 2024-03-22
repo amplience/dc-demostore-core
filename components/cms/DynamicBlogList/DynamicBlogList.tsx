@@ -1,32 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Theme } from '@mui/material';
 import clsx from 'clsx';
-
 import { useAppContext } from '@lib/config/AppContext';
-
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { Section, LegacySlider, LegacySliderSlide } from '@components/ui';
-
 import DynamicBlogListCard from './DynamicBlogListCard';
-import { useAsync } from '@lib/util';
 import _ from 'lodash';
 
-const styles = (theme: Theme) => ({
-    root: {},
-    list: {
-        listStyle: 'none',
-        margin: 0,
-        padding: 0,
-    },
-    item: {
-        margin: theme.spacing(),
-    },
-});
-
 interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
     header: string;
     numItems: number;
     tags?: { id: string }[];
@@ -34,10 +14,8 @@ interface Props {
 }
 
 const DynamicBlogList = (props: Props) => {
-    const { classes, className, header, tags, numItems = 3, query, ...other } = props;
-
+    const { header, tags, numItems = 3, query, ...other } = props;
     const [results, setResults] = useState([] as any);
-
     const { algolia, cms } = useAppContext();
     const { stagingApi, locale } = useCmsContext() || {};
     const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
@@ -66,7 +44,7 @@ const DynamicBlogList = (props: Props) => {
     }, [searchClient, tags, numItems, locale, indexName]);
 
     return (
-        <div className={clsx(classes?.root, className)} {...other}>
+        <div {...other}>
             <Section title={header}>
                 <LegacySlider>
                     {results.map((result: any, index: number) => {
@@ -79,7 +57,7 @@ const DynamicBlogList = (props: Props) => {
                                     ['amp-length-3']: results.length >= 3,
                                 })}
                             >
-                                <DynamicBlogListCard data={result} className={classes?.item} />
+                                <DynamicBlogListCard data={result} />
                             </LegacySliderSlide>
                         );
                     })}

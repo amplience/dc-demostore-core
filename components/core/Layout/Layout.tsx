@@ -1,5 +1,4 @@
 import React, { PropsWithChildren, useEffect } from 'react';
-
 import { Footer } from '@components/core';
 import { PreviewToolbar, AccountModal, LocaleModal, useDebug } from '@components/ui';
 import { useUI } from '@components/ui/UIContext';
@@ -23,25 +22,20 @@ interface Props extends PropsWithChildren {
 
 const Layout = ({ children, pageProps }: Props) => {
     const { currentModal, closeModal } = useUI();
-
     const { debugging, setDebugging } = useDebug();
-
     const handleCloseDebug = () => {
         setDebugging(false);
     };
 
     useEffect(() => {
         trackPageView();
-
         if (!window) {
             return;
         }
-
         const { amp, loryHelpers, shoppableVideo } = (window as any) || {};
         if (!amp || !loryHelpers) {
             return;
         }
-
         try {
             loryHelpers.initSliders(document.querySelectorAll('.js_slider'));
             shoppableVideo.init(document.querySelectorAll('.af-shoppable-video'));

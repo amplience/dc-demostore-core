@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { useContentAnalytics } from '@lib/analytics';
 import { useCmsContext } from '@lib/cms/CmsContext';
-
 import { useUserContext } from '@lib/user/UserContext';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 import { commerceApi } from '@pages/api';
@@ -14,11 +13,8 @@ type Props = {} & CmsContent;
 
 const ProductGrid = ({ category, query, limit }: Props) => {
     const { trackEvent } = useContentAnalytics();
-
     const { categoriesById } = useECommerce();
-
     const [products, setProducts] = useState<Product[]>([]);
-
     const cmsContext = useCmsContext();
     const userContext = useUserContext();
 
@@ -61,9 +57,7 @@ const ProductGrid = ({ category, query, limit }: Props) => {
             <div className="amp-dc-card-list-wrap product-grid">
                 {products.map((product: Product) => {
                     const { variants = [], name, slug, id } = product;
-
                     const { listPrice, salePrice, images } = variants[0] || {};
-
                     const handleClickProduct = (event: any) => {
                         trackEvent({
                             category: 'Product',

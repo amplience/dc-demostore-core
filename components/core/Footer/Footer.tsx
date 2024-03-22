@@ -10,7 +10,6 @@ interface Props {
     style?: React.CSSProperties;
 }
 
-const styles = (theme: Theme) => ({});
 const Footer = (props: Props) => {
     const isMobile = useMediaQuery('(max-width:750px)');
     const [linkCategories, setLinkCategories] = useState([

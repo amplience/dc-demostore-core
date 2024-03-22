@@ -1,33 +1,10 @@
 import React from 'react';
-import { Theme, Typography, Button, Grid, Paper, Box } from '@mui/material';
-import clsx from 'clsx';
+import { Typography, Button, Grid, Paper, Box } from '@mui/material';
 import Link from 'next/link';
 import ReactMarkdown from 'markdown-to-jsx';
 import Image from '@components/cms-modern/Image';
 
-const styles = (theme: Theme) => ({
-    root: {
-        display: 'flex',
-        padding: '1rem',
-    },
-    details: {
-        marginTop: 20,
-        marginBottom: 60,
-    },
-    name: {
-        wordWrap: 'break-word' as 'break-word',
-        whiteSpace: 'normal' as 'normal',
-        marginBottom: 10,
-    },
-    button: {
-        marginTop: 30,
-    },
-});
-
 interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
     content: any;
 }
 
@@ -38,14 +15,37 @@ const options = {
 };
 
 const StoreCard = (props: Props) => {
-    const { classes, className, content, ...other } = props;
-
+    const { content, ...other } = props;
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3} className={clsx(classes?.root, className)} {...other}>
+        <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            style={{
+                display: 'flex',
+                padding: '1rem',
+            }}
+            {...other}
+        >
             <Paper style={{ backgroundColor: '#fcfcfc', width: '100%', padding: 15 }}>
                 <Link passHref href={'/' + content._meta.deliveryKey}>
-                    <Box className={classes?.details}>
-                        <Typography variant="h3" component="h3" className={classes?.name}>
+                    <Box
+                        style={{
+                            marginTop: 20,
+                            marginBottom: 60,
+                        }}
+                    >
+                        <Typography
+                            variant="h3"
+                            component="h3"
+                            style={{
+                                wordWrap: 'break-word' as 'break-word',
+                                whiteSpace: 'normal' as 'normal',
+                                marginBottom: 10,
+                            }}
+                        >
                             {content.locationName}
                         </Typography>
                         <Typography component="div" variant="body1" style={{ height: 70 }}>
@@ -67,7 +67,13 @@ const StoreCard = (props: Props) => {
                             style={{ width: '100%' }}
                         >
                             <Box display="flex" alignItems="center" justifyContent="center">
-                                <Button color="primary" variant="contained" className={classes?.button}>
+                                <Button
+                                    color="primary"
+                                    variant="contained"
+                                    style={{
+                                        marginTop: 30,
+                                    }}
+                                >
                                     more info
                                 </Button>
                             </Box>

@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { Theme } from '@mui/material';
 import clsx from 'clsx';
 
+// TODO: migrate styles
 const styles = (theme: Theme) => ({
     root: {
         display: 'grid',
