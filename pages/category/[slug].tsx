@@ -18,7 +18,6 @@ import { createUserContext } from '@lib/user/UserContext';
 import { Category, Product } from '@amplience/dc-integration-middleware';
 import { nanoid } from 'nanoid';
 import { useContent } from '@components/core/WithVisualization';
-import styles from '@components/ui/category-styles';
 import DEFAULT_FACETS from '@lib/util/default-search-facets';
 import { clearUndefined, mapToID } from '@lib/util';
 
