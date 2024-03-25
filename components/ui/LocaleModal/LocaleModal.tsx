@@ -25,7 +25,6 @@ const LocaleModal = () => {
         setCurrency(e.target.value);
     };
 
-    // TODO: use Material UI components
     return (
         <>
             <h2>Amplience Retail Storefront</h2>

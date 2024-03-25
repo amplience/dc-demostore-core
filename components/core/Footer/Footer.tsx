@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Theme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Typography } from '@mui/material';
 import withConfig from '@components/core/Config/withConfig';

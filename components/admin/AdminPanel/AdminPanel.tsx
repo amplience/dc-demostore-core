@@ -25,6 +25,7 @@ const AdminPanel = () => {
             <div
                 style={{
                     display: 'flex',
+                    flexDirection: 'column',
                     padding: '10px 10px 4px 10px',
                     justifyContent: 'center',
                 }}

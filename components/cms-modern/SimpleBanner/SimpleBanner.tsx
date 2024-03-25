@@ -1,20 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Theme, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { CmsImage, ImageScaleMode, ImageTransformations, ImageScaleFit } from '@utils/getImageURL';
 import DefaultAdaptiveImage from '../AdaptiveImage/DefaultAdaptiveImage';
 import { Overlay, InfoPanel } from '@components/ui';
 import { CallToAction } from '..';
 import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
-
-// TODO: migrate styles
-const styles = (theme: Theme) => ({
-    overlay: {
-        [theme.breakpoints.down('md')]: {
-            position: 'unset !important',
-            background: 'red',
-        },
-    },
-});
 
 export interface SimpleBannerProps {
     image: {

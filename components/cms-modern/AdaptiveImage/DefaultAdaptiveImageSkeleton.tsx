@@ -1,22 +1,6 @@
 import React from 'react';
-import { Theme } from '@mui/material';
+import { Box, Theme, useMediaQuery } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
-
-const styles = (theme: Theme) => {
-    return {
-        root: {
-            ['@media (max-width: 768px)']: {
-                paddingBottom: '100%',
-            },
-            ['@media (min-width: 768px)']: {
-                paddingBottom: '66%',
-            },
-            ['@media (min-width: 1024px)']: {
-                paddingBottom: '50%',
-            },
-        },
-    };
-};
 
 interface Props {
     classes?: any;
@@ -27,15 +11,20 @@ interface Props {
 const DefaultAdaptiveImageSkeleton = (props: Props) => {
     const { classes, className, ...other } = props;
 
-    // TODO: responsive padding bottom
     return (
-        <Skeleton
-            style={{
-                position: 'relative' as 'relative',
-                paddingBottom: '50%',
+        <Box
+            sx={{
+                pb: { sm: '100%', md: '66%', lg: '50%' },
             }}
-            {...other}
-        />
+        >
+            <Skeleton
+                style={{
+                    position: 'relative' as 'relative',
+                    paddingBottom: '50%',
+                }}
+                {...other}
+            />
+        </Box>
     );
 };
 
