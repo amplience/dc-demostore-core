@@ -115,11 +115,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSideProps> & CategoryPageConfig) {
-    const { vse, classes, content, category, slots } = props;
+    const { vse, content, category, slots } = props;
 
     const [config] = useContent(content.configComponents, vse);
 
-    let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS;
+    // let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS;
     let components: CmsContent[] = props.content?.page?.components || [];
     let pageSlots: CmsContent[] = slots;
     let products: Product[] = category?.products;
@@ -130,15 +130,15 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                 {/* NOVADEV-15: Breadcrumb category updates before large category on PLP */}
                 {
                     <div>
-                        <Breadcrumb className={classes?.breadcrumb} />
-                        <div className={classes?.header}>
+                        <Breadcrumb />
+                        <div style={{ marginBottom: '30px' }}>
                             <Typography variant="h2">{category && category.name}</Typography>
                         </div>
                     </div>
                 }
 
                 {/* Additional Components */}
-                <div className={classes?.topComponents}>
+                <div>
                     {_.compact(components).map((content) => (
                         <ContentBlock key={nanoid()} content={content} />
                     ))}
@@ -151,13 +151,13 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                     </div>
                 </div>
                 {!props.content?.page?.hideProductList && (
-                    <div className={classes?.container}>
-                        <div className={classes?.facets}>
+                    <div>
+                        {/* <div className={classes?.facets}>
                             {facets.map((facet) => (
                                 <ProductFacet key={nanoid()} title={facet.title} />
                             ))}
-                        </div>
-                        <div className={classes?.results}>
+                        </div> */}
+                        <div>
                             <ProductGrid>
                                 {products?.map((product) => (
                                     <ProductCard key={nanoid()} data={product} />

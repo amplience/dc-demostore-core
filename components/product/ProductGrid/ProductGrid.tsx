@@ -5,12 +5,6 @@ import clsx from 'clsx';
 // TODO: migrate styles
 const styles = (theme: Theme) => ({
     root: {
-        display: 'grid',
-        gridRowGap: 1,
-        gridColumnGap: 1,
-        gridTemplateColumns: 'repeat(3,calc(33.3333% - 48.00016px))',
-        marginBottom: 40,
-
         [theme.breakpoints.down('md')]: {
             gridTemplateColumns: 'repeat(2,calc(50% - 1.00016px))',
         },
@@ -18,16 +12,24 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends PropsWithChildren {
-    classes?: any;
     className?: string;
-    style?: React.CSSProperties;
 }
 
 const ProductGrid = (props: Props) => {
-    const { classes, className, children, ...other } = props;
+    const { className, children, ...other } = props;
 
     return (
-        <div className={clsx(classes?.root, className)} {...other}>
+        <div
+            style={{
+                display: 'grid',
+                gridRowGap: 1,
+                gridColumnGap: 1,
+                gridTemplateColumns: 'repeat(4,calc(25% - 24.00016px))',
+                marginBottom: 40,
+            }}
+            className={clsx(className)}
+            {...other}
+        >
             {children}
         </div>
     );

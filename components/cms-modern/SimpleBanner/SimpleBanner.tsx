@@ -8,44 +8,15 @@ import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
 
 // TODO: migrate styles
 const styles = (theme: Theme) => ({
-    root: {},
-    image: {
-        width: '100%',
-        minHeight: '50%',
-    },
     overlay: {
         [theme.breakpoints.down('md')]: {
             position: 'unset !important',
             background: 'red',
         },
     },
-    infoPanel: {},
-    subheader: {
-        color: 'inherit',
-        fontFamily: "'Roboto', sans-serif",
-        fontSize: '14px',
-    },
-    description: {
-        fontWeight: 400,
-        fontSize: '16px',
-        color: 'inherit',
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    cta: {
-        marginTop: 15,
-    },
 });
 
-/**
- * SimpleBanner Props
- */
 export interface SimpleBannerProps {
-    classes?: any;
-
-    /**
-     * Image content item
-     */
     image: {
         img: {
             image: ImageTransformations & {
@@ -56,32 +27,16 @@ export interface SimpleBannerProps {
         imageAltText: string;
         di: string;
     };
-
-    /**
-     * All banner texts, header, subheader and description
-     */
     bannerText: {
         header: string;
         subheader?: string;
         description: string;
     };
-
-    /**
-     * Panel opacity
-     * */
     opacity?: number;
-
-    /**
-     * Call-to-action settings, with text and url
-     */
     ctaSettings: {
         linkUrl: string;
         buttonText: string;
     };
-
-    /**
-     * Text position configuration
-     */
     textPositioning: {
         textPositionHorizontal: 'left' | 'center' | 'right';
         textPositionVertical: 'top' | 'middle' | 'bottom';
@@ -89,7 +44,6 @@ export interface SimpleBannerProps {
 }
 
 const SimpleBanner = ({
-    classes,
     image,
     bannerText,
     ctaSettings,
@@ -128,24 +82,38 @@ const SimpleBanner = ({
         bannerText?.header || bannerText?.subheader || bannerText?.description || ctaSettings?.buttonText;
 
     return (
-        <Box className={classes?.root} {...other}>
+        <Box {...other}>
             <Overlay
                 variant="responsive"
                 floatingHorizontalAlignment={textPositioning?.textPositionHorizontal}
                 floatingVerticalAlignment={textPositioning?.textPositionVertical}
                 overlay={
                     isOverlayVisible ? (
-                        <InfoPanel className={classes?.infoPanel} variant="absolute" opacity={opacity}>
+                        <InfoPanel variant="absolute" opacity={opacity}>
                             <Typography variant="h1" component="h1">
                                 {bannerText?.header}
                             </Typography>
-                            <Typography variant="h5" component="h5" className={classes?.subheader}>
+                            <Typography
+                                variant="h5"
+                                component="h5"
+                                style={{ color: 'inherit', fontFamily: "'Roboto', sans-serif", fontSize: '14px' }}
+                            >
                                 {bannerText?.subheader}
                             </Typography>
-                            <Typography variant="subtitle1" component="p" className={classes?.description}>
+                            <Typography
+                                variant="subtitle1"
+                                component="p"
+                                style={{
+                                    fontWeight: 400,
+                                    fontSize: '16px',
+                                    color: 'inherit',
+                                    marginTop: 20,
+                                    marginBottom: 20,
+                                }}
+                            >
                                 {bannerText?.description}
                             </Typography>
-                            <CallToAction href={ctaSettings?.linkUrl} className={classes?.cta} variant="contained">
+                            <CallToAction href={ctaSettings?.linkUrl} style={{ marginTop: 15 }} variant="contained">
                                 {ctaSettings?.buttonText}
                             </CallToAction>
                         </InfoPanel>
@@ -161,7 +129,7 @@ const SimpleBanner = ({
                         imageAltText={image?.imageAltText}
                         transformations={transformations}
                         diParams={image?.di}
-                        className={classes?.image}
+                        style={{ width: '100%', minHeight: '50%' }}
                     />
                 </Box>
             </Overlay>
