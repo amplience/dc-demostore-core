@@ -5,7 +5,7 @@ import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { ContentBlock } from '@components/cms-modern';
 import React from 'react';
 import { PageContent, Breadcrumb } from '@components/ui';
-import { ProductCard, ProductGrid, ProductFacet } from '@components/product';
+import { ProductCard, ProductGrid } from '@components/product';
 import { Typography } from '@mui/material';
 import create404Error from '@lib/page/errors/create404Error';
 import withConfig from '@components/core/Config/withConfig';

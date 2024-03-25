@@ -1,49 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Theme, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Overlay, InfoPanel } from '@components/ui';
 import { CallToAction } from '..';
 import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
 
-// TODO: migrate styles
-const styles = (theme: Theme) => ({
-    root: {},
-    image: {
-        width: '100%',
-        minHeight: '50%',
-    },
-    overlay: {
-        [theme.breakpoints.down('md')]: {
-            position: 'unset !important',
-            background: 'red',
-        },
-    },
-    infoPanel: {},
-    subheader: {
-        color: 'inherit',
-        fontFamily: "'Roboto', sans-serif",
-        fontSize: '14px',
-    },
-    description: {
-        fontWeight: 400,
-        fontSize: '16px',
-        color: 'inherit',
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    cta: {
-        marginTop: 15,
-    },
-});
-
-/**
- * SimpleBannerBynder Props
- */
 export interface SimpleBannerBynderProps {
-    classes?: any;
-
-    /**
-     * Bynder content item
-     */
     bynder: {
         additionalInfo: {
             selectedFile: {
@@ -53,32 +14,16 @@ export interface SimpleBannerBynderProps {
         originalUrl: string;
         name: string;
     };
-
-    /**
-     * All banner texts, header, subheader and description
-     */
     bannerText: {
         header: string;
         subheader?: string;
         description: string;
     };
-
-    /**
-     * Panel opacity
-     * */
     opacity?: number;
-
-    /**
-     * Call-to-action settings, with text and url
-     */
     ctaSettings: {
         linkUrl: string;
         buttonText: string;
     };
-
-    /**
-     * Text position configuration
-     */
     textPositioning: {
         textPositionHorizontal: 'left' | 'center' | 'right';
         textPositionVertical: 'top' | 'middle' | 'bottom';
@@ -86,7 +31,6 @@ export interface SimpleBannerBynderProps {
 }
 
 const SimpleBannerBynder = ({
-    classes,
     bynder,
     bannerText,
     ctaSettings,
@@ -111,24 +55,38 @@ const SimpleBannerBynder = ({
     }, [imageRef?.current?.complete, imageLoading]);
 
     return (
-        <Box className={classes?.root} {...other}>
+        <Box {...other}>
             <Overlay
                 variant="responsive"
                 floatingHorizontalAlignment={textPositioning?.textPositionHorizontal}
                 floatingVerticalAlignment={textPositioning?.textPositionVertical}
                 overlay={
                     isOverlayVisible ? (
-                        <InfoPanel className={classes?.infoPanel} variant="absolute" opacity={opacity}>
+                        <InfoPanel variant="absolute" opacity={opacity}>
                             <Typography variant="h1" component="h1">
                                 {bannerText?.header}
                             </Typography>
-                            <Typography variant="h5" component="h5" className={classes?.subheader}>
+                            <Typography
+                                variant="h5"
+                                component="h5"
+                                style={{ color: 'inherit', fontFamily: "'Roboto', sans-serif", fontSize: '14px' }}
+                            >
                                 {bannerText?.subheader}
                             </Typography>
-                            <Typography variant="subtitle1" component="p" className={classes?.description}>
+                            <Typography
+                                variant="subtitle1"
+                                component="p"
+                                style={{
+                                    fontWeight: 400,
+                                    fontSize: '16px',
+                                    color: 'inherit',
+                                    marginTop: 20,
+                                    marginBottom: 20,
+                                }}
+                            >
                                 {bannerText?.description}
                             </Typography>
-                            <CallToAction href={ctaSettings?.linkUrl} className={classes?.cta} variant="contained">
+                            <CallToAction href={ctaSettings?.linkUrl} style={{ marginTop: 15 }} variant="contained">
                                 {ctaSettings?.buttonText}
                             </CallToAction>
                         </InfoPanel>
@@ -138,7 +96,10 @@ const SimpleBannerBynder = ({
                 {imageLoading ? <DefaultAdaptiveImageSkeleton /> : null}
                 <Box style={{ display: `${imageLoading ? 'none' : 'block'}` }}>
                     <img
-                        className={classes?.image}
+                        style={{
+                            width: '100%',
+                            minHeight: '50%',
+                        }}
                         src={bynder?.additionalInfo?.selectedFile?.url ?? bynder?.originalUrl}
                         ref={imageRef}
                         onLoad={() => handleImageLoaded()}
