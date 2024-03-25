@@ -114,9 +114,13 @@ const Overlay = (props: Props) => {
     };
 
     return (
-        <div className={clsx(classes?.root, className, variantMixin)} {...other}>
-            <div className={classes?.content}>{children}</div>
-            <div className={clsx(classes?.container, variantMixin)}>
+        <div style={{ position: 'relative' as 'relative' }} className={clsx(className, variantMixin)} {...other}>
+            <div>{children}</div>
+            <div
+                className={clsx(classes?.container, variantMixin)}
+                // Temp:
+                style={{ top: 0, position: 'absolute' as 'absolute' }}
+            >
                 <div
                     className={clsx(classes?.overlay, {
                         ...variantMixin,

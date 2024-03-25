@@ -1,43 +1,36 @@
 import React, { PropsWithChildren } from 'react';
-import { Theme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import clsx from 'clsx';
 
-// TODO: Migrate styles
-const styles = (theme: Theme) => ({
-    root: {
-        padding: '40px 50px',
-    },
-    title: {},
-    content: {
-        padding: '40px 0px 40px 0px',
-        borderTop: '1px solid #bebebe',
-        borderBottom: '1px solid #bebebe',
-        '&:empty': {
-            display: 'none',
-        },
-    },
-});
-
 interface Props extends PropsWithChildren {
-    classes?: any;
     className?: string;
-    style?: React.CSSProperties;
     title: string;
 }
 
 const Section = (props: Props) => {
-    const { classes, className, title, children, ...other } = props;
+    const { className, title, children, ...other } = props;
 
     return (
-        <div className={clsx(classes?.root, className)}>
+        <div style={{ padding: '40px 50px' }} className={clsx(className)} {...other}>
             {title && (
                 <div>
-                    <Typography className={classes?.title} component={'div'} variant="h2">
+                    <Typography component={'div'} variant="h2">
                         {title}
                     </Typography>
                 </div>
             )}
-            {children && <div className={classes?.content}>{children}</div>}
+            {children && (
+                <div
+                    style={{
+                        padding: '40px 0px 40px 0px',
+                        borderTop: '1px solid #bebebe',
+                        borderBottom: '1px solid #bebebe',
+                        display: children ? 'block' : 'none',
+                    }}
+                >
+                    {children}
+                </div>
+            )}
         </div>
     );
 };
