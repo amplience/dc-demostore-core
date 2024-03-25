@@ -51,7 +51,6 @@ const DynamicBlogList = (props: Props) => {
                         return (
                             <LegacySliderSlide
                                 key={index}
-                                index={index}
                                 className={clsx({
                                     ['amp-length-2']: results.length < 3,
                                     ['amp-length-3']: results.length >= 3,

@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { Theme } from '@mui/material';
 import clsx from 'clsx';
 
+// TODO: Migrate styles
 const styles = (theme: Theme) => ({
     root: {
         position: 'relative' as 'relative',

@@ -62,7 +62,6 @@ const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }:
                         return (
                             <LegacySliderSlide
                                 key={index}
-                                index={index}
                                 className={clsx({
                                     ['amp-length-2']: productList.length < 3,
                                     ['amp-length-3']: productList.length >= 3,

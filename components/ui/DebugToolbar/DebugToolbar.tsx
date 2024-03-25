@@ -3,8 +3,6 @@ import s from './DebugToolbar.module.css';
 import clsx from 'clsx';
 import { useDebug } from './DebugContext';
 
-interface Props extends PropsWithChildren {}
-
 const DebugToolbar = () => {
     const { debugging, showSlots, setShowSlots, showContent, setShowContent, showEditions, setShowEditions } =
         useDebug();

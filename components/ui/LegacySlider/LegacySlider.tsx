@@ -11,14 +11,11 @@ interface Props extends PropsWithChildren {
 const LegacySlider = (props: Props) => {
     const { children, navigationDots = false, infinite = 0, autoplay = false, ...other } = props;
     let numChildren = React.Children.count(children);
-
     const component = createRef<any>();
 
     useEffect(() => {
         const { loryHelpers } = (window as any) || {};
-
         const element = component.current;
-
         try {
             if (element && loryHelpers && numChildren > 0) {
                 loryHelpers.initSliders([element]);

@@ -3,7 +3,6 @@ import s from './Modal.module.css';
 import clsx from 'clsx';
 
 interface Props extends PropsWithChildren {
-    className?: string;
     open?: boolean;
     onClose: () => void;
 }

@@ -4,9 +4,7 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 
 const LocaleModal = () => {
     const { closeModal } = useUI();
-
     const { locale: initialLocale, currency: initialCurrency } = useCmsContext();
-
     const [locale, setLocale] = useState(initialLocale);
     const [currency, setCurrency] = useState(initialCurrency);
 
@@ -27,10 +25,10 @@ const LocaleModal = () => {
         setCurrency(e.target.value);
     };
 
+    // TODO: use Material UI components
     return (
         <>
             <h2>Amplience Retail Storefront</h2>
-
             <div className="af-form">
                 <div className="af-form-field">
                     <label role="text">Language</label>

@@ -1,14 +1,4 @@
 import React, { PropsWithChildren } from 'react';
-import { Theme } from '@mui/material';
-import clsx from 'clsx';
-
-const styles = (theme: Theme) => ({
-    root: {
-        padding: '40px 60px 40px 60px',
-        background: 'rgba(255, 255, 255, 0.9)',
-        display: 'inline-block',
-    },
-});
 
 interface Props extends PropsWithChildren {
     classes?: any;
@@ -89,9 +79,14 @@ const InfoPanel = (props: Props) => {
 
     return (
         <div
-            className={clsx(classes?.root, className)}
             {...other}
-            style={{ backgroundColor: `rgba(${colobj?.r},${colobj?.g},${colobj?.b},${opacity})`, border: borderstr }}
+            style={{
+                padding: '40px 60px 40px 60px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                display: 'inline-block',
+                backgroundColor: `rgba(${colobj?.r},${colobj?.g},${colobj?.b},${opacity})`,
+                border: borderstr,
+            }}
         >
             {children}
         </div>

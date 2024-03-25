@@ -3,6 +3,7 @@ import { Theme, Paper } from '@mui/material';
 import clsx from 'clsx';
 import { alpha } from '@mui/material/styles';
 
+// TODO: Migrate styles
 const styles = (theme: Theme) => ({
     root: {},
     background: {
@@ -14,7 +15,6 @@ const styles = (theme: Theme) => ({
         zIndex: 1100,
         transition: 'all 200ms ease-out',
         display: 'none',
-
         '&$open': {
             background: alpha(theme.palette.common.black, 0.3),
             display: 'unset',
@@ -54,7 +54,6 @@ interface Props extends PropsWithChildren {
 
 const Sidebar = (props: Props) => {
     const { classes, variant = 'left', open, children, onClose, ...other } = props;
-
     const handleClose = () => {
         if (onClose) {
             onClose();

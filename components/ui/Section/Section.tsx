@@ -2,15 +2,12 @@ import React, { PropsWithChildren } from 'react';
 import { Theme, Typography } from '@mui/material';
 import clsx from 'clsx';
 
+// TODO: Migrate styles
 const styles = (theme: Theme) => ({
     root: {
         padding: '40px 50px',
     },
-    title: {
-        //color: '#bebebe',
-        //fontSize: 24,
-        //lineHeight: '1.5em'
-    },
+    title: {},
     content: {
         padding: '40px 0px 40px 0px',
         borderTop: '1px solid #bebebe',

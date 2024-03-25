@@ -1,5 +1,4 @@
 import React from 'react';
-import { Theme } from '@mui/material';
 import { ButtonNext } from 'pure-react-carousel';
 import { NavigateNext } from '@components/icons';
 

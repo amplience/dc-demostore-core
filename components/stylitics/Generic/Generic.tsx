@@ -1,5 +1,5 @@
 import React, { createRef, useEffect } from 'react';
-import { Theme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useProduct } from '../../product/WithProduct/WithProduct';
 import _ from 'lodash';
 import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-integration-stylitics';
