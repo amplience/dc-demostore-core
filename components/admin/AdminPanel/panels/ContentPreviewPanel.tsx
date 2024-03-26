@@ -1,40 +1,11 @@
 import React, { useState } from 'react';
-import {
-    Theme,
-    Button,
-    TextField,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    CircularProgress,
-    styled,
-} from '@mui/material';
+import { Button, TextField, FormControl, InputLabel, Select, MenuItem, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/router';
 import { StagingEnvironmentFactory } from 'dc-delivery-sdk-js';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useAppContext } from '@lib/config/AppContext';
 
-const styles = (theme: Theme) => ({
-    root: {
-        width: '100%',
-    },
-    formControl: {
-        marginBottom: 10,
-    },
-    input: {},
-    progress: {},
-});
-
-interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
-}
-
-const ContentPreviewPanel = (props: Props) => {
-    const { classes, ...other } = props;
-
+const ContentPreviewPanel = () => {
     const { cms } = useAppContext();
     const { stagingApi: cmsContextStagingApi, timestamp } = useCmsContext() || {};
 
@@ -98,23 +69,22 @@ const ContentPreviewPanel = (props: Props) => {
 
     return (
         <>
-            <div className={classes?.root}>
+            <div style={{ width: '100%' }}>
                 <form noValidate>
-                    <FormControl className={classes?.formControl}>
+                    <FormControl style={{ marginBottom: 10 }}>
                         <InputLabel>Mode</InputLabel>
-                        <Select value={mode} onChange={handleChangeMode} className={classes?.input}>
+                        <Select value={mode} onChange={handleChangeMode}>
                             <MenuItem value={'PRODUCTION'}>Production</MenuItem>
                             <MenuItem value={'STAGING'}>Staging</MenuItem>
                             <MenuItem value={'TIME'}>Time</MenuItem>
                         </Select>
                     </FormControl>
                     {mode === 'TIME' ? (
-                        <FormControl className={classes?.formControl}>
+                        <FormControl style={{ marginBottom: 10 }}>
                             <TextField
                                 id="datetime-local"
                                 label="Start Time"
                                 type="datetime-local"
-                                className={classes?.input}
                                 value={date}
                                 onChange={handleChangeDate}
                             />
@@ -122,11 +92,7 @@ const ContentPreviewPanel = (props: Props) => {
                     ) : null}
                     <div>
                         <Button
-                            startIcon={
-                                applying && (
-                                    <CircularProgress className={classes?.progress} size="1em" color="primary" />
-                                )
-                            }
+                            startIcon={applying && <CircularProgress size="1em" color="primary" />}
                             variant="contained"
                             color="primary"
                             onClick={handleApply}

@@ -69,7 +69,7 @@ const ProductCardSkeleton = (props: Props) => {
                 className={clsx(className)}
                 {...other}
             >
-                <Box style={{ position: 'relative' as 'relative', paddingTop: '100%' }}>
+                <Box style={{ position: 'relative' as 'relative', paddingTop: '150%' }}>
                     {firstImage && secondImage && (
                         <img
                             loading="lazy"

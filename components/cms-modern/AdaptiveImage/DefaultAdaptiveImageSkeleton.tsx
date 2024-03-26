@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Theme, useMediaQuery } from '@mui/material';
+import { Box } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 
 interface Props {

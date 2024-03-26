@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Theme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { CmsImage, ImageScaleMode, ImageTransformations, ImageScaleFit } from '@utils/getImageURL';
 import DefaultAdaptiveImage from '../AdaptiveImage/DefaultAdaptiveImage';
 import { Overlay, InfoPanel } from '@components/ui';
@@ -7,56 +7,7 @@ import { CallToAction } from '..';
 import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
 import { nanoid } from 'nanoid';
 
-// TODO - Migrate styles
-const styles = (theme: Theme) => ({
-    root: {},
-    image: {
-        width: '100%',
-    },
-    imageleft: {
-        width: '50%',
-    },
-    imageright: {
-        width: '50%',
-        marginLeft: '50%',
-    },
-    overlay: {
-        [theme.breakpoints.down('md')]: {
-            position: 'unset !important',
-            background: 'red',
-        },
-    },
-    infoPanel: {
-        maxWidth: '100%',
-    },
-    header: {},
-    subheader: {
-        color: 'inherit',
-        fontFamily: "'Roboto', sans-serif",
-        fontSize: '14px',
-    },
-    description: {
-        fontWeight: 400,
-        fontSize: '16px',
-        color: 'inherit',
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    cta: {
-        marginTop: '15px !important',
-        marginRight: '15px !important',
-    },
-});
-
-/**
- * AdvancedBanner Props
- */
 export interface AdvancedBannerProps {
-    classes?: any;
-
-    /**
-     * Image properties
-     */
     image: {
         img: {
             image: ImageTransformations & {
@@ -66,15 +17,7 @@ export interface AdvancedBannerProps {
         disablePoiAspectRatio: boolean;
         imageAltText: string;
     };
-
-    /**
-     * Background color
-     */
     bgcol?: string;
-
-    /**
-     * Text lines
-     */
     textLines?: [
         {
             text: string;
@@ -82,10 +25,6 @@ export interface AdvancedBannerProps {
             col: string;
         }
     ];
-
-    /**
-     * Overlay panel configuration
-     */
     overlaypanel?: {
         opacity?: number;
         col?: string;
@@ -94,10 +33,6 @@ export interface AdvancedBannerProps {
         offsetV?: string;
         w?: number;
     };
-
-    /**
-     * Call-to-actions configuration
-     */
     ctas?: [
         {
             buttonText: string;
@@ -105,10 +40,6 @@ export interface AdvancedBannerProps {
             variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2';
         }
     ];
-
-    /**
-     * Disclaimer text
-     */
     disclaimer?: {
         text: string;
         col: string;
@@ -116,10 +47,6 @@ export interface AdvancedBannerProps {
         align: 'left' | 'center' | 'right' | 'inherit' | 'justify';
         fontFamily: string;
     };
-
-    /**
-     * Horizontal and vertical text alignment
-     */
     textPositioning: {
         textPositionHorizontal: 'left' | 'center' | 'right';
         textPositionVertical: 'top' | 'middle' | 'bottom';
@@ -127,7 +54,6 @@ export interface AdvancedBannerProps {
 }
 
 const AdvancedBanner = ({
-    classes,
     image,
     bgcol,
     textLines,
@@ -197,7 +123,7 @@ const AdvancedBanner = ({
     var newCSS = edgepadStyle as React.CSSProperties;
 
     return (
-        <div className={classes?.root} {...other} style={{ backgroundColor: bgcol ? bgcol : 'white' }}>
+        <div {...other} style={{ backgroundColor: bgcol ? bgcol : 'white' }}>
             <Overlay
                 variant="responsive"
                 floatingHorizontalAlignment={textPositioning?.textPositionHorizontal}
@@ -206,7 +132,7 @@ const AdvancedBanner = ({
                 overlay={
                     isOverlayVisible ? (
                         <InfoPanel
-                            className={classes?.infoPanel}
+                            style={{ maxWidth: '100%' }}
                             variant="absolute"
                             opacity={overlaypanel?.opacity}
                             col={overlaypanel?.col}
@@ -219,7 +145,6 @@ const AdvancedBanner = ({
                                         variant={line.variant}
                                         align={line.align}
                                         component="h1"
-                                        className={classes?.header}
                                         style={{ color: line.col, fontFamily: line.fontFamily, whiteSpace: 'pre-wrap' }}
                                     >
                                         {line.text}
@@ -231,7 +156,7 @@ const AdvancedBanner = ({
                                     <CallToAction
                                         key={cta?.buttonText}
                                         href={cta?.linkUrl}
-                                        className={classes?.cta}
+                                        style={{ marginTop: '15px !important', marginRight: '15px !important' }}
                                         variant={cta?.variant}
                                     >
                                         {cta?.buttonText}
@@ -250,14 +175,13 @@ const AdvancedBanner = ({
                         image={img?.image.image}
                         imageAltText={image?.imageAltText}
                         transformations={transformations}
-                        className={classes?.image}
+                        style={{ width: '100%' }}
                     />
                 </div>
                 <Typography
                     variant={disclaimer?.variant}
                     align={disclaimer?.align}
                     component="h1"
-                    className={classes?.header}
                     style={{
                         color: disclaimer?.col,
                         position: 'absolute',

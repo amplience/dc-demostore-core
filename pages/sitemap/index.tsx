@@ -2,7 +2,7 @@ import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 import { Layout } from '@components/core';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { PageContent } from '@components/ui';
-import { Theme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { NavigationItem, useNavigation } from '@components/core/Masthead';
 import { useMemo } from 'react';
 import { walkNavigationItems } from '@components/core/Masthead/walkNavigation';
@@ -18,11 +18,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
         context
     );
-
     const { url = '' } = context.req || {};
-
     const { query } = parse(url, true);
-
     const { vse: queryStringVse, locale: queryStringLocale } = query || {};
 
     return {
@@ -36,35 +33,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
 }
 
-const styles = (theme: Theme) => ({
-    header: {
-        marginTop: 20,
-        marginBottom: 40,
-    },
-    links: {},
-    section: {
-        padding: 10,
-        borderBottom: '1px solid #bebebe',
-    },
-    sectionLinks: {
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    sectionLink: {
-        padding: 10,
-        [theme.breakpoints.down('md')]: {
-            display: 'block',
-        },
-    },
-});
-
-type Props = {
-    classes?: any;
-};
-
-function Sitemap({ classes, content, params }: InferGetServerSidePropsType<typeof getServerSideProps> & Props) {
+function Sitemap({ content, params }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { rootItems } = useNavigation();
-
     const { vse, locale } = params || {};
 
     const sections = useMemo(() => {
@@ -102,26 +72,31 @@ function Sitemap({ classes, content, params }: InferGetServerSidePropsType<typeo
 
     return (
         <PageContent>
-            <div className={classes?.header}>
+            <div style={{ marginTop: 20, marginBottom: 40 }}>
                 <Typography variant="h2">Sitemap</Typography>
             </div>
-            <div className={classes?.links}>
+            <div style={{ marginTop: 10, marginBottom: 10 }}>
                 {sections.map((section) => {
                     return (
                         <div key={nanoid()}>
                             <Link passHref href={`${section.href}${urlSuffix}`} target="_blank" rel="noreferrer">
-                                <Typography variant="h4" component="h3" className={classes?.section}>
+                                <Typography
+                                    variant="h4"
+                                    component="h3"
+                                    style={{ padding: 10, borderBottom: '1px solid #bebebe' }}
+                                >
                                     {section.title}
                                 </Typography>
                             </Link>
-                            <div className={classes?.sectionLinks}>
+                            <div style={{ marginTop: 10, marginBottom: 10 }}>
                                 {section.children.map((child: any) => (
                                     <Link
                                         href={`${child.href}${urlSuffix}`}
                                         key={nanoid()}
-                                        className={clsx('megaMenu__list__item__link', classes?.sectionLink)}
+                                        className={clsx('megaMenu__list__item__link')}
                                         target="_blank"
                                         rel="noreferrer"
+                                        style={{ marginTop: 10, marginBottom: 10 }}
                                     >
                                         {child.title}
                                     </Link>

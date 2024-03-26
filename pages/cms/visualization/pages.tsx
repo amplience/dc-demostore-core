@@ -5,11 +5,8 @@ import { createCmsContext } from '@lib/cms/CmsContext';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { content: contentId } = context.query;
-
     const cmsContext = await createCmsContext(context.req);
-
     const [content] = await fetchContent([{ id: contentId as string }], cmsContext);
-
     const { res } = context;
 
     if (res && (content as any)?._meta?.deliveryKey) {

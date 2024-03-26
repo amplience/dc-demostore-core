@@ -44,7 +44,7 @@ const Store = (props: Props) => {
             <div style={{ marginBottom: 30 }}>
                 <Grid container>
                     <Link passHref href="/store">
-                        <Typography style={{ marginTop: 20, marginBottom: 20 }} variant="h2" component="a">
+                        <Typography style={{ marginTop: 20, marginBottom: 20 }} variant="h2" component="h2">
                             Our Stores
                         </Typography>
                     </Link>

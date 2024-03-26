@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageStatistics, formatColors } from './ImageStatistics';
-import { Theme, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 interface Props {
     stats: ImageStatistics[];

@@ -1,6 +1,5 @@
 import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 import { Layout } from '@components/core';
-import { CmsContent } from '@lib/cms/CmsContent';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import fetchPageData from '@lib/page/fetchPageData';
 import ContentBlock from '@components/cms-modern/ContentBlock/ContentBlock';

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Theme, Breadcrumbs, Typography } from '@mui/material';
+import { Breadcrumbs, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { NavigationItem, useNavigation } from '@components/core/Masthead';
 import { useUserContext } from '@lib/user/UserContext';

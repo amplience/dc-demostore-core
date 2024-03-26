@@ -1,87 +1,6 @@
 import React, { PropsWithChildren } from 'react';
-import { Theme } from '@mui/material';
+import { Box } from '@mui/material';
 import clsx from 'clsx';
-
-// TODO: Migrate styles
-const styles = (theme: Theme) => ({
-    root: {
-        position: 'relative' as 'relative',
-    },
-    content: {},
-    container: {
-        '&$floating, &$responsive': {
-            position: 'absolute' as 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-        },
-        '&$responsive': {
-            [theme.breakpoints.down('md')]: {
-                position: 'unset',
-                width: '100%',
-                border: 'none !important',
-            },
-        },
-    },
-    overlay: {
-        '&$floating, &$responsive': {
-            position: 'absolute' as 'absolute',
-            display: 'inline-block',
-        },
-        '&$responsive': {
-            [theme.breakpoints.down('md')]: {
-                position: 'unset',
-                transform: 'unset !important',
-                width: '100% !important',
-                border: 'none !important',
-            },
-        },
-        '&$floatingRight': {
-            right: 0,
-        },
-        '&$floatingLeft': {
-            left: 0,
-        },
-        '&$floatingCenter': {
-            left: '50%',
-            transform: 'translateX(-50%)',
-
-            '&$floatingMiddle': {
-                transform: 'translateX(-50%) translateY(-50%)',
-            },
-            '&$stacked': {
-                transform: 'unset !important',
-            },
-        },
-        '&$floatingTop': {
-            top: 0,
-        },
-        '&$floatingMiddle': {
-            top: '50%',
-            transform: 'translateY(-50%)',
-
-            '&$floatingCenter': {
-                transform: 'translateX(-50%) translateY(-50%)',
-            },
-            '&$stacked': {
-                transform: 'unset !important',
-            },
-        },
-        '&$floatingBottom': {
-            bottom: 0,
-        },
-    },
-    responsive: {},
-    floating: {},
-    stacked: {},
-    floatingLeft: {},
-    floatingCenter: {},
-    floatingRight: {},
-    floatingTop: {},
-    floatingMiddle: {},
-    floatingBottom: {},
-});
 
 interface Props extends PropsWithChildren {
     classes?: any;
@@ -96,7 +15,6 @@ interface Props extends PropsWithChildren {
 
 const Overlay = (props: Props) => {
     const {
-        classes,
         className,
         children,
         overlay,
@@ -107,35 +25,63 @@ const Overlay = (props: Props) => {
         ...other
     } = props;
 
-    const variantMixin = {
-        [classes?.responsive]: variant === 'responsive',
-        [classes?.floating]: variant === 'floating',
-        [classes?.stacked]: variant === 'stacked',
-    };
+    const isResponsive = variant === 'responsive';
+    const isFloating = variant === 'floating';
+    const isStacked = variant === 'stacked';
+    const isFloatingLeft = floatingHorizontalAlignment === 'left';
+    const isFloatingCenter = floatingHorizontalAlignment === 'center';
+    const isFloatingRight = floatingHorizontalAlignment === 'right';
+    const isFloatingTop = floatingVerticalAlignment === 'top';
+    const isFloatingMiddle = floatingVerticalAlignment === 'middle';
+    const isFloatingBottom = floatingVerticalAlignment === 'bottom';
 
     return (
-        <div style={{ position: 'relative' as 'relative' }} className={clsx(className, variantMixin)} {...other}>
+        <div style={{ position: 'relative' as 'relative' }} className={clsx(className)} {...other}>
             <div>{children}</div>
-            <div
-                className={clsx(classes?.container, variantMixin)}
-                // Temp:
-                style={{ top: 0, position: 'absolute' as 'absolute' }}
+            <Box
+                sx={(theme) => ({
+                    position: isResponsive || isFloating ? 'absolute' : undefined,
+                    left: isResponsive || isFloating ? 0 : undefined,
+                    right: isResponsive || isFloating ? 0 : undefined,
+                    top: isResponsive || isFloating ? 0 : undefined,
+                    bottom: isResponsive || isFloating ? 0 : undefined,
+                    [theme.breakpoints.down('md')]: {
+                        position: isResponsive ? 'unset' : undefined,
+                        width: isResponsive ? '100%' : undefined,
+                        border: isResponsive ? 'none !important' : undefined,
+                    },
+                })}
             >
-                <div
-                    className={clsx(classes?.overlay, {
-                        ...variantMixin,
-                        [classes?.floatingLeft]: floatingHorizontalAlignment === 'left',
-                        [classes?.floatingCenter]: floatingHorizontalAlignment === 'center',
-                        [classes?.floatingRight]: floatingHorizontalAlignment === 'right',
-                        [classes?.floatingTop]: floatingVerticalAlignment === 'top',
-                        [classes?.floatingMiddle]: floatingVerticalAlignment === 'middle',
-                        [classes?.floatingBottom]: floatingVerticalAlignment === 'bottom',
+                <Box
+                    sx={(theme) => ({
+                        position: isResponsive || isFloating ? 'absolute' : 'unset',
+                        display: isResponsive || isFloating ? 'inline-block' : 'unset',
+                        [theme.breakpoints.down('md')]: {
+                            position: isResponsive ? 'unset' : undefined,
+                            transform: isResponsive ? 'unset !important' : undefined,
+                            width: isResponsive ? '100% !important' : undefined,
+                            border: isResponsive ? 'none !important' : undefined,
+                        },
+                        left: isFloatingLeft ? 0 : isFloatingCenter ? '50%' : 'unset',
+                        right: isFloatingRight ? 0 : 'unset',
+                        top: isFloatingTop ? 0 : isFloatingMiddle ? '50%' : 'unset',
+                        bottom: isFloatingBottom ? 0 : 'unset',
+                        transform:
+                            isFloatingMiddle && isStacked
+                                ? 'unset !important'
+                                : isFloatingMiddle && isFloatingCenter
+                                ? 'translateX(-50%) translateY(-50%)'
+                                : isFloatingMiddle
+                                ? 'translateY(-50%)'
+                                : isFloatingCenter
+                                ? 'translateX(-50%)'
+                                : 'unset',
                     })}
                     style={overlayStyle}
                 >
                     {overlay}
-                </div>
-            </div>
+                </Box>
+            </Box>
         </div>
     );
 };

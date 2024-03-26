@@ -15,7 +15,6 @@ interface OrderedFormat {
 
 function getRealType(stat: ImageStatistics, key: string): string | null {
     let type = stat.types[key];
-
     const realKey = typeFromFormat[type] ?? key;
 
     return key === 'auto' || realKey == key ? null : realKey;

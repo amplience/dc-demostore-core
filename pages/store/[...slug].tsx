@@ -1,10 +1,8 @@
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import create404Error from '@lib/page/errors/create404Error';
-import fetchContent from '@lib/cms/fetchContent';
 import { createCmsContext } from '@lib/cms/CmsContext';
 import React from 'react';
-import { Store } from '@components/cms-modern';
 import { ContentBlock } from '@components/cms-modern';
 import { Layout } from '@components/core';
 
