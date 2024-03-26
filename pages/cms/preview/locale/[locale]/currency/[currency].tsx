@@ -3,9 +3,7 @@ const Cookies = require('cookies');
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { res, req, query, params } = context;
-
     const { locale, currency } = params || {};
-
     const { redirect = '/' } = query || {};
 
     if (res) {

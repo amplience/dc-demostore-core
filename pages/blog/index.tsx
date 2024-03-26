@@ -39,11 +39,8 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
     };
 
     let { algolia, cms } = useAppContext();
-
     const { push } = useRouter();
-
     const { acceleratedMedia } = useAcceleratedMedia();
-
     let format = 'auto';
     if (acceleratedMedia) format = ImageFormat.AVIF;
 
@@ -61,33 +58,28 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
                 filters: (locale || 'en-US').indexOf('en-') === 0 ? `locale:en-US` : `locale:${locale}`,
             })
         );
-
         search.addWidget(
             instantsearch.widgets.searchBox({
                 container: '#searchbox',
                 placeholder: 'Search',
             })
         );
-
         search.addWidget(
             instantsearch.widgets.refinementList({
                 container: '#category-list',
                 attribute: 'snippet.category',
             })
         );
-
         search.addWidget(
             instantsearch.widgets.refinementList({
                 container: '#author-list',
                 attribute: 'snippet.author',
             })
         );
-
         (global as any).instantSearchRouting = (event: MouseEvent, url: string): void => {
             push(url);
             event.preventDefault();
         };
-
         search.addWidget(
             instantsearch.widgets.hits({
                 hitsPerPage: 5,
@@ -141,13 +133,11 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
                 },
             })
         );
-
         search.addWidget(
             instantsearch.widgets.pagination({
                 container: '#pagination',
             })
         );
-
         search.addWidget(
             instantsearch.widgets.hitsPerPage({
                 container: '#hits-per-page',
@@ -157,7 +147,6 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
                 ],
             })
         );
-
         search.start();
     }, [locale, algolia.apiKey, algolia.appId, cms.hub, format, push, stagingApi]);
 

@@ -6,7 +6,6 @@ import { createAppContext } from '@lib/config/AppContext';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { res, req, query } = context;
-
     let { vse, hub, timestamp, isoTimestamp, redirect = '/' } = query || {};
 
     if (isoTimestamp) {

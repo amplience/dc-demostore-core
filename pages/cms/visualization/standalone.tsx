@@ -5,7 +5,6 @@ import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { content: contentId } = context.query;
-
     const data = await fetchStandardPageData(
         {
             content: {

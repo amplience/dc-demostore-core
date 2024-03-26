@@ -7,9 +7,7 @@ import { nanoid } from 'nanoid';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { slug = [] } = context.params || {};
-
     const blogKey = Array.isArray(slug) ? slug.join('/') : slug;
-
     const data = await fetchStandardPageData(
         {
             content: {

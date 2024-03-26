@@ -6,7 +6,6 @@ import Image from 'next/image';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { content: contentId } = context.query;
-
     const data = await fetchStandardPageData(
         {
             content: {

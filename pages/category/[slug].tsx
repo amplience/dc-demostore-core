@@ -34,9 +34,7 @@ function findCategory(categories: Category[], predicate: (category: Category) =>
         if (predicate(category)) {
             return category;
         }
-
         const child = findCategory(category.children, predicate);
-
         if (child) {
             return child;
         }
@@ -48,7 +46,6 @@ function findCategory(categories: Category[], predicate: (category: Category) =>
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let { slug } = context.params || {};
     const { vse } = context.query || {};
-
     const data = await fetchStandardPageData(
         {
             content: {
@@ -68,7 +65,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     slug = Array.isArray(slug) ? slug.join('/') : slug;
-
     const props = await fetchPageData(
         {
             content: {
@@ -82,7 +78,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let category;
     if (data.content.page?.name) {
         const cmsslug = data.content.page?.name;
-
         category = findCategory(props.ecommerce.categories, (cat) => cat.id === cmsslug);
     } else {
         category = findCategory(props.ecommerce.categories, (cat) => cat.slug === slug);
@@ -93,7 +88,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     category = _.cloneDeep(category);
-
     const products = await commerceApi.getProducts({
         category,
         ...(await createCmsContext(context.req)),
@@ -101,7 +95,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         pageSize: 30,
         pageCount: 1,
     });
-
     category.products = products;
 
     return {
@@ -116,7 +109,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSideProps> & CategoryPageConfig) {
     const { vse, content, category, slots } = props;
-
     const [config] = useContent(content.configComponents, vse);
 
     // let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS;
