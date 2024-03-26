@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Theme, Divider, Typography, styled } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import VisibilityIcon from '@mui/icons-material/Visibility';

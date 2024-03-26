@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageStatistics, typeFromFormat, formatColors } from './ImageStatistics';
-import { Theme, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 
 interface Props {
     stat: ImageStatistics;
@@ -15,7 +15,6 @@ interface OrderedFormat {
 
 function getRealType(stat: ImageStatistics, key: string): string | null {
     let type = stat.types[key];
-
     const realKey = typeFromFormat[type] ?? key;
 
     return key === 'auto' || realKey == key ? null : realKey;

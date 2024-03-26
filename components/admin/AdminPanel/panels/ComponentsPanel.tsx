@@ -1,5 +1,4 @@
 import React from 'react';
-import { Theme } from '@mui/material';
 import { useDebug } from '@components/ui';
 
 import Table from '@mui/material/Table';
