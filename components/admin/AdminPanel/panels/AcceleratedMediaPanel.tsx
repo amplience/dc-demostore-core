@@ -6,7 +6,6 @@ import {
     FormControlLabel,
     IconButton,
     LinearProgress,
-    Theme,
     Typography,
 } from '@mui/material';
 import ImageStatisticsModal from '../modals/ImageStatisticsModal';
@@ -46,30 +45,7 @@ const VisibilityToggle = ({ selected, onClick }: any) => {
     );
 };
 
-const styles = (theme: Theme) => ({
-    root: {
-        width: '100%',
-    },
-    button: {
-        marginTop: 12,
-        marginBottom: 12,
-    },
-    input: {},
-    progress: {},
-    table: {
-        width: '100%',
-    },
-});
-
-interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
-}
-
-const AcceleratedMediaPanel = (props: Props) => {
-    const { classes, ...other } = props;
-
+const AcceleratedMediaPanel = () => {
     const { asPath } = useRouter();
 
     const [calculating, setCalculating] = useState(false);
@@ -111,7 +87,7 @@ const AcceleratedMediaPanel = (props: Props) => {
 
     return (
         <>
-            <Table size="small" className={classes?.table}>
+            <Table size="small" style={{ width: '100%' }}>
                 <TableHead>
                     <TableRow>
                         <TableCell>Configuration</TableCell>
@@ -129,10 +105,8 @@ const AcceleratedMediaPanel = (props: Props) => {
             </Table>
             <form noValidate>
                 <Button
-                    className={classes?.button}
-                    startIcon={
-                        calculating && <CircularProgress className={classes?.progress} size="1em" color="primary" />
-                    }
+                    style={{ marginTop: 12, marginBottom: 12 }}
+                    startIcon={calculating && <CircularProgress size="1em" color="primary" />}
                     variant="contained"
                     color="primary"
                     size="small"

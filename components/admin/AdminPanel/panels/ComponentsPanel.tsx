@@ -12,18 +12,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton } from '@mui/material';
 
-const styles = (theme: Theme) => ({
-    table: {
-        width: '100%',
-    },
-});
-
-interface Props {
-    classes?: any;
-    className?: string;
-    style?: React.CSSProperties;
-}
-
 const VisibilityToggle = ({ selected, onClick }: any) => {
     return (
         <IconButton size="small" color={selected ? 'primary' : 'default'} onClick={onClick}>
@@ -33,26 +21,21 @@ const VisibilityToggle = ({ selected, onClick }: any) => {
     );
 };
 
-const ComponentsPanel = (props: Props) => {
-    const { classes, ...other } = props;
-
+const ComponentsPanel = () => {
     const { showContent, showSlots, showEditions, setShowContent, setShowSlots, setShowEditions } = useDebug();
-
     const toggleSlots = () => {
         setShowSlots(!showSlots);
     };
-
     const toggleContent = () => {
         setShowContent(!showContent);
     };
-
     const toggleEditions = () => {
         setShowEditions(!showEditions);
     };
 
     return (
         <>
-            <Table size="small" className={classes?.table}>
+            <Table size="small" style={{ width: '100%' }}>
                 <TableHead>
                     <TableRow>
                         <TableCell>Component</TableCell>
