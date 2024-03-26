@@ -1,4 +1,5 @@
 import { useUI } from '@components/ui';
+import { useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 
@@ -8,6 +9,7 @@ const NavigationToggle = () => {
         event.preventDefault();
         toggleNavigation(navigationToggle);
     };
+    const isMobile = useMediaQuery('(max-width:750px)');
     return (
         <Link
             passHref
@@ -25,6 +27,7 @@ const NavigationToggle = () => {
                 style={{
                     height: '17px',
                     width: '17px',
+                    display: isMobile ? 'flex' : 'none',
                 }}
                 src="/images/ic-anyafinn-menu.svg"
                 alt="menu"
