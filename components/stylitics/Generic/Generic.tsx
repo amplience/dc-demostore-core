@@ -36,7 +36,7 @@ const Generic = (props: Props) => {
     const { product } = useProduct() || {};
     const container = createRef<HTMLDivElement>();
     const { push } = useRouter();
-    const vendor = useECommerce().vendor;
+    const vendor = useECommerce()?.vendor;
 
     useEffect(() => {
         if (!window || !container.current) {

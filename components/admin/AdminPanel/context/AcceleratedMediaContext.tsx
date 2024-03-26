@@ -5,7 +5,7 @@ export type AcceleratedMediaState = {
     setAcceleratedMedia: (acceleratedMedia: boolean) => void;
 };
 
-const Context = createContext<AcceleratedMediaState | null>(null);
+const Context = createContext<AcceleratedMediaState>({ acceleratedMedia: false, setAcceleratedMedia: () => {} });
 
 export function useAcceleratedMedia(): AcceleratedMediaState {
     return useContext(Context) as AcceleratedMediaState;

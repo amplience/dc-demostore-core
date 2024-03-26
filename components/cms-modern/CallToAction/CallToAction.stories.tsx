@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta, StoryFn } from '@storybook/react';
 
 import { CallToAction } from '@components/cms-modern';
 
@@ -7,12 +7,12 @@ export default {
     title: 'Organisms/CallToAction',
 } as Meta;
 
-export const Outlined: Story = () => (
+export const Outlined: StoryFn = () => (
     <CallToAction href="#" className="amp-dc-card-link">
         Shop now
     </CallToAction>
 );
-export const Contained: Story = () => (
+export const Contained: StoryFn = () => (
     <CallToAction variant="contained" href="#" className="amp-dc-card-link">
         Shop now
     </CallToAction>

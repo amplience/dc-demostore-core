@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta, StoryFn } from '@storybook/react';
 
 import ButtonSpec from '@components/cms-modern/ButtonSpec';
 
@@ -8,4 +8,4 @@ export default {
     component: ButtonSpec,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <ButtonSpec />;
+export const ExampleContent: StoryFn = (args) => <ButtonSpec />;

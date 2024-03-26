@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageStatistics, typeFromFormat, formatColors } from './ImageStatistics';
-import { Theme, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 
 interface Props {
     stat: ImageStatistics;

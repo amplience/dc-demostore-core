@@ -1,5 +1,6 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import {Meta, StoryFn} from '@storybook/react'
+
 
 import AccordionSpec from '@components/cms-modern/AccordionSpec';
 
@@ -8,4 +9,4 @@ export default {
     component: AccordionSpec,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <AccordionSpec />;
+export const ExampleContent: StoryFn = (args) => <AccordionSpec />;

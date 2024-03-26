@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import fetch from 'isomorphic-unfetch';
 import { CmsContext } from './CmsContext';
 import { CmsContent } from './CmsContent';
 

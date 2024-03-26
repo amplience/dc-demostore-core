@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta, StoryFn } from '@storybook/react';
 
 import CheckboxSpec from '@components/cms-modern/CheckboxSpec';
 
@@ -8,4 +8,4 @@ export default {
     component: CheckboxSpec,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <CheckboxSpec />;
+export const ExampleContent: StoryFn = (args) => <CheckboxSpec />;

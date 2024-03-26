@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta, StoryFn } from '@storybook/react';
 
 import Text from '@components/cms-modern/Text';
 import ContentBlockStory from '@utils/storybook/ContentBlockStory';
@@ -9,4 +9,4 @@ export default {
     component: Text,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <ContentBlockStory request={{ key: 'docs/story/text/text1' }} />;
+export const ExampleContent: StoryFn = (args) => <ContentBlockStory request={{ key: 'docs/story/text/text1' }} />;

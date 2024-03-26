@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageStatistics } from './ImageStatistics';
-import { Theme, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 
 const colors: { [key: string]: string } = {
     jpeg: '#FFA200',

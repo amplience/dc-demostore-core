@@ -4,7 +4,7 @@ import { ContentBlock } from '@components/cms-modern';
 import { WithCMSTheme, useThemes } from '../../core/WithCMSTheme';
 import { Box } from '@mui/material';
 
-interface BlogProps {
+export interface BlogProps {
     snippet: CmsContent;
     contentTypes?: CmsContent[];
     content: CmsContent;
