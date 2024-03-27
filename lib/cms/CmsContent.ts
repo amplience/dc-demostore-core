@@ -1,3 +1,3 @@
 export type CmsContent = {
-    [key: string]: any;  
+    [key: string]: any;
 };

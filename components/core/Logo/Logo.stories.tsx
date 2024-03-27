@@ -1,11 +1,11 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Logo } from '@components/core';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
-  title: 'Atoms/Logo',
-  component: Logo,
+    title: 'Atoms/Logo',
+    component: Logo,
 } as Meta;
 
-export const Main: Story = (args) => <Logo {...args} />;
+export const Main: StoryFn = (args) => <Logo {...args} />;

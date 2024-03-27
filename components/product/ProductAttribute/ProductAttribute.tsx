@@ -7,17 +7,15 @@ interface Props {
 
 export type ProductAttributeVariant = 'name' | 'brand' | 'product_id';
 
-const ProductAttribute: React.FC<Props> = (props) => {
-    const {
-        variant = 'name'
-    } = props;
+const ProductAttribute = (props: Props) => {
+    const { variant = 'name' } = props;
 
     const { product, productVariant } = useProduct() || {};
     if (!product) {
         return null;
     }
 
-    return <>{(productVariant as any)[variant] || (product as any)[variant] as string}</>;
+    return <>{(productVariant as any)[variant] || ((product as any)[variant] as string)}</>;
 };
 
 export default ProductAttribute;

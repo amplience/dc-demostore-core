@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { pointsToSVGPath, PolygonForwardRef, SVGPath } from './polygon';
 import { ShoppableImageHotspot } from './ShoppableImageData';
@@ -13,18 +13,18 @@ type Props = {
     hotspotHide: boolean;
     polygonHide: boolean;
     focalPointHide: boolean;
-    di:string;
+    di: string;
     tooltips: any[];
 } & CmsContent;
 
-const ShoppableImage: FC<Props> = ({
+const ShoppableImage = ({
     shoppableImage,
     hotspotHide = false,
     polygonHide = false,
     focalPointHide = true,
-    di = "",
+    di = '',
     tooltips = [],
-}) => {
+}: Props) => {
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });
@@ -40,27 +40,27 @@ const ShoppableImage: FC<Props> = ({
     const [imageRef] = useState(React.createRef<HTMLImageElement>());
     const canvasRef = React.createRef<HTMLDivElement>();
 
-    const resizeWindow = () => {
-        if (refContainer.current) {
-            setCanvasSize({
-                w: refContainer.current.offsetWidth,
-                h: refContainer.current.offsetHeight,
-            });
-            setTargetWidth(refContainer.current.offsetWidth);
-        }
-
-        if (imageRef.current) {
-            setTargetHeight(imageRef.current.height);
-            setTargetWidth(imageRef.current.width);
-        }
-    };
-
     useEffect(() => {
+        const resizeWindow = () => {
+            if (refContainer.current) {
+                setCanvasSize({
+                    w: refContainer.current.offsetWidth,
+                    h: refContainer.current.offsetHeight,
+                });
+                setTargetWidth(refContainer.current.offsetWidth);
+            }
+
+            if (imageRef.current) {
+                setTargetHeight(imageRef.current.height);
+                setTargetWidth(imageRef.current.width);
+            }
+        };
+
         window.addEventListener('resize', resizeWindow);
         return () => window.removeEventListener('resize', resizeWindow);
-    }, [loaded]);
+    }, [loaded, imageRef]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (refContainer.current) {
             setCanvasSize({
                 w: refContainer.current.offsetWidth,

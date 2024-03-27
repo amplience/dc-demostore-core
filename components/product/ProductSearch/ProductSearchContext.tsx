@@ -1,8 +1,8 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 export type ProductSearchState = {
     facetFilters: {
-        [key: string]: string[]
+        [key: string]: string[];
     };
     setFacetFilter: (key: string, filters: string[]) => void;
 };

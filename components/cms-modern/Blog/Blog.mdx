@@ -1,19 +1,17 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Controls, Canvas, Meta, Story } from '@storybook/blocks';
 import Blog from '@components/cms-modern/Blog';
 import BlogSnippet from '@components/cms/BlogSnippet';
+import * as BlogStories from './Blog.stories';
 
-<Meta 
-    title="Organisms/Blog" 
-    component={Blog} 
-    argTypes={{
-    }}/>
+<Meta of={BlogStories} />
 
 export const Template = (args) => {
     return <Blog {...args} />
 };
 
 # Blog Component
----
+
+***
 
 `Blog` Component is a full Blog Post with a Blog Snippet (the header of the Blog),
 along with content as Custom Rich Text and/or a list of Content Items. It's also
@@ -24,115 +22,16 @@ possible to specify a custom Theme for the Blog Post.
 ## Stories
 
 <Canvas>
-  <Story 
-    name="Blog"
-    args={{ 
-       "snippet": {
-            "image": {
-                "image": {
-                "_meta": {
-                    "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
-                },
-                "id": "806df523-fd2c-419a-8c76-80664aac8976",
-                "name": "5f9c3f8dfaf7ea39d06b2404_1280x1280",
-                "endpoint": "rezademo",
-                "defaultHost": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io"
-                },
-                "imageAltText": "Anna Barnett",
-                "_meta": {
-                "schema": "https://demostore.amplience.com/content/image"
-                }
-            },
-            "cta": {
-                "label": "Read more",
-                "value": "https://www.hush-uk.com/lifestyle/hush-meets-anna-barnett.html",
-                "type": "URL",
-                "_meta": {
-                "schema": "https://demostore.amplience.com/lib/link"
-                }
-            },
-            "blogdate": "2021/01/18",
-            "title": "For the love of food",
-            "description": "Cook, author and food writer Anna Barnett on food, friendship and how \nshe’s determined to make every mealtime special",
-            "author": "Macadamia Smith",
-            "_meta": {
-                "schema": "https://demostore.amplience.com/content/blog-snippet"
-            },
-            "tags": [
-                {
-                "id": "641492c4-215c-42b1-a90c-d43b358e9e73",
-                "contentType": "https://demostore.amplience.com/site/tag",
-                "_meta": {
-                    "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference"
-                }
-                },
-                {
-                "id": "9ceff52e-9af7-4ab3-973f-b9b5db15cb5d",
-                "contentType": "https://demostore.amplience.com/site/tag",
-                "_meta": {
-                    "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference"
-                }
-                }
-            ],
-            "category": [
-                "beauty"
-            ]
-          },
-          "content": {
-            "text": [
-                {
-                "type": "markdown",
-                "data": "Every once in a while, you see someone with a kitchen so stylish it can’t help but trigger a twinge of jealousy. Self-taught cook Anna Barnett is one of those people. Situated in a converted Victorian schoolhouse in East London, which she shares with her husband and Kerry Blue Terrier, Ted, Anna’s kitchen is a haven of marble and wood, with an envy-inducing oversized island in the middle.\n\n \n\nBut this kitchen is also the star of her live cook-along videos, which she has hosted throughout lockdown as a way to keep both herself and her viewers sane. “Cooking has helped keep me positive this year,” she says when we chat on the phone. “It’s been a nice way to connect with people – whether that’s baking some sourdough and dropping it round to friends, supporting small local businesses or hosting live cook-alongs to an online community.”\n\n \n\nThat community is one she has garnered from her food writing – Anna has a weekly column in the Evening Standard as well as a popular cookbook under her belt. Eat The Week is full of stylish, practical and personal recipes inspired by how your mood changes with every day. These are usually devised in her kitchen, where she spends most of her working day – both a blessing and a curse in 2020.\n\n \n\n“I’ve been fortunate because I work from home anyway, so my routine hasn’t been massively disrupted,” she says. “But it’s felt quite lonely at times; once the chaos of a live cook-along is over, you realise that you’re at home alone again and not out with your friends.” It’s a feeling many of us can relate to, but one which Anna now views in a positive light: “This year has made me grateful for the smaller things, like having one-to-one time with friends and family. It’s slowed us all down and made us more appreciative.”\n\n‌\n\n‌That idea of slowing down and taking stock has also translated into her food, via dishes which are as soothing for the stomach as they are for the soul. “I’ve been cooking a lot of comfort food recently, especially pasta dishes – it’s something I’ve noticed people have really responded to over this time,” she explains. “But everyone has had the time to be a bit more experimental now, so rather than simply making a quick pasta-and-sauce dish, I’ve been doing cook-alongs on how to make pasta from scratch. It’s a playful thing to do and is really rewarding – even though it’s actually quite easy, it feels like elevated cooking simply because it takes time.”"
-                },
-                {
-                "type": "dc-image-link",
-                "data": {
-                    "_meta": {
-                    "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
-                    },
-                    "id": "8f30ef4c-ffb2-4228-905b-dc4243c08c6d",
-                    "name": "5f9c3f87faf7ea39d06b23f3_910x448",
-                    "endpoint": "rezademo",
-                    "defaultHost": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io"
-                }
-                },
-                {
-                "type": "markdown",
-                "data": "That idea of simple ways to elevate everyday meals has been key for Anna who, like the rest of us, has been hit with a serious bout of cooking fatigue this year. “It’s even harder when you’re already cooking every day for work and then you have to make something for yourself!” she admits. But as well as opting for one-pot wonders of flavoursome dishes using whatever is left in the fridge, Anna came up with a cunning plan to make those midweek meals exciting.\n\n \n\nThe key, she says, was variety: “My husband and I sat down and devised a two-week meal plan so that we can be more mindful of what we’re consuming. It was helpful to take a look at what we might be missing from our diets – you tend to think you’re quite healthy until you actually unpick what you’re eating – but it also helped me stay enthusiastic too. Once I had a plan, I could get excited again about getting interesting ingredients and make delicious, speedy dishes that weren’t simply an afterthought.”\n\n‌\n\n‌Now, she’s determined to continue bringing the magic to what she’s cooking during winter – even if she’s only whipping up a feast for six. “It’s not about the formalities,” says Anna when asked about how she’s elevated these cosy dinners. “I’ve been keeping things casual and eating round our island instead of laying the table, serving up things like big Mexican feasts in a very laidback way so that the focus falls on the food and the company, and I can chat intimately while I cook.”\n\n \n\nFor Anna, friendship and food go hand-in-hand, with cooking being how she shows people she cares. “I love cooking – it’s my way of being supportive and checking in on friends,” she says. “Over lockdown, I started dropping round food parcels to them.” What was inside those parcels varied, but the contents were always homemade with love – the key, she says, to making any meal feel special."
-                },
-                {
-                "type": "dc-image-link",
-                "data": {
-                    "_meta": {
-                    "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
-                    },
-                    "id": "38961e6a-f65d-463e-876d-77198ff93576",
-                    "name": "5f9c3f84faf7ea39d06b23eb-optimized",
-                    "endpoint": "rezademo",
-                    "defaultHost": "1dpf8i5xxl3cn1xccm0grjyowp.staging.bigcontent.io"
-                }
-                },
-                {
-                "type": "markdown",
-                "data": "Now, with winter on the horizon, Anna has a new project to pour her love into – the launch of her new podcast, The Filling. Recorded pre-Covid in people’s kitchens, the premise involves talking to people about how food has punctuated their lives and sharing a recipe specific to them. Guests include Henry Holland, Russell Tovey and Nick Grimshaw, with whom Anna is good friends.\n\n \n\nBut guests are also asked to make a sandwich too, in order to prove their culinary prowess (or lack of) – an exercise which Anna says can’t fail to make listeners smile: “Sandwiches are so divisive! People are either really passionate and foodie in their attitude to them or have a complete no-nonsense approach. There are a lot of laughs – I wanted it to be interesting but also heart-warming and funny. It’s meant to be a tonic, something to inspire and inform, but also to take your mind off everything that’s going on.”\n\n \n\nIt’s true – we need a little light heartedness in our lives now more than ever. But for Anna, there’s a life lesson in the joy which comes from a belly-aching laugh with friends: “2020 has taught me the importance of finding humour in the situation to help you keep perspective on the bigger picture. That’s what gets me through.” We couldn’t agree more. Here’s to finding more things to smile about in 2021…"
-                }
-            ],
-            "_meta": {
-                "schema": "https://demostore.amplience.com/content/rich-text"
-            }
-        }
-    }}>
-    {Template.bind({})}
-   </Story>
+  <Story of={BlogStories.Blog} />
 </Canvas>
 
 ## Blog Props
 
-<ArgsTable of={Blog} />
+<Controls />
 
 ## BlogSnippet Props
 
-<ArgsTable of={BlogSnippet} />
+<Controls />
 
 ## Content Type Schema
 

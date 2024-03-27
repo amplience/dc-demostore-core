@@ -1,57 +1,34 @@
-import React, { PropsWithChildren, useEffect, createRef } from 'react';
-import { Theme } from '@mui/material';
+import React, { useEffect, createRef, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import { NavigatePrevious, NavigateNext } from '@components/icons';
-import { withStyles, WithStyles } from '@mui/styles'
 
-const styles = (theme: Theme) => ({
-});
-
-interface Props extends PropsWithChildren<WithStyles<typeof styles>> {
-    className?: string;
-    style?: React.CSSProperties;
-
+interface Props extends PropsWithChildren {
     navigationDots?: boolean;
     infinite?: number;
     autoplay?: boolean;
 }
 
-const LegacySlider: React.SFC<Props> = (props) => {
-    const {
-        classes,
-        children,
-        className,
-        navigationDots = false,
-        infinite = 0,
-        autoplay = false,
-        ...other
-    } = props;
+const LegacySlider = (props: Props) => {
+    const { children, navigationDots = false, infinite = 0, autoplay = false, ...other } = props;
     let numChildren = React.Children.count(children);
-
     const component = createRef<any>();
 
     useEffect(() => {
-        const {
-            loryHelpers
-        } = window as any || {};
-
+        const { loryHelpers } = (window as any) || {};
         const element = component.current;
-
         try {
             if (element && loryHelpers && numChildren > 0) {
                 loryHelpers.initSliders([element]);
             }
-        } catch (err) {
-        }
+        } catch (err) {}
 
         return () => {
             if (element && element.__sliderInstance) {
                 try {
                     element.__sliderInstance.destroy();
-                } catch (err) {
-                }
+                } catch (err) {}
             }
-        }
+        };
     }, [component, numChildren]);
 
     if (numChildren === 0) {
@@ -60,13 +37,20 @@ const LegacySlider: React.SFC<Props> = (props) => {
     }
 
     return (
-        <div ref={component} className={clsx('amp-dc-slider', 'amp-dc-card-list-slider', className)} data-infinite="true" data-autoplay="true" data-navigation="false" data-sliderlength="3">
-            <div className={clsx('amp-dc-slider-frame', 'js_frame', {
-                ['dots']: navigationDots
-            })}>
-                <ul className="amp-dc-slider-slides js_slides">
-                    {children}
-                </ul>
+        <div
+            ref={component}
+            className={clsx('amp-dc-slider', 'amp-dc-card-list-slider')}
+            data-infinite="true"
+            data-autoplay="true"
+            data-navigation="false"
+            data-sliderlength="3"
+        >
+            <div
+                className={clsx('amp-dc-slider-frame', 'js_frame', {
+                    ['dots']: navigationDots,
+                })}
+            >
+                <ul className="amp-dc-slider-slides js_slides">{children}</ul>
                 <span className="amp-dc-slider-prev js_prev">
                     <NavigatePrevious />
                 </span>
@@ -78,4 +62,4 @@ const LegacySlider: React.SFC<Props> = (props) => {
     );
 };
 
-export default withStyles(styles)(LegacySlider);
+export default LegacySlider;

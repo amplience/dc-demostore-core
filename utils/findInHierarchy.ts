@@ -1,8 +1,11 @@
-import { CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
+import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 
 export type FindInHierarchyOutput = CmsHierarchyNode & { breadcrumb: CmsHierarchyNode[] };
 
-export function findInHierarchy(root: CmsHierarchyNode, findFn: (node: CmsHierarchyNode) => boolean): FindInHierarchyOutput | null {
+export function findInHierarchy(
+    root: CmsHierarchyNode,
+    findFn: (node: CmsHierarchyNode) => boolean
+): FindInHierarchyOutput | null {
     const visit = (node: CmsHierarchyNode, stack: CmsHierarchyNode[]): FindInHierarchyOutput | null => {
         if (!node) {
             return null;
@@ -11,7 +14,7 @@ export function findInHierarchy(root: CmsHierarchyNode, findFn: (node: CmsHierar
         if (findFn(node)) {
             return {
                 ...node,
-                breadcrumb: stack
+                breadcrumb: stack,
             };
         } else {
             for (let child of node.children || []) {
@@ -19,13 +22,13 @@ export function findInHierarchy(root: CmsHierarchyNode, findFn: (node: CmsHierar
                 if (value) {
                     return {
                         ...value,
-                        breadcrumb: stack
+                        breadcrumb: stack,
                     };
                 }
             }
         }
 
         return null;
-    }
+    };
     return visit(root, []);
 }

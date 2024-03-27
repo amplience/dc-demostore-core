@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
-import NextHead from 'next/head'
-import { DefaultSeo } from 'next-seo'
-import { getHubName } from '@lib/config/locator/config-locator'
+import React from 'react';
+import NextHead from 'next/head';
+import { DefaultSeo } from 'next-seo';
+import { getHubName } from '@lib/config/locator/config-locator';
 
-const Head: FC = () => {
+const Head = () => {
     const hubname = getHubName();
 
     return (
@@ -18,7 +18,7 @@ const Head: FC = () => {
                 <title>Amplience Retail Storefront Website</title>
             </NextHead>
         </>
-    )
-}
+    );
+};
 
-export default Head
+export default Head;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Meta } from '@storybook/react/types-6-0';
 
+import { Meta } from '@storybook/react';
 import { SplitBlock } from '@components/cms-modern';
 import ContentBlockStory from '@utils/storybook/ContentBlockStory';
 

@@ -1,31 +1,20 @@
-import { ThemeProvider, Theme, StyledEngineProvider, createTheme } from "@mui/material";
-import { FC } from "react";
-// import pink from '@mui/material/colors/pink';
-
-
-declare module '@mui/styles/defaultTheme' {
-  interface DefaultTheme extends Theme {}
-}
-
+import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material";
 
 export function createAdminTheme() {
     return createTheme({
         palette: {
-            mode: 'light',
-            // primary: {
-            //     // ...pink
-            // }
+            mode: 'light'
         }
     });
 }
 
 const theme = createAdminTheme();
 
-const WithAdminTheme: FC = ({children}) => {
+const WithAdminTheme = (props: any) => {
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
-                {children}
+                {props.children}
             </ThemeProvider>
         </StyledEngineProvider>
     );

@@ -1,11 +1,11 @@
 export interface ImageStatistics {
     src: string;
     name: string;
-    types: { [key: string]: string }
-    sizes: { [key: string]: number }
+    types: { [key: string]: string };
+    sizes: { [key: string]: number };
     auto: string;
-    completed: number,
-    total: number
+    completed: number;
+    total: number;
 }
 
 const formatTests = ['auto', 'jpeg', 'webp', 'avif']; // png deliberately excluded
@@ -15,21 +15,20 @@ export const formatColors: { [key: string]: string } = {
     webp: '#00B6FF',
     avif: '#65CC02',
     auto: '#8F9496',
-    png: '#E94420'
-}
+    png: '#E94420',
+};
 
 export const typeFromFormat: { [key: string]: string } = {
     'image/webp': 'webp',
     'image/jpeg': 'jpeg',
     'image/avif': 'avif',
-    'image/png': 'png'
+    'image/png': 'png',
 };
-
 
 export function isValid(stat: ImageStatistics, key: string): boolean {
     let type = stat.types[key];
     let realKey = typeFromFormat[type] ?? key;
-  
+
     return key === 'auto' || key === realKey;
 }
 
@@ -79,30 +78,30 @@ export async function DetermineImageSizes(onChange: (stats: ImageStatistics[]) =
                     sizes: {},
                     completed: 0,
                     auto: 'none',
-                    total: formatTests.length
-                }
+                    total: formatTests.length,
+                };
 
                 result.push(imageResult);
 
                 onChange(result);
 
-                const formatPromises = formatTests.map(async format => {
+                const formatPromises = formatTests.map(async (format) => {
                     url.searchParams.set('fmt', format);
 
                     const src = url.toString();
 
                     try {
-                        const response = await fetch(src, { headers: { Accept: getAcceptHeader() }});
+                        const response = await fetch(src, { headers: { Accept: getAcceptHeader() } });
 
-                        const headLength = response.headers.get("content-length");
+                        const headLength = response.headers.get('content-length');
                         const size = headLength ? Number(headLength) : (await response.arrayBuffer()).byteLength;
 
                         imageResult.sizes[format] = size;
-                        imageResult.types[format] = response.headers.get("content-type") ?? '';
+                        imageResult.types[format] = response.headers.get('content-type') ?? '';
                         imageResult.completed++;
 
                         if (format === 'auto') {
-                            imageResult.auto = typeFromFormat[imageResult.types[format]] ?? 'none'
+                            imageResult.auto = typeFromFormat[imageResult.types[format]] ?? 'none';
                         }
 
                         onChange(result);

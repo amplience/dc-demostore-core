@@ -2,22 +2,22 @@ const searchFacets = [
     {
         type: 'standard',
         field: 'variants.attributes.color.label.en',
-        title: 'Color'
+        title: 'Color',
     },
     {
         type: 'standard',
         field: 'variants.attributes.designer.key',
-        title: 'Designer'
+        title: 'Designer',
     },
     {
         type: 'standard',
         field: 'variants.attributes.size',
-        title: 'Size'
+        title: 'Size',
     },
     {
         type: 'standard',
         field: 'variants.attributes.style.key',
-        title: 'Style'
-    }
+        title: 'Style',
+    },
 ];
-export default searchFacets
+export default searchFacets;
