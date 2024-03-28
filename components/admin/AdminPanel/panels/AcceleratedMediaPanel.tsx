@@ -116,7 +116,9 @@ const AcceleratedMediaPanel = () => {
                     Get Image Statistics
                 </Button>
                 <Modal open={modalOpen} onClose={closeModal}>
-                    <ImageStatisticsModal stats={result} onClose={closeModal} />
+                    <div>
+                        <ImageStatisticsModal stats={result} onClose={closeModal} />
+                    </div>
                 </Modal>
                 {result.length == 0 && hasResult && (
                     <Typography component="p">No Amplience images detected.</Typography>

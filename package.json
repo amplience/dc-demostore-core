@@ -55,6 +55,7 @@
     "@types/uuid": "^9.0.8",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.1.4",
+    "prettier": "^3.2.5",
     "sass": "^1.72.0",
     "storybook": "^8.0.4"
   },

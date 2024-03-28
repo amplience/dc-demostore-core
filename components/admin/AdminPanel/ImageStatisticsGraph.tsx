@@ -77,49 +77,53 @@ const ImageStatisticsGraph = ({ stats }: Props) => {
                 margin: '12px 0px',
             }}
         >
-            <tr>
-                <th
-                    style={{
-                        width: '0',
-                    }}
-                ></th>
-                <th
-                    style={{
-                        textAlign: 'center' as 'center',
-                    }}
-                >
-                    Images Weight (bytes)
-                </th>
-            </tr>
-            {formats.map((format) => {
-                const size = sumSizes(stats, format);
-                return (
-                    <tr key={format}>
-                        <td
-                            style={{
-                                textAlign: 'end' as 'end',
-                                verticalAlign: 'middle',
-                                borderRight: '1px solid gray',
-                                paddingRight: '4px',
-                            }}
-                        >
-                            {format}
-                        </td>
-                        <td>
-                            <div
+            <thead>
+                <tr>
+                    <th
+                        style={{
+                            width: '0',
+                        }}
+                    ></th>
+                    <th
+                        style={{
+                            textAlign: 'center' as 'center',
+                        }}
+                    >
+                        Images Weight (bytes)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {formats.map((format) => {
+                    const size = sumSizes(stats, format);
+                    return (
+                        <tr key={format}>
+                            <td
                                 style={{
-                                    padding: '4px 0px 4px 4px',
-                                    color: '#444444',
-                                    width: `${(100 * size) / maxSize}%`,
-                                    backgroundColor: formatColors[format],
+                                    textAlign: 'end' as 'end',
+                                    verticalAlign: 'middle',
+                                    borderRight: '1px solid gray',
+                                    paddingRight: '4px',
                                 }}
                             >
-                                <Typography variant="caption">{size}</Typography>
-                            </div>
-                        </td>
-                    </tr>
-                );
-            })}
+                                {format}
+                            </td>
+                            <td>
+                                <div
+                                    style={{
+                                        padding: '4px 0px 4px 4px',
+                                        color: '#444444',
+                                        width: `${(100 * size) / maxSize}%`,
+                                        backgroundColor: formatColors[format],
+                                    }}
+                                >
+                                    <Typography variant="caption">{size}</Typography>
+                                </div>
+                            </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
         </table>
     );
 };
