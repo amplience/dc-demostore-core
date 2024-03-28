@@ -29,7 +29,7 @@ const LegacySlider = (props: Props) => {
                 } catch (err) {}
             }
         };
-    }, [component, numChildren]);
+    }, [numChildren]);
 
     if (numChildren === 0) {
         // This component is unstable with no slides

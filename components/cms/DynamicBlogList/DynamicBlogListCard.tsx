@@ -42,9 +42,9 @@ const DynamicBlogListCard = (props: Props) => {
                 ) : null}
 
                 <div className="amp-dc-category-container">
-                    {category.map((item: any) => {
+                    {category.map((item: any, index: number) => {
                         return (
-                            <div key={nanoid()}>
+                            <div key={index}>
                                 <div className="amp-dc-category">{item}</div>
                                 <span className="line"></span>
                             </div>

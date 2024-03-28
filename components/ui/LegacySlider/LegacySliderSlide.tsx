@@ -10,7 +10,6 @@ const LegacySliderSlide = (props: Props) => {
     const { children, className, ...other } = props;
     return (
         <li
-            key={nanoid()}
             className={clsx('amp-dc-slider-slide', 'amp-dc-slider-slide-card', 'js_ca_slide', className)}
             {...other}
         >
