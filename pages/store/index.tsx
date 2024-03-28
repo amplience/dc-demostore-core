@@ -112,7 +112,7 @@ export default function StoreMainPage({ storesData, content }: InferGetServerSid
             </Paper>
             <Grid container style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', margin: 0, padding: 0 }}>
                 {storesList.responses.map((store: any) => (
-                    <StoreCard key={store.content.locationName} content={store.content} />
+                    <StoreCard key={store.content._meta?.deliveryId} content={store.content} />
                 ))}
             </Grid>
         </div>
