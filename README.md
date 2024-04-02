@@ -64,6 +64,7 @@ Both dev and prod commands will also start a localhost. Then go to [http://local
 Firing up Storybook is super simple:
 
 ```sh
+$ nvm use
 $ npm run storybook
 ```
 
