@@ -39,18 +39,20 @@ The following commands will install `dc-demostore-core` on your local machine.
 $ gh repo clone amplience/dc-demostore-core
 $ cd dc-demostore-core
 $ nvm use
-$ npm install / npm i
+$ npm install
 ```
 
 ### To run a Development environment:
 
 ```sh
+$ nvm use
 $ npm run dev
 ```
 
 ### To run a production environment:
 
 ```sh
+$ nvm use
 $ npm run build
 $ npm run start
 ```
