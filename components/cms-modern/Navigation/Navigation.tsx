@@ -8,12 +8,12 @@ import clsx from 'clsx';
 import { useUI } from '@components/ui';
 import _ from 'lodash';
 
-interface Props {
+interface NavigationProps {
     pages: NavigationItem[];
     style?: React.CSSProperties;
 }
 
-const Navigation = ({ pages, style }: Props) => {
+const Navigation = ({ pages, style }: NavigationProps) => {
     const { navigationToggle, toggleNavigation } = useUI();
     const [selectedMenuKey, setSelectedMenuKey] = useState<number | null>(null);
     const router = useRouter();
@@ -70,8 +70,8 @@ const Navigation = ({ pages, style }: Props) => {
                         p1.content?.menu.priority > p2.content?.menu.priority
                             ? 1
                             : p1.content?.menu.priority < p2.content?.menu.priority
-                            ? -1
-                            : 0
+                              ? -1
+                              : 0,
                     )
                     .map(({ title, href, children = [], content, category }, index) => {
                         return (

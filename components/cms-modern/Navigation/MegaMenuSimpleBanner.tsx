@@ -4,7 +4,7 @@ import { Overlay } from '@components/ui';
 import { CallToAction } from '..';
 import AdaptiveImage, { AdaptiveImageSource } from '../AdaptiveImage';
 
-interface Props {
+interface MegaMenuSimpleBannerProps {
     style?: React.CSSProperties;
     image: {
         img: {
@@ -24,7 +24,7 @@ interface Props {
     };
 }
 
-const MegaMenuSimpleBanner = (props: Props) => {
+const MegaMenuSimpleBanner = (props: MegaMenuSimpleBannerProps) => {
     const { image, ctaSettings, bannerText, textPositioning, ...other } = props;
 
     const { img } = image || {};

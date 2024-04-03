@@ -3,7 +3,7 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
 import { ImageTransformations, getImageURL } from '@utils/getImageURL';
 
-type Props = {
+type ImageProps = {
     image: any;
     query?: any;
     format?: string;
@@ -11,7 +11,7 @@ type Props = {
     di?: string;
 } & CmsContent;
 
-const Image = ({ display, image, imageAltText, seoText, di = '', query, roundel }: Props) => {
+const Image = ({ display, image, imageAltText, seoText, di = '', query, roundel }: ImageProps) => {
     if (!image) {
         return null;
     }

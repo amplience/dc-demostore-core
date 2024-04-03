@@ -4,7 +4,7 @@ import ReactMarkdown from 'markdown-to-jsx';
 import Image from '@components/cms-modern/Image';
 import Link from 'next/link';
 
-interface Props {
+interface StoreProps {
     keyElements: {
         parking: boolean;
         clickAndCollect: boolean;
@@ -16,7 +16,7 @@ interface Props {
     details: string;
 }
 
-const Store = (props: Props) => {
+const Store = (props: StoreProps) => {
     const { details, keyElements, image, imageAltText, locationName = '' } = props;
 
     const options = {

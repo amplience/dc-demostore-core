@@ -4,12 +4,12 @@ import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material'
 import React, { PropsWithChildren } from 'react';
 import { useThemes } from './ThemesContext';
 
-interface Props extends PropsWithChildren {
+interface WithCMSThemeProps extends PropsWithChildren {
     themes?: CmsHierarchyNode | undefined;
     themeOverride?: CmsContent | undefined;
 }
 
-const WithCMSTheme = ({ themeOverride, children }: Props) => {
+const WithCMSTheme = ({ themeOverride, children }: WithCMSThemeProps) => {
     const { themes } = useThemes();
 
     let CMSTheme = undefined;

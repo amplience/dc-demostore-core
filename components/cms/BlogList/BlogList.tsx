@@ -3,9 +3,9 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import clsx from 'clsx';
 import BlogCard from '../BlogCard';
 
-type Props = {} & CmsContent;
+type BlogListProps = {} & CmsContent;
 
-const BlogList = ({ blogs = [] }: Props) => {
+const BlogList = ({ blogs = [] }: BlogListProps) => {
     return (
         <div className="amp-dc-blog-list">
             <div className="amp-dc-blog-list-wrap">

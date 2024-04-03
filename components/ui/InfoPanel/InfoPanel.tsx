@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 
-interface Props extends PropsWithChildren {
+interface InfoPanelProps extends PropsWithChildren {
     classes?: any;
     className?: string;
     style?: React.CSSProperties;
@@ -10,7 +10,7 @@ interface Props extends PropsWithChildren {
     borderStyle?: string;
 }
 
-const InfoPanel = (props: Props) => {
+const InfoPanel = (props: InfoPanelProps) => {
     const {
         classes,
         className,

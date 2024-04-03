@@ -3,11 +3,11 @@ import { Backdrop, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 
-interface Props extends PropsWithChildren {
+interface NavigationToggleStateProps extends PropsWithChildren {
     classes?: any;
 }
 
-const NavigationToggleState = ({ classes, children }: Props) => {
+const NavigationToggleState = ({ classes, children }: NavigationToggleStateProps) => {
     const { navigationToggle, toggleNavigation } = useUI();
     const handleToggleNavigation = () => {
         toggleNavigation(navigationToggle);
