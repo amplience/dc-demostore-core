@@ -14,7 +14,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     let { cms } = await createAppContext();
     if (timestamp && !vse && !isNaN(Number(timestamp))) {
-        // generate vse
         const factory = new StagingEnvironmentFactory(cms.stagingApi as string);
         if (timestamp && cms.stagingApi) {
             const stagingEnvironmentAtTimestamp = await factory.generateDomain({

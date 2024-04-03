@@ -59,8 +59,6 @@ const mapping: any = {
     product_rich_text: ProductRichText,
     content_block: ContentBlock,
     accordion: Accordion,
-    // 'product_header': ProductHeader,
-    // 'product_image': ProductImage
 };
 
 const CmsComponent = ({ data }: Props) => {

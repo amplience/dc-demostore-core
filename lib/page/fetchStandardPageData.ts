@@ -10,7 +10,7 @@ import { CustomerGroup } from '@amplience/dc-integration-middleware';
 async function fetchStandardPageData<
     CT extends FetchMapInput<CmsRequest>,
     CH extends FetchMapInput<CmsHierarchyRequest>,
-    ES extends FetchMapInput<CustomerGroup[]>
+    ES extends FetchMapInput<CustomerGroup[]>,
 >(input: FetchPageDataInput<CT, CH, ES>, context: GetServerSidePropsContext) {
     const data = await fetchPageData(
         {
@@ -32,7 +32,7 @@ async function fetchStandardPageData<
                 },
             },
         },
-        context
+        context,
     );
 
     const pageNode = findInHierarchy((data.hierarchies as any).pages, (node: CmsHierarchyNode) => {
@@ -42,16 +42,14 @@ async function fetchStandardPageData<
 
     let page: any = {};
 
-    // Make Generic
     if (pageNode && pageNode.content._meta?.schema?.indexOf('https://demostore.amplience.com/site/pages/') === 0) {
-        // check to see if we have already loaded the page object
         const pageId = pageNode.content._meta.deliveryId;
         let fullPageContent = findInContentMap(data.content, (content) => content._meta.deliveryId === pageId);
 
         if (!fullPageContent) {
             [fullPageContent] = await fetchContent(
                 [{ id: pageNode.content._meta.deliveryId }],
-                data.context.cmsContext
+                data.context.cmsContext,
             );
         }
 

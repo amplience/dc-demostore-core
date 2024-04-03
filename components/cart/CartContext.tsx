@@ -63,9 +63,7 @@ const WithCart = ({ children }: Props) => {
     const saveState = (state: CartState) => {
         try {
             window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-        } catch (err) {
-            // ignore
-        }
+        } catch (err) {}
     };
 
     const initialState = loadState();

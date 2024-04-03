@@ -30,14 +30,13 @@ const ProductGrid = ({ category, query, limit }: Props) => {
                         if (isMounted && products) {
                             setProducts(
                                 products.filter(
-                                    (product) => product.categories.findIndex((cat) => cat.id === category) !== -1
-                                )
+                                    (product) => product.categories.findIndex((cat) => cat.id === category) !== -1,
+                                ),
                             );
                         }
                     });
             } else {
                 // Request expected number of category products.
-
                 (commerceApi as CommerceAPI)
                     .getProducts({ category: c, ...cmsContext, ...userContext, pageSize: limit, pageCount: 1 })
                     .then((products: Product[]) => {

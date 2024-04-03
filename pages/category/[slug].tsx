@@ -52,7 +52,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 page: { key: `category/${slug}` },
             },
         },
-        context
+        context,
     );
 
     if (!data.page || !slug || slug === 'favicon.ico') {
@@ -60,7 +60,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     if (data.content.page && !data.content.page.active) {
-        // The cms content shouldn't be respected.
         data.content.page = null;
     }
 
@@ -71,10 +70,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 slots: (data.content.page?.slots || []).map(mapToID),
             },
         },
-        context
+        context,
     );
 
-    // use the content to get by ID if available in the content to control. Otherwise use the slug
     let category;
     if (data.content.page?.name) {
         const cmsslug = data.content.page?.name;
@@ -111,7 +109,6 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
     const { vse, content, category, slots } = props;
     const [config] = useContent(content.configComponents, vse);
 
-    // let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS;
     let components: CmsContent[] = props.content?.page?.components || [];
     let pageSlots: CmsContent[] = slots;
     let products: Product[] = category?.products;
@@ -119,7 +116,6 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
     return (
         <>
             <PageContent>
-                {/* NOVADEV-15: Breadcrumb category updates before large category on PLP */}
                 {
                     <div>
                         <Breadcrumb />
@@ -144,16 +140,9 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                 </div>
                 {!props.content?.page?.hideProductList && (
                     <div>
-                        {/* <div className={classes?.facets}>
-                            {facets.map((facet) => (
-                                <ProductFacet key={nanoid()} title={facet.title} />
-                            ))}
-                        </div> */}
                         <div>
                             <ProductGrid>
-                                {products?.map((product) => (
-                                    <ProductCard key={nanoid()} data={product} />
-                                ))}
+                                {products?.map((product) => <ProductCard key={nanoid()} data={product} />)}
                             </ProductGrid>
                         </div>
                     </div>

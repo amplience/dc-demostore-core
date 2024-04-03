@@ -16,9 +16,7 @@ interface Props {
 }
 
 function getOrderedFormats(stat: ImageStatistics): { key: string; size: number; same: string[] }[] {
-    // Formats ordered by size.
     const formatSizes = Object.keys(stat.sizes).map((key) => ({ key, size: stat.sizes[key], same: [key] }));
-
     formatSizes.sort((a, b) => a.size - b.size);
 
     for (let i = 0; i < formatSizes.length; i++) {

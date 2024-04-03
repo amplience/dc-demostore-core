@@ -59,7 +59,6 @@ const SearchResults = (props: Props) => {
         const { algoliasearch } = window as any;
         const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
         const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
-        // this code searches in algolia for matching blog posts?
         searchClient
             .search([
                 {
@@ -77,7 +76,6 @@ const SearchResults = (props: Props) => {
 
                 setInspiration(result.slice(0, 10));
             });
-        // end algolia
 
         if (!_.isEmpty(searchTerm)) {
             (commerceApi as CommerceAPI)
@@ -87,12 +85,10 @@ const SearchResults = (props: Props) => {
                         products.map((prod: Product) => ({
                             ...prod,
                             href: `/product/${prod.id}/${prod.slug}`,
-                        }))
+                        })),
                     );
                 });
         }
-
-        // ? category names?
         setCategories(
             findNode(searchTerm, { children: rootItems })
                 .filter(onlyUnique)
@@ -100,7 +96,7 @@ const SearchResults = (props: Props) => {
                     label,
                     href,
                 }))
-                .slice(0, 10)
+                .slice(0, 10),
         );
     };
 

@@ -22,7 +22,7 @@ export type FetchMapOutput<T, I, O> = RemapPropertyType<ExcludeMatchingPropertie
  */
 export async function fetchMap<T extends FetchMapInput<I>, I, O>(
     input: T,
-    fetchFn: FlatFetchFn<I, O>
+    fetchFn: FlatFetchFn<I, O>,
 ): Promise<FetchMapOutput<T, I, O>> {
     const keys = Object.keys(input);
     const items: I[] = [];
@@ -37,13 +37,10 @@ export async function fetchMap<T extends FetchMapInput<I>, I, O>(
             items.push(input[key] as I);
         }
     }
-
-    // fetch items
     const fetchedItems = await fetchFn(items);
 
-    // reconstruct into origional object shape
+    // reconstruct into original object shape
     let result: any = {};
-
     for (let key of keys) {
         if (Array.isArray(input[key])) {
             result[key] = fetchedItems.splice(0, (input[key] as I[]).length);

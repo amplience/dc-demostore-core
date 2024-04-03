@@ -16,7 +16,6 @@ interface Props {
 }
 
 const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }: Props) => {
-    // Retrieve locale/country code from context - TODO: get language from user context
     const { locale: cmsLocale } = useCmsContext() || {};
     let locale = cmsLocale || 'en';
     if (locale.indexOf('-') > 0) {

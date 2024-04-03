@@ -28,7 +28,7 @@ async function getChildren(nodeId: string, context: CmsContext): Promise<CmsHier
     const subChildren = await Promise.all(
         responses.map((child: any) => {
             return getChildren(child.content._meta.deliveryId, context);
-        })
+        }),
     );
     responses.forEach((element: any, i: number) => {
         responses[i].children = subChildren[i];
@@ -40,20 +40,17 @@ async function getChildren(nodeId: string, context: CmsContext): Promise<CmsHier
 async function fetchHierarchy(items: CmsHierarchyRequest[], context: CmsContext): Promise<(CmsHierarchyNode | null)[]> {
     return await Promise.all(
         items.map(async (item) => {
-            // Get Root node from key
             const [rootNode] = await fetchContent([{ key: item.tree.key }], context, {
                 depth: 'root',
                 format: 'linked',
             });
             const children: CmsHierarchyNode[] = await getChildren((rootNode as any)._meta.deliveryId, context);
-
-            // Return response
             const response: any = {
                 content: rootNode,
                 children: children,
             };
             return response;
-        })
+        }),
     );
 }
 

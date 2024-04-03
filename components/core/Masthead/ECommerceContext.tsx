@@ -18,7 +18,6 @@ interface Props extends PropsWithChildren {
 }
 
 export const WithECommerceContext = ({ segments, categories, vendor, children }: Props) => {
-    // Flatten a hierarchy of children
     const flattenCategories = (categories: any[]) => {
         const allCategories: any[] = [];
         const bulldozeCategories = (cat: any) => {
@@ -28,8 +27,6 @@ export const WithECommerceContext = ({ segments, categories, vendor, children }:
         categories.forEach(bulldozeCategories);
         return allCategories;
     };
-
-    // Merge together CMS + commerce categories into a single navigation structure
     const categoriesBySlug = useMemo(() => {
         const result: { [key: string]: Category } = {};
         for (let item of flattenCategories(categories)) {
@@ -37,8 +34,6 @@ export const WithECommerceContext = ({ segments, categories, vendor, children }:
         }
         return result;
     }, [categories]);
-
-    // Merge together CMS + commerce categories into a single navigation structure
     const categoriesById = useMemo(() => {
         const result: { [key: string]: Category } = {};
         for (let item of flattenCategories(categories)) {

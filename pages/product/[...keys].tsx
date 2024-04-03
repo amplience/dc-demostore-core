@@ -43,7 +43,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 productContent: { key: 'product/' + key },
             },
         },
-        context
+        context,
     );
 
     const product = clearUndefined(await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext }));
@@ -52,8 +52,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    if (data.content.productContent?.active) {
-        // The cms content shouldn't be respected.
+    if (!data.content.productContent?.active) {
         data.content.productContent = null;
     }
 
@@ -156,7 +155,7 @@ export default function ProductPage({
         experienceConfig?.experience?.pdpLayout && !forceDefaultLayout
             ? experienceConfig?.experience?.pdpLayout
             : content.defaultPDPLayout,
-        vse
+        vse,
     );
     const [productContent] = useContent(content.productContent, vse);
 

@@ -9,8 +9,6 @@ const ProductSize = () => {
     if (!product) {
         return <></>;
     }
-
-    // make sure size is an attribute
     if (!productVariant.size) {
         return <></>;
     }

@@ -9,8 +9,6 @@ const ProductColor = () => {
     if (!product) {
         return <></>;
     }
-
-    // make sure color is an attribute
     if (!productVariant.color) {
         return <></>;
     }
