@@ -11,8 +11,8 @@ import create404Error from '@lib/page/errors/create404Error';
 import withConfig from '@components/core/Config/withConfig';
 import { createCmsContext } from '@lib/cms/CmsContext';
 import fetchPageData from '@lib/page/fetchPageData';
-import _ from 'lodash';
-
+import cloneDeep from 'lodash/cloneDeep';
+import compact from 'lodash/compact';
 import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Category, Product } from '@amplience/dc-integration-middleware';
@@ -52,7 +52,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 page: { key: `category/${slug}` },
             },
         },
-        context
+        context,
     );
 
     if (!data.page || !slug || slug === 'favicon.ico') {
@@ -71,7 +71,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 slots: (data.content.page?.slots || []).map(mapToID),
             },
         },
-        context
+        context,
     );
 
     // use the content to get by ID if available in the content to control. Otherwise use the slug
@@ -87,7 +87,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    category = _.cloneDeep(category);
+    category = cloneDeep(category);
     const products = await commerceApi.getProducts({
         category,
         ...(await createCmsContext(context.req)),
@@ -131,13 +131,13 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
 
                 {/* Additional Components */}
                 <div>
-                    {_.compact(components).map((content) => (
+                    {compact(components).map((content) => (
                         <ContentBlock key={nanoid()} content={content} />
                     ))}
 
                     {/* Slots and Content */}
                     <div className="af-main-content">
-                        {_.compact(pageSlots).map((slot) => (
+                        {compact(pageSlots).map((slot) => (
                             <ContentBlock key={nanoid()} content={slot} type="SLOT" />
                         ))}
                     </div>
@@ -151,9 +151,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                         </div> */}
                         <div>
                             <ProductGrid>
-                                {products?.map((product) => (
-                                    <ProductCard key={nanoid()} data={product} />
-                                ))}
+                                {products?.map((product) => <ProductCard key={nanoid()} data={product} />)}
                             </ProductGrid>
                         </div>
                     </div>

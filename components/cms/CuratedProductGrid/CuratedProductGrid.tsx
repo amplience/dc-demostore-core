@@ -6,7 +6,8 @@ import { commerceApi } from '@pages/api';
 import { LegacySlider, LegacySliderSlide, Section } from '@components/ui';
 import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
-import _ from 'lodash';
+import each from 'lodash/each';
+import find from 'lodash/find';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 
 interface Props {
@@ -39,8 +40,8 @@ const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }:
                     if (isMounted) {
                         // reorder based on the original ordering because these are not ordered
                         let orderedProducts: Product[] = [];
-                        _.each(products, (product) => {
-                            let ordered: any = _.find(prods, (prod) => prod?.id === product);
+                        each(products, (product) => {
+                            let ordered: any = find(prods, (prod) => prod?.id === product);
                             if (ordered) {
                                 orderedProducts.push(ordered);
                             }

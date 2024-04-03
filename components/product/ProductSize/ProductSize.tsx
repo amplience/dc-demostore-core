@@ -2,7 +2,7 @@ import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useProduct } from '../WithProduct/WithProduct';
 import { nanoid } from 'nanoid';
-import _ from 'lodash';
+import first from 'lodash/first';
 
 const ProductSize = () => {
     const { product, setAttribute, attributes, productVariant } = useProduct() || {};
@@ -24,7 +24,7 @@ const ProductSize = () => {
                 <Select
                     labelId="product_size_select_label"
                     id="product_size_select"
-                    defaultValue={_.first(sizes)}
+                    defaultValue={first(sizes)}
                     value={attributes?.size}
                     onChange={(event) => setAttribute && setAttribute('size', event.target.value)}
                 >

@@ -2,7 +2,9 @@ import React, { createRef, useEffect } from 'react';
 import { useAppContext } from '@lib/config/AppContext';
 import { useProduct } from '../WithProduct/WithProduct';
 import ImageGallery from 'react-image-gallery';
-import _ from 'lodash';
+import uniqBy from 'lodash/uniqBy';
+import map from 'lodash/map';
+import flatten from 'lodash/flatten';
 import { ImageFormat, getImageURL } from '@utils/getImageURL';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
 
@@ -87,12 +89,12 @@ const ProductMediaViewer = (props: Props) => {
     } else {
         return (
             <ImageGallery
-                items={_.uniqBy(
-                    _.map(_.flatten(_.map(product.variants, 'images')), (image) => ({
+                items={uniqBy(
+                    map(flatten(map(product.variants, 'images')), (image: any) => ({
                         original: getImageURL(image.url),
                         thumbnail: getImageURL(image.thumb || image.url),
                     })),
-                    'original'
+                    'original',
                 )}
             />
         );

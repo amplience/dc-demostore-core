@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useUI } from '@components/ui';
-import _ from 'lodash';
 
 interface Props {
     pages: NavigationItem[];
@@ -70,8 +69,8 @@ const Navigation = ({ pages, style }: Props) => {
                         p1.content?.menu.priority > p2.content?.menu.priority
                             ? 1
                             : p1.content?.menu.priority < p2.content?.menu.priority
-                            ? -1
-                            : 0
+                              ? -1
+                              : 0,
                     )
                     .map(({ title, href, children = [], content, category }, index) => {
                         return (

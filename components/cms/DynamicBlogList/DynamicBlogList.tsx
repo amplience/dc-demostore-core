@@ -4,7 +4,6 @@ import { useAppContext } from '@lib/config/AppContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { Section, LegacySlider, LegacySliderSlide } from '@components/ui';
 import DynamicBlogListCard from './DynamicBlogListCard';
-import _ from 'lodash';
 
 interface Props {
     header: string;

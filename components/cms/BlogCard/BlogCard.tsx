@@ -2,7 +2,7 @@ import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import clsx from 'clsx';
 import Image from '../../cms-modern/Image';
-import _ from 'lodash';
+import camelCase from 'lodash/camelCase';
 import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
@@ -21,7 +21,7 @@ const BlogCard = ({
 }: Props) => {
     return (
         <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet')}>
-            <Link passHref href={`/blog/post/${_meta?.deliveryKey}/${_.camelCase(title)}`}>
+            <Link passHref href={`/blog/post/${_meta?.deliveryKey}/${camelCase(title)}`}>
                 {image ? (
                     <div className="amp-dc-image">
                         <Image alt={title} imageAltText={image.imageAltText ? image.imageAltText : title} {...image} />
