@@ -10,7 +10,6 @@ import { CmsComponent } from '@components/cms-layout';
 import WithProduct from '@components/product/WithProduct';
 import { createUserContext } from '@lib/user/UserContext';
 import _ from 'lodash';
-import { nanoid } from 'nanoid';
 import { clearUndefined } from '@lib/util';
 
 function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undefined {
@@ -43,7 +42,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 productContent: { key: 'product/' + key },
             },
         },
-        context
+        context,
     );
 
     const product = clearUndefined(await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext }));
@@ -156,7 +155,7 @@ export default function ProductPage({
         experienceConfig?.experience?.pdpLayout && !forceDefaultLayout
             ? experienceConfig?.experience?.pdpLayout
             : content.defaultPDPLayout,
-        vse
+        vse,
     );
     const [productContent] = useContent(content.productContent, vse);
 
@@ -166,8 +165,8 @@ export default function ProductPage({
         <WithProduct product={compositeProduct}>
             <div style={{ flexGrow: 1 }}>
                 {layout &&
-                    ((layout.slots || {}).main || []).map((component: any) => (
-                        <CmsComponent key={nanoid()} data={component} />
+                    ((layout.slots || {}).main || []).map((component: any, index: number) => (
+                        <CmsComponent key={index} data={component} />
                     ))}
             </div>
         </WithProduct>

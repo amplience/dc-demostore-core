@@ -2,7 +2,6 @@ import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import ContentBlock from '../ContentBlock';
 import { Box, Typography } from '@mui/material';
-import { nanoid } from 'nanoid';
 
 interface Props {
     contentTypes: CmsContent[];
@@ -18,9 +17,9 @@ const ContentPage = ({ contentTypes = [], seo = {} }: Props) => {
             <Typography variant="body1" component="p">
                 {seo.description}
             </Typography>
-            {contentTypes.map((item) => {
+            {contentTypes.map((item, index: number) => {
                 return (
-                    <Box key={nanoid()}>
+                    <Box key={index}>
                         <ContentBlock content={item} />
                     </Box>
                 );

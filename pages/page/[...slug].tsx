@@ -6,7 +6,6 @@ import fetchPageData from '@lib/page/fetchPageData';
 import { ContentBlock } from '@components/cms-modern';
 import create404Error from '@lib/page/errors/create404Error';
 import { mapToID, notNull } from '@lib/util';
-import { nanoid } from 'nanoid';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { slug } = context.params || {};
@@ -18,7 +17,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 page: { key: `page/${deliveryKey}` },
             },
         },
-        context
+        context,
     );
 
     if (!data.page || !data.content.page?.active) {
@@ -31,7 +30,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 slots: (data.content.page?.slots || []).map(mapToID),
             },
         },
-        context
+        context,
     );
 
     return {
@@ -45,12 +44,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function LandingPage({ content, slots }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <div className="af-main-content">
-            {slots.filter(notNull).map((slot: CmsContent) => (
-                <ContentBlock content={slot} type="SLOT" key={nanoid()} />
+            {slots.filter(notNull).map((slot: CmsContent, index: number) => (
+                <ContentBlock content={slot} type="SLOT" key={index} />
             ))}
-            {content?.page?.components?.filter(notNull).map((content: CmsContent) => (
-                <ContentBlock content={content} key={nanoid()} />
-            ))}
+            {content?.page?.components
+                ?.filter(notNull)
+                .map((content: CmsContent, index: number) => <ContentBlock content={content} key={index} />)}
         </div>
     );
 }

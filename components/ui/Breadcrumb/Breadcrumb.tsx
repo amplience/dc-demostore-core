@@ -3,7 +3,6 @@ import { Breadcrumbs, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { NavigationItem, useNavigation } from '@components/core/Masthead';
 import { useUserContext } from '@lib/user/UserContext';
-import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
 interface Props {
@@ -61,11 +60,11 @@ const Breadcrumb = (props: Props) => {
             >
                 <Typography variant="h4">{language === 'de' ? 'Haupt' : 'Home'}</Typography>
             </Link>
-            {nodes.map((node) => {
+            {nodes.map((node, index: number) => {
                 return (
                     <Link
                         passHref
-                        key={nanoid()}
+                        key={index}
                         color="inherit"
                         href={node.href as string}
                         style={{
