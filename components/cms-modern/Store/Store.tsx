@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Store = (props: Props) => {
-    const { details, keyElements, image, imageAltText, locationName = '' } = props;
+    const { details = '', keyElements, image, imageAltText, locationName = '' } = props;
 
     const options = {
         overrides: {
@@ -61,7 +61,7 @@ const Store = (props: Props) => {
                             imageAltText={imageAltText ? imageAltText : locationName}
                         />
                         <Grid container style={{ marginTop: 20 }}>
-                            {keyElements.parking && (
+                            {keyElements?.parking && (
                                 <Grid item xs={4}>
                                     <Paper
                                         style={{
@@ -82,7 +82,7 @@ const Store = (props: Props) => {
                                     </Paper>
                                 </Grid>
                             )}
-                            {keyElements.lateOpening && (
+                            {keyElements?.lateOpening && (
                                 <Grid item xs={4}>
                                     <Paper
                                         style={{
@@ -106,7 +106,7 @@ const Store = (props: Props) => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sm={6} style={{ paddingTop: 10, paddingLeft: 30 }}>
-                        <ReactMarkdown style={{ witdh: '70%' }} options={options}>
+                        <ReactMarkdown style={{ width: '70%' }} options={options}>
                             {details}
                         </ReactMarkdown>
                     </Grid>
