@@ -13,5 +13,3 @@ export { default as DebugToolbar, useDebug, WithDebugState } from './DebugToolba
 
 export { default as PageContent } from './PageContent';
 export { default as Breadcrumb } from './Breadcrumb';
-export { default as LegacySlider } from './LegacySlider';
-export { default as LegacySliderSlide } from './LegacySlider/LegacySliderSlide';

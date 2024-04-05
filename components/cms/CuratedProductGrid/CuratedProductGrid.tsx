@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
-import { useContentAnalytics } from '@lib/analytics';
+import { CarouselProvider, Dot, Slider as PureSlider, Slide } from 'pure-react-carousel';
+import SliderNextButton from '@components/cms-modern/Slider/SliderNextButton';
+import SliderBackButton from '@components/cms-modern/Slider/SliderBackButton';
+import { Box } from '@mui/material';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { commerceApi } from '@pages/api';
-import { LegacySlider, LegacySliderSlide, Section } from '@components/ui';
 import CuratedProductGridCard from './CuratedProductGridCard';
 import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash';
@@ -16,17 +17,12 @@ interface Props {
 }
 
 const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }: Props) => {
-    // Retrieve locale/country code from context - TODO: get language from user context
     const { locale: cmsLocale } = useCmsContext() || {};
     let locale = cmsLocale || 'en';
     if (locale.indexOf('-') > 0) {
         locale = locale.split('-')[0];
     }
-
-    const { trackEvent } = useContentAnalytics();
-
     const [productList, setProductList] = useState<Product[]>([]);
-
     const cmsContext = useCmsContext();
     const userContext = useUserContext();
 
@@ -55,25 +51,48 @@ const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }:
     }, [products, cmsContext, userContext]);
 
     return (
-        <div {...other}>
-            <Section title={header}>
-                <LegacySlider>
-                    {productList.map((result: any, index: number) => {
+        <Box>
+            <CarouselProvider
+                naturalSlideWidth={100}
+                naturalSlideHeight={150}
+                visibleSlides={3}
+                totalSlides={productList.length}
+                infinite={true}
+                isPlaying={false}
+            >
+                <PureSlider>
+                    {productList.map((slide: any, index: number) => {
                         return (
-                            <LegacySliderSlide
-                                key={index}
-                                className={clsx({
-                                    ['amp-length-2']: productList.length < 3,
-                                    ['amp-length-3']: productList.length >= 3,
-                                })}
-                            >
-                                <CuratedProductGridCard data={result} />
-                            </LegacySliderSlide>
+                            <Slide key={index} index={index}>
+                                <CuratedProductGridCard data={slide} />
+                            </Slide>
                         );
                     })}
-                </LegacySlider>
-            </Section>
-        </div>
+                </PureSlider>
+                <SliderBackButton />
+                <SliderNextButton />
+                <Box style={{ textAlign: 'center', paddingTop: 15, paddingBottom: 30 }}>
+                    {navigationDots &&
+                        productList.map((slide: any, index: number) => {
+                            return (
+                                <Dot
+                                    key={index}
+                                    slide={index}
+                                    style={{
+                                        backgroundColor: '#ccc',
+                                        overflow: 'hidden',
+                                        border: 0,
+                                        marginRight: 15,
+                                        width: 12,
+                                        height: 12,
+                                        borderRadius: '50%',
+                                    }}
+                                ></Dot>
+                            );
+                        })}
+                </Box>
+            </CarouselProvider>
+        </Box>
     );
 };
 

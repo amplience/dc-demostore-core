@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
 import { useAppContext } from '@lib/config/AppContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
-import { Section, LegacySlider, LegacySliderSlide } from '@components/ui';
 import DynamicBlogListCard from './DynamicBlogListCard';
 import _ from 'lodash';
+import { CarouselProvider, Dot, Slider as PureSlider, Slide } from 'pure-react-carousel';
+import SliderNextButton from '@components/cms-modern/Slider/SliderNextButton';
+import SliderBackButton from '@components/cms-modern/Slider/SliderBackButton';
+import { Box } from '@mui/material';
 
 interface Props {
     header: string;
     numItems: number;
     tags?: { id: string }[];
     query?: string;
+    navigationDots?: any;
 }
 
 const DynamicBlogList = (props: Props) => {
-    const { header, tags, numItems = 3, query, ...other } = props;
+    const { header, tags, numItems = 3, query, navigationDots, ...other } = props;
     const [results, setResults] = useState([] as any);
     const { algolia, cms } = useAppContext();
     const { stagingApi, locale } = useCmsContext() || {};
@@ -44,25 +47,48 @@ const DynamicBlogList = (props: Props) => {
     }, [searchClient, tags, numItems, locale, indexName]);
 
     return (
-        <div {...other}>
-            <Section title={header}>
-                <LegacySlider>
-                    {results.map((result: any, index: number) => {
+        <Box {...other}>
+            <CarouselProvider
+                naturalSlideWidth={100}
+                naturalSlideHeight={150}
+                visibleSlides={3}
+                totalSlides={results.length}
+                infinite={true}
+                isPlaying={false}
+            >
+                <PureSlider>
+                    {results.map((slide: any, index: number) => {
                         return (
-                            <LegacySliderSlide
-                                key={index}
-                                className={clsx({
-                                    ['amp-length-2']: results.length < 3,
-                                    ['amp-length-3']: results.length >= 3,
-                                })}
-                            >
-                                <DynamicBlogListCard data={result} />
-                            </LegacySliderSlide>
+                            <Slide key={index} index={index}>
+                                <DynamicBlogListCard data={slide} />
+                            </Slide>
                         );
                     })}
-                </LegacySlider>
-            </Section>
-        </div>
+                </PureSlider>
+                <SliderBackButton />
+                <SliderNextButton />
+                <Box style={{ textAlign: 'center', paddingTop: 15, paddingBottom: 30 }}>
+                    {navigationDots &&
+                        results.map((slide: any, index: number) => {
+                            return (
+                                <Dot
+                                    key={index}
+                                    slide={index}
+                                    style={{
+                                        backgroundColor: '#ccc',
+                                        overflow: 'hidden',
+                                        border: 0,
+                                        marginRight: 15,
+                                        width: 12,
+                                        height: 12,
+                                        borderRadius: '50%',
+                                    }}
+                                ></Dot>
+                            );
+                        })}
+                </Box>
+            </CarouselProvider>
+        </Box>
     );
 };
 
