@@ -55,7 +55,7 @@ const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }:
             <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={150}
-                visibleSlides={3}
+                visibleSlides={Math.min(productList.length, 3)}
                 totalSlides={productList.length}
                 infinite={true}
                 isPlaying={false}
