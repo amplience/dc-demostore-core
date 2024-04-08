@@ -12,7 +12,7 @@ const CmsSlotFrame = ({ children }: CmsSlotFrameProps) => {
 
     const { cms } = useAppContext();
     const handleEdit = () => {
-        window.open(`https://content.amplience.net/#!/${cms.hub}/authoring/content-item/edit/${id}`);
+        window.open(`https://app.amplience.net/#!/${cms.hub}/authoring/content-item/edit/${id}`);
     };
 
     const handleView = () => {
