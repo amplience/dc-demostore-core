@@ -13,7 +13,6 @@ type ShoppableImageProps = {
     scaleToFit: boolean;
     hotspotHide: boolean;
     polygonHide: boolean;
-    focalPointHide: boolean;
     di: string;
     tooltips: any[];
 } & CmsContent;
@@ -22,7 +21,6 @@ const ShoppableImage = ({
     shoppableImage,
     hotspotHide = false,
     polygonHide = false,
-    focalPointHide = true,
     di = '',
     tooltips = [],
 }: ShoppableImageProps) => {
