@@ -7,7 +7,6 @@ import { CircularProgress } from '@mui/material';
 import { getImageURL } from '@utils/getImageURL';
 import ShoppableImageInteractable from '../ShoppableImageInteractable';
 
-
 type ShoppableImageProps = {
     shoppableImage: any;
     scaleToFit: boolean;
@@ -69,8 +68,6 @@ const ShoppableImage = ({
         }
     }, [refContainer]);
 
-    
-
     const imageLoaded = useCallback(() => {
         setLoaded(true);
         if (imageRef.current) {
@@ -83,7 +80,7 @@ const ShoppableImage = ({
         if (imageRef.current?.complete) {
             imageLoaded();
         }
-       }, [imageLoaded, imageRef]);
+    }, [imageLoaded, imageRef]);
 
     let polygons: SVGPath[] = [];
     if (shoppableImage && shoppableImage.polygons) {
