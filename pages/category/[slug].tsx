@@ -58,7 +58,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     if (data.content.page && !data.content.page.active) {
-        // The cms content shouldn't be respected.
         data.content.page = null;
     }
 
@@ -72,7 +71,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         context,
     );
 
-    // use the content to get by ID if available in the content to control. Otherwise use the slug
     let category;
     if (data.content.page?.name) {
         const cmsslug = data.content.page?.name;
@@ -109,7 +107,6 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
     const { vse, content, category, slots } = props;
     const [config] = useContent(content.configComponents, vse);
 
-    // let facets: any[] = config?.categoryPage?.facets ?? DEFAULT_FACETS;
     let components: CmsContent[] = props.content?.page?.components || [];
     let pageSlots: CmsContent[] = slots;
     let products: Product[] = category?.products;
@@ -117,7 +114,6 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
     return (
         <>
             <PageContent>
-                {/* NOVADEV-15: Breadcrumb category updates before large category on PLP */}
                 {
                     <div>
                         <Breadcrumb />

@@ -32,11 +32,6 @@ const ProductCardSkeleton = (props: ProductCardSkeletonProps) => {
     const { variants, name, slug, shortDescription, id } = data;
     const variant = variants[0];
 
-    // Smart Imaging from Amplience
-    /*
-     In here we need to do the following
-      - We need to append transformations at the end of this for auto-formatting: 
-    */
     let firstImage: string = '';
     let secondImage: string = '';
     if (variant.images) {

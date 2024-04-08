@@ -51,8 +51,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    if (data.content.productContent?.active) {
-        // The cms content shouldn't be respected.
+    if (!data.content.productContent?.active) {
         data.content.productContent = null;
     }
 

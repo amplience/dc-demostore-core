@@ -2,7 +2,6 @@ import { createContext, useMemo, useContext, PropsWithChildren } from 'react';
 import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 import { CmsContent } from '@lib/cms/CmsContent';
 import walkNavigation, { enrichCmsEntries, getTypeFromSchema } from './walkNavigation';
-import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
 
 export type NavigationItem = {
@@ -31,11 +30,7 @@ interface WithNavigationContextProps extends PropsWithChildren {
 }
 
 export const WithNavigationContext = ({ pages, categories, children }: WithNavigationContextProps) => {
-    // Retrieve locale/country code from context
-    const { locale } = useCmsContext() || {};
     const { language } = useUserContext();
-
-    // Flatten a hierarchy of children
     const flattenCategories = (categories: any[]) => {
         const allCategories: any[] = [];
         const bulldozeCategories = (cat: any) => {
@@ -45,17 +40,6 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
         categories.forEach(bulldozeCategories);
         return allCategories;
     };
-
-    // Merge together CMS + commerce categories into a single navigation structure
-    const categoriesBySlug = useMemo(() => {
-        const result: any = {};
-        for (let item of flattenCategories(categories)) {
-            result[item.slug] = item;
-        }
-        return result;
-    }, [categories]);
-
-    // Merge together CMS + commerce categories into a single navigation structure
     const categoriesById = useMemo(() => {
         const result: any = {};
         for (let item of flattenCategories(categories)) {
@@ -72,29 +56,19 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             if (!cmsCategory && !ecommerceCategory) {
                 return null;
             }
-
             const children: NavigationItem[] = [];
-
-            //const seoUrl = cmsCategory?.content?._meta?.deliveryKey ? cmsCategory?.content?._meta?.deliveryKey.split('/')[1] : `${ecommerceCategory?.slug}`
-
             const result = {
                 type: 'category',
                 title: ecommerceCategory?.name,
-                //href: cmsCategory?.content?._meta?.deliveryKey || ecommerceCategory?.slug?.en ? `/category/${ecommerceCategory?.slug?.en}` : null,
-                // to use slug as URL, use next line
                 href: cmsCategory?.content?._meta?.deliveryKey
                     ? `/category/${cmsCategory?.content?._meta?.deliveryKey.split('/')[1]}`
                     : `/category/${ecommerceCategory?.slug}`,
-                //href: `/category/${ecommerceCategory?.slug}`,
                 content: cmsCategory?.content,
                 category: ecommerceCategory,
                 children,
                 nodeContentItem: cmsCategory?.content,
             };
-
-            // Add any content groups first
             const contentChildren = cmsCategory ? (buildCmsEntries(cmsCategory.children) as NavigationItem[]) : [];
-
             result.children = [...contentChildren];
 
             return result as NavigationItem;
@@ -104,7 +78,6 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             if (!node) {
                 return null;
             }
-
             let title = node?.content?.title?.values?.find((item: any) => {
                 return item.locale.startsWith(language);
             });
@@ -127,7 +100,6 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             if (!node) {
                 return null;
             }
-
             let title = node?.content?.title?.values?.find((item: any) => {
                 return item.locale.startsWith(language);
             });
@@ -152,7 +124,6 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             if (!node) {
                 return null;
             }
-
             let title = node?.content?.title?.values?.find((item: any) => {
                 return item.locale.startsWith(language);
             });
@@ -178,15 +149,11 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             if (!type) {
                 return null;
             }
-
-            // if (node.content?.menu?.hidden) {
             if (!node.content?.active) {
                 return null;
             }
-
             switch (type) {
                 case 'category':
-                    // let category = categoriesBySlug[node.content._meta.deliveryKey.replace(`category/`, '')] || categoriesBySlug[node.content.name]
                     let category = categoriesById[node.content.name];
                     return buildCategoryItem(node, category);
                 case 'group':
@@ -201,7 +168,6 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
         };
 
         const buildCmsEntries = (children: CmsHierarchyNode[] = []): NavigationItem[] => {
-            // sort by priority
             children.sort(function (a: any, b: any) {
                 const priorityA = a.menu?.priority || a.priority || a.title;
                 const priorityB = b.menu?.priority || b.priority || b.title;

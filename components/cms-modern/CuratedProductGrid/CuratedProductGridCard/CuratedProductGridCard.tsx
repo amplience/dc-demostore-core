@@ -22,14 +22,11 @@ const CuratedProductGridCard = (props: CuratedProductGridCardProps) => {
             value: prices.list,
         });
     };
-
-    // Retrieve locale/country code from context
     const { locale: cmsLocale } = useCmsContext() || {};
     let locale = cmsLocale || 'en';
     if (locale.indexOf('-') > 0) {
         locale = locale.split('-')[0];
     }
-
     let imageUrl = result.overrides?.image
         ? getImageURL(result.overrides.image, { width: 540, height: 810 })
         : getImageURL(result.variants[0].images[0].url, { width: 540, height: 810 });

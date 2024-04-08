@@ -15,7 +15,6 @@ function byContentType(schema: string) {
 
 const resolvers: ResolverSpec[] = [];
 
-// dave: does this do anything? i can't find anywhere that uses ResolverSpec
 /**
  * Middleware for injecting extra data into content such as product data
  */

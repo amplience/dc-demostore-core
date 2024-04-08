@@ -22,7 +22,7 @@ export interface AdvancedBannerProps {
             text: string;
             variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2';
             col: string;
-        }
+        },
     ];
     overlaypanel?: {
         opacity?: number;
@@ -37,7 +37,7 @@ export interface AdvancedBannerProps {
             buttonText: string;
             linkUrl: string;
             variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2';
-        }
+        },
     ];
     disclaimer?: {
         text: string;
@@ -79,7 +79,6 @@ const AdvancedBanner = ({
     }, [imageRef?.current?.complete, imageLoading]);
 
     const { img } = image || {};
-
     const transformations: ImageTransformations = {
         ...img?.image,
         upscale: false,
@@ -91,14 +90,10 @@ const AdvancedBanner = ({
                 ? ImageScaleFit.POINT_OF_INTEREST
                 : undefined,
     };
-
-    const isOverlayVisible = true; //bannerText?.header || bannerText?.subheader || bannerText?.description || ctaSettings?.buttonText;
-
+    const isOverlayVisible = textLines?.length || ctas?.length || disclaimer?.text;
     var edgePercHoriz = overlaypanel?.offsetH || '0';
     var edgePercVertical = overlaypanel?.offsetV || '0';
-
     var panelwidth = overlaypanel?.w ? overlaypanel?.w + 'px' : null;
-
     var edgepadStyle = {
         right: '',
         left: '',
@@ -118,7 +113,6 @@ const AdvancedBanner = ({
     if (textPositioning?.textPositionVertical === 'bottom') {
         edgepadStyle.bottom = edgePercVertical;
     }
-
     var newCSS = edgepadStyle as React.CSSProperties;
 
     return (

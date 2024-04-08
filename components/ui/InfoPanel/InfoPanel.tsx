@@ -57,11 +57,9 @@ const InfoPanel = (props: InfoPanelProps) => {
         colobj = hexToRgb(col);
     }
     if (col.indexOf('rgb') == 0) {
-        // need to get the rgb.
         colobj = getRGB(col);
     }
 
-    // border style
     var borderstr;
     switch (borderStyle) {
         case 'none':

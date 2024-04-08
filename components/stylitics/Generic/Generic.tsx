@@ -62,11 +62,9 @@ const Generic = (props: GenericProps) => {
         createWidget(target, args).then((widget: StyliticsWidget) => {
             if (active) {
                 widgetInstance = widget;
-
                 const isRest = vendor === 'rest';
 
                 if (isRest && active) {
-                    // Click override to redirect to Product page
                     widget.override('click', 'item', function (props: any) {
                         handleApply(props as any);
                     });
@@ -78,7 +76,6 @@ const Generic = (props: GenericProps) => {
             }
         });
 
-        // Cleanup
         return () => {
             if (widgetInstance) {
                 widgetInstance.destroy();

@@ -35,7 +35,6 @@ const Breadcrumb = (props: BreadcrumbProps) => {
     }, [navigationItem, asPath, findByHref]);
     const { language } = useUserContext();
 
-    // NOVADEV-18: Add 'loading' skeleton for breadcrumb and category name on PLP
     return loading ? (
         <Breadcrumbs aria-label="breadcrumb" {...other}>
             <Link

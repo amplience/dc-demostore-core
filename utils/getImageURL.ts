@@ -124,9 +124,7 @@ function constrainMaxSize(transformations: ImageTransformations, maxPixels: numb
     }
 
     if (transformations.width != null) {
-        // Scale the width to be within the maxPixels.
         const newSize = limitSize(transformations.width, transformations.width * heightFromWidth, maxPixels);
-
         return newSize == null
             ? transformations
             : {
@@ -153,7 +151,7 @@ export function getImageURL(
     image: string | CmsImage,
     transformations: ImageTransformations = {},
     removeAllParams = false,
-    diParams: String = ''
+    diParams: String = '',
 ): string {
     transformations = constrainMaxSize(transformations, avifMaxPixels);
 
@@ -192,15 +190,10 @@ export function getImageURL(
     if (seoFileName) {
         url += `/${encodeURIComponent(seoFileName)}`;
     }
-
-    // Remove all existing URL parameters
     if (removeAllParams && url.indexOf('?') > -1) {
         url = url.split('?')[0];
     }
-
     const query: string[] = [];
-
-    // Get parameters from Transformations
     const params: any = {
         w: width,
         h: height,
@@ -265,7 +258,7 @@ export function getImageURL(
 
     // Add the additional DI Params
     if (diParams) {
-        //check to add an ampersand first
+        // Check to add an ampersand first
         if (diParams.charAt(0) != '&') {
             diParams = '&' + diParams;
         }

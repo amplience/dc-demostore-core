@@ -37,7 +37,6 @@ const ProductGrid = ({ category, query, limit }: ProductGridProps) => {
                     });
             } else {
                 // Request expected number of category products.
-
                 (commerceApi as CommerceAPI)
                     .getProducts({ category: c, ...cmsContext, ...userContext, pageSize: limit, pageCount: 1 })
                     .then((products: Product[]) => {

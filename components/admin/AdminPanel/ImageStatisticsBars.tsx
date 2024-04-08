@@ -21,7 +21,6 @@ function getRealType(stat: ImageStatistics, key: string): string | null {
 }
 
 function getOrderedFormats(stat: ImageStatistics): OrderedFormat[] {
-    // Formats ordered by size.
     const formatSizes = Object.keys(stat.sizes)
         .sort()
         .filter((key) => key !== 'auto')
@@ -32,7 +31,6 @@ function getOrderedFormats(stat: ImageStatistics): OrderedFormat[] {
             auto: key === stat.auto,
             realKey: getRealType(stat, key),
         }));
-
     formatSizes.sort((a, b) => a.size - b.size);
 
     return formatSizes;
@@ -42,7 +40,6 @@ const ImageStatisticsBars = ({ stat }: ImageStatisticsBarsProps) => {
     const ordered = getOrderedFormats(stat);
     const maxSize = ordered[ordered.length - 1].size;
     const maxKey = ordered[ordered.length - 1].key;
-    // ordered.reverse();
 
     return (
         <div
