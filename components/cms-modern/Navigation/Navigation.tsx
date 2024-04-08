@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useUI } from '@components/ui';
-import _ from 'lodash';
 
 interface NavigationProps {
     pages: NavigationItem[];

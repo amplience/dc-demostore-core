@@ -4,7 +4,7 @@ import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 interface SearchResultsProps {
     searchTerm: string;
@@ -79,7 +79,7 @@ const SearchResults = (props: SearchResultsProps) => {
             });
         // end algolia
 
-        if (!_.isEmpty(searchTerm)) {
+        if (!isEmpty(searchTerm)) {
             (commerceApi as CommerceAPI)
                 .getProducts({ keyword: searchTerm, ...cmsContext, ...userContext, pageSize: 6, pageCount: 1 })
                 .then((products) => {

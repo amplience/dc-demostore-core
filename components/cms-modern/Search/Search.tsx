@@ -2,7 +2,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import React, { useState, useEffect, useMemo } from 'react';
 import SearchIcon from './SearchIcon';
 import SearchResults from './SearchResults';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -19,7 +19,7 @@ const Search = () => {
     const { language } = useUserContext();
 
     const debouncedResults = useMemo(() => {
-        return _.debounce((x: any) => setSearchTerm(x.target.value), 300);
+        return debounce((x: any) => setSearchTerm(x.target.value), 300);
     }, []);
 
     useEffect(() => {

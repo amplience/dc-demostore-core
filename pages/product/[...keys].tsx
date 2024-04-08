@@ -9,7 +9,7 @@ import fetchContent, { CmsFilterResponse, GetByFilterRequest } from '@lib/cms/fe
 import { CmsComponent } from '@components/cms-layout';
 import WithProduct from '@components/product/WithProduct';
 import { createUserContext } from '@lib/user/UserContext';
-import _ from 'lodash';
+import first from 'lodash/first';
 import { nanoid } from 'nanoid';
 import { clearUndefined } from '@lib/util';
 
@@ -30,7 +30,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { keys } = context.params || {};
     const { vse } = context.query || {};
 
-    let key = _.first(keys);
+    let key = first(keys);
 
     const { pdpLayout } = context.query;
     const cmsContext = await createCmsContext(context.req);
@@ -43,7 +43,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 productContent: { key: 'product/' + key },
             },
         },
-        context
+        context,
     );
 
     const product = clearUndefined(await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext }));
@@ -156,7 +156,7 @@ export default function ProductPage({
         experienceConfig?.experience?.pdpLayout && !forceDefaultLayout
             ? experienceConfig?.experience?.pdpLayout
             : content.defaultPDPLayout,
-        vse
+        vse,
     );
     const [productContent] = useContent(content.productContent, vse);
 

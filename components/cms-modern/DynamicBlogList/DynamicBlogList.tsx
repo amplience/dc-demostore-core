@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useAppContext } from '@lib/config/AppContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import DynamicBlogListCard from './DynamicBlogListCard';
-import _ from 'lodash';
 import { CarouselProvider, Dot, Slider as PureSlider, Slide } from 'pure-react-carousel';
 import SliderNextButton from '@components/cms-modern/Slider/SliderNextButton';
 import SliderBackButton from '@components/cms-modern/Slider/SliderBackButton';
