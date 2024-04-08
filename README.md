@@ -182,4 +182,6 @@ In your Vercel project browse to Settings --> Environment Variables and edit the
 -   [Debug / X-Ray Panel](docs/Debug-Xray-Panel.md)
 -   [Contribution Model (fork, PR, etc.)](https://github.com/amplience/dc-cli/blob/master/CONTRIBUTING.md)
 -   [FAQ](docs/FAQ.md)
--   [v2.0.0 Upgrade](docs/v2.0.0-upgrade.md)
+-   Upgrades:
+    -   [v3.0.0 Upgrade](docs/v3.0.0-upgrade.md)
+    -   [v2.0.0 Upgrade](docs/v2.0.0-upgrade.md)
