@@ -4,9 +4,9 @@ import { WithTheme } from '@components/core';
 import { WithUIContext } from '@components/ui';
 import Head from 'next/head';
 
-interface Props extends PropsWithChildren {}
+interface WithUIProps extends PropsWithChildren {}
 
-export const WithUI = ({ children }: Props) => {
+export const WithUI = ({ children }: WithUIProps) => {
     return (
         <WithTheme>
             <Head>

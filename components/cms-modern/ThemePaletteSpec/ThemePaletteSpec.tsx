@@ -8,7 +8,7 @@ interface Palette {
     dark: string;
 }
 
-interface Props {
+interface ThemePaletteSpecProps {
     classes?: any;
     className?: string;
     style?: React.CSSProperties;
@@ -19,7 +19,7 @@ interface Props {
     success: Palette;
 }
 
-const ThemePaletteSpec = (props: Props) => {
+const ThemePaletteSpec = (props: ThemePaletteSpecProps) => {
     const paletteList = [
         { name: 'primary', palette: props.primary },
         { name: 'secondary', palette: props.secondary },

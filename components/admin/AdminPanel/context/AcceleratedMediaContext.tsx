@@ -11,9 +11,9 @@ export function useAcceleratedMedia(): AcceleratedMediaState {
     return useContext(Context) as AcceleratedMediaState;
 }
 
-interface Props extends PropsWithChildren {}
+interface WithAcceleratedMediaStateProps extends PropsWithChildren {}
 
-export const WithAcceleratedMediaState = (props: Props) => {
+export const WithAcceleratedMediaState = (props: WithAcceleratedMediaStateProps) => {
     const [acceleratedMedia, setAcceleratedMedia] = useState(true);
 
     return (

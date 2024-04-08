@@ -54,12 +54,12 @@ function isValid(stat: ImageStatistics, key: string): boolean {
     return key === 'auto' || type === expectedTypes[key];
 }
 
-interface Props {
+interface ImageStatisticsModalProps {
     stats: ImageStatistics[];
     onClose: () => void;
 }
 
-const ImageStatisticsModal = ({ stats, onClose }: Props) => {
+const ImageStatisticsModal = ({ stats, onClose }: ImageStatisticsModalProps) => {
     const [gridView, setGridView] = useState(true);
 
     const headers = [

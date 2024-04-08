@@ -2,12 +2,12 @@ import { PropsWithChildren, useRef } from 'react';
 import s from './Modal.module.css';
 import clsx from 'clsx';
 
-interface Props extends PropsWithChildren {
+interface ModalProps extends PropsWithChildren {
     open?: boolean;
     onClose: () => void;
 }
 
-const Modal = ({ open = false, onClose, children, ...other }: Props) => {
+const Modal = ({ open = false, onClose, children, ...other }: ModalProps) => {
     let ref = useRef() as React.MutableRefObject<HTMLInputElement>;
 
     return (

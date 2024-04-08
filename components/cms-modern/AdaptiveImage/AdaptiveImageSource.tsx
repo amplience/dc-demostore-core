@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { ImageTransformations, getImageURL } from '@utils/getImageURL';
 import { AdaptiveImageContext } from './AdaptiveImage';
 
-interface Props {
+interface AdaptiveImageSourceProps {
     media?: string;
     transformations?: ImageTransformations;
     type?: string;
 }
 
-const AdaptiveImageSource = (props: Props) => {
+const AdaptiveImageSource = (props: AdaptiveImageSourceProps) => {
     const { transformations, ...other } = props;
 
     const { image, transformations: rootTransformations, diParams } = useContext(AdaptiveImageContext) || {};
@@ -30,7 +30,7 @@ const AdaptiveImageSource = (props: Props) => {
                 height: params.height ? params.height * 2 : undefined,
             },
             false,
-            diParams
+            diParams,
         );
         return <source srcSet={`${imageUrl} 1x, ${imageUrl2x} 2x`} src={imageUrl} {...other} />;
     }

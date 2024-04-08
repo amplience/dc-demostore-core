@@ -6,7 +6,7 @@ import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-in
 import { useRouter } from 'next/router';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
-type Props = {
+type GenericProps = {
     className?: string;
     style?: React.CSSProperties;
     header?: string;
@@ -31,7 +31,7 @@ type Props = {
  * @param props
  * @returns
  */
-const Generic = (props: Props) => {
+const Generic = (props: GenericProps) => {
     const { header } = props;
     const { product } = useProduct() || {};
     const container = createRef<HTMLDivElement>();

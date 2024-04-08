@@ -2,13 +2,13 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 
-interface Props {
+interface DefaultAdaptiveImageSkeletonProps {
     classes?: any;
     className?: string;
     style?: React.CSSProperties;
 }
 
-const DefaultAdaptiveImageSkeleton = (props: Props) => {
+const DefaultAdaptiveImageSkeleton = (props: DefaultAdaptiveImageSkeletonProps) => {
     const { classes, className, ...other } = props;
 
     return (

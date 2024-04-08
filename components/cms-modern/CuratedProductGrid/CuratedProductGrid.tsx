@@ -10,13 +10,13 @@ import { useUserContext } from '@lib/user/UserContext';
 import _ from 'lodash';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 
-interface Props {
+interface CuratedProductGridProps {
     header: string;
     products: any[];
     navigationDots?: any;
 }
 
-const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }: Props) => {
+const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }: CuratedProductGridProps) => {
     const { locale: cmsLocale } = useCmsContext() || {};
     let locale = cmsLocale || 'en';
     if (locale.indexOf('-') > 0) {

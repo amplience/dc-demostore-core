@@ -23,7 +23,7 @@ interface FontDefinition {
         | undefined;
 }
 
-interface Props {
+interface ThemeTypographySpecProps {
     classes?: any;
     className?: string;
     style?: React.CSSProperties;
@@ -49,7 +49,7 @@ interface Props {
     overline: FontDefinition;
 }
 
-const ThemeTypographySpec = (props: Props) => {
+const ThemeTypographySpec = (props: ThemeTypographySpecProps) => {
     const theme = createTheme({
         typography: {
             fontFamily: props.fontFamily,

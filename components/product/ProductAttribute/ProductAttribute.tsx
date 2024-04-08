@@ -1,13 +1,13 @@
 import React from 'react';
 import { useProduct } from '../WithProduct/WithProduct';
 
-interface Props {
+interface ProductAttributeProps {
     variant?: string;
 }
 
 export type ProductAttributeVariant = 'name' | 'brand' | 'product_id';
 
-const ProductAttribute = (props: Props) => {
+const ProductAttribute = (props: ProductAttributeProps) => {
     const { variant = 'name' } = props;
 
     const { product, productVariant } = useProduct() || {};

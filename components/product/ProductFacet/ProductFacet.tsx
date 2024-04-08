@@ -3,12 +3,12 @@ import { Accordion, AccordionSummary, Typography, AccordionDetails } from '@mui/
 import clsx from 'clsx';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-interface Props extends PropsWithChildren {
+interface ProductFacetProps extends PropsWithChildren {
     className?: string;
     title: string;
 }
 
-const ProductFacet = (props: Props) => {
+const ProductFacet = (props: ProductFacetProps) => {
     const { className, title, children, ...other } = props;
 
     return (

@@ -7,7 +7,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
-interface Props {
+interface DynamicBlogListCardProps {
     data: {
         snippet: {
             title: string;
@@ -22,7 +22,7 @@ interface Props {
     } & CmsContent;
 }
 
-const DynamicBlogListCard = (props: Props) => {
+const DynamicBlogListCard = (props: DynamicBlogListCardProps) => {
     const { language } = useUserContext();
     const { data } = props;
     const { _meta, snippet } = data;

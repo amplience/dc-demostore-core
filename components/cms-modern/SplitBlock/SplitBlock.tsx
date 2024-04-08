@@ -3,13 +3,13 @@ import { Box } from '@mui/material';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
 
-interface Props {
+interface SplitBlockProps {
     split: string;
     bgcol: string;
     content: CmsContent[];
 }
 
-const SplitBlock = (props: Props) => {
+const SplitBlock = (props: SplitBlockProps) => {
     const { split = '50/50', bgcol, content = [], ...other } = props;
 
     const splits = useMemo(() => {

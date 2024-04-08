@@ -51,6 +51,7 @@ const DynamicBlogList = (props: Props) => {
             <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={150}
+                isIntrinsicHeight={true}
                 visibleSlides={Math.min(results.length, 3)}
                 totalSlides={results.length}
                 infinite={true}

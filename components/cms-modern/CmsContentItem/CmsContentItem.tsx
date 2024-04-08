@@ -3,7 +3,7 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import CmsContentItemFrame from './CmsContentItemFrame';
 import { useDebug } from '@components/ui';
 
-interface Props extends PropsWithChildren {
+interface CmsContentItemProps extends PropsWithChildren {
     content: CmsContent;
 }
 
@@ -19,7 +19,7 @@ export function useCmsContentItem(): CmsContentItemState | null {
     return useContext(CmsContentItemContext);
 }
 
-const CmsContentItem = ({ content, children }: Props) => {
+const CmsContentItem = ({ content, children }: CmsContentItemProps) => {
     const { showContent } = useDebug();
 
     if (!content || !content._meta || !content._meta.deliveryId) {

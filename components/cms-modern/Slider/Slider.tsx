@@ -5,14 +5,14 @@ import clsx from 'clsx';
 import SliderNextButton from './SliderNextButton';
 import SliderBackButton from './SliderBackButton';
 
-interface Props {
+interface SliderProps {
     className?: string;
     loop: boolean;
     navigationDots: boolean;
     slides: any[];
 }
 
-const Slider = ({ className, loop = false, navigationDots, slides = [] }: Props) => {
+const Slider = ({ className, loop = false, navigationDots, slides = [] }: SliderProps) => {
     return (
         <Box className={clsx(className)}>
             <CarouselProvider

@@ -14,13 +14,13 @@ import FR from '@components/icons/Flags/FR';
 import US from '@components/icons/Flags/US';
 import UK from '@components/icons/Flags/UK';
 
-interface Props extends PropsWithChildren {
+interface MastheadProps extends PropsWithChildren {
     variant?: 'default' | 'pride' | 'holiday';
     logo?: CmsImage;
     navigationBackgroundColor?: string;
 }
 
-const Masthead = ({ children, variant = 'default', logo, navigationBackgroundColor }: Props) => {
+const Masthead = ({ children, variant = 'default', logo, navigationBackgroundColor }: MastheadProps) => {
     const { openModal } = useUI();
     const { locale = 'en-US', currency = 'USD' } = useCmsContext();
     const { rootItems } = useNavigation();

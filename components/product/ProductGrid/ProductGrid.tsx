@@ -2,11 +2,11 @@ import React, { PropsWithChildren } from 'react';
 import { Box } from '@mui/material';
 import clsx from 'clsx';
 
-interface Props extends PropsWithChildren {
+interface ProductGridProps extends PropsWithChildren {
     className?: string;
 }
 
-const ProductGrid = (props: Props) => {
+const ProductGrid = (props: ProductGridProps) => {
     const { className, children, ...other } = props;
 
     return (

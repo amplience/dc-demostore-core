@@ -2,12 +2,12 @@ import React, { PropsWithChildren } from 'react';
 import { Typography } from '@mui/material';
 import clsx from 'clsx';
 
-interface Props extends PropsWithChildren {
+interface SectionProps extends PropsWithChildren {
     className?: string;
     title: string;
 }
 
-const Section = (props: Props) => {
+const Section = (props: SectionProps) => {
     const { className, title, children, ...other } = props;
 
     return (

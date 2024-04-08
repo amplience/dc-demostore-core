@@ -6,12 +6,12 @@ import Skeleton from 'react-loading-skeleton';
 
 import { useAppContext } from '@lib/config/AppContext';
 
-interface Props {
+interface ContentBlockStoryProps {
     request: CmsRequest;
     overrideContent?: (content: any) => any;
 }
 
-const ContentBlockStory = (props: Props) => {
+const ContentBlockStory = (props: ContentBlockStoryProps) => {
     const { request, overrideContent } = props;
 
     let { cms } = useAppContext();

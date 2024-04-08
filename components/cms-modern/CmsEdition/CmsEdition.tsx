@@ -3,7 +3,7 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import { useDebug } from '@components/ui';
 import CmsEditionFrame from './CmsEditionFrame';
 
-interface Props extends PropsWithChildren {
+interface CmsEditionProps extends PropsWithChildren {
     content: CmsContent;
 }
 
@@ -17,7 +17,7 @@ export function useCmsEdition(): CmsEditionState | null {
     return useContext(CmsEditionContext);
 }
 
-const CmsEdition = ({ content, children }: Props) => {
+const CmsEdition = ({ content, children }: CmsEditionProps) => {
     const { showEditions } = useDebug();
 
     if (!content || !content._meta || !content._meta.deliveryId || !content._meta.edition) {

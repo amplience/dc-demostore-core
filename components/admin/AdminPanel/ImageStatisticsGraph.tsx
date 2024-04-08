@@ -2,7 +2,7 @@ import React from 'react';
 import { ImageStatistics, formatColors } from './ImageStatistics';
 import { Typography } from '@mui/material';
 
-interface Props {
+interface ImageStatisticsGraphProps {
     stats: ImageStatistics[];
 }
 
@@ -65,7 +65,7 @@ function getMinSize(stats: ImageStatistics[]): number {
     return minSize;
 }
 
-const ImageStatisticsGraph = ({ stats }: Props) => {
+const ImageStatisticsGraph = ({ stats }: ImageStatisticsGraphProps) => {
     const formats = getAllFormats(stats);
     const maxSize = getMaxSize(stats);
     const minSize = getMinSize(stats);
