@@ -5,11 +5,11 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 import { useContentAnalytics } from '@lib/analytics';
 import { getImageURL } from '@utils/getImageURL';
 
-interface Props {
+interface CuratedProductGridCardProps {
     data?: any;
 }
 
-const CuratedProductGridCard = (props: Props) => {
+const CuratedProductGridCard = (props: CuratedProductGridCardProps) => {
     const { data: result, ...other } = props;
     const { trackEvent } = useContentAnalytics();
     const { variants, slug } = result;

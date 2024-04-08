@@ -3,7 +3,6 @@ import { Layout } from '@components/core';
 import { CmsContent } from '@lib/cms/CmsContent';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { ContentBlock } from '@components/cms-modern';
-import { nanoid } from 'nanoid';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { slug = [] } = context.params || {};
@@ -14,7 +13,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 slots: [{ key: blogKey }],
             },
         },
-        context
+        context,
     );
 
     return {
@@ -29,8 +28,8 @@ export default function Blog({ content }: InferGetServerSidePropsType<typeof get
         <div className="af-main-content">
             {content.slots
                 .filter((slot) => slot != null)
-                .map((slot) => {
-                    return <ContentBlock key={nanoid()} content={slot as CmsContent} type="SLOT" />;
+                .map((slot, index: number) => {
+                    return <ContentBlock key={index} content={slot as CmsContent} type="SLOT" />;
                 })}
         </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { ImageStatistics, typeFromFormat, formatColors } from './ImageStatistics';
 import { Tooltip } from '@mui/material';
 
-interface Props {
+interface ImageStatisticsBarsProps {
     stat: ImageStatistics;
 }
 
@@ -36,7 +36,7 @@ function getOrderedFormats(stat: ImageStatistics): OrderedFormat[] {
     return formatSizes;
 }
 
-const ImageStatisticsBars = ({ stat }: Props) => {
+const ImageStatisticsBars = ({ stat }: ImageStatisticsBarsProps) => {
     const ordered = getOrderedFormats(stat);
     const maxSize = ordered[ordered.length - 1].size;
     const maxKey = ordered[ordered.length - 1].key;

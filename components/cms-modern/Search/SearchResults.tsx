@@ -4,9 +4,9 @@ import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
-interface Props {
+interface SearchResultsProps {
     searchTerm: string;
 }
 
@@ -43,7 +43,7 @@ function onlyUnique(value: any, index: any, self: any) {
 import { commerceApi } from '@pages/api';
 import { useAppContext } from '@lib/config/AppContext';
 
-const SearchResults = (props: Props) => {
+const SearchResults = (props: SearchResultsProps) => {
     const { rootItems } = useNavigation();
     const { searchTerm } = props;
     const [designers, setDesigners] = useState([]);
@@ -77,7 +77,7 @@ const SearchResults = (props: Props) => {
                 setInspiration(result.slice(0, 10));
             });
 
-        if (!_.isEmpty(searchTerm)) {
+        if (!isEmpty(searchTerm)) {
             (commerceApi as CommerceAPI)
                 .getProducts({ keyword: searchTerm, ...cmsContext, ...userContext, pageSize: 6, pageCount: 1 })
                 .then((products) => {

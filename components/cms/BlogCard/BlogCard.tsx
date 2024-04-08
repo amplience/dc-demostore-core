@@ -2,11 +2,10 @@ import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import clsx from 'clsx';
 import Image from '../../cms-modern/Image';
-import _ from 'lodash';
-import { nanoid } from 'nanoid';
+import camelCase from 'lodash/camelCase';
 import Link from 'next/link';
 
-type Props = {} & CmsContent;
+type BlogCardProps = {} & CmsContent;
 
 const BlogCard = ({
     viewType,
@@ -18,10 +17,10 @@ const BlogCard = ({
     category = [],
     keywords = [],
     _meta,
-}: Props) => {
+}: BlogCardProps) => {
     return (
         <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet')}>
-            <Link passHref href={`/blog/post/${_meta?.deliveryKey}/${_.camelCase(title)}`}>
+            <Link passHref href={`/blog/post/${_meta?.deliveryKey}/${camelCase(title)}`}>
                 {image ? (
                     <div className="amp-dc-image">
                         <Image alt={title} imageAltText={image.imageAltText ? image.imageAltText : title} {...image} />
@@ -29,9 +28,9 @@ const BlogCard = ({
                 ) : null}
 
                 <div className="amp-dc-category-container">
-                    {category.map((item: any) => {
+                    {category.map((item: any, index: number) => {
                         return (
-                            <div key={nanoid()}>
+                            <div key={index}>
                                 <div className="amp-dc-category">{item}</div>
                                 <span className="line"></span>
                             </div>

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { FetchMapInput } from '@utils/FetchMap';
 import { CmsRequest } from '@lib/cms/fetchContent';
 import fetchContentMap from '@lib/cms/fetchContentMap';
@@ -17,7 +16,7 @@ import { getVendorName } from '@lib/config/locator/config-locator';
 export type FetchPageDataInput<
     CT extends FetchMapInput<CmsRequest>,
     CH extends FetchMapInput<CmsHierarchyRequest>,
-    ES extends FetchMapInput<CustomerGroup[]>
+    ES extends FetchMapInput<CustomerGroup[]>,
 > = {
     content: CT;
     hierarchies?: CH;
@@ -30,7 +29,7 @@ export type FetchPageDataInput<
 async function fetchPageData<
     CT extends FetchMapInput<CmsRequest>,
     CH extends FetchMapInput<CmsHierarchyRequest>,
-    ES extends FetchMapInput<CustomerGroup[]>
+    ES extends FetchMapInput<CustomerGroup[]>,
 >(input: FetchPageDataInput<CT, CH, ES>, context: GetServerSidePropsContext) {
     const cmsContext = await createCmsContext(context.req);
     const userContext = await createUserContext(context);
@@ -39,7 +38,7 @@ async function fetchPageData<
     const hierarchies = await fetchHierarchyMap(input.hierarchies || {}, cmsContext);
 
     const categories = clearUndefined(
-        (await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })) as any
+        (await commerceApi.getCategoryTree({ ...cmsContext, ...userContext })) as any,
     ) as Category[];
     const segments = (await commerceApi.getCustomerGroups({ ...cmsContext, ...userContext })) as CustomerGroup[];
     const vendor = getVendorName();

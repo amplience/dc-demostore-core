@@ -11,14 +11,12 @@ import create404Error from '@lib/page/errors/create404Error';
 import withConfig from '@components/core/Config/withConfig';
 import { createCmsContext } from '@lib/cms/CmsContext';
 import fetchPageData from '@lib/page/fetchPageData';
-import _ from 'lodash';
-
+import cloneDeep from 'lodash/cloneDeep';
+import compact from 'lodash/compact';
 import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Category, Product } from '@amplience/dc-integration-middleware';
-import { nanoid } from 'nanoid';
 import { useContent } from '@components/core/WithVisualization';
-import DEFAULT_FACETS from '@lib/util/default-search-facets';
 import { clearUndefined, mapToID } from '@lib/util';
 
 type CategoryPageConfig = {
@@ -85,7 +83,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    category = _.cloneDeep(category);
+    category = cloneDeep(category);
     const products = await commerceApi.getProducts({
         category,
         ...(await createCmsContext(context.req)),
@@ -127,14 +125,14 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
 
                 {/* Additional Components */}
                 <div>
-                    {_.compact(components).map((content) => (
-                        <ContentBlock key={nanoid()} content={content} />
+                    {compact(components).map((content, index: number) => (
+                        <ContentBlock key={index} content={content} />
                     ))}
 
                     {/* Slots and Content */}
                     <div className="af-main-content">
-                        {_.compact(pageSlots).map((slot) => (
-                            <ContentBlock key={nanoid()} content={slot} type="SLOT" />
+                        {compact(pageSlots).map((slot, index: number) => (
+                            <ContentBlock key={index} content={slot} type="SLOT" />
                         ))}
                     </div>
                 </div>
@@ -142,7 +140,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                     <div>
                         <div>
                             <ProductGrid>
-                                {products?.map((product) => <ProductCard key={nanoid()} data={product} />)}
+                                {products?.map((product, index: number) => <ProductCard key={index} data={product} />)}
                             </ProductGrid>
                         </div>
                     </div>

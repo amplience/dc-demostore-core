@@ -17,11 +17,11 @@ export function useCmsContext(): CmsContext {
     return React.useContext(Context) as CmsContext;
 }
 
-interface Props extends PropsWithChildren {
+interface WithCmsContextProps extends PropsWithChildren {
     value: CmsContext;
 }
 
-export const WithCmsContext = ({ children, value }: Props) => {
+export const WithCmsContext = ({ children, value }: WithCmsContextProps) => {
     return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 

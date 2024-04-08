@@ -11,8 +11,6 @@ import Accordion from '@components/ui/Accordion/Accordion';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { Section } from '../../ui';
-import _ from 'lodash';
-import { nanoid } from 'nanoid';
 
 type CmsComponentData = {
     name: string;
@@ -22,7 +20,7 @@ type CmsComponentData = {
     };
 };
 
-interface Props {
+interface CmsComponentProps {
     data?: CmsComponentData;
 }
 
@@ -61,7 +59,7 @@ const mapping: any = {
     accordion: Accordion,
 };
 
-const CmsComponent = ({ data }: Props) => {
+const CmsComponent = ({ data }: CmsComponentProps) => {
     if (!data) {
         return null;
     }
@@ -78,8 +76,8 @@ const CmsComponent = ({ data }: Props) => {
         for (let slotName of Object.keys(slots)) {
             hydratedSlots[slotName] = (
                 <>
-                    {slots[slotName].map((child) => (
-                        <CmsComponent key={`${slotName}-${nanoid()}`} data={child} />
+                    {slots[slotName].map((child, index: number) => (
+                        <CmsComponent key={`${slotName}-${index}`} data={child} />
                     ))}
                 </>
             );

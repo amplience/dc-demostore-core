@@ -3,12 +3,11 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import ReactMarkdown from 'markdown-to-jsx';
 import { ContentBlock } from '@components/cms-modern';
 import { Box, Link, Typography } from '@mui/material';
-import { nanoid } from 'nanoid';
 import { getImageURL } from '@utils/getImageURL';
 
-type Props = {} & CmsContent;
+type TextProps = {} & CmsContent;
 
-const Text = ({ header, text = [], align = 'left' }: Props) => {
+const Text = ({ header, text = [], align = 'left' }: TextProps) => {
     const options = {
         overrides: {
             h1: { component: Typography, props: { variant: 'h1' } },
@@ -37,18 +36,17 @@ const Text = ({ header, text = [], align = 'left' }: Props) => {
                 </Typography>
             )}
             ,
-            {text.map((item: any) => {
+            {text.map((item: any, index: number) => {
                 const { type, data } = item;
-
                 switch (type) {
                     case 'markdown':
                         return (
-                            <Box key={nanoid()} className="amp-dc-text" style={{ textAlign: align }}>
+                            <Box key={index} className="amp-dc-text" style={{ textAlign: align }}>
                                 {data && <ReactMarkdown options={options}>{data}</ReactMarkdown>}
                             </Box>
                         );
                     case 'dc-content-link':
-                        return data && <ContentBlock key={nanoid()} content={data} />;
+                        return data && <ContentBlock key={index} content={data} />;
                     case 'dc-image-link':
                         return (
                             data && (

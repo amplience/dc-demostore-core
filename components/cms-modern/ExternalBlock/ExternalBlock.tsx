@@ -2,9 +2,9 @@ import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
 
-type Props = {} & CmsContent;
+type ExternalBlockProps = {} & CmsContent;
 
-const ExternalBlock = ({ external }: Props) => {
+const ExternalBlock = ({ external }: ExternalBlockProps) => {
     return (
         <Box
             dangerouslySetInnerHTML={{

@@ -2,13 +2,13 @@ import React from 'react';
 import { useProduct } from '../WithProduct/WithProduct';
 import CustomRichText from '@components/cms-modern/CustomRichText';
 
-interface Props {
+interface ProductRichTextProps {
     variant?: string;
 }
 
 export type ProductAttributeVariant = 'text';
 
-const ProductRichText = (props: Props) => {
+const ProductRichText = (props: ProductRichTextProps) => {
     const { variant = 'text' } = props;
     const { product } = useProduct() || {};
     if (!product || !product[variant]) {

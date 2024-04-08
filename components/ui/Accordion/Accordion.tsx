@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import { Box, Typography } from '@mui/material';
 
-interface Props extends PropsWithChildren {
+interface AccordionProps extends PropsWithChildren {
     title: string;
 }
 
-const Accordion = (props: Props) => {
+const Accordion = (props: AccordionProps) => {
     const { title, children, ...other } = props;
 
     if (!React.Children.count(children)) {

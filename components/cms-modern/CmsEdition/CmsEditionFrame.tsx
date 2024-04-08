@@ -4,9 +4,9 @@ import { ComponentFrame } from '@components/ui';
 import s from './CmsEditionFrame.module.css';
 import { Pencil, Calendar } from '@components/icons';
 
-interface Props extends PropsWithChildren {}
+interface CmsEditionFrameProps extends PropsWithChildren {}
 
-const CmsEditionFrame = ({ children }: Props) => {
+const CmsEditionFrame = ({ children }: CmsEditionFrameProps) => {
     const { id } = useCmsEdition() || {};
 
     const handleEdit = () => {

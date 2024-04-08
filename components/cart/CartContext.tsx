@@ -50,9 +50,9 @@ const DEFAULT_STATE = {
     lineItems: [],
 };
 
-interface Props extends PropsWithChildren {}
+interface WithCartProps extends PropsWithChildren {}
 
-const WithCart = ({ children }: Props) => {
+const WithCart = ({ children }: WithCartProps) => {
     const loadState = (): CartState | undefined => {
         try {
             const stickyValue = window.localStorage.getItem(LOCAL_STORAGE_KEY);

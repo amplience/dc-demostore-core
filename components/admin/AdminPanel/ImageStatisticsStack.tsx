@@ -10,7 +10,7 @@ const colors: { [key: string]: string } = {
     png: '#E94420',
 };
 
-interface Props {
+interface ImageStatisticsStackProps {
     classes?: any;
     stat: ImageStatistics;
 }
@@ -31,7 +31,7 @@ function getOrderedFormats(stat: ImageStatistics): { key: string; size: number; 
     return formatSizes;
 }
 
-const ImageStatisticsStack = ({ stat }: Props) => {
+const ImageStatisticsStack = ({ stat }: ImageStatisticsStackProps) => {
     const ordered = getOrderedFormats(stat);
     const maxSize = ordered[ordered.length - 1].size;
     const maxKey = ordered[ordered.length - 1].key;

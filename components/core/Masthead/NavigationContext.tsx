@@ -2,7 +2,6 @@ import { createContext, useMemo, useContext, PropsWithChildren } from 'react';
 import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 import { CmsContent } from '@lib/cms/CmsContent';
 import walkNavigation, { enrichCmsEntries, getTypeFromSchema } from './walkNavigation';
-import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
 
 export type NavigationItem = {
@@ -25,13 +24,12 @@ export type NavigationState = {
 
 const NavigationContext = createContext<NavigationState | null>(null);
 
-interface Props extends PropsWithChildren {
+interface WithNavigationContextProps extends PropsWithChildren {
     pages: CmsHierarchyNode;
     categories: any;
 }
 
-export const WithNavigationContext = ({ pages, categories, children }: Props) => {
-    const { locale } = useCmsContext() || {};
+export const WithNavigationContext = ({ pages, categories, children }: WithNavigationContextProps) => {
     const { language } = useUserContext();
     const flattenCategories = (categories: any[]) => {
         const allCategories: any[] = [];
@@ -42,13 +40,6 @@ export const WithNavigationContext = ({ pages, categories, children }: Props) =>
         categories.forEach(bulldozeCategories);
         return allCategories;
     };
-    const categoriesBySlug = useMemo(() => {
-        const result: any = {};
-        for (let item of flattenCategories(categories)) {
-            result[item.slug] = item;
-        }
-        return result;
-    }, [categories]);
     const categoriesById = useMemo(() => {
         const result: any = {};
         for (let item of flattenCategories(categories)) {

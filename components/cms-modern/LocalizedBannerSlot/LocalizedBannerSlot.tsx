@@ -2,9 +2,9 @@ import React from 'react';
 import ContentBlock from '../ContentBlock';
 import { CmsContent } from '@lib/cms/CmsContent';
 
-type Props = {} & CmsContent;
+type LocalizedBannerSlotProps = {} & CmsContent;
 
-const LocalizedBannerSlot = ({ content }: Props) => {
+const LocalizedBannerSlot = ({ content }: LocalizedBannerSlotProps) => {
     return <ContentBlock content={content} />;
 };
 

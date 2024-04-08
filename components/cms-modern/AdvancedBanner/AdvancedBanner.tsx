@@ -5,7 +5,6 @@ import DefaultAdaptiveImage from '../AdaptiveImage/DefaultAdaptiveImage';
 import { Overlay, InfoPanel } from '@components/ui';
 import { CallToAction } from '..';
 import { DefaultAdaptiveImageSkeleton } from '../AdaptiveImage';
-import { nanoid } from 'nanoid';
 
 export interface AdvancedBannerProps {
     image: {
@@ -132,10 +131,10 @@ const AdvancedBanner = ({
                             col={overlaypanel?.col}
                             borderStyle={overlaypanel?.borderStyle}
                         >
-                            {textLines?.map((line: any) => {
+                            {textLines?.map((line: any, index: number) => {
                                 return (
                                     <Typography
-                                        key={nanoid()}
+                                        key={index}
                                         variant={line.variant}
                                         align={line.align}
                                         component="h1"

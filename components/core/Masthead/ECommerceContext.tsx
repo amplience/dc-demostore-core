@@ -11,13 +11,13 @@ export type ECommerceState = {
 
 const ECommerceContext = createContext<ECommerceState | null>(null);
 
-interface Props extends PropsWithChildren {
+interface WithECommerceContextProps extends PropsWithChildren {
     segments: CustomerGroup[];
     categories: Category[];
     vendor: string;
 }
 
-export const WithECommerceContext = ({ segments, categories, vendor, children }: Props) => {
+export const WithECommerceContext = ({ segments, categories, vendor, children }: WithECommerceContextProps) => {
     const flattenCategories = (categories: any[]) => {
         const allCategories: any[] = [];
         const bulldozeCategories = (cat: any) => {

@@ -9,9 +9,9 @@ import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 import { getImageURL } from '@utils/getImageURL';
 import Link from 'next/link';
 
-type Props = {} & CmsContent;
+type ProductGridProps = {} & CmsContent;
 
-const ProductGrid = ({ category, query, limit }: Props) => {
+const ProductGrid = ({ category, query, limit }: ProductGridProps) => {
     const { trackEvent } = useContentAnalytics();
     const { categoriesById } = useECommerce();
     const [products, setProducts] = useState<Product[]>([]);

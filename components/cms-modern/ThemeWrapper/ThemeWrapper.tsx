@@ -4,22 +4,21 @@ import ContentBlock from '../ContentBlock';
 import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 import { WithCMSTheme, useThemes } from '@components/core/WithCMSTheme';
 import { Box } from '@mui/material';
-import { nanoid } from 'nanoid';
 
-interface Props {
+interface ThemeWrapperProps {
     theme: CmsHierarchyNode;
     components: CmsContent[];
 }
 
-const ThemeWrapper = ({ theme, components = [] }: Props) => {
+const ThemeWrapper = ({ theme, components = [] }: ThemeWrapperProps) => {
     const { themes } = useThemes();
 
     return (
         <WithCMSTheme themes={themes} themeOverride={theme}>
             <Box>
-                {components.map((item) => {
+                {components.map((item, index: number) => {
                     return (
-                        <Box key={nanoid()}>
+                        <Box key={index}>
                             <ContentBlock content={item} />
                         </Box>
                     );

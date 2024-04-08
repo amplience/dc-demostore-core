@@ -1,8 +1,7 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useProduct } from '../WithProduct/WithProduct';
-import { nanoid } from 'nanoid';
-import _ from 'lodash';
+import first from 'lodash/first';
 
 const ProductColor = () => {
     const { product, setAttribute, attributes, productVariant } = useProduct() || {};
@@ -21,12 +20,12 @@ const ProductColor = () => {
                 <InputLabel>Color</InputLabel>
                 <Select
                     id="product_color_select"
-                    defaultValue={_.first(colors)}
+                    defaultValue={first(colors)}
                     value={attributes?.color}
                     onChange={(event) => setAttribute && setAttribute('color', event.target.value)}
                 >
-                    {colors.map((color: any) => (
-                        <MenuItem key={nanoid()} value={color}>
+                    {colors.map((color: any, index: number) => (
+                        <MenuItem key={index} value={color}>
                             {color}
                         </MenuItem>
                     ))}

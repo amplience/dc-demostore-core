@@ -100,9 +100,9 @@ const theme = createTheme({
     },
 });
 
-interface Props extends PropsWithChildren {}
+interface WithThemeProps extends PropsWithChildren {}
 
-const WithTheme = ({ children }: Props) => {
+const WithTheme = ({ children }: WithThemeProps) => {
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>{children}</ThemeProvider>
