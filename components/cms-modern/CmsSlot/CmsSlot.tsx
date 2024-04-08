@@ -3,7 +3,7 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import CmsSlotFrame from './CmsSlotFrame';
 import { useDebug } from '@components/ui';
 
-interface Props extends PropsWithChildren {
+interface CmsSlotProps extends PropsWithChildren {
     content: CmsContent;
 }
 
@@ -25,7 +25,7 @@ function remapLabel(label: string) {
     return label;
 }
 
-const CmsSlot = ({ content, children }: Props) => {
+const CmsSlot = ({ content, children }: CmsSlotProps) => {
     const { showSlots } = useDebug();
 
     if (!content || !content._meta || !content._meta.deliveryId) {

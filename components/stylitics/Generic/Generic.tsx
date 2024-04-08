@@ -1,12 +1,12 @@
 import React, { createRef, useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { useProduct } from '../../product/WithProduct/WithProduct';
-import _ from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 import { fromContentItem, createWidget, StyliticsWidget } from '@amplience/dc-integration-stylitics';
 import { useRouter } from 'next/router';
 import { useECommerce } from '@components/core/Masthead/ECommerceContext';
 
-type Props = {
+type GenericProps = {
     className?: string;
     style?: React.CSSProperties;
     header?: string;
@@ -31,7 +31,7 @@ type Props = {
  * @param props
  * @returns
  */
-const Generic = (props: Props) => {
+const Generic = (props: GenericProps) => {
     const { header } = props;
     const { product } = useProduct() || {};
     const container = createRef<HTMLDivElement>();
@@ -56,7 +56,7 @@ const Generic = (props: Props) => {
         const args = fromContentItem(item as any);
 
         const handleApply = async (props: any) => {
-            await push(`/product/${props.item.remote_id}/${_.kebabCase(props.item.name)}`);
+            await push(`/product/${props.item.remote_id}/${kebabCase(props.item.name)}`);
         };
 
         createWidget(target, args).then((widget: StyliticsWidget) => {

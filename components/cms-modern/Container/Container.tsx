@@ -3,11 +3,11 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import ContentBlock from '../ContentBlock';
 import { Box } from '@mui/material';
 
-interface Props {
+interface ContainerProps {
     contentTypes: CmsContent[];
 }
 
-const Container = ({ contentTypes = [] }: Props) => {
+const Container = ({ contentTypes = [] }: ContainerProps) => {
     return (
         <Box>
             {contentTypes.map((item, index: number) => {

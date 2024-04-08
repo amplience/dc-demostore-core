@@ -9,7 +9,7 @@ import fetchContent, { CmsFilterResponse, GetByFilterRequest } from '@lib/cms/fe
 import { CmsComponent } from '@components/cms-layout';
 import WithProduct from '@components/product/WithProduct';
 import { createUserContext } from '@lib/user/UserContext';
-import _ from 'lodash';
+import first from 'lodash/first';
 import { clearUndefined } from '@lib/util';
 
 function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undefined {
@@ -29,7 +29,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { keys } = context.params || {};
     const { vse } = context.query || {};
 
-    let key = _.first(keys);
+    let key = first(keys);
 
     const { pdpLayout } = context.query;
     const cmsContext = await createCmsContext(context.req);

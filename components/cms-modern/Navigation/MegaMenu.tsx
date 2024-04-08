@@ -8,7 +8,7 @@ import WithLazyContent from '../WithLazyContent';
 import Skeleton from 'react-loading-skeleton';
 import MegaMenuSimpleBanner from './MegaMenuSimpleBanner';
 
-interface Props {
+interface MegaMenuProps {
     children: NavigationItem[];
     content: CmsContent | undefined;
     handleRouteChange: () => void;
@@ -17,7 +17,7 @@ interface Props {
     href: string | undefined;
 }
 
-const MegaMenu = ({ children = [], content, handleRouteChange, closeMenu, title, href }: Props) => {
+const MegaMenu = ({ children = [], content, handleRouteChange, closeMenu, title, href }: MegaMenuProps) => {
     const isMobile = useMediaQuery('(max-width:750px)');
 
     if (children.length === 0) {

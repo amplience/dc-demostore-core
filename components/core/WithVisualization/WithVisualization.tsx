@@ -12,13 +12,13 @@ type VisualizationContextState = {
 
 const VisualizationContext = createContext<VisualizationContextState | null>(null);
 
-interface Props extends PropsWithChildren<any> {}
+interface WithVisualizationProps extends PropsWithChildren<any> {}
 
 export const useVisualization = () => {
     return useContext(VisualizationContext) as VisualizationContextState;
 };
 
-const WithVisualization = (props: Props) => {
+const WithVisualization = (props: WithVisualizationProps) => {
     const [status, setStatus] = useState<VisualizationConnectionStatus>('failed');
     const [sdk, setSDK] = useState<typeof DcVisualizationStatic | null>(null);
     const [formModel, setFormModel] = useState<any>(null);

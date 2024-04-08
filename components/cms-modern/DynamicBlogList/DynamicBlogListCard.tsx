@@ -6,7 +6,7 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import { useUserContext } from '@lib/user/UserContext';
 import Link from 'next/link';
 
-interface Props {
+interface DynamicBlogListCardProps {
     data: {
         snippet: {
             title: string;
@@ -21,7 +21,7 @@ interface Props {
     } & CmsContent;
 }
 
-const DynamicBlogListCard = (props: Props) => {
+const DynamicBlogListCard = (props: DynamicBlogListCardProps) => {
     const { language } = useUserContext();
     const { data } = props;
     const { _meta, snippet } = data;

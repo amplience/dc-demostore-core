@@ -3,10 +3,10 @@ import { Box, Typography } from '@mui/material';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { Product } from '@amplience/dc-integration-middleware';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { getImageURL } from '@utils/getImageURL';
 
-interface Props {
+interface ProductCardSkeletonProps {
     classes?: any;
     className?: string;
     style?: React.CSSProperties;
@@ -27,7 +27,7 @@ function limitSentences(text: string, sentences: number, charLength: number) {
     return text;
 }
 
-const ProductCardSkeleton = (props: Props) => {
+const ProductCardSkeleton = (props: ProductCardSkeletonProps) => {
     const { className, data, ...other } = props;
     const { variants, name, slug, shortDescription, id } = data;
     const variant = variants[0];
@@ -101,7 +101,7 @@ const ProductCardSkeleton = (props: Props) => {
                     <Typography variant="body2" component="div" style={{ marginTop: 20 }}>
                         {sanitaryDescription}
                     </Typography>
-                    {(!variant.salePrice || variant.listPrice === variant.salePrice || _.isEmpty(variant.salePrice)) &&
+                    {(!variant.salePrice || variant.listPrice === variant.salePrice || isEmpty(variant.salePrice)) &&
                         variant.listPrice}
                     {variant.salePrice && variant.listPrice !== variant.salePrice && (
                         <div>

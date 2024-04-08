@@ -5,9 +5,9 @@ import { ContentBlock } from '@components/cms-modern';
 import { Box, Link, Typography } from '@mui/material';
 import { getImageURL } from '@utils/getImageURL';
 
-type Props = {} & CmsContent;
+type TextProps = {} & CmsContent;
 
-const Text = ({ text = [], align = 'left' }: Props) => {
+const Text = ({ text = [], align = 'left' }: TextProps) => {
     const options = {
         overrides: {
             h1: { component: Typography, props: { variant: 'h1' } },

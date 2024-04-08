@@ -9,7 +9,7 @@ type ProductContextState = {
 
 const ProductContext = createContext<ProductContextState | null>(null);
 
-interface Props extends PropsWithChildren<any> {
+interface WithProductProps extends PropsWithChildren<any> {
     product: any;
 }
 
@@ -17,7 +17,7 @@ export function useProduct(): ProductContextState | null {
     return useContext(ProductContext);
 }
 
-const WithProduct = (props: Props) => {
+const WithProduct = (props: WithProductProps) => {
     const [attributes, setAttributes] = useState<any>({});
 
     const setAttribute = (attributeName: string, value: any) => {

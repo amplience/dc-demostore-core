@@ -3,11 +3,11 @@ import { useUI } from '../UIContext';
 import { useUserContext } from '@lib/user/UserContext';
 import { CustomerGroup } from '@amplience/dc-integration-middleware';
 
-interface Props {
+interface AccountModalProps {
     segments?: CustomerGroup[];
 }
 
-const AccountModal = ({ segments }: Props) => {
+const AccountModal = ({ segments }: AccountModalProps) => {
     const { closeModal } = useUI();
 
     const { segment: initialSegment } = useUserContext();

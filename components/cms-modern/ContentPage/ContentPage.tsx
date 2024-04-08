@@ -3,12 +3,12 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import ContentBlock from '../ContentBlock';
 import { Box, Typography } from '@mui/material';
 
-interface Props {
+interface ContentPageProps {
     contentTypes: CmsContent[];
     seo: any;
 }
 
-const ContentPage = ({ contentTypes = [], seo = {} }: Props) => {
+const ContentPage = ({ contentTypes = [], seo = {} }: ContentPageProps) => {
     return (
         <Box>
             <Typography variant="h1" component="h1">

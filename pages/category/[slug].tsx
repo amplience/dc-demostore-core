@@ -11,7 +11,8 @@ import create404Error from '@lib/page/errors/create404Error';
 import withConfig from '@components/core/Config/withConfig';
 import { createCmsContext } from '@lib/cms/CmsContext';
 import fetchPageData from '@lib/page/fetchPageData';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import compact from 'lodash/compact';
 import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Category, Product } from '@amplience/dc-integration-middleware';
@@ -84,7 +85,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    category = _.cloneDeep(category);
+    category = cloneDeep(category);
     const products = await commerceApi.getProducts({
         category,
         ...(await createCmsContext(context.req)),
@@ -128,13 +129,13 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
 
                 {/* Additional Components */}
                 <div>
-                    {_.compact(components).map((content, index: number) => (
+                    {compact(components).map((content, index: number) => (
                         <ContentBlock key={index} content={content} />
                     ))}
 
                     {/* Slots and Content */}
                     <div className="af-main-content">
-                        {_.compact(pageSlots).map((slot, index: number) => (
+                        {compact(pageSlots).map((slot, index: number) => (
                             <ContentBlock key={index} content={slot} type="SLOT" />
                         ))}
                     </div>

@@ -4,9 +4,9 @@ import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
-interface Props {
+interface SearchResultsProps {
     searchTerm: string;
 }
 
@@ -43,7 +43,7 @@ function onlyUnique(value: any, index: any, self: any) {
 import { commerceApi } from '@pages/api';
 import { useAppContext } from '@lib/config/AppContext';
 
-const SearchResults = (props: Props) => {
+const SearchResults = (props: SearchResultsProps) => {
     const { rootItems } = useNavigation();
     const { searchTerm } = props;
     const [designers, setDesigners] = useState([]);
@@ -79,7 +79,7 @@ const SearchResults = (props: Props) => {
             });
         // end algolia
 
-        if (!_.isEmpty(searchTerm)) {
+        if (!isEmpty(searchTerm)) {
             (commerceApi as CommerceAPI)
                 .getProducts({ keyword: searchTerm, ...cmsContext, ...userContext, pageSize: 6, pageCount: 1 })
                 .then((products) => {
@@ -87,7 +87,7 @@ const SearchResults = (props: Props) => {
                         products.map((prod: Product) => ({
                             ...prod,
                             href: `/product/${prod.id}/${prod.slug}`,
-                        }))
+                        })),
                     );
                 });
         }
@@ -100,7 +100,7 @@ const SearchResults = (props: Props) => {
                     label,
                     href,
                 }))
-                .slice(0, 10)
+                .slice(0, 10),
         );
     };
 

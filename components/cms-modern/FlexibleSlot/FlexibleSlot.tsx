@@ -2,11 +2,11 @@ import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import ContentBlock from '../ContentBlock';
 
-interface Props {
+interface FlexibleSlotProps {
     contentTypes: CmsContent[];
 }
 
-const FlexibleSlot = ({ contentTypes = [] }: Props) => {
+const FlexibleSlot = ({ contentTypes = [] }: FlexibleSlotProps) => {
     return (
         <>
             {contentTypes.map((content, index: number) => {

@@ -5,12 +5,12 @@ import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 import { WithCMSTheme, useThemes } from '@components/core/WithCMSTheme';
 import { Box } from '@mui/material';
 
-interface Props {
+interface ThemeWrapperProps {
     theme: CmsHierarchyNode;
     components: CmsContent[];
 }
 
-const ThemeWrapper = ({ theme, components = [] }: Props) => {
+const ThemeWrapper = ({ theme, components = [] }: ThemeWrapperProps) => {
     const { themes } = useThemes();
 
     return (

@@ -1,7 +1,5 @@
-import _ from 'lodash';
 import { CmsContext } from './CmsContext';
 import { CmsContent } from './CmsContent';
-
 import { createAppContext } from '@lib/config/AppContext';
 import { stringify } from 'querystring';
 
@@ -41,7 +39,7 @@ function isGetByFilterRequest(request: any): request is GetByFilterRequest {
 const fetchContent = async (
     items: CmsRequest[],
     context: CmsContext,
-    parameters = { depth: 'all', format: 'inlined' }
+    parameters = { depth: 'all', format: 'inlined' },
 ): Promise<(CmsContent | CmsFilterResponse | null)[]> => {
     const { cms } = await createAppContext();
     const host = context.stagingApi || `${cms.hub}.cdn.content.amplience.net`;
@@ -67,7 +65,7 @@ const fetchContent = async (
                     .then((x) => x.json())
                     .then((x) => x.content || null);
             }
-        })
+        }),
     );
 };
 

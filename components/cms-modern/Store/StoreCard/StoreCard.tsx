@@ -4,7 +4,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'markdown-to-jsx';
 import Image from '@components/cms-modern/Image';
 
-interface Props {
+interface StoreCardProps {
     content: any;
 }
 
@@ -14,7 +14,7 @@ const options = {
     },
 };
 
-const StoreCard = (props: Props) => {
+const StoreCard = (props: StoreCardProps) => {
     const { content, ...other } = props;
     return (
         <Grid

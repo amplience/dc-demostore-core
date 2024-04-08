@@ -28,9 +28,9 @@ type Action =
 
 const Context = createContext<(State & Operations) | null>(null);
 
-interface Props extends PropsWithChildren {}
+interface ProviderProps extends PropsWithChildren {}
 
-const Provider = (props: Props) => {
+const Provider = (props: ProviderProps) => {
     const reducer = (state: State, action: Action): State => {
         switch (action.type) {
             case 'OPEN_MODAL':
@@ -70,6 +70,6 @@ export const useUI = (): State & Operations => {
     return useContext(Context) as State & Operations;
 };
 
-export const WithUIContext = ({ children }: Props) => {
+export const WithUIContext = ({ children }: ProviderProps) => {
     return <Provider>{children}</Provider>;
 };

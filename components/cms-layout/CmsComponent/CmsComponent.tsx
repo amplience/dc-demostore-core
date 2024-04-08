@@ -11,7 +11,6 @@ import Accordion from '@components/ui/Accordion/Accordion';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { Section } from '../../ui';
-import _ from 'lodash';
 
 type CmsComponentData = {
     name: string;
@@ -21,7 +20,7 @@ type CmsComponentData = {
     };
 };
 
-interface Props {
+interface CmsComponentProps {
     data?: CmsComponentData;
 }
 
@@ -62,7 +61,7 @@ const mapping: any = {
     // 'product_image': ProductImage
 };
 
-const CmsComponent = ({ data }: Props) => {
+const CmsComponent = ({ data }: CmsComponentProps) => {
     if (!data) {
         return null;
     }

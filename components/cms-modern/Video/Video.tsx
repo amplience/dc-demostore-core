@@ -2,9 +2,9 @@ import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
 
-type Props = {} & CmsContent;
+type VideoProps = {} & CmsContent;
 
-const Video = ({ video }: Props) => {
+const Video = ({ video }: VideoProps) => {
     if (!video) {
         return null;
     }
