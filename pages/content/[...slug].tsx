@@ -6,13 +6,16 @@ import create404Error from '@lib/page/errors/create404Error';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { slug } = context.params || {};
-    const deliveryKey = Array.isArray(slug) ? slug.join('/') : slug as string;
+    const deliveryKey = Array.isArray(slug) ? slug.join('/') : (slug as string);
 
-    const data = await fetchStandardPageData({
-        content: {
-            page: { key: `content/${deliveryKey}` }
-        }
-    }, context);
+    const data = await fetchStandardPageData(
+        {
+            content: {
+                page: { key: `content/${deliveryKey}` },
+            },
+        },
+        context
+    );
 
     if (!data.page || !data.content.page?.active) {
         return create404Error(data, context);
@@ -20,17 +23,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     return {
         props: {
-            ...data
-        }
+            ...data,
+        },
     };
 }
 
-export default function ContentPage({
-    content
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  return (
-    <ContentBlock content={content.page} />
-  )
+export default function ContentPage({ content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    return <ContentBlock content={content.page} />;
 }
 
 ContentPage.Layout = Layout;

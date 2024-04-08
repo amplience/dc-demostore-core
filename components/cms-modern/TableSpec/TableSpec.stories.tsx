@@ -1,11 +1,11 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta, StoryFn } from '@storybook/react';
 
 import TableSpec from '@components/cms-modern/TableSpec';
 
 export default {
-  title: 'Molecules/Table',
-  component: TableSpec,
+    title: 'Molecules/Table',
+    component: TableSpec,
 } as Meta;
 
-export const ExampleContent: Story = (args) => <TableSpec />
+export const ExampleContent: StoryFn = (args) => <TableSpec />;

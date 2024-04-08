@@ -1,12 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react';
 import ContentBlock from '../ContentBlock';
 import { CmsContent } from '@lib/cms/CmsContent';
 
-type Props = {
-} & CmsContent;
+type LocalizedBannerSlotProps = {} & CmsContent;
 
-const LocalizedBannerSlot: FC<Props> = ({ content }) => {
+const LocalizedBannerSlot = ({ content }: LocalizedBannerSlotProps) => {
     return <ContentBlock content={content} />;
-}
+};
 
 export default LocalizedBannerSlot;

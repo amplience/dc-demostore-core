@@ -1,5 +1,5 @@
-import { createContext, FC, useContext } from "react";
-import { CmsHierarchyNode } from "@lib/cms/fetchHierarchy";
+import { PropsWithChildren, createContext, useContext } from 'react';
+import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 
 export type ThemesState = {
     themes: CmsHierarchyNode;
@@ -7,14 +7,13 @@ export type ThemesState = {
 
 const ThemesContext = createContext<ThemesState | null>(null);
 
-export const WithThemesContext: FC<{
-    themes: CmsHierarchyNode,
-}> = ({ themes, children }) => {
-
-    return <ThemesContext.Provider value={{ themes }}>
-        {children}
-    </ThemesContext.Provider>;
+interface WithThemesContextProps extends PropsWithChildren {
+    themes: CmsHierarchyNode;
 }
+
+export const WithThemesContext = ({ themes, children }: WithThemesContextProps) => {
+    return <ThemesContext.Provider value={{ themes }}>{children}</ThemesContext.Provider>;
+};
 
 export function useThemes(): ThemesState {
     return useContext(ThemesContext) as ThemesState;

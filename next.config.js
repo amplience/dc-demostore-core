@@ -2,32 +2,24 @@ const path = require('path')
 
 module.exports = (phase, { defaultConfig }) => {
     return {
-        webpack: (config, { isServer }) => {
-            if (!isServer) {
-                // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
-                config.resolve.fallback = {
-                    fs: false,
-                    crypto: false,
-                    http: false,
-                    https: false,
-                    process: false,
-                    assert: false,
-                    stream: false,
-                    constants: false,
-                    path: false,
-                    events: false,
-                    buffer: false,
-                    util: false
-                }
-            }
-            return config;
-        },
-        // experimental: { granularChunks: true },
         sassOptions: {
             includePaths: [path.join(__dirname, 'styles')],
         },
         images: {
-            domains: ['qrickit.com', 'elyseo.eu'],
+            remotePatterns: [
+                {
+                    protocol: "https",
+                    hostname: "'qrickit.com",
+                },
+                {
+                    protocol: "https",
+                    hostname: "elyseo.eu",
+                },
+                {
+                    protocol: "http",
+                    hostname: "localhost",
+                },
+            ]
         },
         rewrites() {
             return [

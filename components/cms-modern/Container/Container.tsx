@@ -1,23 +1,24 @@
-import React, { FC } from 'react'
+import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import ContentBlock from '../ContentBlock';
-import { nanoid } from 'nanoid';
 import { Box } from '@mui/material';
 
-interface Props {
+interface ContainerProps {
     contentTypes: CmsContent[];
 }
 
-const Container: FC<Props> = ({contentTypes = []}) => {
-    return <Box>
-        {
-            contentTypes.map(item => {
-                return <Box key={ nanoid() }>
-                    <ContentBlock content={item} />
-                </Box>;
-            })
-        }
-    </Box>;
-}
+const Container = ({ contentTypes = [] }: ContainerProps) => {
+    return (
+        <Box>
+            {contentTypes.map((item, index: number) => {
+                return (
+                    <Box key={index}>
+                        <ContentBlock content={item} />
+                    </Box>
+                );
+            })}
+        </Box>
+    );
+};
 
 export default Container;

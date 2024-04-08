@@ -6,49 +6,54 @@ It includes Storybook, a visual documentation of the UI components, things like 
 
 The package also includes a Debug/X-Ray panel to help understand how the pages and components are structured, what context you are looking at the application in and the ability to click directly from the application to the related content in Amplience Dynamic Content.
 
-`dc-demostore-core` is intended for DEMO PURPOSES ONLY, and *not* for production-optimized environments.
+`dc-demostore-core` is intended for DEMO PURPOSES ONLY, and _not_ for production-optimized environments.
 
 # Table of Contents
-- [Getting Started](#getting-started)
-- [Storybook](#storybook)
-- [Provisioning your own Amplience Environment](#provisioning-your-own-amplience-environment)
-- [Additional Topics](#additional-topics)
+
+-   [Getting Started](#getting-started)
+-   [Storybook](#storybook)
+-   [Provisioning your own Amplience Environment](#provisioning-your-own-amplience-environment)
+-   [Additional Topics](#additional-topics)
 
 
 # Getting Started
 
 ## Dependency versions
+
 This demo application was developed and tested with:
 
-- Node version `18.x`
-- NPM version `9.x`
+-   Node version `20.x`
+-   NPM version `10.x`
 
 ## General Use (w/o Amplience account)
 
 Out of the box, `dc-demostore-core` may be used without needing to have an Amplience account, allowing you to experiment with API calls and Front-End customisations against an existing content base. You can simply clone this repository and it already points to a working account so that you can see:
 
- - Live Content
- - Components
- - Amplience API requests
- - etc.
+-   Live Content
+-   Components
+-   Amplience API requests
+-   etc.
 
- The following commands will install `dc-demostore-core` on your local machine.
+The following commands will install `dc-demostore-core` on your local machine.
 
 ```sh
 $ gh repo clone amplience/dc-demostore-core
 $ cd dc-demostore-core
-$ npm install / npm i
+$ nvm use
+$ npm install
 ```
 
 ### To run a Development environment:
 
 ```sh
+$ nvm use
 $ npm run dev
 ```
 
 ### To run a production environment:
 
 ```sh
+$ nvm use
 $ npm run build
 $ npm run start
 ```
@@ -57,12 +62,12 @@ Both dev and prod commands will also start a localhost. Then go to [http://local
 
 ![Amplience Demo Store homepage](media/homepage.png)
 
-
 # Storybook
 
 Firing up Storybook is super simple:
 
 ```sh
+$ nvm use
 $ npm run storybook
 ```
 
@@ -107,7 +112,7 @@ Once you have installed the `demostore` CLI tool, you can provision your account
 1. Register your instance using the CLI command `env add`
 
 ```sh
-% demostore env add 
+% demostore env add
 ✔ env name: · mydcinstance
 ✔ app deployment url: · https://mydomain.com
 ✔ cms client id: · zzzzzzzz-yyyy-yyyy-yyyy-xxxxxxxxxxxx
@@ -127,13 +132,13 @@ info: run [ env,add ]: started at Mon Mar 28 2022 12:39:21 GMT+0200 (Central Eur
 info: run [ import ]: started at XXX XXX XX XXXX XX:XX:XX GMT+0200 (Central European Summer Time)
 ...
 info: .env.local file format
-info: 
+info:
 ----------------------- COPY START ----------------------
 NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON='{"url":"XXX","algolia":{"appId":"XXX","apiKey":"XXX"},"cms":{"hub":"XXX","stagingApi":"XXX","imageHub":"XXX"}}'
 ------------------------ COPY END -----------------------
-info: 
+info:
 info: Vercel format
-info: 
+info:
 ----------------------- COPY START ----------------------
 {"url":"XXX","algolia":{"appId":"XXX","apiKey":"XXX"},"cms":{"hub":"XXX","stagingApi":"XXX","imageHub":"XXX"}}
 ------------------------ COPY END -----------------------
@@ -165,18 +170,19 @@ In your Vercel project browse to Settings --> Environment Variables and edit the
 
 > Note: You will have to redeploy your application to see the change.
 
-
 [top](#table-of-content)
 
-
 ## Additional Topics
-- [Features Highlights](docs/FeatureHighlights.md)
-- [High-Level Architecture](docs/ArchDiagram.md)
-- [Available Components](docs/Components.md)
-- [Exploring features](docs/DeepDive.md)
-- [Changing eCommerce Configuration](docs/ECommerceConfiguration.md)
-- [Working with Pages](docs/WorkingWithPages.md)
-- [Debug / X-Ray Panel](docs/Debug-Xray-Panel.md)
-- [Contribution Model (fork, PR, etc.)](https://github.com/amplience/dc-cli/blob/master/CONTRIBUTING.md)
-- [FAQ](docs/FAQ.md)
-- [v2.0.0 Upgrade](docs/v2.0.0-upgrade.md)
+
+-   [Features Highlights](docs/FeatureHighlights.md)
+-   [High-Level Architecture](docs/ArchDiagram.md)
+-   [Available Components](docs/Components.md)
+-   [Exploring features](docs/DeepDive.md)
+-   [Changing eCommerce Configuration](docs/ECommerceConfiguration.md)
+-   [Working with Pages](docs/WorkingWithPages.md)
+-   [Debug / X-Ray Panel](docs/Debug-Xray-Panel.md)
+-   [Contribution Model (fork, PR, etc.)](https://github.com/amplience/dc-cli/blob/master/CONTRIBUTING.md)
+-   [FAQ](docs/FAQ.md)
+-   Upgrades:
+    -   [v3.0.0 Upgrade](docs/v3.0.0-upgrade.md)
+    -   [v2.0.0 Upgrade](docs/v2.0.0-upgrade.md)

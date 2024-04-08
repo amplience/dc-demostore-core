@@ -1,20 +1,17 @@
-import React, { FC } from 'react'
+import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
 
-type Props = {
+type ExternalBlockProps = {} & CmsContent;
 
-} & CmsContent;
-
-const ExternalBlock: FC<Props> = ({
-    external
-}) => {
+const ExternalBlock = ({ external }: ExternalBlockProps) => {
     return (
-        <Box dangerouslySetInnerHTML={{
-            __html: external
-        }}>
-        </Box>
-    )
-}
+        <Box
+            dangerouslySetInnerHTML={{
+                __html: external,
+            }}
+        ></Box>
+    );
+};
 
 export default ExternalBlock;

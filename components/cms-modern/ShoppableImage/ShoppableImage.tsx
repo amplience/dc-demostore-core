@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { pointsToSVGPath, PolygonForwardRef, SVGPath } from './polygon';
 import { ShoppableImageHotspot } from './ShoppableImageData';
@@ -7,24 +7,22 @@ import { CircularProgress } from '@mui/material';
 import { getImageURL } from '@utils/getImageURL';
 import ShoppableImageInteractable from '../ShoppableImageInteractable';
 
-type Props = {
+type ShoppableImageProps = {
     shoppableImage: any;
     scaleToFit: boolean;
     hotspotHide: boolean;
     polygonHide: boolean;
-    focalPointHide: boolean;
-    di:string;
+    di: string;
     tooltips: any[];
 } & CmsContent;
 
-const ShoppableImage: FC<Props> = ({
+const ShoppableImage = ({
     shoppableImage,
     hotspotHide = false,
     polygonHide = false,
-    focalPointHide = true,
-    di = "",
+    di = '',
     tooltips = [],
-}) => {
+}: ShoppableImageProps) => {
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });
@@ -40,27 +38,27 @@ const ShoppableImage: FC<Props> = ({
     const [imageRef] = useState(React.createRef<HTMLImageElement>());
     const canvasRef = React.createRef<HTMLDivElement>();
 
-    const resizeWindow = () => {
-        if (refContainer.current) {
-            setCanvasSize({
-                w: refContainer.current.offsetWidth,
-                h: refContainer.current.offsetHeight,
-            });
-            setTargetWidth(refContainer.current.offsetWidth);
-        }
-
-        if (imageRef.current) {
-            setTargetHeight(imageRef.current.height);
-            setTargetWidth(imageRef.current.width);
-        }
-    };
-
     useEffect(() => {
+        const resizeWindow = () => {
+            if (refContainer.current) {
+                setCanvasSize({
+                    w: refContainer.current.offsetWidth,
+                    h: refContainer.current.offsetHeight,
+                });
+                setTargetWidth(refContainer.current.offsetWidth);
+            }
+
+            if (imageRef.current) {
+                setTargetHeight(imageRef.current.height);
+                setTargetWidth(imageRef.current.width);
+            }
+        };
+
         window.addEventListener('resize', resizeWindow);
         return () => window.removeEventListener('resize', resizeWindow);
-    }, [loaded]);
+    }, [loaded, imageRef]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (refContainer.current) {
             setCanvasSize({
                 w: refContainer.current.offsetWidth,
@@ -70,13 +68,19 @@ const ShoppableImage: FC<Props> = ({
         }
     }, [refContainer]);
 
-    const imageLoaded = () => {
+    const imageLoaded = useCallback(() => {
         setLoaded(true);
         if (imageRef.current) {
             setImageSize({ w: imageRef.current.width, h: imageRef.current.height });
             setTargetHeight(imageRef.current.height);
         }
-    };
+    }, [imageRef]);
+
+    useEffect(() => {
+        if (imageRef.current?.complete) {
+            imageLoaded();
+        }
+    }, [imageLoaded, imageRef]);
 
     let polygons: SVGPath[] = [];
     if (shoppableImage && shoppableImage.polygons) {
@@ -179,16 +183,13 @@ const ShoppableImage: FC<Props> = ({
                     'amp-vis-page__image--hide': !loaded,
                 })}
                 style={{ width: '100%', height: 'auto' }}
+                decoding="async"
                 onLoad={() => {
                     imageLoaded();
                 }}
             />
         );
     }
-
-    useEffect(() => {
-        setLoaded(false);
-    }, [src]);
 
     return (
         <div ref={refContainer} className="amp-vis-page" style={{ height: targetHeight }}>
