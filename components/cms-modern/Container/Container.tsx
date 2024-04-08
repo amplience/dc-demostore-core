@@ -4,11 +4,11 @@ import ContentBlock from '../ContentBlock';
 import { nanoid } from 'nanoid';
 import { Box } from '@mui/material';
 
-interface Props {
+interface ContainerProps {
     contentTypes: CmsContent[];
 }
 
-const Container = ({ contentTypes = [] }: Props) => {
+const Container = ({ contentTypes = [] }: ContainerProps) => {
     return (
         <Box>
             {contentTypes.map((item) => {

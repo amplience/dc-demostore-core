@@ -6,7 +6,7 @@ import camelCase from 'lodash/camelCase';
 import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
-type Props = {} & CmsContent;
+type BlogCardProps = {} & CmsContent;
 
 const BlogCard = ({
     viewType,
@@ -18,7 +18,7 @@ const BlogCard = ({
     category = [],
     keywords = [],
     _meta,
-}: Props) => {
+}: BlogCardProps) => {
     return (
         <div className={clsx('amp-dc-blog-card', 'amp-dc-snippet', 'js_dc_snippet')}>
             <Link passHref href={`/blog/post/${_meta?.deliveryKey}/${camelCase(title)}`}>

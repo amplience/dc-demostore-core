@@ -3,13 +3,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Typography } from '@mui/material';
 import withConfig from '@components/core/Config/withConfig';
 
-interface Props {
+interface FooterProps {
     newsletterPlaceholderText?: string;
     copyrightNoticeText?: string;
     style?: React.CSSProperties;
 }
 
-const Footer = (props: Props) => {
+const Footer = (props: FooterProps) => {
     const isMobile = useMediaQuery('(max-width:750px)');
     const [linkCategories, setLinkCategories] = useState([
         {

@@ -1,10 +1,10 @@
 import React, { PropsWithChildren } from 'react';
 
-interface Props extends PropsWithChildren {
+interface PageContentProps extends PropsWithChildren {
     className?: string;
 }
 
-const PageContent = (props: Props) => {
+const PageContent = (props: PageContentProps) => {
     const { className, children, ...other } = props;
 
     return (

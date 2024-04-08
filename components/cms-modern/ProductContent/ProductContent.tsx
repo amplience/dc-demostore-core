@@ -6,9 +6,9 @@ import { Box, Link, Typography } from '@mui/material';
 import { nanoid } from 'nanoid';
 import { getImageURL } from '@utils/getImageURL';
 
-type Props = {} & CmsContent;
+type TextProps = {} & CmsContent;
 
-const Text = ({ header, text = [], align = 'left' }: Props) => {
+const Text = ({ header, text = [], align = 'left' }: TextProps) => {
     const options = {
         overrides: {
             h1: { component: Typography, props: { variant: 'h1' } },

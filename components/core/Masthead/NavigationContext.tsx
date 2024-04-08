@@ -25,12 +25,12 @@ export type NavigationState = {
 
 const NavigationContext = createContext<NavigationState | null>(null);
 
-interface Props extends PropsWithChildren {
+interface WithNavigationContextProps extends PropsWithChildren {
     pages: CmsHierarchyNode;
     categories: any;
 }
 
-export const WithNavigationContext = ({ pages, categories, children }: Props) => {
+export const WithNavigationContext = ({ pages, categories, children }: WithNavigationContextProps) => {
     // Retrieve locale/country code from context
     const { locale } = useCmsContext() || {};
     const { language } = useUserContext();
@@ -67,7 +67,7 @@ export const WithNavigationContext = ({ pages, categories, children }: Props) =>
     const rootItems = useMemo(() => {
         const buildCategoryItem = (
             cmsCategory: CmsHierarchyNode | undefined,
-            ecommerceCategory: any | undefined
+            ecommerceCategory: any | undefined,
         ): NavigationItem | null => {
             if (!cmsCategory && !ecommerceCategory) {
                 return null;

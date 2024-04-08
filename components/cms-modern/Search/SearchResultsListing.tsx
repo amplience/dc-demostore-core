@@ -3,7 +3,7 @@ import SearchIcon from './SearchIcon';
 import { getImageURL } from '@utils/getImageURL';
 import Link from 'next/link';
 
-interface Props {
+interface SearchResultsListingProps {
     searchTerm: any;
     categories: any;
     designers: any;
@@ -11,7 +11,7 @@ interface Props {
     searchResults: any;
 }
 
-const SearchResultsListing = (props: Props) => {
+const SearchResultsListing = (props: SearchResultsListingProps) => {
     const { categories, designers, inspiration, searchTerm, searchResults = [] } = props;
 
     if (!categories.length && !designers.length && !inspiration.length && !searchResults.length) {

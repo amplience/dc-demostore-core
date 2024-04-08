@@ -14,9 +14,9 @@ import CmsContentItem from '@components/cms-modern/CmsContentItem';
 import CmsEdition from '@components/cms-modern/CmsEdition';
 import CmsSlot from '@components/cms-modern/CmsSlot';
 import Container from '@components/cms-modern/Container';
-import CuratedProductGrid from '@components/cms/CuratedProductGrid';
+import CuratedProductGrid from '@components/cms-modern/CuratedProductGrid';
 import CustomRichText from '@components/cms-modern/CustomRichText';
-import DynamicBlogList from '@components/cms/DynamicBlogList';
+import DynamicBlogList from '@components/cms-modern/DynamicBlogList';
 import ExternalBlock from '@components/cms-modern/ExternalBlock';
 import FlexibleSlot from '@components/cms-modern/FlexibleSlot';
 import Image from '@components/cms-modern/Image';
@@ -42,7 +42,7 @@ import Generic from '@components/stylitics/Generic/Generic';
 
 export type ContentBlockType = 'SLOT' | 'CONTENT';
 
-interface Props {
+interface ContentBlockProps {
     name?: string;
     type?: ContentBlockType;
     content: CmsContent | null;
@@ -91,7 +91,11 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/stylitics/main-and-detail': Generic,
 };
 
-const ContentBlock = ({ content: originalContent, type = 'CONTENT', components = ComponentMapping }: Props) => {
+const ContentBlock = ({
+    content: originalContent,
+    type = 'CONTENT',
+    components = ComponentMapping,
+}: ContentBlockProps) => {
     const { query } = useRouter() || {};
     const vse = (query?.vse as string) || '';
 

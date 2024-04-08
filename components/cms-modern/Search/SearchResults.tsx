@@ -6,7 +6,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 import isEmpty from 'lodash/isEmpty';
 
-interface Props {
+interface SearchResultsProps {
     searchTerm: string;
 }
 
@@ -43,7 +43,7 @@ function onlyUnique(value: any, index: any, self: any) {
 import { commerceApi } from '@pages/api';
 import { useAppContext } from '@lib/config/AppContext';
 
-const SearchResults = (props: Props) => {
+const SearchResults = (props: SearchResultsProps) => {
     const { rootItems } = useNavigation();
     const { searchTerm } = props;
     const [designers, setDesigners] = useState([]);

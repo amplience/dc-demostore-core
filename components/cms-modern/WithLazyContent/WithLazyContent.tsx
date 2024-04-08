@@ -5,14 +5,14 @@ import { enrichPageContent } from '@lib/page/pageContent/enrichPageContent';
 import { useCmsContext, CmsContext } from '@lib/cms/CmsContext';
 import { CmsContent } from '@lib/cms/CmsContent';
 
-interface Props {
+interface WithLazyContentProps {
     request: CmsRequest;
     children: (args: { content?: CmsContent }) => React.ReactElement;
     cmsContextOverrides?: Partial<CmsContext>;
     enrichContent?: boolean;
 }
 
-const WithLazyContent = (props: Props) => {
+const WithLazyContent = (props: WithLazyContentProps) => {
     const { request, children, cmsContextOverrides, enrichContent } = props;
 
     const [content, setContent] = useState<any | null>(null);

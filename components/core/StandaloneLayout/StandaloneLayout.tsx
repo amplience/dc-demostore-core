@@ -3,7 +3,7 @@ import { WithNavigationContext } from '../Masthead';
 import { WithCMSTheme, WithThemesContext } from '../WithCMSTheme';
 import { WithECommerceContext } from '../Masthead/ECommerceContext';
 
-interface Props extends PropsWithChildren {
+interface StandaloneLayoutProps extends PropsWithChildren {
     pageProps: {
         content: any;
         hierarchies: any;
@@ -11,7 +11,7 @@ interface Props extends PropsWithChildren {
     };
 }
 
-const StandaloneLayout = ({ children, pageProps }: Props) => {
+const StandaloneLayout = ({ children, pageProps }: StandaloneLayoutProps) => {
     return (
         <WithThemesContext themes={pageProps.hierarchies.themes}>
             <WithCMSTheme themes={pageProps.hierarchies.themes}>

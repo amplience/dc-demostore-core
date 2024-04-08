@@ -7,12 +7,12 @@ import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useUI } from '@components/ui';
 
-interface Props {
+interface NavigationProps {
     pages: NavigationItem[];
     style?: React.CSSProperties;
 }
 
-const Navigation = ({ pages, style }: Props) => {
+const Navigation = ({ pages, style }: NavigationProps) => {
     const { navigationToggle, toggleNavigation } = useUI();
     const [selectedMenuKey, setSelectedMenuKey] = useState<number | null>(null);
     const router = useRouter();

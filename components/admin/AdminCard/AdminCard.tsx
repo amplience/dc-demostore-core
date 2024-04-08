@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react';
 import { Card } from '@mui/material';
 
-interface Props extends PropsWithChildren {}
+interface AdminCardProps extends PropsWithChildren {}
 
-const AdminCard = (props: Props) => {
+const AdminCard = (props: AdminCardProps) => {
     const { children, ...other } = props;
 
     return (

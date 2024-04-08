@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CuratedProductGrid from '@components/cms/CuratedProductGrid';
+import CuratedProductGrid from '@components/cms-modern/CuratedProductGrid';
 import ContentBlockStory from '@utils/storybook/ContentBlockStory';
 import { Meta, StoryFn } from '@storybook/react';
 

@@ -3,14 +3,14 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import { useUserContext } from '@lib/user/UserContext';
 import ContentBlock from '../ContentBlock';
 
-type Props = {
+type PersonalizedBannerSlotProps = {
     segments: {
         segment: string[];
         content: CmsContent;
     }[];
 } & CmsContent;
 
-const PersonalizedBannerSlot = ({ segments }: Props) => {
+const PersonalizedBannerSlot = ({ segments }: PersonalizedBannerSlotProps) => {
     const { segment: userSegment = '' } = useUserContext() || {};
 
     const matchedSegment = useMemo(() => {

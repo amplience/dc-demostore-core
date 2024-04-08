@@ -7,7 +7,7 @@ import { CircularProgress } from '@mui/material';
 import { getImageURL } from '@utils/getImageURL';
 import ShoppableImageInteractable from '../ShoppableImageInteractable';
 
-type Props = {
+type ShoppableImageProps = {
     shoppableImage: any;
     scaleToFit: boolean;
     hotspotHide: boolean;
@@ -24,7 +24,7 @@ const ShoppableImage = ({
     focalPointHide = true,
     di = '',
     tooltips = [],
-}: Props) => {
+}: ShoppableImageProps) => {
     const refContainer = useRef<HTMLInputElement>(null);
     const [loaded, setLoaded] = useState(false);
     const [imageSize, setImageSize] = useState({ w: -1, h: -1 });

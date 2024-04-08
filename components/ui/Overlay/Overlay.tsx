@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { Box } from '@mui/material';
 import clsx from 'clsx';
 
-interface Props extends PropsWithChildren {
+interface OverlayProps extends PropsWithChildren {
     classes?: any;
     className?: string;
     style?: React.CSSProperties;
@@ -13,7 +13,7 @@ interface Props extends PropsWithChildren {
     floatingVerticalAlignment?: 'top' | 'middle' | 'bottom';
 }
 
-const Overlay = (props: Props) => {
+const Overlay = (props: OverlayProps) => {
     const {
         className,
         children,
@@ -70,12 +70,12 @@ const Overlay = (props: Props) => {
                             isFloatingMiddle && isStacked
                                 ? 'unset !important'
                                 : isFloatingMiddle && isFloatingCenter
-                                ? 'translateX(-50%) translateY(-50%)'
-                                : isFloatingMiddle
-                                ? 'translateY(-50%)'
-                                : isFloatingCenter
-                                ? 'translateX(-50%)'
-                                : 'unset',
+                                  ? 'translateX(-50%) translateY(-50%)'
+                                  : isFloatingMiddle
+                                    ? 'translateY(-50%)'
+                                    : isFloatingCenter
+                                      ? 'translateX(-50%)'
+                                      : 'unset',
                     })}
                     style={overlayStyle}
                 >

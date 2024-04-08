@@ -5,9 +5,9 @@ import { PlusSquare, Pencil, Eye } from '@components/icons';
 import { useAppContext } from '@lib/config/AppContext';
 import { PropsWithChildren } from 'react';
 
-interface Props extends PropsWithChildren {}
+interface CmsSlotFrameProps extends PropsWithChildren {}
 
-const CmsSlotFrame = ({ children }: Props) => {
+const CmsSlotFrame = ({ children }: CmsSlotFrameProps) => {
     const { id, label } = useCmsSlot() || {};
 
     const { cms } = useAppContext();

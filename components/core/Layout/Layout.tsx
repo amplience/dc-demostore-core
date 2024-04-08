@@ -11,7 +11,7 @@ import { WithNavigationContext } from '../Masthead';
 import { WithCMSTheme, WithThemesContext } from '../WithCMSTheme';
 import { WithECommerceContext } from '../Masthead/ECommerceContext';
 
-interface Props extends PropsWithChildren {
+interface LayoutProps extends PropsWithChildren {
     pageProps: {
         content: any;
         segments: any;
@@ -20,7 +20,7 @@ interface Props extends PropsWithChildren {
     };
 }
 
-const Layout = ({ children, pageProps }: Props) => {
+const Layout = ({ children, pageProps }: LayoutProps) => {
     const { currentModal, closeModal } = useUI();
     const { debugging, setDebugging } = useDebug();
     const handleCloseDebug = () => {
