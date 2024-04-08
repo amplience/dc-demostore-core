@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { pointsToSVGPath, PolygonForwardRef, SVGPath } from './polygon';
 import { ShoppableImageHotspot } from './ShoppableImageData';
@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { CircularProgress } from '@mui/material';
 import { getImageURL } from '@utils/getImageURL';
 import ShoppableImageInteractable from '../ShoppableImageInteractable';
+
 
 type ShoppableImageProps = {
     shoppableImage: any;
@@ -70,13 +71,21 @@ const ShoppableImage = ({
         }
     }, [refContainer]);
 
-    const imageLoaded = () => {
+    
+
+    const imageLoaded = useCallback(() => {
         setLoaded(true);
         if (imageRef.current) {
             setImageSize({ w: imageRef.current.width, h: imageRef.current.height });
             setTargetHeight(imageRef.current.height);
         }
-    };
+    }, [imageRef]);
+
+    useEffect(() => {
+        if (imageRef.current?.complete) {
+            imageLoaded();
+        }
+       }, [imageLoaded, imageRef]);
 
     let polygons: SVGPath[] = [];
     if (shoppableImage && shoppableImage.polygons) {
@@ -179,16 +188,13 @@ const ShoppableImage = ({
                     'amp-vis-page__image--hide': !loaded,
                 })}
                 style={{ width: '100%', height: 'auto' }}
+                decoding="async"
                 onLoad={() => {
                     imageLoaded();
                 }}
             />
         );
     }
-
-    useEffect(() => {
-        setLoaded(false);
-    }, [src]);
 
     return (
         <div ref={refContainer} className="amp-vis-page" style={{ height: targetHeight }}>
