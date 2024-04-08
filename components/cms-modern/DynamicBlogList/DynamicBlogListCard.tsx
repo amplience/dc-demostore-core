@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import Image from '@components/cms-modern/Image';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { useUserContext } from '@lib/user/UserContext';
-import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
 interface DynamicBlogListCardProps {

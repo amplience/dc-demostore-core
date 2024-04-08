@@ -1,7 +1,6 @@
 import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { useContent } from '@components/core/WithVisualization/WithVisualization';
-import { nanoid } from 'nanoid';
 
 import AdvancedBanner from '@components/cms-modern/AdvancedBanner';
 import BannerSlot from '@components/cms-modern/BannerSlot';
@@ -111,11 +110,11 @@ const ContentBlock = ({
 
     const wrappedChildren =
         type === 'SLOT' ? (
-            <CmsSlot key={nanoid()} content={content}>
+            <CmsSlot key={content._meta.deliveryId} content={content}>
                 {children}
             </CmsSlot>
         ) : (
-            <CmsContentItem key={nanoid()} content={content}>
+            <CmsContentItem key={content._meta.deliveryId} content={content}>
                 {children}
             </CmsContentItem>
         );

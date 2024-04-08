@@ -8,7 +8,6 @@ import { useMemo } from 'react';
 import { walkNavigationItems } from '@components/core/Masthead/walkNavigation';
 import clsx from 'clsx';
 import { parse } from 'url';
-import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -16,7 +15,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         {
             content: {},
         },
-        context
+        context,
     );
     const { url = '' } = context.req || {};
     const { query } = parse(url, true);
@@ -76,9 +75,9 @@ function Sitemap({ content, params }: InferGetServerSidePropsType<typeof getServ
                 <Typography variant="h2">Sitemap</Typography>
             </div>
             <div style={{ marginTop: 10, marginBottom: 10 }}>
-                {sections.map((section) => {
+                {sections.map((section, index: number) => {
                     return (
-                        <div key={nanoid()}>
+                        <div key={index}>
                             <Link passHref href={`${section.href}${urlSuffix}`} target="_blank" rel="noreferrer">
                                 <Typography
                                     variant="h4"
@@ -89,10 +88,10 @@ function Sitemap({ content, params }: InferGetServerSidePropsType<typeof getServ
                                 </Typography>
                             </Link>
                             <div style={{ marginTop: 10, marginBottom: 10 }}>
-                                {section.children.map((child: any) => (
+                                {section.children.map((child: any, index: number) => (
                                     <Link
                                         href={`${child.href}${urlSuffix}`}
-                                        key={nanoid()}
+                                        key={index}
                                         className={clsx('megaMenu__list__item__link')}
                                         target="_blank"
                                         rel="noreferrer"

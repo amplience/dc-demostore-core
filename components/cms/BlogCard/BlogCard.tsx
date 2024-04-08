@@ -3,7 +3,6 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import clsx from 'clsx';
 import Image from '../../cms-modern/Image';
 import camelCase from 'lodash/camelCase';
-import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
 type BlogCardProps = {} & CmsContent;
@@ -29,9 +28,9 @@ const BlogCard = ({
                 ) : null}
 
                 <div className="amp-dc-category-container">
-                    {category.map((item: any) => {
+                    {category.map((item: any, index: number) => {
                         return (
-                            <div key={nanoid()}>
+                            <div key={index}>
                                 <div className="amp-dc-category">{item}</div>
                                 <span className="line"></span>
                             </div>

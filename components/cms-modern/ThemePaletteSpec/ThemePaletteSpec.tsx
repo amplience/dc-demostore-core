@@ -1,6 +1,5 @@
 import { Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
-import { nanoid } from 'nanoid';
 
 interface Palette {
     light: string;
@@ -39,9 +38,9 @@ const ThemePaletteSpec = (props: ThemePaletteSpecProps) => {
             spacing={3}
             justifyContent="center"
         >
-            {paletteList.map((color: { name: string; palette: Palette }) => {
+            {paletteList.map((color: { name: string; palette: Palette }, index: number) => {
                 return (
-                    <Grid key={nanoid()} container spacing={3}>
+                    <Grid key={index} container spacing={3}>
                         <Grid item xs={4}>
                             <Paper style={{ height: 120, width: '90%', backgroundColor: color.palette.light }} />
                             <Typography variant="body1" component="p">

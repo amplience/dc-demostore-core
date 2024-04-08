@@ -10,7 +10,6 @@ import { CmsComponent } from '@components/cms-layout';
 import WithProduct from '@components/product/WithProduct';
 import { createUserContext } from '@lib/user/UserContext';
 import first from 'lodash/first';
-import { nanoid } from 'nanoid';
 import { clearUndefined } from '@lib/util';
 
 function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undefined {
@@ -166,8 +165,8 @@ export default function ProductPage({
         <WithProduct product={compositeProduct}>
             <div style={{ flexGrow: 1 }}>
                 {layout &&
-                    ((layout.slots || {}).main || []).map((component: any) => (
-                        <CmsComponent key={nanoid()} data={component} />
+                    ((layout.slots || {}).main || []).map((component: any, index: number) => (
+                        <CmsComponent key={index} data={component} />
                     ))}
             </div>
         </WithProduct>

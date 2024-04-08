@@ -16,9 +16,7 @@ import compact from 'lodash/compact';
 import { commerceApi } from '@pages/api';
 import { createUserContext } from '@lib/user/UserContext';
 import { Category, Product } from '@amplience/dc-integration-middleware';
-import { nanoid } from 'nanoid';
 import { useContent } from '@components/core/WithVisualization';
-import DEFAULT_FACETS from '@lib/util/default-search-facets';
 import { clearUndefined, mapToID } from '@lib/util';
 
 type CategoryPageConfig = {
@@ -131,27 +129,22 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
 
                 {/* Additional Components */}
                 <div>
-                    {compact(components).map((content) => (
-                        <ContentBlock key={nanoid()} content={content} />
+                    {compact(components).map((content, index: number) => (
+                        <ContentBlock key={index} content={content} />
                     ))}
 
                     {/* Slots and Content */}
                     <div className="af-main-content">
-                        {compact(pageSlots).map((slot) => (
-                            <ContentBlock key={nanoid()} content={slot} type="SLOT" />
+                        {compact(pageSlots).map((slot, index: number) => (
+                            <ContentBlock key={index} content={slot} type="SLOT" />
                         ))}
                     </div>
                 </div>
                 {!props.content?.page?.hideProductList && (
                     <div>
-                        {/* <div className={classes?.facets}>
-                            {facets.map((facet) => (
-                                <ProductFacet key={nanoid()} title={facet.title} />
-                            ))}
-                        </div> */}
                         <div>
                             <ProductGrid>
-                                {products?.map((product) => <ProductCard key={nanoid()} data={product} />)}
+                                {products?.map((product, index: number) => <ProductCard key={index} data={product} />)}
                             </ProductGrid>
                         </div>
                     </div>

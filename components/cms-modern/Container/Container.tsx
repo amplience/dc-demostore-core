@@ -1,7 +1,6 @@
 import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import ContentBlock from '../ContentBlock';
-import { nanoid } from 'nanoid';
 import { Box } from '@mui/material';
 
 interface ContainerProps {
@@ -11,9 +10,9 @@ interface ContainerProps {
 const Container = ({ contentTypes = [] }: ContainerProps) => {
     return (
         <Box>
-            {contentTypes.map((item) => {
+            {contentTypes.map((item, index: number) => {
                 return (
-                    <Box key={nanoid()}>
+                    <Box key={index}>
                         <ContentBlock content={item} />
                     </Box>
                 );
