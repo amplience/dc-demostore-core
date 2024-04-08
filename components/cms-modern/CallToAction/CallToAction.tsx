@@ -3,14 +3,14 @@ import clsx from 'clsx';
 import { useContentAnalytics } from '@lib/analytics';
 import Link from 'next/link';
 
-interface Props extends PropsWithChildren {
+interface LayoutProps extends PropsWithChildren {
     href: string;
     className?: string;
     style?: React.CSSProperties;
     variant?: 'outlined' | 'contained';
 }
 
-const Layout = ({ children, href, className, variant = 'outlined', ...other }: Props) => {
+const Layout = ({ children, href, className, variant = 'outlined', ...other }: LayoutProps) => {
     const { trackEvent } = useContentAnalytics();
 
     const handleTrack = (e: any) => {
@@ -30,7 +30,7 @@ const Layout = ({ children, href, className, variant = 'outlined', ...other }: P
                 {
                     ['af-call-to-action-dark']: variant === 'contained',
                 },
-                className
+                className,
             )}
             {...other}
         >

@@ -6,13 +6,13 @@ const SkeletonMapping: any = {
     'https://demostore.amplience.com/content/simple-localized-banner': DefaultAdaptiveImageSkeleton,
 };
 
-interface Props {
+interface ContentBlockSkeletonProps {
     className?: string;
     style?: React.CSSProperties;
     schema: string;
 }
 
-const ContentBlockSkeleton = (props: Props) => {
+const ContentBlockSkeleton = (props: ContentBlockSkeletonProps) => {
     const { schema, ...other } = props;
 
     const Component = SkeletonMapping[schema];

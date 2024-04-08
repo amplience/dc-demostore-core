@@ -23,9 +23,9 @@ export function useDebug(): DebugState {
     return useContext(Context) as DebugState;
 }
 
-interface Props extends PropsWithChildren {}
+interface WithDebugStateProps extends PropsWithChildren {}
 
-export const WithDebugState = ({ children }: Props) => {
+export const WithDebugState = ({ children }: WithDebugStateProps) => {
     const [debugging, setDebugging] = useState(false);
     const [showSlots, setShowSlots] = useState(false);
     const [showContent, setShowContent] = useState(false);

@@ -42,7 +42,7 @@ import Generic from '@components/stylitics/Generic/Generic';
 
 export type ContentBlockType = 'SLOT' | 'CONTENT';
 
-interface Props {
+interface ContentBlockProps {
     name?: string;
     type?: ContentBlockType;
     content: CmsContent | null;
@@ -91,7 +91,11 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/stylitics/main-and-detail': Generic,
 };
 
-const ContentBlock = ({ content: originalContent, type = 'CONTENT', components = ComponentMapping }: Props) => {
+const ContentBlock = ({
+    content: originalContent,
+    type = 'CONTENT',
+    components = ComponentMapping,
+}: ContentBlockProps) => {
     const { query } = useRouter() || {};
     const vse = (query?.vse as string) || '';
 

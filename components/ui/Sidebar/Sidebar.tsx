@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { Paper } from '@mui/material';
 
-interface Props extends PropsWithChildren {
+interface SidebarProps extends PropsWithChildren {
     className?: string;
     style?: React.CSSProperties;
     open: boolean;
@@ -9,7 +9,7 @@ interface Props extends PropsWithChildren {
     onClose?: () => void;
 }
 
-const Sidebar = (props: Props) => {
+const Sidebar = (props: SidebarProps) => {
     const { variant = 'left', open, children, onClose, ...other } = props;
     const handleClose = () => {
         if (onClose) {

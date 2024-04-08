@@ -7,11 +7,11 @@ export type ThemesState = {
 
 const ThemesContext = createContext<ThemesState | null>(null);
 
-interface Props extends PropsWithChildren {
+interface WithThemesContextProps extends PropsWithChildren {
     themes: CmsHierarchyNode;
 }
 
-export const WithThemesContext = ({ themes, children }: Props) => {
+export const WithThemesContext = ({ themes, children }: WithThemesContextProps) => {
     return <ThemesContext.Provider value={{ themes }}>{children}</ThemesContext.Provider>;
 };
 

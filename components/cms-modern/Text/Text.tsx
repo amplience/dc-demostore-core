@@ -3,9 +3,9 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import ReactMarkdown from 'markdown-to-jsx';
 import { Link, Typography, Box } from '@mui/material';
 
-type Props = {} & CmsContent;
+type StoreCardProps = {} & CmsContent;
 
-const Text = ({ text, align }: Props) => {
+const Text = ({ text, align }: StoreCardProps) => {
     const options = {
         overrides: {
             h1: { component: Typography, props: { variant: 'h1' } },

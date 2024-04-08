@@ -6,12 +6,12 @@ import _ from 'lodash';
 import { ImageFormat, getImageURL } from '@utils/getImageURL';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
 
-interface Props {
+interface ProductMediaViewerProps {
     variant?: 'portrait' | 'landscape';
     numItems?: number;
 }
 
-const ProductMediaViewer = (props: Props) => {
+const ProductMediaViewer = (props: ProductMediaViewerProps) => {
     const { variant = 'portrait', numItems = 2 } = props;
     const { product } = useProduct() || {};
     let { cms } = useAppContext();
@@ -34,7 +34,6 @@ const ProductMediaViewer = (props: Props) => {
         if (!window || !container.current || !product) {
             return;
         }
-
         const { amp } = window as any;
         let target = container.current;
 
@@ -92,7 +91,7 @@ const ProductMediaViewer = (props: Props) => {
                         original: getImageURL(image.url),
                         thumbnail: getImageURL(image.thumb || image.url),
                     })),
-                    'original'
+                    'original',
                 )}
             />
         );

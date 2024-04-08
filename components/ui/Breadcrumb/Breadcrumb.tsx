@@ -6,13 +6,13 @@ import { useUserContext } from '@lib/user/UserContext';
 import { nanoid } from 'nanoid';
 import Link from 'next/link';
 
-interface Props {
+interface BreadcrumbProps {
     className?: string;
     loading?: boolean;
     navigationItem?: NavigationItem;
 }
 
-const Breadcrumb = (props: Props) => {
+const Breadcrumb = (props: BreadcrumbProps) => {
     const { className, navigationItem, loading = false, ...other } = props;
     const { findByHref } = useNavigation();
     const { asPath } = useRouter();

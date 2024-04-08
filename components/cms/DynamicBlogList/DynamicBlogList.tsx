@@ -6,14 +6,14 @@ import { Section, LegacySlider, LegacySliderSlide } from '@components/ui';
 import DynamicBlogListCard from './DynamicBlogListCard';
 import _ from 'lodash';
 
-interface Props {
+interface DynamicBlogListProps {
     header: string;
     numItems: number;
     tags?: { id: string }[];
     query?: string;
 }
 
-const DynamicBlogList = (props: Props) => {
+const DynamicBlogList = (props: DynamicBlogListProps) => {
     const { header, tags, numItems = 3, query, ...other } = props;
     const [results, setResults] = useState([] as any);
     const { algolia, cms } = useAppContext();

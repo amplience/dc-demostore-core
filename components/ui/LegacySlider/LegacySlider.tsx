@@ -2,13 +2,13 @@ import React, { useEffect, createRef, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import { NavigatePrevious, NavigateNext } from '@components/icons';
 
-interface Props extends PropsWithChildren {
+interface LegacySliderProps extends PropsWithChildren {
     navigationDots?: boolean;
     infinite?: number;
     autoplay?: boolean;
 }
 
-const LegacySlider = (props: Props) => {
+const LegacySlider = (props: LegacySliderProps) => {
     const { children, navigationDots = false, infinite = 0, autoplay = false, ...other } = props;
     let numChildren = React.Children.count(children);
     const component = createRef<any>();

@@ -6,7 +6,7 @@ import { Product } from '@amplience/dc-integration-middleware';
 import _ from 'lodash';
 import { getImageURL } from '@utils/getImageURL';
 
-interface Props {
+interface ProductCardSkeletonProps {
     classes?: any;
     className?: string;
     style?: React.CSSProperties;
@@ -27,7 +27,7 @@ function limitSentences(text: string, sentences: number, charLength: number) {
     return text;
 }
 
-const ProductCardSkeleton = (props: Props) => {
+const ProductCardSkeleton = (props: ProductCardSkeletonProps) => {
     const { className, data, ...other } = props;
     const { variants, name, slug, shortDescription, id } = data;
     const variant = variants[0];

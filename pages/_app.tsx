@@ -25,9 +25,9 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-interface Props extends PropsWithChildren {}
+interface NoopProps extends PropsWithChildren {}
 
-const Noop = ({ children }: Props) => <>{children}</>;
+const Noop = ({ children }: NoopProps) => <>{children}</>;
 
 export default class MyApp extends NextApp<AppProps> {
     componentDidMount() {
