@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { Box } from '@mui/material';
 import { ImageTransformations, getImageURL } from '@utils/getImageURL';
 
-type Props = {
+type ImageProps = {
     image: any;
     query?: any;
     format?: string;
@@ -11,25 +11,13 @@ type Props = {
     di?: string;
 } & CmsContent;
 
-const Image: FC<Props> = ({
-    display,
-    image,
-    imageAltText,
-    seoText,
-    di = "",
-    query,
-    roundel
-}) => {
-
+const Image = ({ display, image, imageAltText, seoText, di = '', query, roundel }: ImageProps) => {
     if (!image) {
         return null;
     }
-    
+
     const getRoundelConfig = (roundel: any) => {
-        if (roundel &&
-            roundel[0] &&
-            roundel[0].roundel &&
-            roundel[0].roundel.name) {
+        if (roundel && roundel[0] && roundel[0].roundel && roundel[0].roundel.name) {
             const roundelParams = [];
             let imageRoundelIndex;
             for (let x = 0; x < roundel.length; x++) {
@@ -56,9 +44,7 @@ const Image: FC<Props> = ({
                 const roundelRatio = roundel[x].roundelRatio;
                 roundelParam +=
                     roundel[x].roundel.name +
-                    (roundelRatio
-                        ? '&roundelRatio' + imageRoundelIndex + '=' + roundelRatio
-                        : '');
+                    (roundelRatio ? '&roundelRatio' + imageRoundelIndex + '=' + roundelRatio : '');
                 roundelParams.push(roundelParam);
             }
 
@@ -66,15 +52,15 @@ const Image: FC<Props> = ({
         } else {
             return '';
         }
-    }
+    };
 
     const buildSrcUrl = ({ width, poiAspect, format }: any) => {
         let baseUrl = `https://${image.defaultHost}/i/${image.endpoint}/${encodeURIComponent(image.name)}`;
         const transformations: ImageTransformations = {};
 
         if (seoText) {
-            baseUrl += `/${encodeURIComponent(seoText)}`
-        };
+            baseUrl += `/${encodeURIComponent(seoText)}`;
+        }
 
         transformations.width = width;
         transformations.upscale = false;
@@ -83,28 +69,43 @@ const Image: FC<Props> = ({
 
         if (display == 'Point of Interest' && poiAspect) {
             transformations.aspectRatio = poiAspect;
-            queryString += `&{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect`
+            queryString += `&{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect`;
         }
         if (query) {
             queryString += `&${query}`;
         }
         if (roundel && roundel[0] && roundel[0].roundel && roundel[0].roundelPosition && roundel[0].roundelRatio) {
-            queryString += `&$roundel$&${getRoundelConfig(roundel)}`
+            queryString += `&$roundel$&${getRoundelConfig(roundel)}`;
         }
         return getImageURL(`${baseUrl}?${queryString}`, transformations, false, di);
     };
 
     const source = ({ minWidth, maxWidth, width, highDensityWidth, format, poiAspect }: any) => {
-        return <source srcSet={`${buildSrcUrl({ width, format, poiAspect })} 1x, ${buildSrcUrl({ width: highDensityWidth, format, poiAspect })}`}
-            media={minWidth ? `(min-width: ${minWidth}px)` : (maxWidth ? `(max-width: ${maxWidth}px)` : undefined)}
-            type={format ? `image/${format}` : undefined} />;
+        return (
+            <source
+                srcSet={`${buildSrcUrl({ width, format, poiAspect })} 1x, ${buildSrcUrl({
+                    width: highDensityWidth,
+                    format,
+                    poiAspect,
+                })}`}
+                media={minWidth ? `(min-width: ${minWidth}px)` : maxWidth ? `(max-width: ${maxWidth}px)` : undefined}
+                type={format ? `image/${format}` : undefined}
+            />
+        );
     };
 
-    const imageTag = display == 'Static' ? (
-        <picture className="amp-dc-image">
-            <img loading="lazy" src={`//${image.endpoint}.a.bigcontent.io/v1/static/${image.name}`} className="amp-dc-image-pic" alt={imageAltText} title={seoText}/>
-        </picture>
-    ) : (
+    const imageTag =
+        display == 'Static' ? (
+            <picture className="amp-dc-image">
+                <img
+                    loading="lazy"
+                    src={`//${image.endpoint}.a.bigcontent.io/v1/static/${image.name}`}
+                    className="amp-dc-image-pic"
+                    alt={imageAltText}
+                    title={seoText}
+                />
+            </picture>
+        ) : (
             <picture className="amp-dc-image">
                 {/* High density widths selected to be below max avif image size at aspect ratio. (2.5mil pixels) */}
                 {source({ minWidth: '1280', width: '1500', highDensityWidth: '2234', poiAspect: '2:1' })}
@@ -112,13 +113,17 @@ const Image: FC<Props> = ({
                 {source({ minWidth: '768', width: '1024', highDensityWidth: '1920', poiAspect: '1.5:1' })}
                 {source({ maxWidth: '768', width: '768', highDensityWidth: '1536', poiAspect: '1:1' })}
 
-                <img loading="lazy" src={buildSrcUrl({})} className="amp-dc-image-pic" alt={imageAltText} title={seoText} />
+                <img
+                    loading="lazy"
+                    src={buildSrcUrl({})}
+                    className="amp-dc-image-pic"
+                    alt={imageAltText}
+                    title={seoText}
+                />
             </picture>
         );
 
-    return <Box style={{position: 'relative', width: 'auto'}}>
-        {imageTag}
-    </Box>
-}
+    return <Box style={{ position: 'relative', width: 'auto' }}>{imageTag}</Box>;
+};
 
 export default Image;

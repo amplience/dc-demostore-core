@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { GetServerSidePropsContext } from 'next';
 
 const Cookies = require('cookies');
@@ -10,11 +10,10 @@ export type UserContext = {
     language: string;
     country: string;
     currency: string;
-    
+
     segment?: string;
 
-    engines: {
-    }
+    engines: {};
 };
 
 const Context = React.createContext<UserContext | null>(null);
@@ -23,10 +22,12 @@ export function useUserContext(): UserContext {
     return React.useContext(Context) as UserContext;
 }
 
-export const WithUserContext: FC<{ value: UserContext }> = ({children, value}) => {
-    return <Context.Provider value={value}>
-        { children }
-    </Context.Provider>;
+interface WithUserContextProps extends PropsWithChildren {
+    value: UserContext;
+}
+
+export const WithUserContext = ({ children, value }: WithUserContextProps) => {
+    return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 function pathname(url: string | undefined) {
@@ -45,11 +46,10 @@ export async function createUserContext(context: GetServerSidePropsContext): Pro
 
     let result: UserContext = {
         segment: segment || null,
-        engines: {
-        },
+        engines: {},
         language: locale.split('-')[0],
         country: locale.split('-')[1],
-        currency
+        currency,
     };
 
     return result;

@@ -1,13 +1,14 @@
 import React, { createContext, forwardRef } from 'react';
 import { CmsImage, ImageTransformations, getImageURL } from '@utils/getImageURL';
 
-export interface AdaptiveImageProps extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {
+export interface AdaptiveImageProps
+    extends React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> {
     image: CmsImage;
     transformations?: ImageTransformations;
-    imageRef?:any;
+    imageRef?: any;
     children?: React.ReactElement[];
     imageAltText?: string;
-    diParams?:string;
+    diParams?: string;
 }
 
 type ContextState = {
@@ -15,22 +16,14 @@ type ContextState = {
     transformations?: ImageTransformations;
     diParams?: string;
     srcset?: {
-        [factor: string]: ImageTransformations
-    }
-}
+        [factor: string]: ImageTransformations;
+    };
+};
 
 export const AdaptiveImageContext = createContext<ContextState | null>(null);
 
-const AdaptiveImage: React.SFC<AdaptiveImageProps> = (props) => {
-    const {
-        image,
-        imageAltText = "",
-        transformations,
-        diParams = "",
-        children,
-        imageRef,
-        ...other
-    } = props;
+const AdaptiveImage = (props: AdaptiveImageProps) => {
+    const { image, imageAltText = '', transformations, diParams = '', children, imageRef, ...other } = props;
 
     if (!image) {
         return null;
@@ -39,11 +32,13 @@ const AdaptiveImage: React.SFC<AdaptiveImageProps> = (props) => {
     const defaultImageUrl = getImageURL(image, transformations, false, diParams);
 
     return (
-        <AdaptiveImageContext.Provider value={{
-            image,
-            transformations,
-            diParams
-        }}>
+        <AdaptiveImageContext.Provider
+            value={{
+                image,
+                transformations,
+                diParams,
+            }}
+        >
             <picture>
                 {children}
                 <img alt={imageAltText} ref={imageRef} src={defaultImageUrl} {...other} />
@@ -52,5 +47,9 @@ const AdaptiveImage: React.SFC<AdaptiveImageProps> = (props) => {
     );
 };
 
-const AdaptiveImageRef = forwardRef((props:AdaptiveImageProps, ref) => <AdaptiveImage {...props}  imageRef={ref as React.MutableRefObject<HTMLImageElement>}>{props.children}</AdaptiveImage>);
-export default AdaptiveImageRef
+const AdaptiveImageRef = forwardRef((props: AdaptiveImageProps, ref) => (
+    <AdaptiveImage {...props} imageRef={ref as React.MutableRefObject<HTMLImageElement>}>
+        {props.children}
+    </AdaptiveImage>
+));
+export default AdaptiveImageRef;

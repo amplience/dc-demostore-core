@@ -5,34 +5,19 @@ import { StagingEnvironmentFactory } from 'dc-delivery-sdk-js';
 import { createAppContext } from '@lib/config/AppContext';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-
-    const {
-        res,
-        req,
-        query
-    } = context;
-    
-    let {
-        vse,
-        hub,
-        timestamp,
-        isoTimestamp,
-        redirect = '/'
-    } = query || {};
+    const { res, req, query } = context;
+    let { vse, hub, timestamp, isoTimestamp, redirect = '/' } = query || {};
 
     if (isoTimestamp) {
         timestamp = `${new Date(isoTimestamp as string).getTime()}`;
     }
 
-    let { cms } = await createAppContext()
+    let { cms } = await createAppContext();
     if (timestamp && !vse && !isNaN(Number(timestamp))) {
-        // generate vse
-        const factory = new StagingEnvironmentFactory(
-            cms.stagingApi as string
-        )
+        const factory = new StagingEnvironmentFactory(cms.stagingApi as string);
         if (timestamp && cms.stagingApi) {
             const stagingEnvironmentAtTimestamp = await factory.generateDomain({
-                timestamp: Number(timestamp)
+                timestamp: Number(timestamp),
             });
             vse = stagingEnvironmentAtTimestamp;
         }
@@ -51,22 +36,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         } else {
             cookies.set('timestamp');
         }
-        
+
         res.setHeader('Cache-Control', 'no-cache ');
         res.writeHead(301, {
-            Location: redirect
+            Location: redirect,
         });
         res.end();
     }
 
     return {
-        props: {}
-    }
+        props: {},
+    };
 }
 
-export default function Timestamp({
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    return (
-        <div></div>
-    )
+export default function Timestamp({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    return <div></div>;
 }

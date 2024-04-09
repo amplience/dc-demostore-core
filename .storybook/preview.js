@@ -10,10 +10,11 @@ import { WithUserContext } from '@lib/user/UserContext';
 
 import { WithLazyAppContext } from '@lib/config/AppContext'
 
+import {getHubName} from '@lib/config/locator/config-locator'
+
 let contentApi = `${getHubName()}.cdn.content.amplience.net`
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
   controls: { expanded: true, hideNoControlsWarning: true }
 };
 

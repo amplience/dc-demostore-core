@@ -1,41 +1,42 @@
-import React, { FC } from 'react'
-import clsx from 'clsx'
-import { useContentAnalytics } from '@lib/analytics'
+import React, { PropsWithChildren } from 'react';
+import clsx from 'clsx';
+import { useContentAnalytics } from '@lib/analytics';
+import Link from 'next/link';
 
-interface Props {
+interface LayoutProps extends PropsWithChildren {
     href: string;
     className?: string;
     style?: React.CSSProperties;
-    variant?: 'outlined' | 'contained'
+    variant?: 'outlined' | 'contained';
 }
 
-const Layout: FC<Props> = ({
-    children,
-    href,
-    className,
-    variant = 'outlined',
-    ...other
-}) => {
+const Layout = ({ children, href, className, variant = 'outlined', ...other }: LayoutProps) => {
+    const { trackEvent } = useContentAnalytics();
 
-  const {
-    trackEvent
-  } = useContentAnalytics();
+    const handleTrack = (e: any) => {
+        trackEvent({
+            category: 'Content',
+            action: 'ClickCta',
+            label: href,
+        });
+    };
 
-  const handleTrack = (e: any) => {
-    trackEvent({
-      category: 'Content',
-      action: 'ClickCta',
-      label: href
-    });
-  }
-
-  return (
-    <a onClick={handleTrack} href={href} className={clsx(`af-call-to-action`, {
-      ['af-call-to-action-dark']: variant === 'contained'
-    }, className)} {...other}>
-        {children}
-    </a>
-  )
-}
+    return href ? (
+        <Link
+            onClick={handleTrack}
+            href={href}
+            className={clsx(
+                `af-call-to-action`,
+                {
+                    ['af-call-to-action-dark']: variant === 'contained',
+                },
+                className,
+            )}
+            {...other}
+        >
+            {children}
+        </Link>
+    ) : null;
+};
 
 export default Layout;

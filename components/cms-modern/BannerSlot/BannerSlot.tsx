@@ -1,12 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react';
 import ContentBlock from '../ContentBlock';
 import { CmsContent } from '@lib/cms/CmsContent';
 
-type Props = {
-} & CmsContent;
+type BannerSlotProps = {} & CmsContent;
 
-const BannerSlot: FC<Props> = ({ content }) => {
+const BannerSlot = ({ content }: BannerSlotProps) => {
     return <ContentBlock content={content} />;
-}
+};
 
 export default BannerSlot;

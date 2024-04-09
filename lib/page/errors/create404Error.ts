@@ -7,7 +7,7 @@ export default function create404Error(pageData?: any, context?: GetServerSidePr
     return {
         props: {
             ...pageData,
-            statusCode: 404
-        }
+            statusCode: 404,
+        },
     };
 }

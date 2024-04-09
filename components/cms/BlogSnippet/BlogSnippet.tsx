@@ -1,70 +1,21 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
 import { ContentBlock } from '@components/cms-modern';
 import { Typography } from '@mui/material';
 
-/**
- * BlogSnippet props
- */
 export type BlogSnippetProps = {
-
-    /**
-     * Image
-     */
     image: CmsContent;
-
-    /**
-     * Blog title
-     */
     title: string;
-
-    /**
-     * Blog date
-     */
     blogdate: string;
-
-    /**
-     * Blog author
-     */
     author: string;
-    
-    /**
-     * Blog category
-     */
     category: string[];
-
-    /**
-     * Blog description
-     */
     description: string;
-
-    /**
-     * Call-to-action configuration
-     */
     cta: any;
-
-    /**
-     * Tags from taxonomy hierarchy
-     */
     tags: any[];
-
-    /**
-     * Keywords
-     */
     keywords: string[];
 };
 
-const BlogSnippet: FC<BlogSnippetProps> = ({
-    image,
-    title,
-    blogdate,
-    author,
-    category,
-    description,
-    tags,
-    cta,
-    keywords
-}) => {
+const BlogSnippet = ({ image, title, blogdate, author, category, description }: BlogSnippetProps) => {
     return (
         <>
             <div className="amp-dc-banner js_dc_banner">
@@ -77,11 +28,7 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
 
             <div className="amp-dc-snippet-info-wrap">
                 {category?.length ? (
-                    <Typography
-                        variant="body2"
-                        component="div"
-                        className="amp-dc-snippet-info-wrap__categories"
-                    >
+                    <Typography variant="body2" component="div" className="amp-dc-snippet-info-wrap__categories">
                         {category.join(', ')}
                     </Typography>
                 ) : null}
@@ -92,20 +39,12 @@ const BlogSnippet: FC<BlogSnippetProps> = ({
                 ) : null}
                 <div className="amp-dc-snippet-info-wrap__description">
                     {author ? (
-                        <Typography
-                            variant="h4"
-                            component="div"
-                            className="amp-dc-author"
-                        >
+                        <Typography variant="h4" component="div" className="amp-dc-author">
                             {author}
                         </Typography>
                     ) : null}
                     {blogdate ? (
-                        <Typography
-                            variant="h4"
-                            component="div"
-                            className="amp-dc-blogdate"
-                        >
+                        <Typography variant="h4" component="div" className="amp-dc-blogdate">
                             {blogdate}
                         </Typography>
                     ) : null}

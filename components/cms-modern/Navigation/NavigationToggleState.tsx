@@ -1,41 +1,13 @@
 import { useUI } from '@components/ui';
-import {
-    Backdrop,
-    Theme,
-    useMediaQuery
-} from '@mui/material';
-import clsx from 'clsx';
-import React from 'react';
-import { withStyles, WithStyles } from '@mui/styles'
+import { Backdrop, useMediaQuery } from '@mui/material';
+import Link from 'next/link';
+import React, { PropsWithChildren } from 'react';
 
-interface Props extends WithStyles<typeof styles> {}
-const styles = (theme: Theme) => ({
-    root: {},
-    backdrop: {
-        backgroundColor: 'rgba(255,255,255, 0.8)',
-        cursor: 'pointer',
-        zIndex: theme.zIndex.drawer - 1,
-    },
-    icon: {
-        display: 'none',
-        height: 45,
-        width: 45,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'fixed' as 'fixed',
-        left: '80%',
-        zIndex: theme.zIndex.drawer,
-    },
-    iconImage: {
-        height: 17,
-        width: 17,
-    },
-    show: {
-        display: 'flex',
-    },
-});
+interface NavigationToggleStateProps extends PropsWithChildren {
+    classes?: any;
+}
 
-const NavigationToggleState: React.FC<Props> = ({ classes, children }) => {
+const NavigationToggleState = ({ classes, children }: NavigationToggleStateProps) => {
     const { navigationToggle, toggleNavigation } = useUI();
     const handleToggleNavigation = () => {
         toggleNavigation(navigationToggle);
@@ -43,26 +15,37 @@ const NavigationToggleState: React.FC<Props> = ({ classes, children }) => {
     const isMobile = useMediaQuery('(max-width:750px)');
 
     return (
-        <div
-            className={
-                navigationToggle ? 'navigation--open' : 'navigation--closed'
-            }
-        >
-            <a
+        <div className={navigationToggle ? 'navigation--open' : 'navigation--closed'}>
+            <Link
+                passHref
                 href="#"
-                className={clsx(classes.icon, {
-                    [classes.show]: isMobile && navigationToggle,
-                })}
+                style={{
+                    height: 45,
+                    width: 45,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'fixed' as 'fixed',
+                    left: '80%',
+                    zIndex: 1000,
+                    display: isMobile && navigationToggle ? 'flex' : 'none',
+                }}
                 onClick={handleToggleNavigation}
             >
                 <img
-                    className={classes.iconImage}
+                    style={{ height: 17, width: 17 }}
+                    width="32"
+                    height="32"
                     src="/images/ic-anyafinn-close.svg"
                     alt="close"
                 />
-            </a>
+            </Link>
             <Backdrop
-                className={classes.backdrop}
+                className={classes?.backdrop}
+                style={{
+                    backgroundColor: 'rgba(255,255,255, 0.8)',
+                    cursor: 'pointer',
+                    zIndex: 999,
+                }}
                 open={isMobile && navigationToggle}
                 onClick={handleToggleNavigation}
             ></Backdrop>
@@ -71,4 +54,4 @@ const NavigationToggleState: React.FC<Props> = ({ classes, children }) => {
     );
 };
 
-export default withStyles(styles)(NavigationToggleState);
+export default NavigationToggleState;
