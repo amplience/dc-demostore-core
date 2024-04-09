@@ -1,5 +1,53 @@
 # Changelog
 
+## [3.0.0](https://github.com/amplience/dc-demostore-core/compare/v2.3.0...v3.0.0) (2024-04-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* breaking change version bump commit
+
+### Features
+
+* breaking change version bump commit ([e3171a2](https://github.com/amplience/dc-demostore-core/commit/e3171a2cae4bb7fa377149cb690494e26759f1c7))
+* update package dependencies to latest and migrate storybook ([7f0f016](https://github.com/amplience/dc-demostore-core/commit/7f0f0162eae0cf023495e0cc7eae7dd55db84496))
+* Updated URLs to app.amplience.net ([f77d5b4](https://github.com/amplience/dc-demostore-core/commit/f77d5b4f8b11c9c3b50240f6edf40235c900b70e))
+* using react carousel and removed legacy ([fe1b987](https://github.com/amplience/dc-demostore-core/commit/fe1b9870a35edfb059720e30b973ca91905d7f5f))
+
+
+### Bug Fixes
+
+* breadcrumb styling ([c76bf2b](https://github.com/amplience/dc-demostore-core/commit/c76bf2b90f8b411d977f3c2dc70c5b69bd35d76e))
+* bumped react, nextjs, node ([5aed80e](https://github.com/amplience/dc-demostore-core/commit/5aed80e9a8ce3fa428b25c72a0da9d5b6ea88257))
+* burger icon display for mobile only ([99f65fb](https://github.com/amplience/dc-demostore-core/commit/99f65fb42f542ec5d318c437dfe447e015fbc189))
+* fixing linting issues with dependencies and links ([e6afe34](https://github.com/amplience/dc-demostore-core/commit/e6afe344f33dd01aab26ae3698b048fad5bacbe0))
+* got category styles file back ([01302c5](https://github.com/amplience/dc-demostore-core/commit/01302c5afa930097226e491f979f0561a217157a))
+* migrated dynamic styles ([d710e9b](https://github.com/amplience/dc-demostore-core/commit/d710e9b3605222f9181940da2df2357623d9db1e))
+* migrated dynamic styles ([8f8e1f7](https://github.com/amplience/dc-demostore-core/commit/8f8e1f76adbc1b2b35ab4538bcbe0dc149106dc9))
+* migrated styles ([1da0b58](https://github.com/amplience/dc-demostore-core/commit/1da0b5879edf5d7370da80d00f052b61d7e981b7))
+* migrated styles with responsive ([a326285](https://github.com/amplience/dc-demostore-core/commit/a3262859bacee7d77c647f3c1fea80c75974b597))
+* migrated styles, updated import and formatting ([4f5054a](https://github.com/amplience/dc-demostore-core/commit/4f5054a75283fce2f601768e67eb3bb3ba5bacef))
+* migrating static and dynamic styles ([69ac426](https://github.com/amplience/dc-demostore-core/commit/69ac426dd04d3a2fd2ede55929703de3df2e6f46))
+* migrating styles ([9577f20](https://github.com/amplience/dc-demostore-core/commit/9577f205ade57ecb3d2150ebc3265a11948b478d))
+* missing component dependency ([0931795](https://github.com/amplience/dc-demostore-core/commit/09317959db19eebd4a8d6b3d3872370d069eba58))
+* moved to cms-modern ([1f6cb16](https://github.com/amplience/dc-demostore-core/commit/1f6cb16e05e2fd49d436440c935ffb5cfc8c92ff))
+* name exports for lodash ([0bf4789](https://github.com/amplience/dc-demostore-core/commit/0bf4789b8bb4f3eb3c8fa93fb9165eab9170e301))
+* packages upgrades ([b6db701](https://github.com/amplience/dc-demostore-core/commit/b6db7017b54d13d238532f76cb192fb28389f55d))
+* proper key based on content id ([abe6f80](https://github.com/amplience/dc-demostore-core/commit/abe6f80f4400a59d2ae628f7b76ca4bc2b0ba3b6))
+* remove unused package dependencies ([72a8c84](https://github.com/amplience/dc-demostore-core/commit/72a8c846648f2ef780b34b0d248cacb59f0b8db3))
+* removed nanoid for keys ([8f056b2](https://github.com/amplience/dc-demostore-core/commit/8f056b29500a782c2f8ec5124794267587a03a20))
+* removing incorrect usage of nanoid for key to avoid continual dom element reloads ([4a356fa](https://github.com/amplience/dc-demostore-core/commit/4a356fa6f09d641ebf5d11098f5201369161e61f))
+* rename visualization page route to avoid app router conflicts ([fbfc66d](https://github.com/amplience/dc-demostore-core/commit/fbfc66dce9bdadebdd4ed88e1d5b8bb0aa308111))
+* reverted padding top value ([13c0d96](https://github.com/amplience/dc-demostore-core/commit/13c0d963eb235a21e5a396be464b0ece6c0f13ce))
+* Shoppable Image intermittent loading issue ([5775f60](https://github.com/amplience/dc-demostore-core/commit/5775f60e43cd043b82973184385fb2c829925aa0))
+* Slot and Content debug URLs to DC ([1dba618](https://github.com/amplience/dc-demostore-core/commit/1dba618265241357ae79a1fc65676f8a8afd0d5b))
+* Store Crashes and Types (SQUID-485) ([5a91bde](https://github.com/amplience/dc-demostore-core/commit/5a91bde97eb4d6cce592eff68ca7962b8a3b922b))
+* updated props and signature ([ed6ba15](https://github.com/amplience/dc-demostore-core/commit/ed6ba15eabf72ebd874b9372dae74aa5ab8fad44))
+* updates static styles ([23564a6](https://github.com/amplience/dc-demostore-core/commit/23564a62a08b42fe6fb7014fa45546d7325ae976))
+* upgraded minors ([6645a49](https://github.com/amplience/dc-demostore-core/commit/6645a496b562f5c5d9904b7172c12d277e9bb9f8))
+* visible slides for 1 and 2 slides only ([3224271](https://github.com/amplience/dc-demostore-core/commit/322427195d77712b48caf405ac81ea4851482ea2))
+* wrapping elements to avoid console errors ([df4a267](https://github.com/amplience/dc-demostore-core/commit/df4a267f931994467f4bbdf68de404e6e65065be))
+
 ## [2.3.0](https://github.com/amplience/dc-demostore-core/compare/v2.2.0...v2.3.0) (2023-12-01)
 
 
