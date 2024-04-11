@@ -29,7 +29,7 @@ async function getAllBlogs(context:CmsContext, next_cursor = null, order = 'desc
             order: 'asc'
         },
         page: {
-            size: 1
+            size: 12
         }
     };
 

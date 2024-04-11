@@ -35,7 +35,7 @@ const DynamicBlogListCard = (props: DynamicBlogListCardProps) => {
                         <Image
                             alt={image.imageAltText ? image.imageAltText : title}
                             {...(image as any)}
-                            query="w=500"
+                            query="w=500&sm=aspect&aspect=16:9"
                         />
                     </div>
                 ) : null}
@@ -53,7 +53,7 @@ const DynamicBlogListCard = (props: DynamicBlogListCardProps) => {
                 <div className="amp-dc-blog-card-text-wrap">
                     {title && (
                         <Box component="div" whiteSpace="normal">
-                            <Typography variant="h2" component="h2">
+                            <Typography variant="h2" component="h2" sx={{maxLines: 2, textOverflow: 'ellipsis', overflow: 'hidden', display: "-webkit-box", WebkitLineClamp: "2", WebkitBoxOrient: "vertical"}}>
                                 {title}
                             </Typography>
                         </Box>
@@ -65,7 +65,7 @@ const DynamicBlogListCard = (props: DynamicBlogListCardProps) => {
                     )}
                     {description && (
                         <Box component="div" whiteSpace="normal" style={{ paddingTop: 15 }}>
-                            <Typography variant="body1" component="p">
+                            <Typography variant="body1" component="p" sx={{maxLines: 3, textOverflow: 'ellipsis', overflow: 'hidden', display: "-webkit-box", WebkitLineClamp: "3", WebkitBoxOrient: "vertical"}}>
                                 {description}
                             </Typography>
                         </Box>
