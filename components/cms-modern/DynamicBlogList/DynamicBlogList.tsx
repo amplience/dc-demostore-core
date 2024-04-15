@@ -59,8 +59,8 @@ const DynamicBlogList = (props: Props) => {
                 <PureSlider>
                     {results.map((slide: any, index: number) => {
                         return (
-                            <Slide key={index} index={index}>
-                                <DynamicBlogListCard data={slide} />
+                            <Slide key={index} index={index} style={{padding:10}}>
+                                <DynamicBlogListCard data={slide}  />
                             </Slide>
                         );
                     })}
