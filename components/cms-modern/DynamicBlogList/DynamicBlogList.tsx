@@ -6,6 +6,7 @@ import { CarouselProvider, Dot, Slider as PureSlider, Slide } from 'pure-react-c
 import SliderNextButton from '@components/cms-modern/Slider/SliderNextButton';
 import SliderBackButton from '@components/cms-modern/Slider/SliderBackButton';
 import { Box } from '@mui/material';
+import algoliasearch from 'algoliasearch/lite';
 
 interface Props {
     header: string;
@@ -21,12 +22,7 @@ const DynamicBlogList = (props: Props) => {
     const { algolia, cms } = useAppContext();
     const { stagingApi, locale } = useCmsContext() || {};
     const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
-
-    let searchClient: any;
-    if (typeof window !== 'undefined') {
-        const { algoliasearch } = window as any;
-        searchClient = algoliasearch(algolia.appId, algolia.apiKey);
-    }
+    const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
     useEffect(() => {
         searchClient &&
             searchClient

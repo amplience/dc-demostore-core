@@ -5,6 +5,7 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
 import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 import isEmpty from 'lodash/isEmpty';
+import algoliasearch from 'algoliasearch/lite';
 
 interface SearchResultsProps {
     searchTerm: string;
@@ -56,7 +57,6 @@ const SearchResults = (props: SearchResultsProps) => {
     const { algolia, cms } = useAppContext();
 
     const fetchResults = () => {
-        const { algoliasearch } = window as any;
         const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
         const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
         searchClient
