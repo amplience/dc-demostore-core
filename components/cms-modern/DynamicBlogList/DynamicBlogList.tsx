@@ -26,7 +26,7 @@ const DynamicBlogList = (props: Props) => {
         let searchClient: any;
         if (typeof window !== 'undefined') {
             const { algoliasearch } = window as any;
-            searchClient = algoliasearch(algolia.appId, algolia.apiKey);
+            searchClient = algoliasearch(algolia?.appId, algolia?.apiKey);
         }
         searchClient &&
             searchClient
@@ -59,8 +59,8 @@ const DynamicBlogList = (props: Props) => {
                 <PureSlider>
                     {results.map((slide: any, index: number) => {
                         return (
-                            <Slide key={index} index={index} style={{padding:10}}>
-                                <DynamicBlogListCard data={slide}  />
+                            <Slide key={index} index={index} style={{ padding: 10 }}>
+                                <DynamicBlogListCard data={slide} />
                             </Slide>
                         );
                     })}

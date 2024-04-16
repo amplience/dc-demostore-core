@@ -1,6 +1,6 @@
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import fetchContent, { GetByFilterRequest } from '@lib/cms/fetchContent';
+import fetchContent, { GetByFilterRequest, SortByOrder } from '@lib/cms/fetchContent';
 import { CmsContext, createCmsContext, useCmsContext } from '@lib/cms/CmsContext';
 import React, { useEffect } from 'react';
 import { Layout } from '@components/core';
@@ -8,88 +8,77 @@ import { FormControl, Grid, MenuItem, Paper, Select, SelectChangeEvent, Typograp
 import DynamicBlogListCard from '@components/cms-modern/DynamicBlogList/DynamicBlogListCard';
 import { useState } from 'react';
 
-
-
-async function getAllBlogs(context:CmsContext, next_cursor = null, order = 'desc', value = 'default', blogs = []) {
-    const blogData = [...blogs];
-
-    const filterRequest: GetByFilterRequest = {
-        filterBy: [
-            {
-                path: '/_meta/schema',
-                value: 'https://demostore.amplience.com/content/blog',
+async function fetchBlogs(context: CmsContext, options: { key?: string; order?: SortByOrder }) {
+    const { key = 'default', order = 'desc' } = options;
+    const fetchPage = async (nextCursor?: string): Promise<any> => {
+        const filterRequest: GetByFilterRequest = {
+            filterBy: [
+                {
+                    path: '/_meta/schema',
+                    value: 'https://demostore.amplience.com/content/blog',
+                },
+                {
+                    path: '/active',
+                    value: true,
+                },
+            ],
+            sortBy: {
+                key,
+                order: order as SortByOrder,
             },
-            {
-                path: '/active',
-                value: true
-            }
-        ],
-        sortBy: {
-            key: 'default',
-            order: 'asc'
-        },
-        page: {
-            size: 12
+            page: {
+                size: 12,
+                cursor: nextCursor,
+            },
+        };
+        const results = (await fetchContent([filterRequest], context))[0];
+        const responses = results?.responses || [];
+
+        if (results?.page.nextCursor) {
+            return [...responses, ...(await fetchPage(results?.page.nextCursor))];
         }
+        return responses;
     };
 
-    if(next_cursor && filterRequest.page) filterRequest.page.cursor = next_cursor;
-    if(filterRequest.sortBy){
-        filterRequest.sortBy.key = value;
-        filterRequest.sortBy.order = order as 'asc' | 'desc' | undefined;
-    }
-
-    const fetched = await fetchContent([filterRequest], context);
-    if (fetched && fetched[0]){
-        const res = fetched[0];
-        const res2:[] = res.responses
-        res2.forEach(function(blog){
-            blogData.push(blog)
-        })
-        if( res.page.nextCursor){
-            return await getAllBlogs(context, res.page.nextCursor, order, value, blogData)
-        }
-    }
-    return blogData
+    return fetchPage();
 }
 
-
+export type SortByValue = 'default' | 'title' | 'author';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const cmsContext = await createCmsContext(context.req);
     const data = await fetchStandardPageData({ content: {} }, context);
-    const blogData = await getAllBlogs(cmsContext) || [];
+    const blogs = (await fetchBlogs(cmsContext, {})) || [];
 
     return {
         props: {
             ...data,
-            blogData: blogData,
+            blogs,
         },
     };
 }
 
-export default function BlogFilterPage({ blogData, content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const [blogList, setBlogList] = React.useState(blogData as any);
-    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-    const [sortValue, setSortValue] = useState<'default' | 'title' | 'author'>('default');
+export default function BlogFilterPage({ blogs }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    const [blogList, setBlogList] = useState(blogs as any);
+    const [sortOrder, setSortOrder] = useState<SortByOrder>('asc');
+    const [sortValue, setSortValue] = useState<SortByValue>('default');
 
     const cmsContext = useCmsContext();
 
-    const handleChange = (event: SelectChangeEvent, value: unknown) => {
-        if (event.target.name == 'sortBy'){
-            setSortValue(event.target.value as 'default' | 'title' | 'author')
-        }
-        if (event.target.name == 'sortOrder'){
-            setSortOrder(event.target.value as 'asc' | 'desc');
-        }
+    const handleSortValueChange = (event: SelectChangeEvent) => {
+        setSortValue(event.target.value as SortByValue);
+    };
+
+    const handleSortOrderChange = (event: SelectChangeEvent) => {
+        setSortOrder(event.target.value as SortByOrder);
     };
 
     useEffect(() => {
         async function fetchData() {
-            const newBlogs = await getAllBlogs(cmsContext, null, sortOrder, sortValue);
-            setBlogList(newBlogs)
+            const blogs = await fetchBlogs(cmsContext, { order: sortOrder, key: sortValue });
+            setBlogList(blogs);
         }
-        fetchData()
+        fetchData();
     }, [cmsContext, sortOrder, sortValue]);
 
     return (
@@ -106,7 +95,7 @@ export default function BlogFilterPage({ blogData, content }: InferGetServerSide
                         <Grid item xs={12} sm={4} md={3}>
                             <FormControl variant="standard" style={{ width: '100%', padding: 20 }}>
                                 <span style={{ paddingRight: 15 }}>Sort by:</span>
-                                <Select id='sortBy' name='sortBy' value={sortValue} onChange={handleChange}>
+                                <Select id="sortBy" name="sortBy" value={sortValue} onChange={handleSortValueChange}>
                                     <MenuItem value="default">Date</MenuItem>
                                     <MenuItem value="title">Title</MenuItem>
                                     <MenuItem value="author">Author</MenuItem>
@@ -116,7 +105,12 @@ export default function BlogFilterPage({ blogData, content }: InferGetServerSide
                         <Grid item xs={12} sm={4} md={3}>
                             <FormControl variant="standard" style={{ width: '100%', padding: 20 }}>
                                 <span style={{ paddingRight: 15 }}>Sort order:</span>
-                                <Select id='sortOrder' name='sortOrder' value={sortOrder} onChange={handleChange}>
+                                <Select
+                                    id="sortOrder"
+                                    name="sortOrder"
+                                    value={sortOrder}
+                                    onChange={handleSortOrderChange}
+                                >
                                     <MenuItem value="asc">Ascending</MenuItem>
                                     <MenuItem value="desc">Descending</MenuItem>
                                 </Select>
@@ -125,17 +119,26 @@ export default function BlogFilterPage({ blogData, content }: InferGetServerSide
                     </Grid>
                 </FormControl>
             </Paper>
-            <Grid container style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', margin: 0, padding: 0 }} columns={12} spacing={2}>
+            <Grid
+                container
+                style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', margin: 0, padding: 0 }}
+                columns={12}
+                spacing={2}
+            >
                 {blogList?.map((blog: any) => (
                     <Grid item key={blog.content._meta?.deliveryId} xs={12} md={6} lg={4}>
-                        <DynamicBlogListCard key={blog.content._meta?.deliveryId} data={blog.content}/>
+                        <DynamicBlogListCard key={blog.content._meta?.deliveryId} data={blog.content} />
                     </Grid>
                 ))}
-                {!blogList.length &&
-                    <Typography style={{ marginTop: 30, marginBottom: 20, marginLeft: 20 }} variant="body1" component="body">
+                {!blogList.length && (
+                    <Typography
+                        style={{ marginTop: 30, marginBottom: 20, marginLeft: 20 }}
+                        variant="body1"
+                        component="body"
+                    >
                         No Blogs posts available at this time
                     </Typography>
-                }
+                )}
             </Grid>
         </div>
     );

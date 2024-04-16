@@ -27,7 +27,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
 }
 
-export default function Womens({ content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function BlogPage({ content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { stagingApi, locale } = useCmsContext() || {};
     const navigationItem: NavigationItem = {
         type: 'page',
@@ -41,15 +41,21 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
     const { push } = useRouter();
     const { acceleratedMedia } = useAcceleratedMedia();
     let format = 'auto';
-    if (acceleratedMedia) format = ImageFormat.AVIF;
+
+    if (acceleratedMedia) {
+        format = ImageFormat.AVIF;
+    }
 
     useEffect(() => {
+        if (!algolia) {
+            return;
+        }
         let { instantsearch, algoliasearch } = window as any;
         let hub = cms.hub;
         let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`;
         let search = instantsearch({
             indexName,
-            searchClient: algoliasearch(algolia.appId, algolia.apiKey),
+            searchClient: algoliasearch(algolia?.appId, algolia?.apiKey),
             hitsPerPage: 5,
         });
         search.addWidget(
@@ -147,7 +153,7 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
             }),
         );
         search.start();
-    }, [locale, algolia.apiKey, algolia.appId, cms.hub, format, push, stagingApi]);
+    }, [locale, algolia, cms.hub, format, push, stagingApi]);
 
     return (
         <>
@@ -181,4 +187,4 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
     );
 }
 
-Womens.Layout = Layout;
+BlogPage.Layout = Layout;
