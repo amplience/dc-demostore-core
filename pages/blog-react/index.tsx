@@ -86,7 +86,16 @@ export default function BlogReact() {
                 Blog
             </Typography>
             <InstantSearch indexName={indexName} searchClient={searchClient}>
-                <div style={{ float: 'left', height: '100%', marginRight: 20, marginTop: 20 }}>
+                <Box
+                    style={{
+                        height: '100%',
+                        marginRight: 20,
+                        marginTop: 20,
+                    }}
+                    sx={{
+                        float: { sd: 'unset', md: 'left' },
+                    }}
+                >
                     <SearchBox style={{ marginBottom: 20 }} />
                     <Typography style={{ marginBottom: 10 }} variant="h4">
                         Categories
@@ -108,7 +117,7 @@ export default function BlogReact() {
                         searchablePlaceholder="Search authors"
                         showMore={false}
                     />
-                </div>
+                </Box>
                 <Box
                     sx={{
                         mt: '20px',
