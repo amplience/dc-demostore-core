@@ -60,7 +60,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function BlogFilterPage({ blogs }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const [blogList, setBlogList] = useState(blogs as any);
-    const [sortOrder, setSortOrder] = useState<SortByOrder>('asc');
+    const [sortOrder, setSortOrder] = useState<SortByOrder>('desc');
     const [sortValue, setSortValue] = useState<SortByValue>('default');
 
     const cmsContext = useCmsContext();

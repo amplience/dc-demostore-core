@@ -4,6 +4,7 @@ import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
 import isEmpty from 'lodash/isEmpty';
+import algoliasearch from 'algoliasearch';
 
 interface SearchResultsProps {
     searchTerm: string;
@@ -41,6 +42,7 @@ function onlyUnique(value: any, index: any, self: any) {
 
 import { commerceApi } from '@pages/api';
 import { useAppContext } from '@lib/config/AppContext';
+import { HitsProps } from 'react-instantsearch';
 
 const SearchResults = (props: SearchResultsProps) => {
     const { rootItems } = useNavigation();
@@ -56,23 +58,18 @@ const SearchResults = (props: SearchResultsProps) => {
 
     useEffect(() => {
         const fetchResults = async () => {
-            const { algoliasearch } = window as any;
             if (algolia?.appId && algolia?.apiKey) {
-                const searchClient = algoliasearch(algolia?.appId, algolia?.apiKey);
+                const client = algoliasearch(algolia?.appId, algolia?.apiKey);
                 const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
-                const searchResponse = await searchClient.search([
-                    {
-                        indexName,
-                        query: searchTerm,
-                    },
-                ]);
-                const hits = searchResponse.results[0].hits.map((hit: any) => {
+                const index = client.initIndex(indexName);
+                const { hits } = await index.search(searchTerm);
+                const mappedHits = hits?.map((hit: any) => {
                     return {
-                        label: hit.snippet.title,
-                        href: '/blog/' + hit._meta.deliveryId + '/' + hit._meta.name,
+                        label: hit?.snippet?.title,
+                        href: `/blog/${hit?._meta?.deliveryKey}`,
                     };
                 });
-                setInspiration(hits.slice(0, 10));
+                setInspiration(mappedHits.slice(0, 10));
             }
 
             if (!isEmpty(searchTerm)) {
