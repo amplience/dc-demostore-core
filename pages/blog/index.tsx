@@ -4,7 +4,7 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 import React from 'react';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { Breadcrumb, PageContent } from '@components/ui';
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { NavigationItem } from '@components/core/Masthead';
 import { useAppContext } from '@lib/config/AppContext';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
@@ -13,6 +13,7 @@ import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, Hits, SearchBox, RefinementList } from 'react-instantsearch';
 import Link from 'next/link';
 import { Image } from '@components/cms-modern';
+import DynamicBlogListCard from '@components/cms-modern/DynamicBlogList/DynamicBlogListCard';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const data = await fetchStandardPageData(
@@ -48,32 +49,16 @@ export default function Blog() {
 
     function Hit(props: any) {
         return (
-            <Link href={`/blog/${props.hit._meta.deliveryKey}`}>
-                <Box
-                    style={{
-                        float: 'left',
-                        marginRight: 15,
-                        marginBottom: 15,
-                        width: '350px',
-                        height: '500px',
-                    }}
-                >
-                    <Image
-                        alt={
-                            props.hit.snippet.image.imageAltText
-                                ? props.hit.snippet.image.imageAltText
-                                : props.hit.snippet.title
-                        }
-                        image={props.hit.snippet.image.image}
-                    />
-                    <Typography variant="h5">{props.hit.snippet.category.join(', ') || ''}</Typography>
-                    <Typography style={{ marginTop: 20, marginBottom: 20 }} variant="h2">
-                        {props.hit.snippet.title}
-                    </Typography>
-                    <Typography variant="h5">{props.hit.snippet.author}</Typography>
-                    <Typography variant="h5">{props.hit.snippet.blogdate}</Typography>
-                </Box>
-            </Link>
+            <Box
+                style={{
+                    float: 'left',
+                    marginRight: 15,
+                    marginBottom: 15,
+                    width: '350px',
+                }}
+            >
+                <DynamicBlogListCard data={props.hit} />
+            </Box>
         );
     }
 
