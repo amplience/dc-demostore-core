@@ -1,15 +1,15 @@
 # Table of Contents
-- [Fetching content](#fetching-content)
-- [Filter API](#filter-api)
-- [Amplience Search](#amplience-search)
-- [Navigation Hierarchy](#navigation-hierarchy)
-- [Product Detail Page Layout](#product-detail-page-layout)
-- [Personalisation](#personalisation)
-- [Theming](#theming)
-- [Admin UI Panels](#admin-ui-panels)
-- [Shoppable Image](#shoppable-image)
-- [Stylitics](#stylitics)
-- [Accelerated Media](#accelerated-media)
+
+-   [Fetching content](#fetching-content)
+-   [Filter API](#filter-api)
+-   [Navigation Hierarchy](#navigation-hierarchy)
+-   [Product Detail Page Layout](#product-detail-page-layout)
+-   [Personalisation](#personalisation)
+-   [Theming](#theming)
+-   [Admin UI Panels](#admin-ui-panels)
+-   [Shoppable Image](#shoppable-image)
+-   [Stylitics](#stylitics)
+-   [Accelerated Media](#accelerated-media)
 
 ## Fetching content
 
@@ -32,7 +32,7 @@ const resolveContent = (requests: CmsRequest[]): Promise<CmsContent[]> => {
                     })
                 }
             ).then(x => x.json())
-                .then(x => x.responses || []) 
+                .then(x => x.responses || [])
                 .then(x => x.map((y: any) => y.content || null));
     };
 ```
@@ -96,147 +96,6 @@ let filterRequest: GetByFilterRequest =
 
 [top](#table-of-contents)
 
-## Amplience Search
-
-![Instant Search Example](../media/instantSearchExample.png)
-
-![Search Index](../media/searchIndex.png)
-
-### Setting up Instant Search
-
-```js
-        const search = instantsearch({
-            indexName: stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`,
-            searchClient: algoliasearch(
-                appId,
-                apiKey 
-            ),
-            hitsPerPage: 5,
-        });
-```
-### Filtering
-
-```js
-        search.addWidget(
-            instantsearch.widgets.configure({
-                filters:
-                    (locale || 'en-US').indexOf('en-') === 0
-                        ? `locale:en-US`
-                        : `locale:${locale}`,
-                }),
-        );
-```
-
-### Search Box
-
-```js
-        search.addWidget(
-            instantsearch.widgets.searchBox({
-                container: '#searchbox',
-                placeholder: 'Search',
-            })
-        );
-```
-
-### Refinements
-
-```js
-        search.addWidget(
-            instantsearch.widgets.refinementList({
-                container: '#category-list',
-                attribute: 'snippet.category',
-            })
-        );
-
-        search.addWidget(
-            instantsearch.widgets.refinementList({
-                container: '#author-list',
-                attribute: 'snippet.author',
-            })
-        );
-```
-
-### Hits
-
-```js
-        search.addWidget(
-            instantsearch.widgets.hits({
-                hitsPerPage: 5,
-                container: '#hits',
-                cssClasses: {
-                    list: 'amp-dc-card-list-wrap',
-                    item: 'amp-dc-card',
-                },
-                templates: {
-                    item: ({ snippet, _meta }: any) => {
-                        return `
-                            <a ...>
-                                ...
-                            </a>
-                    `;
-                    },
-                },
-            })
-        );
-```
-
-### Pagination
-
-```js
-        search.addWidget(
-            instantsearch.widgets.pagination({
-                container: '#pagination',
-            })
-        );
-```
-
-### Hits per page
-
-```js
-        search.addWidget(
-            instantsearch.widgets.hitsPerPage({
-                container: '#hits-per-page',
-                items: [
-                    { label: '5 hits per page', value: 5, default: true },
-                    { label: '10 hits per page', value: 10 },
-                ],
-            })
-        );
-```
-
-### JSX Template
-
-```jsx
-            <PageContent className="blog-list__container">
-                <div className="blog-list">
-                    <div className="blog-list-facets">
-                    <Typography variant="h6">
-                        <Breadcrumb navigationItem={navigationItem} />
-                      </Typography>
-                      <Typography variant="h2" component="h2">
-                          Blog
-                      </Typography> 
-                        <div id="searchbox" className="ais-SearchBox" />
-                        <ProductFacet title="Categories" className="blog-list-facet blog-list-facet--categories">
-                            <div id="category-list" />
-                        </ProductFacet>
-                        <ProductFacet title="Author" className="blog-list-facet">
-                            <div id="author-list" />
-                        </ProductFacet>
-                        <div id="hits-per-page" style={{ display: 'none' }} />
-                    </div>
-                    <div className="blog-list-results">
-                        <div className="amp-dc-card-list amp-dc-prod-5-rows amp-dc-cards-hero amp-dc-cards-blog">
-                            <div id="hits" />
-                        </div>
-                        <div id="pagination" />
-                    </div>
-                </div>
-            </PageContent>
-```
-
-[top](#table-of-contents)
-
 ## Navigation Hierarchy
 
 ![Site Pages](../media/sitePages.png)
@@ -256,26 +115,28 @@ CMS managed sub items will display AFTER the commerce items.
 
 The default automation has the Site Pages node set to true to automatically render sub items from commerce.
 
-
 Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
 
 ```js
-    const data = await fetchPageData({
+const data = await fetchPageData(
+    {
         ...input,
         content: {
             ...input.content,
-            configComponents: { key: 'config/components' }
+            configComponents: { key: 'config/components' },
         },
         hierarchies: {
             ...input.hierarchies,
             pages: {
-                tree: { key: 'homepage' }
+                tree: { key: 'homepage' },
             },
             themes: {
-                tree: { key: 'configuration/themes' }
-            }
-        }
-    }, context);
+                tree: { key: 'configuration/themes' },
+            },
+        },
+    },
+    context,
+);
 ```
 
 [top](#table-of-contents)
@@ -283,9 +144,10 @@ Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
 ## Product Detail Page Layout
 
 Demostore features product detail page layouts that can be specific to:
-- a category
-- a product
-- a Designer (could be any product attribute)
+
+-   a category
+-   a product
+-   a Designer (could be any product attribute)
 
 A specific UI Extension allows you to change the whole layout of the product detail page.
 There is a default product layout with delivery key `layout/default-pdp`.
@@ -296,10 +158,10 @@ In the code, the Filter API is used to search Commerce Experiences based on the 
 
 In order to illustrate a personalisation approach this project contains a slot type which allows a user to associate content to user segments.
 
-- Repository: `slots`
-- Content type: `Personalized Banner Slot`
-- Schema: `https://demostore.amplience.com/slots/personalized-banner`
-- Component: `components/cms-modern/PersonalizedBannerSlot/PersonalizedBannerSlot.tsx`
+-   Repository: `slots`
+-   Content type: `Personalized Banner Slot`
+-   Schema: `https://demostore.amplience.com/slots/personalized-banner`
+-   Component: `components/cms-modern/PersonalizedBannerSlot/PersonalizedBannerSlot.tsx`
 
 ### Authoring
 
@@ -309,12 +171,11 @@ When using this slot type in the scheduler you can add multiple items and associ
 
 ![User Authoring](../media/user-segments-authoring.png)
 
-
 #### Rules
 
-* You can have multiple items in your slot
-* Each item can be associated to one or more segments
-* An item without segments associated is 'default' content
+-   You can have multiple items in your slot
+-   Each item can be associated to one or more segments
+-   An item without segments associated is 'default' content
 
 > Note: This is just one approach for demonstration purposes.
 
@@ -334,15 +195,15 @@ The following rules will apply to all instances of the personalised banner slot 
 
 #### Rules
 
-* If there are no items, nothing will display
-* If you are NOT signed in (with a user segment):
-  * It will display the FIRST item without a user segment associated
-  * If no content is found without a segment it will display nothing
-* If you ARE signed in (with a user segment):
-  * It will display the FIRST item matching the user segment signed in with
-  * If no matches are found it will:
-    * Display default content (the FIRST item without a user segment aassociated)
-    * If no content is found without a segment it will display nothing
+-   If there are no items, nothing will display
+-   If you are NOT signed in (with a user segment):
+    -   It will display the FIRST item without a user segment associated
+    -   If no content is found without a segment it will display nothing
+-   If you ARE signed in (with a user segment):
+    -   It will display the FIRST item matching the user segment signed in with
+    -   If no matches are found it will:
+        -   Display default content (the FIRST item without a user segment aassociated)
+        -   If no content is found without a segment it will display nothing
 
 ### Layouts
 
@@ -403,28 +264,26 @@ const [data, product] = await Promise.all(
 ### Config based on SKU
 
 ```js
-  // config based on SKU
-  experienceConfigRequests.push(
-    {
-      filterBy: [
+// config based on SKU
+experienceConfigRequests.push({
+    filterBy: [
         {
-          path: '/_meta/schema',
-          value: 'https://demostore.amplience.com/product-experience'
+            path: '/_meta/schema',
+            value: 'https://demostore.amplience.com/product-experience',
         },
         {
-          path: '/id',
-          value: product.id
-        }
-      ],
-      sortBy: {
+            path: '/id',
+            value: product.id,
+        },
+    ],
+    sortBy: {
         key: 'default',
-        order: 'desc'
-      },
-      page: {
-        size: 1
-      }
-    }
-  );
+        order: 'desc',
+    },
+    page: {
+        size: 1,
+    },
+});
 ```
 
 ### Config based on Designer
@@ -432,7 +291,7 @@ const [data, product] = await Promise.all(
 ```js
 // config based on designer
   let designer = _.find(product?.variants?.[0]?.attributes, (att: Attribute) => att.name === 'designer')
-  
+
   if (designer) {
     experienceConfigRequests.push(
       {
@@ -493,17 +352,17 @@ You can add your own panels in the `AdminPanel` component.
 
 ```js
 const panels = [
-  {
-    label: 'Content Preview',
-    icon: VisibilityIcon,
-    component: ContentPreviewPanel
-  },
-  {
-    label: 'Components',
-    icon: ExtensionIcon,
-    component: ComponentsPanel
-  }
-]
+    {
+        label: 'Content Preview',
+        icon: VisibilityIcon,
+        component: ContentPreviewPanel,
+    },
+    {
+        label: 'Components',
+        icon: ExtensionIcon,
+        component: ComponentsPanel,
+    },
+];
 ```
 
 ## Shoppable Image
@@ -512,19 +371,20 @@ This extension allows users to define Focal Points and interactable Hotspots ove
 
 ![Shoppable Image](../media/component-shoppableImage.png)
 
-The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub. 
+The [dc-extension-shoppable-image](https://github.com/amplience/dc-extension-shoppable-image) is hosted on GitHub.
+
 > Note: POI is not implemented in the Component yet but will be in a future release.
 
 There are several options that you can put in the selector column that drive specific functionality from the information in the target.
 
-| Target          | Selector                |
-| --------------- | ----------------------- |
-| Links to a product by ID. On hover, will show the product name, price and thumbnail if available. On click it will go to the product details page.<br/>`123456789` | `.product` |
-| Links to a category by ID. On hover, will show the category name. On click it will go to the category page.<br/>`women-bags` | `.category` |
-| A link to any URL in the same tab. Can be relative or absolute.<br/>`https://amplience.com` | `.link` |
-| A link to any external URL in a new tab. Should be absolute.<br/>`https://amplience.com` | `.linkNew` |
-| Opens a drawer displaying Amplience content with the specified key.<br/>`content/richttext1` | `.deliveryKey` |
-| A tooltip that does nothing on click.<br/>`tooltip/tooltip1` | `.tooltip` |
+| Target                                                                                                                                                             | Selector       |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| Links to a product by ID. On hover, will show the product name, price and thumbnail if available. On click it will go to the product details page.<br/>`123456789` | `.product`     |
+| Links to a category by ID. On hover, will show the category name. On click it will go to the category page.<br/>`women-bags`                                       | `.category`    |
+| A link to any URL in the same tab. Can be relative or absolute.<br/>`https://amplience.com`                                                                        | `.link`        |
+| A link to any external URL in a new tab. Should be absolute.<br/>`https://amplience.com`                                                                           | `.linkNew`     |
+| Opens a drawer displaying Amplience content with the specified key.<br/>`content/richttext1`                                                                       | `.deliveryKey` |
+| A tooltip that does nothing on click.<br/>`tooltip/tooltip1`                                                                                                       | `.tooltip`     |
 
 > Note: Products and categories are coming from your commerce integration (see [eCommerce Configuration](https://github.com/amplience/dc-demostore-core/blob/feat/shoppable-image/docs/ECommerceConfiguration.md)).
 
@@ -543,6 +403,7 @@ You can use the `.category` selector with the category from your web application
 ![Shoppable Image](../media/component-shoppableImage-category.png)
 
 ### `.link` Link selector
+
 The `.link` selector can be used with the link URL as the Target which opens the link in the same tab. This displays in the visualisations as View as it links to a web page.
 
 ![Shoppable Image](../media/component-shoppableImage-link.png)
@@ -587,7 +448,7 @@ In this example, you can set the focal point to a detected brush in the image.
 
 #### Hotspots
 
-In the following example, you can add hotspots from the AI Assistant to your list: 
+In the following example, you can add hotspots from the AI Assistant to your list:
 
 ![Shoppable Image](../media/component-shoppableImage-ai-hotspot.png)
 
@@ -637,10 +498,11 @@ Using the code snippet above as an example, we configure a category interaction 
 Uses the [Amplience Stylitics Integration (See link for full documentation)](https://github.com/amplience/dc-integration-stylitics) to render Stylitics widgets as a component. Stylitics and Amplience are a great fit for our creating automated shoppable experience using the great capabilities of Stylitics to increase AOV and basket size.
 
 The demostore implementation includes the following:
-* Sample product set that can be used when selecting products (see [documentation](https://github.com/amplience/dc-integration-middleware/blob/main/docs/vendor/commerce/rest.md))
-* All of the component and implementation in React/NextJS
-* Sample implementation for overriding link values
-* Sample implementation of inheriting SKU from PDP
+
+-   Sample product set that can be used when selecting products (see [documentation](https://github.com/amplience/dc-integration-middleware/blob/main/docs/vendor/commerce/rest.md))
+-   All of the component and implementation in React/NextJS
+-   Sample implementation for overriding link values
+-   Sample implementation of inheriting SKU from PDP
 
 [top](#table-of-contents)
 
@@ -656,11 +518,11 @@ You can enable / disable Accelerated Media in the Admin Panel:
 
 The use of AVIF format is globally controlled on the Front-End in all demostore pages:
 
-* Home page
-* Category pages
-* Product detail pages, including Product Content
-* Blog page & blog entry pages
-* Stores page & store detail pages
+-   Home page
+-   Category pages
+-   Product detail pages, including Product Content
+-   Blog page & blog entry pages
+-   Stores page & store detail pages
 
 ### Getting Image Statistics
 
