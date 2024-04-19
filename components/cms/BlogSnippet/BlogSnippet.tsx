@@ -1,7 +1,8 @@
 import React from 'react';
 import { CmsContent } from '@lib/cms/CmsContent';
-import { ContentBlock } from '@components/cms-modern';
-import { Typography } from '@mui/material';
+import { CallToAction, ContentBlock } from '@components/cms-modern';
+import { Box, Button, Typography } from '@mui/material';
+import Link from 'next/link';
 
 export type BlogSnippetProps = {
     image: CmsContent;
@@ -15,7 +16,22 @@ export type BlogSnippetProps = {
     keywords: string[];
 };
 
-const BlogSnippet = ({ image, title, blogdate, author, category, description }: BlogSnippetProps) => {
+const buildCTAUrl = (cta: any) => {
+    switch (cta.type) {
+        case 'URL':
+            return cta.value;
+        case 'Category ID':
+            return `/category/${cta.value}`;
+        case 'Product SKU':
+            return `/product/${cta.value}`;
+        case 'Page ID':
+            return `/${cta.value}`;
+        default:
+            return '#';
+    }
+};
+
+const BlogSnippet = ({ image, title, blogdate, author, category, description, cta }: BlogSnippetProps) => {
     return (
         <>
             <div className="amp-dc-banner js_dc_banner">
@@ -54,6 +70,17 @@ const BlogSnippet = ({ image, title, blogdate, author, category, description }: 
                     <Typography variant="h2" component="p">
                         {description}
                     </Typography>
+                ) : null}
+
+                {cta ? (
+                    <CallToAction
+                        key={cta?.label}
+                        href={buildCTAUrl(cta)}
+                        style={{ marginTop: '15px !important', marginRight: '15px !important' }}
+                        variant={'contained'}
+                    >
+                        {cta?.label}
+                    </CallToAction>
                 ) : null}
             </div>
         </>
