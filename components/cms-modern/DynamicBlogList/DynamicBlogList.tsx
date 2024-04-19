@@ -7,6 +7,7 @@ import SliderNextButton from '@components/cms-modern/Slider/SliderNextButton';
 import SliderBackButton from '@components/cms-modern/Slider/SliderBackButton';
 import { Box } from '@mui/material';
 import { useWindowContext } from '@components/core/WithWindowContext/WindowContext';
+import algoliasearch from 'algoliasearch/lite';
 
 interface Props {
     header: string;
@@ -24,11 +25,7 @@ const DynamicBlogList = (props: Props) => {
     const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
 
     useEffect(() => {
-        let searchClient: any;
-        if (typeof window !== 'undefined') {
-            const { algoliasearch } = window as any;
-            searchClient = algoliasearch(algolia.appId, algolia.apiKey);
-        }
+        const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
         searchClient &&
             searchClient
                 .search([
@@ -46,7 +43,7 @@ const DynamicBlogList = (props: Props) => {
                 .then((response: any) => setResults(response.results?.[0]?.hits || []));
     }, [algolia, tags, numItems, locale, indexName]);
 
-    const windowContext = useWindowContext()
+    const windowContext = useWindowContext();
 
     return (
         <Box {...other}>
@@ -54,7 +51,7 @@ const DynamicBlogList = (props: Props) => {
                 naturalSlideWidth={100}
                 naturalSlideHeight={150}
                 isIntrinsicHeight={true}
-                visibleSlides={Math.min(results.length, (windowContext.w < 1024 ? (windowContext.w < 768 ? 1 : 2) : 3) )}
+                visibleSlides={Math.min(results.length, windowContext.w < 1024 ? (windowContext.w < 768 ? 1 : 2) : 3)}
                 totalSlides={results.length}
                 infinite={true}
                 isPlaying={false}
@@ -62,8 +59,8 @@ const DynamicBlogList = (props: Props) => {
                 <PureSlider>
                     {results.map((slide: any, index: number) => {
                         return (
-                            <Slide key={index} index={index} style={{padding:10}}>
-                                <DynamicBlogListCard data={slide}  />
+                            <Slide key={index} index={index} style={{ padding: 10 }}>
+                                <DynamicBlogListCard data={slide} />
                             </Slide>
                         );
                     })}

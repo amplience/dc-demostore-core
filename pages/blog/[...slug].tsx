@@ -23,7 +23,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
 }
 
-export default function Blog({ content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function BlogDetail({ content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <div className="af-main-content">
             {content.slots
@@ -35,4 +35,4 @@ export default function Blog({ content }: InferGetServerSidePropsType<typeof get
     );
 }
 
-Blog.Layout = Layout;
+BlogDetail.Layout = Layout;
