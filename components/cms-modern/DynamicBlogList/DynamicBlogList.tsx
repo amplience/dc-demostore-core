@@ -22,8 +22,9 @@ const DynamicBlogList = (props: Props) => {
     const { algolia, cms } = useAppContext();
     const { stagingApi, locale } = useCmsContext() || {};
     const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
-    const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
+
     useEffect(() => {
+        const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
         searchClient &&
             searchClient
                 .search([
@@ -39,7 +40,7 @@ const DynamicBlogList = (props: Props) => {
                     },
                 ])
                 .then((response: any) => setResults(response.results?.[0]?.hits || []));
-    }, [searchClient, tags, numItems, locale, indexName]);
+    }, [algolia, tags, numItems, locale, indexName]);
 
     return (
         <Box {...other}>
