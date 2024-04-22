@@ -15,7 +15,6 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 -   [Provisioning your own Amplience Environment](#provisioning-your-own-amplience-environment)
 -   [Additional Topics](#additional-topics)
 
-
 # Getting Started
 
 ## Dependency versions
@@ -180,6 +179,7 @@ In your Vercel project browse to Settings --> Environment Variables and edit the
 -   [Exploring features](docs/DeepDive.md)
 -   [Changing eCommerce Configuration](docs/ECommerceConfiguration.md)
 -   [Working with Pages](docs/WorkingWithPages.md)
+-   [Blogs](docs/Blogs.md)
 -   [Debug / X-Ray Panel](docs/Debug-Xray-Panel.md)
 -   [Contribution Model (fork, PR, etc.)](https://github.com/amplience/dc-cli/blob/master/CONTRIBUTING.md)
 -   [FAQ](docs/FAQ.md)
