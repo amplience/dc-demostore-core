@@ -79,11 +79,11 @@ async function getAllBlogs(context:CmsContext, next_cursor = null, order = 'desc
 
 ## Search powered by Algolia
 
-When you set up your demostore, you have the option to supply details to automatically index blog posts into Algolia indexes. This shows the power of using a dedicated search platform by giving the use the ability to:
+When you set up your demostore, you have the option to supply details to automatically index blog posts into Algolia indexes. This shows the power of using a dedicated search platform by giving the user the ability to:
 
 -   Textually search
 -   Use facets and filters
--   Retrieve dynamic data from search using
+-   Retrieve dynamic data from search
 -   Log into Algolia directly to setup synonyms, A/B Tests etc
 -   Integrate search analytics
 
@@ -99,7 +99,7 @@ This uses the Algolia React Instant Search component
 
 `"algoliasearch": "^4.23.2",`
 
-And configured the index based on if the application is in production or staging mode.
+And configured the index based on whether the application is in production or staging mode.
 
 Code location: `pages/blog`
 
