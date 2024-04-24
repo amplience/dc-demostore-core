@@ -42,15 +42,7 @@ const Footer = (props: FooterProps) => {
             links: ['The ANYA FINN story', 'Careers', 'Sustainability policy', 'Modern slavery', 'FAQs'],
         },
     ]);
-    useEffect(() => {
-        if (isMobile) {
-            const newLinkState = [...linkCategories];
-            newLinkState.forEach((link) => {
-                link.visible = false;
-            });
-            setLinkCategories(newLinkState);
-        }
-    }, [isMobile, linkCategories]);
+
     return (
         <footer className="footer">
             <div className="footer__column-break">
