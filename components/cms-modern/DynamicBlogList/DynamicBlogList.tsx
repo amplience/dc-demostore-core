@@ -6,6 +6,7 @@ import { CarouselProvider, Dot, Slider as PureSlider, Slide } from 'pure-react-c
 import SliderNextButton from '@components/cms-modern/Slider/SliderNextButton';
 import SliderBackButton from '@components/cms-modern/Slider/SliderBackButton';
 import { Box } from '@mui/material';
+import { useWindowContext } from '@components/core/WithWindowContext/WindowContext';
 import algoliasearch from 'algoliasearch/lite';
 
 interface Props {
@@ -24,6 +25,9 @@ const DynamicBlogList = (props: Props) => {
     const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
 
     useEffect(() => {
+        if (!algolia) {
+            return;
+        }
         const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
         searchClient &&
             searchClient
@@ -42,13 +46,15 @@ const DynamicBlogList = (props: Props) => {
                 .then((response: any) => setResults(response.results?.[0]?.hits || []));
     }, [algolia, tags, numItems, locale, indexName]);
 
+    const windowContext = useWindowContext();
+
     return (
         <Box {...other}>
             <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={150}
                 isIntrinsicHeight={true}
-                visibleSlides={Math.min(results.length, 3)}
+                visibleSlides={Math.min(results.length, windowContext.w < 1024 ? (windowContext.w < 768 ? 1 : 2) : 3)}
                 totalSlides={results.length}
                 infinite={true}
                 isPlaying={false}
@@ -56,7 +62,7 @@ const DynamicBlogList = (props: Props) => {
                 <PureSlider>
                     {results.map((slide: any, index: number) => {
                         return (
-                            <Slide key={index} index={index}>
+                            <Slide key={index} index={index} style={{ padding: 10 }}>
                                 <DynamicBlogListCard data={slide} />
                             </Slide>
                         );
