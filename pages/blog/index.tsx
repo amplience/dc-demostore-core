@@ -4,15 +4,13 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 import React from 'react';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { Breadcrumb, PageContent } from '@components/ui';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { NavigationItem } from '@components/core/Masthead';
 import { useAppContext } from '@lib/config/AppContext';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
 import { ImageFormat } from '@utils/getImageURL';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, Hits, SearchBox, RefinementList } from 'react-instantsearch';
-import Link from 'next/link';
-import { Image } from '@components/cms-modern';
 import DynamicBlogListCard from '@components/cms-modern/DynamicBlogList/DynamicBlogListCard';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -30,7 +28,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
 }
 
-export default function Blog() {
+export default function BlogPage() {
     const navigationItem: NavigationItem = {
         type: 'page',
         href: '/blog',
@@ -42,7 +40,13 @@ export default function Blog() {
     const { stagingApi } = useCmsContext() || {};
     const { acceleratedMedia } = useAcceleratedMedia();
     let format = 'auto';
-    if (acceleratedMedia) format = ImageFormat.AVIF;
+    if (acceleratedMedia) {
+        format = ImageFormat.AVIF;
+    }
+
+    if (!algolia) {
+        return;
+    }
     const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
     let hub = cms.hub;
     let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`;
@@ -123,4 +127,4 @@ export default function Blog() {
     );
 }
 
-Blog.Layout = Layout;
+BlogPage.Layout = Layout;

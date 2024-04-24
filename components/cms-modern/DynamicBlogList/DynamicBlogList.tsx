@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppContext } from '@lib/config/AppContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import DynamicBlogListCard from './DynamicBlogListCard';
@@ -25,6 +25,9 @@ const DynamicBlogList = (props: Props) => {
     const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
 
     useEffect(() => {
+        if (!algolia) {
+            return;
+        }
         const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
         searchClient &&
             searchClient
