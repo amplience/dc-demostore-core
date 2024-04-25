@@ -4,7 +4,7 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 import React from 'react';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { Breadcrumb, PageContent } from '@components/ui';
-import { Box, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { NavigationItem } from '@components/core/Masthead';
 import { useAppContext } from '@lib/config/AppContext';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
@@ -53,16 +53,21 @@ export default function BlogPage() {
 
     function Hit(props: any) {
         return (
-            <Box
+            <Grid
+                item
+                key={props.hit._meta?.deliveryId}
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
                 style={{
-                    float: 'left',
-                    marginRight: 15,
-                    marginBottom: 15,
-                    width: '350px',
+                    float: 'inline-end',
+                    paddingLeft: 5,
+                    paddingRight: 5,
                 }}
             >
-                <DynamicBlogListCard data={props.hit} />
-            </Box>
+                <DynamicBlogListCard key={props.hit._meta?.deliveryId} data={props.hit} />
+            </Grid>
         );
     }
 
@@ -75,53 +80,79 @@ export default function BlogPage() {
                 Blog
             </Typography>
             <InstantSearch indexName={indexName} searchClient={searchClient}>
-                <Box
-                    style={{
-                        height: '100%',
-                        marginRight: 20,
-                        marginTop: 20,
-                    }}
+                <Grid
+                    container
                     sx={{
-                        float: { sd: 'unset', md: 'left' },
-                    }}
-                >
-                    <SearchBox style={{ marginBottom: 20 }} />
-                    <Typography style={{ marginBottom: 10 }} variant="h4">
-                        Categories
-                    </Typography>
-                    <RefinementList
-                        style={{ marginBottom: 20 }}
-                        attribute="snippet.category"
-                        searchable={false}
-                        searchablePlaceholder="Search categories"
-                        showMore={false}
-                    />
-                    <Typography style={{ marginBottom: 10 }} variant="h4">
-                        Authors
-                    </Typography>
-                    <RefinementList
-                        style={{ marginBottom: 20 }}
-                        attribute="snippet.author"
-                        searchable={false}
-                        searchablePlaceholder="Search authors"
-                        showMore={false}
-                    />
-                </Box>
-                <Box
-                    sx={{
-                        mt: '20px',
                         display: 'flex',
                         flexWrap: 'wrap',
+                        listStyle: 'none',
+                        margin: 0,
+                        padding: 0,
                         w: '100%',
                     }}
+                    columns={6}
+                    spacing={2}
                 >
-                    <Hits
-                        style={{
-                            width: '100%',
+                    <Grid item xs={6} sm={2} md={1} lg={1}>
+                        <SearchBox style={{ marginBottom: 20, width: '100%' }} />
+                        <Typography style={{ marginBottom: 10 }} variant="h4">
+                            Categories
+                        </Typography>
+                        <RefinementList
+                            style={{ marginBottom: 20 }}
+                            attribute="snippet.category"
+                            searchable={false}
+                            searchablePlaceholder="Search categories"
+                            showMore={false}
+                        />
+                        <Typography style={{ marginBottom: 10 }} variant="h4">
+                            Authors
+                        </Typography>
+                        <RefinementList
+                            style={{ marginBottom: 20 }}
+                            attribute="snippet.author"
+                            searchable={false}
+                            searchablePlaceholder="Search authors"
+                            showMore={false}
+                        />
+                    </Grid>
+                    <Grid
+                        item
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            listStyle: 'none',
+                            margin: 0,
+                            padding: 0,
+                            w: '100%',
                         }}
-                        hitComponent={Hit}
-                    />
-                </Box>
+                        xs={6}
+                        sm={4}
+                        md={5}
+                        lg={5}
+                    >
+                        <Grid
+                            container
+                            sx={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                listStyle: 'none',
+                                margin: 0,
+                                padding: 0,
+                                w: '100%',
+                            }}
+                            columns={12}
+                            spacing={2}
+                        >
+                            <Hits
+                                style={{
+                                    width: '100%',
+                                }}
+                                hitComponent={Hit}
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
             </InstantSearch>
         </PageContent>
     );
