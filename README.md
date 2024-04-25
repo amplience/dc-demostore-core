@@ -184,5 +184,6 @@ In your Vercel project browse to Settings --> Environment Variables and edit the
 -   [Contribution Model (fork, PR, etc.)](https://github.com/amplience/dc-cli/blob/master/CONTRIBUTING.md)
 -   [FAQ](docs/FAQ.md)
 -   Upgrades:
+    -   [v4.0.0 Upgrade](docs/v4.0.0-upgrade.md)
     -   [v3.0.0 Upgrade](docs/v3.0.0-upgrade.md)
     -   [v2.0.0 Upgrade](docs/v2.0.0-upgrade.md)
