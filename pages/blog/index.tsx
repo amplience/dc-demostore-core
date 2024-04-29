@@ -4,13 +4,13 @@ import { useCmsContext } from '@lib/cms/CmsContext';
 import React from 'react';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { Breadcrumb, PageContent } from '@components/ui';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, styled } from '@mui/material';
 import { NavigationItem } from '@components/core/Masthead';
 import { useAppContext } from '@lib/config/AppContext';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
 import { ImageFormat } from '@utils/getImageURL';
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, Hits, SearchBox, RefinementList } from 'react-instantsearch';
+import { InstantSearch, Hits, SearchBox, RefinementList, Pagination, Configure } from 'react-instantsearch';
 import DynamicBlogListCard from '@components/cms-modern/DynamicBlogList/DynamicBlogListCard';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -51,6 +51,33 @@ export default function BlogPage() {
     let hub = cms.hub;
     let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`;
 
+    const StyledPagination = styled('div')({
+        marginBottom: 10,
+        '& .ais-Pagination-item': {
+            marginLeft: 3,
+            margingRight: 3,
+        },
+        '& .ais-Pagination-item--page ': {
+            color: 'black',
+            border: '1px solid black',
+            width: 25,
+            height: 25,
+            backgroundColor: 'white',
+            '& .ais-Pagination-link': {
+                textAlign: 'center',
+                width: '100%',
+                display: 'inline-block',
+            },
+        },
+        '& .ais-Pagination-item--selected': {
+            color: 'white',
+            backgroundColor: 'black',
+        },
+        '& .ais-Pagination-item--disabled': {
+            display: 'none',
+        },
+    });
+
     function Hit(props: any) {
         return (
             <Grid
@@ -60,10 +87,12 @@ export default function BlogPage() {
                 sm={12}
                 md={6}
                 lg={4}
+                height={{ xs: 550, sm: 550, md: 500, lg: 450 }}
                 style={{
-                    float: 'inline-end',
+                    float: 'inline-start',
                     paddingLeft: 5,
                     paddingRight: 5,
+                    paddingBottom: 10,
                 }}
             >
                 <DynamicBlogListCard key={props.hit._meta?.deliveryId} data={props.hit} />
@@ -80,6 +109,7 @@ export default function BlogPage() {
                 Blog
             </Typography>
             <InstantSearch indexName={indexName} searchClient={searchClient}>
+                <Configure hitsPerPage={9} />
                 <Grid
                     container
                     sx={{
@@ -150,6 +180,13 @@ export default function BlogPage() {
                                 }}
                                 hitComponent={Hit}
                             />
+                        </Grid>
+                        <Grid container direction="row" justifyContent="center" alignItems="center">
+                            <Grid item>
+                                <StyledPagination>
+                                    <Pagination padding={30} />
+                                </StyledPagination>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
