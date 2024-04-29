@@ -52,6 +52,7 @@ export default function BlogPage() {
     let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`;
 
     const StyledPagination = styled('div')({
+        marginTop: 20,
         marginBottom: 10,
         '& .ais-Pagination-item': {
             marginLeft: 3,
