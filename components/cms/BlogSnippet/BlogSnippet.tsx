@@ -3,6 +3,8 @@ import { CmsContent } from '@lib/cms/CmsContent';
 import { CallToAction, ContentBlock } from '@components/cms-modern';
 import { Box, Button, Typography } from '@mui/material';
 import Link from 'next/link';
+import NextHead from 'next/head';
+import { CmsImage, getImageURL } from '@utils/getImageURL';
 
 export type BlogSnippetProps = {
     image: CmsContent;
@@ -13,7 +15,7 @@ export type BlogSnippetProps = {
     description: string;
     cta: any;
     tags: any[];
-    keywords: string[];
+    keywords: string;
 };
 
 const buildCTAUrl = (cta: any) => {
@@ -31,9 +33,23 @@ const buildCTAUrl = (cta: any) => {
     }
 };
 
-const BlogSnippet = ({ image, title, blogdate, author, category, description, cta }: BlogSnippetProps) => {
+const BlogSnippet = ({ image, title, blogdate, author, category, description, cta, keywords }: BlogSnippetProps) => {
     return (
         <>
+            <NextHead>
+                <title>{title || 'Amplience Retail Storefront Website'}</title>
+                <meta name="description" content={description} />
+                <meta property="og:title" content={title || 'Amplience Retail Storefront Website'} />
+                <meta property="og:description" content={description} />
+                <meta name="keywords" content={keywords} />
+                <meta property="og:image" content={getImageURL(image.image as CmsImage)} />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:site" content="@amplience" />
+                <meta name="twitter:creator" content="@amplience" />
+                <meta name="twitter:title" content={title || 'Amplience Retail Storefront Website'} />
+                <meta name="twitter:description" content={description} />
+                <meta name="twitter:image" content={getImageURL(image.image as CmsImage)} />
+            </NextHead>
             <div className="amp-dc-banner js_dc_banner">
                 <div className="amp-dc-banner-wrapper">
                     <div className="amp-dc-banner-pic-wrap">
