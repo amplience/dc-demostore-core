@@ -47,15 +47,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         context,
     );
 
-    console.log('request', {
-        content: {
-            defaultPDPLayout: pdpLayout ? { id: pdpLayout as string } : { key: 'layout/default-pdp' },
-            productContent: { key: `product/${productId}` },
-            productOverride: { key: `product-override/${productId}` },
-        },
-    });
-    console.log('data', data);
-
     const product = clearUndefined(await commerceApi.getProduct({ id: productId, ...cmsContext, ...userContext }));
 
     if (!product) {
@@ -170,9 +161,7 @@ export default function ProductPage({
     );
     const [productContent] = useContent(content.productContent, vse);
     const [productOverride] = useContent(content.productOverride, vse);
-
     const compositeProduct = { ...product, ...productContent, ...productOverride };
-    console.log('compositeProduct', compositeProduct);
 
     return (
         <WithProduct product={compositeProduct}>
