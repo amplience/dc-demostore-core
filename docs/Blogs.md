@@ -10,7 +10,6 @@ This demostore contains 2 technical methods for listing blog posts in the applic
 Blog posts from Amplience are also configured to be returned from the Filter API. This allows retrieval by:
 
 -   Content Type Schema
--   Active
 
 And also being able to sort the blog posts by the following attributes in ascending and descending order:
 
@@ -41,10 +40,6 @@ async function getAllBlogs(context:CmsContext, next_cursor = null, order = 'desc
             {
                 path: '/_meta/schema',
                 value: 'https://demostore.amplience.com/content/blog',
-            },
-            {
-                path: '/active',
-                value: true
             }
         ],
         sortBy: {

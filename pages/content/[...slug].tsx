@@ -14,10 +14,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 page: { key: `content/${deliveryKey}` },
             },
         },
-        context
+        context,
     );
 
-    if (!data.page || !data.content.page?.active) {
+    if (!data.page) {
         return create404Error(data, context);
     }
 
