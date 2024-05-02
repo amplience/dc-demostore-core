@@ -36,7 +36,7 @@ const Text = ({ text = [], align = 'left' }: TextProps) => {
                 switch (type) {
                     case 'markdown':
                         return (
-                            <Box key={index} className="amp-dc-text" style={{ textAlign: align }}>
+                            <Box key={index} className="amp-dc-text" style={{ textAlign: align, padding: '10px 0' }}>
                                 {data && <ReactMarkdown options={options}>{data}</ReactMarkdown>}
                             </Box>
                         );

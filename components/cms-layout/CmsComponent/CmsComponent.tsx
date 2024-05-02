@@ -11,6 +11,7 @@ import Accordion from '@components/ui/Accordion/Accordion';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { Section } from '../../ui';
+import ProductAttributeOverride from '@components/product/ProductAttributeOverride';
 
 type CmsComponentData = {
     name: string;
@@ -50,6 +51,7 @@ const mapping: any = {
     product_image_viewer: ProductMediaViewer,
     stylitics: Generic,
     product_attribute: ProductAttribute,
+    product_attribute_override: ProductAttributeOverride,
     product_atb: AddToBasket,
     product_size: ProductSize,
     product_color: ProductColor,

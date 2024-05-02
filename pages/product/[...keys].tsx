@@ -27,9 +27,10 @@ function chooseExperienceConfig(filterResults: CmsFilterResponse[]): any | undef
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { keys } = context.params || {};
-    const { vse } = context.query || {};
-
-    let key = first(keys);
+    const { vse, deliveryKey } = context.query || {};
+    const overrideKey = typeof deliveryKey === 'string' ? deliveryKey : undefined;
+    const productOverrideId = overrideKey ? overrideKey.split('/')[1] : undefined;
+    const productId = productOverrideId ? productOverrideId : first(keys);
 
     const { pdpLayout } = context.query;
     const cmsContext = await createCmsContext(context.req);
@@ -39,19 +40,30 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         {
             content: {
                 defaultPDPLayout: pdpLayout ? { id: pdpLayout as string } : { key: 'layout/default-pdp' },
-                productContent: { key: 'product/' + key },
+                productContent: { key: `product/${productId}` },
+                productOverride: { key: `product-override/${productId}` },
             },
         },
         context,
     );
 
-    const product = clearUndefined(await commerceApi.getProduct({ id: key, ...cmsContext, ...userContext }));
+    console.log('request', {
+        content: {
+            defaultPDPLayout: pdpLayout ? { id: pdpLayout as string } : { key: 'layout/default-pdp' },
+            productContent: { key: `product/${productId}` },
+            productOverride: { key: `product-override/${productId}` },
+        },
+    });
+    console.log('data', data);
+
+    const product = clearUndefined(await commerceApi.getProduct({ id: productId, ...cmsContext, ...userContext }));
 
     if (!product) {
         return create404Error(data, context);
     }
 
     if (!data.content.productContent?.active) {
+        // The cms content shouldn't be respected.
         data.content.productContent = null;
     }
 
@@ -135,7 +147,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         props: {
             ...data,
             vse: vse || '',
-            key,
+            key: productId,
             product,
             experienceConfig,
             forceDefaultLayout: pdpLayout != null,
@@ -157,8 +169,10 @@ export default function ProductPage({
         vse,
     );
     const [productContent] = useContent(content.productContent, vse);
+    const [productOverride] = useContent(content.productOverride, vse);
 
-    const compositeProduct = { ...product, ...productContent };
+    const compositeProduct = { ...product, ...productContent, ...productOverride };
+    console.log('compositeProduct', compositeProduct);
 
     return (
         <WithProduct product={compositeProduct}>
