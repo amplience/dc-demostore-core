@@ -1,9 +1,15 @@
-@import "../dc-accelerators/renders/text/sass/all.scss";
-@import "../global";
+@import '../dc-accelerators/renders/text/sass/all.scss';
+@import '../global';
 
-
-  .amp-dc-text {
+.amp-dc-text {
     padding: 40px 80px;
+    display: inline;
+    h1,
+    h2,
+    h3,
+    h4 {
+        word-wrap: break-word;
+    }
 
     /* h1 {
       @include header();
@@ -14,15 +20,19 @@
     	font-size: 20px;
     } */
 
-    a {
-      // @include button();
-      text-decoration: none;
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      font-weight: bold;
-      &:hover{
-        //text-decoration: none !important;
-        color:inherit;
-      }
+    img {
+        width: 100%;
     }
-  }
+
+    a {
+        // @include button();
+        text-decoration: none;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        font-weight: bold;
+        &:hover {
+            //text-decoration: none !important;
+            color: inherit;
+        }
+    }
+}
