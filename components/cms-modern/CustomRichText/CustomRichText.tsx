@@ -49,6 +49,7 @@ const Text = ({ text = [], align = 'left' }: TextProps) => {
                                     <img
                                         src={getImageURL(data, { strip: true })}
                                         className="amp-dc-image-pic"
+                                        width="100%"
                                         alt={data.name}
                                     />
                                 </picture>
