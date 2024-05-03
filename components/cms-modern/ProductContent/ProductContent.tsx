@@ -37,7 +37,6 @@ const Text = ({ header, text = [], textOverride = [], align = 'left' }: TextProp
                     {header}
                 </Typography>
             )}
-            ,
             {text.map((item: any, index: number) => {
                 const { type, data } = item;
                 switch (type) {
