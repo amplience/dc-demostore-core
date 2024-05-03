@@ -4,13 +4,13 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ### Navigation:
 
-- **Category Page** - An item & page linked to a Commerce category (PLP)
-- **Landing Page** - An item and standalone page for content only
-- **External Page** - An item which has an external link for its page content
+-   **Category Page** - An item & page linked to a Commerce category (PLP)
+-   **Landing Page** - An item and standalone page for content only
+-   **External Page** - An item which has an external link for its page content
 
 ### Standalone:
 
-- **Content Page** - A page which can be used by itself without being in the menu.
+-   **Content Page** - A page which can be used by itself without being in the menu.
 
 ## Ordering in Navigation
 
@@ -20,8 +20,8 @@ Example: 0 will be first
 
 The priority is in relation to other priorities set at the same at the same level in the hierarchy. So for example if you have 2 nodes at the same level
 
-- MyItemA [Priority set to 50]
-- MyItemB [Priority set to 10]
+-   MyItemA [Priority set to 50]
+-   MyItemB [Priority set to 10]
 
 Will display as `MyItemB,MyItemA` in that order
 
@@ -29,20 +29,21 @@ Will display as `MyItemB,MyItemA` in that order
 
 > Additional node: If items have the same priority, they will display in order of which they are returned from the API.
 
-
 ## Hiding a page
-Each of these content types has a flag in the content form called `is Active` which defaults to true.
 
-If you disable this, then the page is no longer visible if attempting to visit it directly or in the menu navigation.
+To hide a page that has not yet been published, archive it.
+To hide a published page simply unpublish it.
+
+> Note: Unpublishing can take up to 5 minutes to be removed from delivery cache.
 
 ## Archiving a page & delivery keys
+
 Best practice when archiving a page is to follow the steps below:
 
-1) Set the page to not be active & save
-    a) If the page was previously published then republish.
-2) Change the delivery key to something random & save
-    b) Delivery keys are mandatory so you can use the same path and append a unique id using an online tool such as [Short UUID Generator](https://generateuuid.online/short-uuid). Example `category/6vYaP46nCukXc2DPTpnXZP`
-3) If the page is part of the navigation and already published, you should also remove the node and republish so that the parent link is no longer attached. See [Removing a node from a hierachy](https://amplience.com/developers/docs/dev-tools/guides-tutorials/hierarchies/#removing-a-node-from-a-hierarchy)
+1. Unpublish the page.
+2. Change the delivery key to something random & save
+   b) Delivery keys are mandatory so you can use the same path and append a unique id using an online tool such as [Short UUID Generator](https://generateuuid.online/short-uuid). Example `category/6vYaP46nCukXc2DPTpnXZP`
+3. If the page is part of the navigation and already published, you should also remove the node. See [Removing a node from a hierachy](https://amplience.com/developers/docs/dev-tools/guides-tutorials/hierarchies/#removing-a-node-from-a-hierarchy)
 
 This will ensure that your content is not still visible when removed and your delivery key can be re-used again.
 

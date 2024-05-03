@@ -17,10 +17,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 path: '/_meta/schema',
                 value: 'https://demostore.amplience.com/content/store',
             },
-            {
-                path: '/filterActive',
-                value: true,
-            },
         ],
         sortBy: {
             key: 'default',
@@ -64,10 +60,6 @@ export default function StoreMainPage({ storesData, content }: InferGetServerSid
                 {
                     path: '/_meta/schema',
                     value: 'https://demostore.amplience.com/content/store',
-                },
-                {
-                    path: '/filterActive',
-                    value: true,
                 },
             ],
             sortBy: {

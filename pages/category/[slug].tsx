@@ -57,10 +57,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         return create404Error(data, context);
     }
 
-    if (data.content.page && !data.content.page.active) {
-        data.content.page = null;
-    }
-
     slug = Array.isArray(slug) ? slug.join('/') : slug;
     const props = await fetchPageData(
         {

@@ -73,10 +73,6 @@ let filterRequest: GetByFilterRequest =
         {
           path: "/_meta/schema",
           value: "https://demostore.amplience.com/content/store"
-        },
-        {
-          path: "/filterActive",
-          value: true
         }
       ],
       sortBy: {

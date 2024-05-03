@@ -17,10 +17,6 @@ async function fetchBlogs(context: CmsContext, options: { key?: string; order?: 
                     path: '/_meta/schema',
                     value: 'https://demostore.amplience.com/content/blog',
                 },
-                {
-                    path: '/active',
-                    value: true,
-                },
             ],
             sortBy: {
                 key,
