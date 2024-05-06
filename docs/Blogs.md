@@ -181,13 +181,26 @@ function Hit(props: any) {
 Our SEO Assistant extension is using AI to automatically generate title, description, keywords from a text.
 It can also automatically generate text content from a list of keywords.
 
+![SEO Assistant](../media/seo-assistant-01.png)
+
+![SEO Assistant](../media/seo-assistant-02.png)
+
 SEO Scoring and Insights allow you to better understand the quality of your content, and displays positive and negative signs about your content.
 
+![Insights](../media/insights-01.png)
+
+![Insights](../media/insights-02.png)
+
 Demostore is also implementing Meta tags with various tags such as:
-- SEO Title
-- SEO Description
-- SEO Keywords
-- Twitter tags
-- Facebook Open Graph tags
+
+-   SEO Title
+-   SEO Description
+-   SEO Keywords
+-   Twitter tags
+-   Facebook Open Graph tags
+
+![Meta Tags](../media/meta-tags-01.png)
 
 This can for instance help automatically generate the right cards when sharing on Social Media.
+
+![Meta Tags](../media/meta-tags-02.png)
