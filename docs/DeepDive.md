@@ -559,3 +559,14 @@ A list view shows the same information in a table view that you can export as CS
 ![Export as CSV](../media/accelerated-media-csv-export.png)
 
 [top](#table-of-contents)
+
+## Product Override
+
+You can easily override Product Description in the product detail page for a specific product.
+In the same manner as for the Product Content component, you can create a Product Override content item, choose a specific product using the eComm Toolkit, and enter a description override.
+
+![Product Override](../media/override-01.png)
+
+![Product Override](../media/override-02.png)
+
+[top](#table-of-contents)
