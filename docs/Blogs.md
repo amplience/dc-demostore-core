@@ -175,3 +175,19 @@ function Hit(props: any) {
     </Box>
 </InstantSearch>
 ```
+
+## SEO Assistant
+
+Our SEO Assistant extension is using AI to automatically generate title, description, keywords from a text.
+It can also automatically generate text content from a list of keywords.
+
+SEO Scoring and Insights allow you to better understand the quality of your content, and displays positive and negative signs about your content.
+
+Demostore is also implementing Meta tags with various tags such as:
+- SEO Title
+- SEO Description
+- SEO Keywords
+- Twitter tags
+- Facebook Open Graph tags
+
+This can for instance help automatically generate the right cards when sharing on Social Media.
