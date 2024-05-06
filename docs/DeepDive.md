@@ -10,6 +10,7 @@
 -   [Shoppable Image](#shoppable-image)
 -   [Stylitics](#stylitics)
 -   [Accelerated Media](#accelerated-media)
+-   [Product Override](#product-override)
 
 ## Fetching content
 
