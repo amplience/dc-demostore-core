@@ -58,6 +58,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         data.content.productContent = null;
     }
 
+    if (!data.content.productOverride?.active) {
+        // The product content shouldn't be respected.
+        data.content.productOverride = null;
+    }
+
     const experienceConfigRequests: GetByFilterRequest[] = [];
 
     // config based on category
@@ -161,7 +166,10 @@ export default function ProductPage({
     );
     const [productContent] = useContent(content.productContent, vse);
     const [productOverride] = useContent(content.productOverride, vse);
-    const compositeProduct = { ...product, ...productContent, ...productOverride };
+
+    const compositeProduct = productOverride?.active
+        ? { ...product, ...productContent, ...productOverride }
+        : { ...product, ...productContent };
 
     return (
         <WithProduct product={compositeProduct}>
