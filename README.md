@@ -22,7 +22,6 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 This demo application was developed and tested with:
 
 -   Node version `20.x`
--   NPM version `10.x`
 
 ## General Use (w/o Amplience account)
 
@@ -80,10 +79,11 @@ The main tool for using your own Amplience environment with `dc-demostore-core` 
 
 At a high level the basic steps are:
 
-1. [Request an Amplience Media and Dynamic Account (if you don't already have one)](#requesting-an-amplience-environment)
-2. [Deploy a fork of `dc-demostore-core` (we'll cover deploying on Vercel)](#fork--deploy-dc-demostore-core)
-3. Configure & use `dc-demostore-cli` to populate content
-4. Update your local / deployed `dc-demostore-core` with environment variables to your account.
+1. [Request an Amplience Demostore Account (if you don't already have one)](#requesting-an-amplience-demo-store-environment)
+2. [Optionally request an Algolia account (if you don't already have one)](#requesting-an-algolia-account-optional)
+3. [Deploy a fork of `dc-demostore-core` (we'll cover deploying on Vercel)](#fork--deploy-dc-demostore-core)
+4. Configure & use `dc-demostore-cli` to populate content
+5. Update your local / deployed `dc-demostore-core` with environment variables to your account.
 
 > Note: If you already have an Amplience Demostore account and are upgrading to version `1.4.0` or later, you should upload the rendering templates for Stylitics components into your Content Hub.
 
@@ -97,6 +97,24 @@ This application is setup to run with a predefined Amplience account structure t
 This section assumes you are already an Amplience partner, customer, or internal Amplience team member with access to the Amplience Support Center. IF the answer to any one of these is yes, [go here for instructions on requesting a Demo Store Environment](docs/DemoEnvironmentRequest.md)
 
 If you already have a Dynamic Content and Dynamic Media instance, you can skip to the [next step](#fork--deploy-dc-demostore-core).
+
+## Requesting an Algolia Account (Optional)
+
+This application can also automate Blog content into Algolia to be searchable and retrieved dynamically. This is not mandatory and the application will fall back to blogs being surfaced by the Amplience Filter API if you do not wish to use Algolia.
+
+If you do wish to include Algolia, you will need access to an account
+
+-   Amplience Advanced Content Search
+-   If you already have an Algolia account directly, then you can use that account.
+-   Sign up for a free trial on [Algolia's website](https://www.algolia.com).
+
+You will need your:
+
+-   Application ID
+-   Write Key
+-   Search Key
+
+When automating in adding an environment via the demostore-cli, you have the option to supply Algolia credentials. If they are available then indexes, records and your configuration for the demostore app will be automated as part of this.
 
 ## Fork & Deploy `dc-demostore-core`
 
@@ -147,7 +165,10 @@ info: run completed in [ 1m47s ]
 
 Once ran, you will be provided with your own specific value for the `NEXT_PUBLIC_DEMOSTORE_CONFIG_JSON` environment variable to replace in both your `.env.local` file and in your Vercel deployment environment variable.
 
-> Note: If you ever need to revert, simply run the `cleanup` command.
+> Notes:
+>
+> -   If you ever need to revert, simply run the `cleanup` command.
+> -   If you choose not to supply Algolia credentials they will be omitted from this value.
 
 ## Change dc-demostore-core Config / Point to your account
 
