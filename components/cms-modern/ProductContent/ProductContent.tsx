@@ -7,7 +7,7 @@ import { getImageURL } from '@utils/getImageURL';
 
 type TextProps = {} & CmsContent;
 
-const Text = ({ header, text = [], align = 'left' }: TextProps) => {
+const Text = ({ header, text = [], textOverride = [], align = 'left' }: TextProps) => {
     const options = {
         overrides: {
             h1: { component: Typography, props: { variant: 'h1' } },
@@ -28,6 +28,8 @@ const Text = ({ header, text = [], align = 'left' }: TextProps) => {
         },
     };
 
+    if (textOverride) text = textOverride;
+
     return (
         <>
             {header && (
@@ -35,7 +37,6 @@ const Text = ({ header, text = [], align = 'left' }: TextProps) => {
                     {header}
                 </Typography>
             )}
-            ,
             {text.map((item: any, index: number) => {
                 const { type, data } = item;
                 switch (type) {

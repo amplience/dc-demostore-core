@@ -12,5 +12,6 @@
 - [Stylitics](https://stylitics.com) components for configuration in content not code
 - AI Shoppable Image implementation to enrich interactive images
 - Accelerated Media Admin Panel with page statistics and detailed images statistics
+- AI SEO Assistant extension to generate SEO title, description, keywords for Blog
 
 [back](../README.md)

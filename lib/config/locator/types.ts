@@ -19,7 +19,7 @@ export type AmplienceConfig = {
  * Demostore configuration properties.
  */
 export type DemoStoreConfiguration = {
-    algolia: AlgoliaConfig;
+    algolia?: AlgoliaConfig;
     url?: string;
     cms: AmplienceConfig;
     commerce?: any;

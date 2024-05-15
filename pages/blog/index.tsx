@@ -1,16 +1,17 @@
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { Layout } from '@components/core';
 import { useCmsContext } from '@lib/cms/CmsContext';
-import React, { useEffect } from 'react';
+import React from 'react';
 import fetchStandardPageData from '@lib/page/fetchStandardPageData';
 import { Breadcrumb, PageContent } from '@components/ui';
-import { Typography } from '@mui/material';
-import { ProductFacet } from '@components/product';
+import { Grid, Typography, styled } from '@mui/material';
 import { NavigationItem } from '@components/core/Masthead';
 import { useAppContext } from '@lib/config/AppContext';
 import { useAcceleratedMedia } from '@components/admin/AdminPanel/context/AcceleratedMediaContext';
 import { ImageFormat } from '@utils/getImageURL';
-import { useRouter } from 'next/router';
+import algoliasearch from 'algoliasearch/lite';
+import { InstantSearch, Hits, SearchBox, RefinementList, Pagination, Configure } from 'react-instantsearch';
+import DynamicBlogListCard from '@components/cms-modern/DynamicBlogList/DynamicBlogListCard';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const data = await fetchStandardPageData(
@@ -27,8 +28,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
 }
 
-export default function Womens({ content }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const { stagingApi, locale } = useCmsContext() || {};
+export default function BlogPage() {
     const navigationItem: NavigationItem = {
         type: 'page',
         href: '/blog',
@@ -36,149 +36,164 @@ export default function Womens({ content }: InferGetServerSidePropsType<typeof g
         children: [],
         parents: [],
     };
-
     let { algolia, cms } = useAppContext();
-    const { push } = useRouter();
+    const { stagingApi } = useCmsContext() || {};
     const { acceleratedMedia } = useAcceleratedMedia();
     let format = 'auto';
-    if (acceleratedMedia) format = ImageFormat.AVIF;
+    if (acceleratedMedia) {
+        format = ImageFormat.AVIF;
+    }
 
-    useEffect(() => {
-        let { instantsearch, algoliasearch } = window as any;
-        let hub = cms.hub;
-        let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`;
-        let search = instantsearch({
-            indexName,
-            searchClient: algoliasearch(algolia.appId, algolia.apiKey),
-            hitsPerPage: 5,
-        });
-        search.addWidget(
-            instantsearch.widgets.configure({
-                filters: (locale || 'en-US').indexOf('en-') === 0 ? `locale:en-US` : `locale:${locale}`,
-            }),
+    if (!algolia) {
+        return;
+    }
+    const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
+    let hub = cms.hub;
+    let indexName = stagingApi ? `${hub}.blog-staging` : `${hub}.blog-production`;
+
+    const StyledPagination = styled('div')({
+        marginTop: 20,
+        marginBottom: 10,
+        '& .ais-Pagination-item': {
+            marginLeft: 3,
+            margingRight: 3,
+        },
+        '& .ais-Pagination-item--page ': {
+            color: 'black',
+            border: '1px solid black',
+            width: 25,
+            height: 25,
+            backgroundColor: 'white',
+            '& .ais-Pagination-link': {
+                textAlign: 'center',
+                width: '100%',
+                display: 'inline-block',
+            },
+        },
+        '& .ais-Pagination-item--selected': {
+            color: 'white',
+            backgroundColor: 'black',
+        },
+        '& .ais-Pagination-item--disabled': {
+            display: 'none',
+        },
+    });
+
+    function Hit(props: any) {
+        return (
+            <Grid
+                item
+                key={props.hit._meta?.deliveryId}
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
+                height={{ xs: 550, sm: 550, md: 500, lg: 450 }}
+                style={{
+                    float: 'inline-start',
+                    paddingLeft: 5,
+                    paddingRight: 5,
+                    paddingBottom: 10,
+                }}
+            >
+                <DynamicBlogListCard key={props.hit._meta?.deliveryId} data={props.hit} />
+            </Grid>
         );
-        search.addWidget(
-            instantsearch.widgets.searchBox({
-                container: '#searchbox',
-                placeholder: 'Search',
-            }),
-        );
-        search.addWidget(
-            instantsearch.widgets.refinementList({
-                container: '#category-list',
-                attribute: 'snippet.category',
-            }),
-        );
-        search.addWidget(
-            instantsearch.widgets.refinementList({
-                container: '#author-list',
-                attribute: 'snippet.author',
-            }),
-        );
-        (global as any).instantSearchRouting = (event: MouseEvent, url: string): void => {
-            push(url);
-            event.preventDefault();
-        };
-        search.addWidget(
-            instantsearch.widgets.hits({
-                hitsPerPage: 5,
-                container: '#hits',
-                cssClasses: {
-                    list: 'amp-dc-card-list-wrap',
-                    item: 'amp-dc-card',
-                },
-                templates: {
-                    item: ({ snippet, _meta }: any) => {
-                        return `
-                            <a class="amp-dc-card-wrap" href="/blog/${
-                                _meta.deliveryKey
-                            }" onclick="instantSearchRouting(event, '/blog/${_meta.deliveryKey}')">
-                                <div class="amp-dc-card-img-wrap">
-                                    <picture class="amp-dc-image">
-                                        <source type="image/webp" srcset="https://${
-                                            snippet.image.image.defaultHost
-                                        }/i/${snippet.image.image.endpoint}/${
-                                            snippet.image.image.name
-                                        }.webp?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}">
-                                        <source type="image/jp2" srcset="https://${snippet.image.image.defaultHost}/i/${
-                                            snippet.image.image.endpoint
-                                        }/${
-                                            snippet.image.image.name
-                                        }.jp2?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}">
-                                        <source type="image/jpeg" srcset="https://${
-                                            snippet.image.image.defaultHost
-                                        }/i/${snippet.image.image.endpoint}/${
-                                            snippet.image.image.name
-                                        }.jpg?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt${format}">
-                                        <img loading="lazy" src="https://${snippet.image.image.defaultHost}/i/${
-                                            snippet.image.image.endpoint
-                                        }/${
-                                            snippet.image.image.name
-                                        }?w=1000&upscale=false&aspect=1:2&sm=aspect&poi={($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.x},{($root.layer0.metadata.pointOfInterest.w==0)?0.5:$root.layer0.metadata.pointOfInterest.y},{$root.layer0.metadata.pointOfInterest.w},{$root.layer0.metadata.pointOfInterest.h}&scaleFit=poi&sm=aspect&aspect=1:1&qlt=default&fmt=${format}" class="amp-dc-image-pic" alt="${
-                                            snippet.title
-                                        }">
-                                    </picture>
-                                </div>
-                                <div class="amp-dc-card-text-wrap">
-                                    <p class="amp-dc-card-category">${snippet?.category?.join(', ') || ''}</p>
-                                    <div class="amp-dc-card-name">${snippet.title}</div>
-                                    <div class="amp-dc-card-description"><span>${snippet.author}</span><span>${
-                                        snippet.blogdate
-                                    }</span></div>
-                                </div>
-                            </a>
-                    `;
-                    },
-                },
-            }),
-        );
-        search.addWidget(
-            instantsearch.widgets.pagination({
-                container: '#pagination',
-            }),
-        );
-        search.addWidget(
-            instantsearch.widgets.hitsPerPage({
-                container: '#hits-per-page',
-                items: [
-                    { label: '5 hits per page', value: 5, default: true },
-                    { label: '10 hits per page', value: 10 },
-                ],
-            }),
-        );
-        search.start();
-    }, [locale, algolia.apiKey, algolia.appId, cms.hub, format, push, stagingApi]);
+    }
 
     return (
-        <>
-            <PageContent className="blog-list__container">
-                <div className="blog-list">
-                    <div className="blog-list-facets">
-                        <Typography variant="h6">
-                            <Breadcrumb navigationItem={navigationItem} />
+        <PageContent>
+            <Typography variant="h6">
+                <Breadcrumb navigationItem={navigationItem} />
+            </Typography>
+            <Typography variant="h2" component="h2">
+                Blog
+            </Typography>
+            <InstantSearch indexName={indexName} searchClient={searchClient}>
+                <Configure hitsPerPage={9} />
+                <Grid
+                    container
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        listStyle: 'none',
+                        margin: 0,
+                        padding: 0,
+                        w: '100%',
+                    }}
+                    columns={6}
+                    spacing={2}
+                >
+                    <Grid item xs={6} sm={2} md={1} lg={1}>
+                        <SearchBox style={{ marginBottom: 20, width: '100%' }} />
+                        <Typography style={{ marginBottom: 10 }} variant="h4">
+                            Categories
                         </Typography>
-                        <Typography variant="h2" component="h2">
-                            Blog
+                        <RefinementList
+                            style={{ marginBottom: 20 }}
+                            attribute="snippet.category"
+                            searchable={false}
+                            searchablePlaceholder="Search categories"
+                            showMore={false}
+                        />
+                        <Typography style={{ marginBottom: 10 }} variant="h4">
+                            Authors
                         </Typography>
-                        <div id="searchbox" className="ais-SearchBox" />
-                        <ProductFacet title="Categories" className="blog-list-facet blog-list-facet--categories">
-                            <div id="category-list" />
-                        </ProductFacet>
-                        <ProductFacet title="Author" className="blog-list-facet">
-                            <div id="author-list" />
-                        </ProductFacet>
-                        <div id="hits-per-page" style={{ display: 'none' }} />
-                    </div>
-                    <div className="blog-list-results">
-                        <div className="amp-dc-card-list amp-dc-prod-5-rows amp-dc-cards-hero amp-dc-cards-blog">
-                            <div id="hits" />
-                        </div>
-                        <div id="pagination" />
-                    </div>
-                </div>
-            </PageContent>
-        </>
+                        <RefinementList
+                            style={{ marginBottom: 20 }}
+                            attribute="snippet.author"
+                            searchable={false}
+                            searchablePlaceholder="Search authors"
+                            showMore={false}
+                        />
+                    </Grid>
+                    <Grid
+                        item
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            listStyle: 'none',
+                            margin: 0,
+                            padding: 0,
+                            w: '100%',
+                        }}
+                        xs={6}
+                        sm={4}
+                        md={5}
+                        lg={5}
+                    >
+                        <Grid
+                            container
+                            sx={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                listStyle: 'none',
+                                margin: 0,
+                                padding: 0,
+                                w: '100%',
+                            }}
+                            columns={12}
+                            spacing={2}
+                        >
+                            <Hits
+                                style={{
+                                    width: '100%',
+                                }}
+                                hitComponent={Hit}
+                            />
+                        </Grid>
+                        <Grid container direction="row" justifyContent="center" alignItems="center">
+                            <Grid item>
+                                <StyledPagination>
+                                    <Pagination padding={30} />
+                                </StyledPagination>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </InstantSearch>
+        </PageContent>
     );
 }
 
-Womens.Layout = Layout;
+BlogPage.Layout = Layout;

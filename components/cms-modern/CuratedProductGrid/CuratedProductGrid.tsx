@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CarouselProvider, Dot, Slider as PureSlider, Slide } from 'pure-react-carousel';
 import SliderNextButton from '@components/cms-modern/Slider/SliderNextButton';
 import SliderBackButton from '@components/cms-modern/Slider/SliderBackButton';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { commerceApi } from '@pages/api';
 import CuratedProductGridCard from './CuratedProductGridCard';
@@ -52,7 +52,12 @@ const CuratedProductGrid = ({ header, products = [], navigationDots, ...other }:
     }, [products, cmsContext, userContext]);
 
     return (
-        <Box>
+        <Box style={{ marginTop: 30, marginBottom: 30 }}>
+            {header && (
+                <Typography variant="h2" component="h2">
+                    {header}
+                </Typography>
+            )}
             <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={150}

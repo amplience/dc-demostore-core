@@ -3,8 +3,8 @@ import SearchResultsListing from './SearchResultsListing';
 import { useNavigation } from '../../core/Masthead/NavigationContext';
 import { useCmsContext } from '@lib/cms/CmsContext';
 import { useUserContext } from '@lib/user/UserContext';
-import { CommerceAPI, Product } from '@amplience/dc-integration-middleware';
 import isEmpty from 'lodash/isEmpty';
+import algoliasearch from 'algoliasearch';
 
 interface SearchResultsProps {
     searchTerm: string;
@@ -42,6 +42,7 @@ function onlyUnique(value: any, index: any, self: any) {
 
 import { commerceApi } from '@pages/api';
 import { useAppContext } from '@lib/config/AppContext';
+import { HitsProps } from 'react-instantsearch';
 
 const SearchResults = (props: SearchResultsProps) => {
     const { rootItems } = useNavigation();
@@ -55,52 +56,49 @@ const SearchResults = (props: SearchResultsProps) => {
     const userContext = useUserContext();
     const { algolia, cms } = useAppContext();
 
-    const fetchResults = () => {
-        const { algoliasearch } = window as any;
-        const searchClient = algoliasearch(algolia.appId, algolia.apiKey);
-        const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
-        searchClient
-            .search([
-                {
-                    indexName,
-                    query: searchTerm,
-                },
-            ])
-            .then((algoliaResponse: any) => {
-                const result: any[] = algoliaResponse.results[0].hits.map((hit: any) => {
+    useEffect(() => {
+        const fetchResults = async () => {
+            if (algolia?.appId && algolia?.apiKey) {
+                const client = algoliasearch(algolia?.appId, algolia?.apiKey);
+                const indexName = stagingApi ? `${cms.hub}.blog-staging` : `${cms.hub}.blog-production`;
+                const index = client.initIndex(indexName);
+                const { hits } = await index.search(searchTerm);
+                const mappedHits = hits?.map((hit: any) => {
                     return {
-                        label: hit.snippet.title,
-                        href: '/blog/' + hit._meta.deliveryId + '/' + hit._meta.name,
+                        label: hit?.snippet?.title,
+                        href: `/blog/${hit?._meta?.deliveryKey}`,
                     };
                 });
+                setInspiration(mappedHits.slice(0, 10));
+            }
 
-                setInspiration(result.slice(0, 10));
-            });
-
-        if (!isEmpty(searchTerm)) {
-            (commerceApi as CommerceAPI)
-                .getProducts({ keyword: searchTerm, ...cmsContext, ...userContext, pageSize: 6, pageCount: 1 })
-                .then((products) => {
-                    setSearchResults(
-                        products.map((prod: Product) => ({
-                            ...prod,
-                            href: `/product/${prod.id}/${prod.slug}`,
-                        })),
-                    );
+            if (!isEmpty(searchTerm)) {
+                const productResponse = await commerceApi.getProducts({
+                    keyword: searchTerm,
+                    ...cmsContext,
+                    ...userContext,
+                    pageSize: 6,
+                    pageCount: 1,
                 });
-        }
-        setCategories(
-            findNode(searchTerm, { children: rootItems })
+                const products = productResponse.map((prod) => ({
+                    ...prod,
+                    href: `/product/${prod.id}/${prod.slug}`,
+                }));
+                setSearchResults(products);
+            }
+
+            const searchTermCategories = findNode(searchTerm, { children: rootItems })
                 .filter(onlyUnique)
                 .map(({ label, href }: any) => ({
                     label,
                     href,
                 }))
-                .slice(0, 10),
-        );
-    };
+                .slice(0, 10);
+            setCategories(searchTermCategories);
+        };
 
-    useEffect(fetchResults, [cms.hub, searchTerm, algolia, cmsContext, rootItems, stagingApi, userContext]);
+        fetchResults();
+    }, [cms.hub, searchTerm, algolia, cmsContext, rootItems, stagingApi, userContext]);
 
     return (
         <div className={`search__results ${searchTerm ? 'search__results--active' : ''}`}>

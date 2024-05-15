@@ -3,8 +3,8 @@ import { DemoStoreConfiguration } from './types';
 const defaultConfig = {
     url: 'https://core.dc-demostore.com',
     algolia: {
-        appId: '4BS5I6EVVD',
-        apiKey: '8d22e49624a694d584e5355201382faf',
+        appId: '0BLPC0Z8JW',
+        apiKey: 'b793d20f25a95b9b7d52b0a348680d37',
     },
     cms: {
         hub: 'amprsaprod',

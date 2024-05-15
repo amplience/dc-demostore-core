@@ -5,11 +5,12 @@ import { stringify } from 'querystring';
 
 export type GetByIdRequest = { id: string };
 export type GetByKeyRequest = { key: string };
+export type SortByOrder = 'asc' | 'desc';
 export type GetByFilterRequest = {
     filterBy: { path: string; value: any }[];
     sortBy?: {
         key: string;
-        order?: 'asc' | 'desc';
+        order?: SortByOrder;
     };
     page?: {
         size: number;
