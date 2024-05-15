@@ -1,5 +1,33 @@
 # Changelog
 
+## [4.0.0](https://github.com/amplience/dc-demostore-core/compare/v3.0.0...v4.0.0) (2024-05-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* blog page powered by the filter api ([#53](https://github.com/amplience/dc-demostore-core/issues/53))
+
+### Features
+
+* adding meta tags for seo and more ([f726647](https://github.com/amplience/dc-demostore-core/commit/f726647b38b00ec57bd3d2d7ab0ebd79819e3ff9))
+* blog page powered by the filter api ([#53](https://github.com/amplience/dc-demostore-core/issues/53)) ([77fe33d](https://github.com/amplience/dc-demostore-core/commit/77fe33dd3968592a44244210403008ba7760ca39))
+* Card uses DI image instead of standard image ([#66](https://github.com/amplience/dc-demostore-core/issues/66)) ([b809bfb](https://github.com/amplience/dc-demostore-core/commit/b809bfb524058eb5c5a1d327135f08b5b4c94605))
+* Implemented pagination, 9 items per view and grid fixes ([2bc347c](https://github.com/amplience/dc-demostore-core/commit/2bc347cea224f84468f76229b289dee3303b6a0b))
+* Latest released middleware with product description ([5acdc6a](https://github.com/amplience/dc-demostore-core/commit/5acdc6a328b253fcaed7f5cd349faf69e25ea904))
+* product description overrides ([#63](https://github.com/amplience/dc-demostore-core/issues/63)) ([2c7905e](https://github.com/amplience/dc-demostore-core/commit/2c7905e7312463bc081d4c6faeab91bc413fa74f))
+* replace cdn instantsearch ([#56](https://github.com/amplience/dc-demostore-core/issues/56)) ([b0e721a](https://github.com/amplience/dc-demostore-core/commit/b0e721adcf078e6e0857ba168875c5863c09c7dd))
+
+
+### Bug Fixes
+
+* building cta link ([#55](https://github.com/amplience/dc-demostore-core/issues/55)) ([1f368e4](https://github.com/amplience/dc-demostore-core/commit/1f368e44920fb6ce2c1d3c03ca958276bf4cf165))
+* **dynamic blog list:** create search client local to usage to avoid us effect loop ([#52](https://github.com/amplience/dc-demostore-core/issues/52)) ([e39a9fe](https://github.com/amplience/dc-demostore-core/commit/e39a9fe4d864b5c75957e7c5c273235f69ccc905))
+* **footer:** removing unnecessary useeffect that changes link visibility in mobile ([#58](https://github.com/amplience/dc-demostore-core/issues/58)) ([1b7da23](https://github.com/amplience/dc-demostore-core/commit/1b7da238d7ad4505c471f13c857763b4a9f06cf9))
+* Grid rendering in a natural way without gaps ([53997e1](https://github.com/amplience/dc-demostore-core/commit/53997e122f033e70a25ac4a2923a6b7347b6c726))
+* hit area of pagination. ([3d0aea4](https://github.com/amplience/dc-demostore-core/commit/3d0aea45c457bd754e652d969ddd12924a5c2973))
+* Product descriptions when not active ([d14e2a4](https://github.com/amplience/dc-demostore-core/commit/d14e2a48f7ddab58f004cd086b047251f35c94c0))
+* rendering header ([#57](https://github.com/amplience/dc-demostore-core/issues/57)) ([dd266e6](https://github.com/amplience/dc-demostore-core/commit/dd266e6937696cab06b1c0c2b774147e33b34269))
+
 ## [3.0.0](https://github.com/amplience/dc-demostore-core/compare/v2.3.0...v3.0.0) (2024-04-09)
 
 
