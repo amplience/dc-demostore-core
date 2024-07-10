@@ -15,6 +15,7 @@ export interface AdvancedBannerProps {
         };
         disablePoiAspectRatio: boolean;
         imageAltText: string;
+        di: string;
     };
     bgcol?: string;
     textLines?: [
@@ -168,7 +169,8 @@ const AdvancedBanner = ({
                         image={img?.image.image}
                         imageAltText={image?.imageAltText}
                         transformations={transformations}
-                        style={{ width: '100%' }}
+                        diParams={image?.di}
+                        style={{ width: '100%', minHeight: '50%' }}
                     />
                 </div>
                 <Typography
