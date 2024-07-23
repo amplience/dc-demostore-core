@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/amplience/dc-demostore-core/compare/v4.0.0...v4.0.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* Advanced banner now adheres to DI params ([d0b4bdd](https://github.com/amplience/dc-demostore-core/commit/d0b4bdd3ab9fb0afa1ad79543144ec511878a92f))
+
 ## [4.0.0](https://github.com/amplience/dc-demostore-core/compare/v3.0.0...v4.0.0) (2024-05-15)
 
 
