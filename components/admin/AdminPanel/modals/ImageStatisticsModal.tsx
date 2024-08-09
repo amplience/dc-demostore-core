@@ -144,7 +144,7 @@ const ImageStatisticsModal = ({ stats, onClose }: ImageStatisticsModalProps) => 
                                     <Card>
                                         <Link
                                             passHref
-                                            href={stat.src}
+                                            href={stat.src || ''}
                                             title={stat.src}
                                             target="_blank"
                                             rel="noreferrer"
@@ -240,7 +240,7 @@ const ImageStatisticsModal = ({ stats, onClose }: ImageStatisticsModalProps) => 
                                         <TableCell>
                                             <Link
                                                 passHref
-                                                href={stat.src}
+                                                href={stat.src || ''}
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 title={stat.src}

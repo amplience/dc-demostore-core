@@ -72,7 +72,7 @@ const Navigation = ({ pages, style }: NavigationProps) => {
                               ? -1
                               : 0,
                     )
-                    .map(({ title, href, children = [], content, category }, index) => {
+                    .map(({ title, href = '', children = [], content, category }, index) => {
                         return (
                             <li
                                 key={index}

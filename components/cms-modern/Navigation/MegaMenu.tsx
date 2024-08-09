@@ -37,7 +37,7 @@ const MegaMenu = ({ children = [], content, handleRouteChange, closeMenu, title,
                     {children.map((child: any, index: number) => (
                         <ul className="megaMenu__list" key={index}>
                             <h3 className="megaMenu__subCategory">
-                                <Link passHref href={child.href} onClick={handleRouteChange}>
+                                <Link passHref href={child.href || ''} onClick={handleRouteChange}>
                                     <Typography variant="body1" component="p" className="megaMenu__list__item__link">
                                         {child.title}
                                     </Typography>
@@ -45,7 +45,7 @@ const MegaMenu = ({ children = [], content, handleRouteChange, closeMenu, title,
                             </h3>
                             {child.children.map((child2: any, index2: number) => (
                                 <li className="megaMenu__list__item" key={index2}>
-                                    <Link passHref href={child2.href} onClick={handleRouteChange}>
+                                    <Link passHref href={child2.href || ''} onClick={handleRouteChange}>
                                         <Typography
                                             variant="body1"
                                             component="p"

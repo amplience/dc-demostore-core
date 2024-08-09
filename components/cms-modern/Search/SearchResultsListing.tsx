@@ -27,7 +27,7 @@ const SearchResultsListing = (props: SearchResultsListingProps) => {
                                 <li>
                                     <h3 className="search__results__listing__heading">Products</h3>
                                     <ul className="search__results__section">
-                                        {searchResults.map(({ id, name, variants, href }: any, index: number) => {
+                                        {searchResults.map(({ id, name, variants, href = '' }: any, index: number) => {
                                             // Need to manipulate the image url for smart imaging and resize for performance
                                             let firstImage: string = '';
                                             if (variants[0].images) {
@@ -79,7 +79,7 @@ const SearchResultsListing = (props: SearchResultsListingProps) => {
                                 <li>
                                     <h3 className="search__results__listing__heading">Categories</h3>
                                     <ul className="search__results__section">
-                                        {categories.map(({ label, count, href }: any, index: number) => {
+                                        {categories.map(({ label, count, href = '' }: any, index: number) => {
                                             return (
                                                 <li key={index}>
                                                     <Link passHref href={href}>
@@ -124,7 +124,7 @@ const SearchResultsListing = (props: SearchResultsListingProps) => {
                                 <li>
                                     <h3 className="search__results__listing__heading">Inspiration</h3>
                                     <ul className="search__results__section">
-                                        {inspiration.map(({ label, href, count }: any, index: number) => {
+                                        {inspiration.map(({ label, href = '', count }: any, index: number) => {
                                             return (
                                                 <li key={index}>
                                                     <Link passHref href={href}>
