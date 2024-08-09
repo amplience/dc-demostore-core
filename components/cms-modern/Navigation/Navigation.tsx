@@ -72,18 +72,18 @@ const Navigation = ({ pages, style }: NavigationProps) => {
                               ? -1
                               : 0,
                     )
-                    .map(({ title, href, children = [], content, category }, index) => {
+                    .map(({ title, href = '', children = [], content, category }, index) => {
                         return (
                             <li
                                 key={index}
                                 className={clsx('navigation__list__item', {
-                                    ['navigation__list__item--active']: isRouteActive(href || '', category),
+                                    ['navigation__list__item--active']: isRouteActive(href, category),
                                     ['navigation__list__item--open']: isMenuOpen(index),
                                 })}
                             >
                                 {title && href && (
                                     <Link
-                                        href={href || ''}
+                                        href={href}
                                         onClick={(event) =>
                                             children.length === 0 ? handleRouteChange() : handleClick(event, index)
                                         }
@@ -99,7 +99,7 @@ const Navigation = ({ pages, style }: NavigationProps) => {
                                         handleRouteChange={handleRouteChange}
                                         closeMenu={closeMenu}
                                         title={title}
-                                        href={href || ''}
+                                        href={href}
                                     >
                                         {children}
                                     </MegaMenu>

@@ -65,7 +65,7 @@ const Breadcrumb = (props: BreadcrumbProps) => {
                         passHref
                         key={index}
                         color="inherit"
-                        href={node.href as string}
+                        href={(node.href as string) || ''}
                         style={{
                             textTransform: 'uppercase' as 'uppercase',
                         }}
