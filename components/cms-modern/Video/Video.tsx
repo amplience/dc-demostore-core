@@ -42,12 +42,21 @@ const Video = ({ video, captions = true }: VideoProps) => {
                 />
 
                 <source
+                    src={`https://${video.defaultHost}/v/${video.endpoint}/${video.name}/webm_720p?protocol=https`}
+                    data-res="High"
+                    data-bitrate="2000"
+                    data-label="high"
+                    type="video/webm"
+                />
+
+                <source
                     src={`https://${video.defaultHost}/v/${video.endpoint}/${video.name}/webm_480p?protocol=https`}
                     data-res="Medium"
                     data-bitrate="624"
                     data-label="Medium"
                     type="video/webm"
                 />
+
                 {captions && (
                     <track
                         label="English"
