@@ -60,7 +60,7 @@ See the video component for implementation.
 
 1. Create your transcoding profile for captions for en-US following the [documentation](https://amplience.com/developers/docs/user-guides/assets/video/#captions-options)
 
-2. Upload a video to Content Hub. For this demo, ensure there is speech in English. An example can be found [here](https://presalesadisws.s3-eu-west-1.amazonaws.com/videos/automated-video-captions/Automatic%20video%20captions_Master_no%20sub.mp4) //TODO: Change URL to suitable hosting
+2. Upload a video to Content Hub. For this demo, ensure there is speech in English. An example can be found [here](https://amp-product.s3.eu-west-1.amazonaws.com/examples/video/Automatic+video+captions_Master_no+sub.mp4)
 
 3. Assign both your default profiles to the video and your new captions profile for en-US. For reference the default profiles are:
 
