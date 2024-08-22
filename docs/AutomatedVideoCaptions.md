@@ -42,11 +42,11 @@ Example:
 }
 ```
 
-> Note: This demo is coded to work with english subtitles - see implementation notes below for a more generic solution approach.
+> Note: This demo is coded to work with English subtitles - see implementation notes below for a more generic solution approach.
 
 ### Cross domain
 
-If your application is strict on security, you may wish to whitelist the domain in your security policy `https://cdn.c1.amplience.net` as well as ammend your video tag to have its `crossOrigin` attrbite set to "anonymous"
+If your application is strict on security, you may wish to whitelist the domain in your security policy `https://cdn.c1.amplience.net` as well as amend your video tag to have its `crossOrigin` attribute set to "anonymous"
 
 Example:
 
@@ -62,7 +62,7 @@ See the video component for implementation.
 
 2. Upload a video to Content Hub. For this demo, ensure there is speech in English. An example can be found [here](https://presalesadisws.s3-eu-west-1.amazonaws.com/videos/automated-video-captions/Automatic%20video%20captions_Master_no%20sub.mp4) //TODO: Change URL to suitable hosting
 
-3. Assign your both your default profiles to the video and your new captions profile for en-US. For reference the default profiles are:
+3. Assign both your default profiles to the video and your new captions profile for en-US. For reference the default profiles are:
 
     - `mp4_720p`
     - `mp4_480p`
@@ -76,7 +76,7 @@ See the video component for implementation.
 ## Notes for an actual implementation
 
 1. The manual steps for assigning profiles to videos and publishing can be automated as part of a bulk upload job.
-2. This demo is coded for english captions. In a dynamic implementation each video might have captions in different languages. Your front end should support this. See [Calling the delivery API for video data](#calling-the-delivery-API-for-video-data)
+2. This demo is coded for English captions. In a dynamic implementation each video might have captions in different languages. Your front end should support this. See [Calling the delivery API for video data](#calling-the-delivery-API-for-video-data)
 
 ### Calling the delivery API for video data
 
@@ -96,7 +96,7 @@ Will provide all of the information required to render a video which include:
 -   A full list of transcode profiles to display `<source>` tags for the video: `media []`
 -   Lots more that can be found on the [Amplience Dynamic Media Playground](https://playground.amplience.com/di/app/#/video)
 
-> Note: If you have captions as seperate profiles for rendering you may wish to omit them from dynamic drawing using the `profile` or `profileLabel` attribute
+> Note: If you have captions as separate profiles for rendering you may wish to omit them from dynamic drawing using the `profile` or `profileLabel` attribute
 
 ## Reading Materials
 
