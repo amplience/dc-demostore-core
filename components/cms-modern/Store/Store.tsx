@@ -13,11 +13,12 @@ interface StoreProps {
     image: any;
     imageAltText: string;
     locationName: string;
+    locationAddress: string;
     details: string;
 }
 
 const Store = (props: StoreProps) => {
-    const { details = '', keyElements, image, imageAltText, locationName = '' } = props;
+    const { details = '', keyElements, image, imageAltText, locationAddress = '', locationName = '' } = props;
 
     const options = {
         overrides: {
@@ -60,6 +61,24 @@ const Store = (props: StoreProps) => {
                             alt={imageAltText ? imageAltText : locationName}
                             imageAltText={imageAltText ? imageAltText : locationName}
                         />
+                        {(locationAddress || locationName) && (
+                            <Paper
+                                style={{
+                                    backgroundColor: '#f6f6f6',
+                                    padding: 15,
+                                    paddingBottom: 30,
+                                    marginTop: 5,
+                                }}
+                            >
+                                <Typography style={{ marginTop: 20, marginBottom: 20 }} variant="h3" component="h3">
+                                    {locationName}
+                                </Typography>
+                                <ReactMarkdown style={{ width: '70%' }} options={options}>
+                                    {locationAddress}
+                                </ReactMarkdown>
+                            </Paper>
+                        )}
+
                         <Grid container style={{ marginTop: 20 }}>
                             {keyElements?.parking && (
                                 <Grid item xs={4}>
@@ -98,6 +117,27 @@ const Store = (props: StoreProps) => {
                                                 style={{ margin: 'auto', width: '50%', paddingTop: 20 }}
                                                 src="/images/late-opening.svg"
                                                 alt="late opening"
+                                            />
+                                        </Box>
+                                    </Paper>
+                                </Grid>
+                            )}
+                            {keyElements?.clickAndCollect && (
+                                <Grid item xs={4}>
+                                    <Paper
+                                        style={{
+                                            backgroundColor: '#f6f6f6',
+                                            padding: 15,
+                                            paddingBottom: 30,
+                                            margin: 5,
+                                        }}
+                                    >
+                                        <Typography variant="body2">Click & Collect</Typography>
+                                        <Box display="flex" alignItems="center" justifyContent="center">
+                                            <img
+                                                style={{ margin: 'auto', width: '50%', paddingTop: 20 }}
+                                                src="/images/click-and-collect.svg"
+                                                alt="Click & Collect"
                                             />
                                         </Box>
                                     </Paper>
