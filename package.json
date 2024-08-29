@@ -1,6 +1,6 @@
 {
     "name": "@amplience/dc-demostore-core",
-    "version": "4.0.1",
+    "version": "4.1.0",
     "private": false,
     "scripts": {
         "dev": "next dev",
