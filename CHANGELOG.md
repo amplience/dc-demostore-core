@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.1.0](https://github.com/amplience/dc-demostore-core/compare/v4.0.1...v4.1.0) (2024-08-29)
+
+
+### Features
+
+* added docs, in readme and additional profile ([f2edeb5](https://github.com/amplience/dc-demostore-core/commit/f2edeb5855ea7e2d48e8ff4fde3ed9b8ad17d87e))
+* Video Captions and WIP docs process ([9d4b08e](https://github.com/amplience/dc-demostore-core/commit/9d4b08e851bcb83e3e77514e1a40e61fb7cd951f))
+
+
+### Bug Fixes
+
+* Crash on category page breadcrumb and fix to # to not link for group ([9f06476](https://github.com/amplience/dc-demostore-core/commit/9f064761d65218c0391b95565471146eb688cbd9))
+* Display of locationName and click and collect with crash fix ([38d9b2f](https://github.com/amplience/dc-demostore-core/commit/38d9b2f89e51ad76a5878d2d7ce122e2ab19a4a4))
+* Possible Link with no object / string causing crash ([742f82f](https://github.com/amplience/dc-demostore-core/commit/742f82f13f6392af877506b8b31b2210162dead6))
+
 ## [4.0.1](https://github.com/amplience/dc-demostore-core/compare/v4.0.0...v4.0.1) (2024-07-23)
 
 
