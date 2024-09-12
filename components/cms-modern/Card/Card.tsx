@@ -98,7 +98,7 @@ const Card = ({ image, cardName, description, links }: CardProps) => {
                                             backgroundColor: '#000',
                                             borderRadius: 3,
                                         }}
-                                        href={link.value}
+                                        href={link.value || ''}
                                         key={i}
                                     >
                                         <Typography
