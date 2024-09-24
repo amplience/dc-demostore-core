@@ -453,11 +453,11 @@ In the following example, you can add hotspots from the AI Assistant to your lis
 
 ![Shoppable Image](../media/component-shoppableImage-ai-hotspot.png)
 
-It will automatically be added with the same name for selector and target, for instance `.lipstick` for the selector, and `lipstick` for the target. You can then change to one of the selectors above.
+It will automatically be added with the same name for selector and target, for instance `.brush` for the selector, and `brush` for the target. You can then change to one of the selectors above.
 
 #### Polygon
 
-AI Assistant is powerful enough to detect complex objects and create detailed polygons out of them. You can see in the following example how a bag is fully detected:
+AI Assistant is powerful enough to detect complex objects and create detailed polygons out of them. You can see in the following example how a handbag is fully detected:
 
 ![Shoppable Image](../media/component-shoppableImage-ai-polygon.png)
 
@@ -493,6 +493,27 @@ const ShoppableImageInteractable = ({ children, selector, target, tooltips }: Sh
 ```
 
 Using the code snippet above as an example, we configure a category interaction with a "target" of `blue-shoes` and a "selector" of `.category`. The `.category` selector matches `InteractableType.CATEGORY` in the selector switch statement. This renders the "category" view of a [ShoppableImageInteractable](../components/cms-modern/ShoppableImageInteractable/ShoppableImageInteractable.tsx), and in this case we wrap the `children` elements with a tooltip to display the category name (using the "target" as a lookup), and a clickable link to the category page.
+
+### Image Studio
+
+Image Studio can be accessed via content items enabling you to edit images in real time. 
+
+![Image Studio](../media/imageStudio-icon.png)
+
+You can edit a selected image in Image Studio by clicking ‘Edit In Image Studio’ when hovering over the image.  
+
+![Image Studio Example](../media/imageStudio-example.png)
+
+Make your changes in Image Studio. Once the image is amended in Image Studio, you can save it to your content item and it will also save to your Assets in Content Hub (On Demand). 
+
+![Image Studio In DC](../media/imageStudio-saved-image.png)
+
+![Image Studio In Content Hub](../media/imageStudio-saved-image-assets.png)
+
+Further information for [Shoppable Image Extension](https://github.com/amplience/dc-extension-shoppable-image)
+
+Further information for [Image Studio](https://github.com/amplience/image-studio)
+
 
 ## Stylitics
 
