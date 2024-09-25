@@ -8,6 +8,7 @@
 -   [Theming](#theming)
 -   [Admin UI Panels](#admin-ui-panels)
 -   [Shoppable Image](#shoppable-image)
+-   [Image Studio](#image-studio)
 -   [Stylitics](#stylitics)
 -   [Accelerated Media](#accelerated-media)
 -   [Product Override](#product-override)
