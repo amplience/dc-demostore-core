@@ -195,7 +195,7 @@ In your Vercel project browse to Settings --> Environment Variables and edit the
 ## Additional Topics
 
 -   [Features Highlights](docs/FeatureHighlights.md)
--   [Image Studio](docs/DeepDive.md)
+-   [Image Studio](docs/DeepDive.md#image-studio)
 -   [High-Level Architecture](docs/ArchDiagram.md)
 -   [Available Components](docs/Components.md)
 -   [Exploring features](docs/DeepDive.md)
