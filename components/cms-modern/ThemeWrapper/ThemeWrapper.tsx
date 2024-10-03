@@ -8,15 +8,23 @@ import { Box } from '@mui/material';
 interface ThemeWrapperProps {
     theme: CmsHierarchyNode;
     components: CmsContent[];
+    fixedContentPallete: CmsContent[];
 }
 
-const ThemeWrapper = ({ theme, components = [] }: ThemeWrapperProps) => {
+const ThemeWrapper = ({ theme, components = [], fixedContentPallete = [] }: ThemeWrapperProps) => {
     const { themes } = useThemes();
 
     return (
         <WithCMSTheme themes={themes} themeOverride={theme}>
             <Box>
                 {components.map((item, index: number) => {
+                    return (
+                        <Box key={index}>
+                            <ContentBlock content={item} />
+                        </Box>
+                    );
+                })}
+                {fixedContentPallete.map((item, index: number) => {
                     return (
                         <Box key={index}>
                             <ContentBlock content={item} />

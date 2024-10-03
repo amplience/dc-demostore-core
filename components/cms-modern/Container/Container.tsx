@@ -5,12 +5,20 @@ import { Box } from '@mui/material';
 
 interface ContainerProps {
     contentTypes: CmsContent[];
+    fixedContentPallete: CmsContent[];
 }
 
-const Container = ({ contentTypes = [] }: ContainerProps) => {
+const Container = ({ contentTypes = [], fixedContentPallete = [] }: ContainerProps) => {
     return (
         <Box>
             {contentTypes.map((item, index: number) => {
+                return (
+                    <Box key={index}>
+                        <ContentBlock content={item} />
+                    </Box>
+                );
+            })}
+            {fixedContentPallete.map((item, index: number) => {
                 return (
                     <Box key={index}>
                         <ContentBlock content={item} />

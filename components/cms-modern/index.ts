@@ -20,3 +20,5 @@ export { default as ThemePaletteSpec } from './ThemePaletteSpec';
 export { default as ThemeTypographySpec } from './ThemeTypographySpec';
 export { default as ThemeWrapper } from './ThemeWrapper';
 export { default as Video } from './Video';
+export { default as BaseImage } from './BaseImage';
+export { default as BaseVideo } from './BaseVideo';

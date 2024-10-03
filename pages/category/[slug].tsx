@@ -108,6 +108,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
     const [config] = useContent(content.configComponents, vse);
 
     let components: CmsContent[] = props.content?.page?.components || [];
+    let fixedContentPallete: CmsContent[] = props.content?.page?.fixedContentPallete || [];
     let pageSlots: CmsContent[] = slots;
     let products: Product[] = category?.products;
 
@@ -126,6 +127,10 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                 {/* Additional Components */}
                 <div>
                     {compact(components).map((content, index: number) => (
+                        <ContentBlock key={index} content={content} />
+                    ))}
+
+                    {compact(fixedContentPallete).map((content, index: number) => (
                         <ContentBlock key={index} content={content} />
                     ))}
 

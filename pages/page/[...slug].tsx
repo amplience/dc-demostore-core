@@ -50,6 +50,9 @@ export default function LandingPage({ content, slots }: InferGetServerSidePropsT
             {content?.page?.components
                 ?.filter(notNull)
                 .map((content: CmsContent, index: number) => <ContentBlock content={content} key={index} />)}
+            {content?.page?.fixedContentPallete
+                ?.filter(notNull)
+                .map((content: CmsContent, index: number) => <ContentBlock content={content} key={index} />)}
         </div>
     );
 }

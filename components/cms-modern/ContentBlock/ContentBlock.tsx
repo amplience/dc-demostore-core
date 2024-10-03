@@ -35,6 +35,8 @@ import ThemePaletteSpec from '@components/cms-modern/ThemePaletteSpec';
 import ThemeTypographySpec from '@components/cms-modern/ThemeTypographySpec';
 import ThemeWrapper from '@components/cms-modern/ThemeWrapper';
 import Video from '@components/cms-modern/Video';
+import BaseImage from '@components/cms-modern/BaseImage';
+import BaseVideo from '@components/cms-modern/BaseVideo';
 
 import { useRouter } from 'next/router';
 import Generic from '@components/stylitics/Generic/Generic';
@@ -46,6 +48,7 @@ interface ContentBlockProps {
     type?: ContentBlockType;
     content: CmsContent | null;
     components?: { [key: string]: any };
+    palettes?: { [key: string]: any };
 }
 
 const ComponentMapping: any = {
@@ -89,33 +92,84 @@ const ComponentMapping: any = {
     'https://demostore.amplience.com/content/stylitics/gallery': Generic,
     'https://demostore.amplience.com/content/stylitics/classic': Generic,
     'https://demostore.amplience.com/content/stylitics/main-and-detail': Generic,
+    'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link': BaseImage,
+    'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link': BaseVideo,
+};
+
+const PaletteMapping: any = {
+    'advanced-banner': AdvancedBanner,
+    'blog-list': BlogList,
+    'blog-snippet': BlogSnippet,
+    blog: Blog,
+    'card-list': CardList,
+    card: Card,
+    container: Container,
+    'curated-product-grid': CuratedProductGrid,
+    'dynamic-blog-list': DynamicBlogList,
+    html: ExternalBlock,
+    image: Image,
+    'content-page': ContentPage,
+    'product-grid': ProductGrid,
+    'rich-text': CustomRichText,
+    'shoppable-image': ShoppableImage,
+    'simple-banner': SimpleBanner,
+    'simple-localized-banner': SimpleBanner,
+    'simple-banner-bynder': SimpleBannerBynder,
+    slider: Slider,
+    'split-block': SplitBlock,
+    store: Store,
+    text: Text,
+    'theme-wrapper': ThemeWrapper,
+    video: Video,
+    'https://demostore.amplience.com/content/product': ProductContent,
+    'https://demostore.amplience.com/content/product-override': ProductContent,
+    'https://demostore.amplience.com/site/palette': ThemePaletteSpec,
+    'https://demostore.amplience.com/site/typography': ThemeTypographySpec,
+    'https://demostore.amplience.com/slots/banner': BannerSlot,
+    'https://demostore.amplience.com/slots/container': BannerSlot,
+    'https://demostore.amplience.com/slots/flexible': FlexibleSlot,
+    'https://demostore.amplience.com/slots/content-page': BannerSlot,
+    'https://demostore.amplience.com/slots/localized-banner': LocalizedBannerSlot,
+    'https://demostore.amplience.com/slots/personalized-banner': PersonalizedBannerSlot,
+    'https://demostore.amplience.com/content/stylitics/generic': Generic,
+    'https://demostore.amplience.com/content/stylitics/hotspots': Generic,
+    'https://demostore.amplience.com/content/stylitics/moodboard': Generic,
+    'https://demostore.amplience.com/content/stylitics/gallery': Generic,
+    'https://demostore.amplience.com/content/stylitics/classic': Generic,
+    'https://demostore.amplience.com/content/stylitics/main-and-detail': Generic,
 };
 
 const ContentBlock = ({
     content: originalContent,
     type = 'CONTENT',
     components = ComponentMapping,
+    palettes = PaletteMapping,
 }: ContentBlockProps) => {
     const { query } = useRouter() || {};
     const vse = (query?.vse as string) || '';
 
     // Get real-time content from original content
     const [liveContent] = useContent(originalContent, vse);
-    if (!liveContent) {
+    const content = liveContent;
+    let paletteItem = false;
+    let Component = components[content._meta?.schema];
+    if (!Component) {
+        Component = palettes[content.type];
+        if (Component) paletteItem = true;
+    }
+    if (!liveContent && !paletteItem) {
         return null;
     }
 
-    const content = liveContent;
-    const Component = components[content._meta.schema];
     const children = Component ? <Component {...content} /> : <>{JSON.stringify(content)}</>;
 
     const wrappedChildren =
         type === 'SLOT' ? (
-            <CmsSlot key={content._meta.deliveryId} content={content}>
+            <CmsSlot key={content._meta?.deliveryId} content={content}>
                 {children}
             </CmsSlot>
         ) : (
-            <CmsContentItem key={content._meta.deliveryId} content={content}>
+            <CmsContentItem key={content._meta?.deliveryId} content={content}>
                 {children}
             </CmsContentItem>
         );

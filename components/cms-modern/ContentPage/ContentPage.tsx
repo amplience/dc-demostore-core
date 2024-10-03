@@ -5,10 +5,17 @@ import { Box, Typography } from '@mui/material';
 
 interface ContentPageProps {
     contentTypes: CmsContent[];
+    contentPallete: CmsContent[];
+    fixedContentPallete: CmsContent[];
     seo: any;
 }
 
-const ContentPage = ({ contentTypes = [], seo = {} }: ContentPageProps) => {
+const ContentPage = ({
+    contentTypes = [],
+    contentPallete = [],
+    fixedContentPallete = [],
+    seo = {},
+}: ContentPageProps) => {
     return (
         <Box>
             <Typography variant="h1" component="h1">
@@ -18,6 +25,20 @@ const ContentPage = ({ contentTypes = [], seo = {} }: ContentPageProps) => {
                 {seo.description}
             </Typography>
             {contentTypes.map((item, index: number) => {
+                return (
+                    <Box key={index}>
+                        <ContentBlock content={item} />
+                    </Box>
+                );
+            })}
+            {contentPallete.map((item, index: number) => {
+                return (
+                    <Box key={index}>
+                        <ContentBlock content={item} />
+                    </Box>
+                );
+            })}
+            {fixedContentPallete.map((item, index: number) => {
                 return (
                     <Box key={index}>
                         <ContentBlock content={item} />

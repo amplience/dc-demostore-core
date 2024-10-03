@@ -4,7 +4,7 @@ import { NavigationItem } from './NavigationContext';
 export default function walkNavigation(
     current: NavigationItem,
     visitor: (item: NavigationItem, parents: NavigationItem[]) => void,
-    parents: NavigationItem[] = []
+    parents: NavigationItem[] = [],
 ) {
     visitor(current, parents);
     for (let child of current.children) {
@@ -14,7 +14,7 @@ export default function walkNavigation(
 
 export function walkNavigationItems(
     items: NavigationItem[],
-    visitor: (item: NavigationItem, parents: NavigationItem[]) => void
+    visitor: (item: NavigationItem, parents: NavigationItem[]) => void,
 ) {
     for (let item of items) {
         walkNavigation(item, visitor);
@@ -90,6 +90,7 @@ export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any
                         ecommCategories: true,
                         hideProductList: false,
                         components: [],
+                        fixedContentPallete: [],
                         slots: [],
                         active: true,
                         menu: {
