@@ -30,13 +30,17 @@ export async function createCmsContext(req: IncomingMessage): Promise<CmsContext
 
     const { query } = parse(url, true);
 
-    const { vse: queryStringVse, locale: queryStringLocale } = query || {};
+    let { vse: queryStringVse, locale: queryStringLocale } = query || {};
 
     const cookies = new Cookies(req);
     const cookieVse = cookies.get('amplience-host');
     const cookieTimestamp = cookies.get('timestamp');
     const cookieLocale = cookies.get('locale');
     const cookieCurrency = cookies.get('currency');
+
+    if (queryStringLocale === 'undefined') {
+        queryStringLocale = '*';
+    }
 
     return {
         stagingApi: queryStringVse || cookieVse || null,
