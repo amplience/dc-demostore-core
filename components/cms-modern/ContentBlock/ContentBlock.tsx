@@ -152,9 +152,9 @@ const ContentBlock = ({
     const [liveContent] = useContent(originalContent, vse);
     const content = liveContent;
     let paletteItem = false;
-    let Component = components[content._meta?.schema];
+    let Component = components[content?._meta?.schema];
     if (!Component) {
-        Component = palettes[content.type];
+        Component = palettes[content?.type];
         if (Component) paletteItem = true;
     }
     if (!liveContent && !paletteItem) {
