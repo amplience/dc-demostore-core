@@ -110,7 +110,7 @@ const PaletteMapping: any = {
     image: Image,
     'content-page': ContentPage,
     'product-grid': ProductGrid,
-    'rich-text': CustomRichText,
+    'custom-rich-text': CustomRichText,
     'shoppable-image': ShoppableImage,
     'simple-banner': SimpleBanner,
     'simple-localized-banner': SimpleBanner,
