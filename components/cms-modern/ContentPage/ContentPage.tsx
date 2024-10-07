@@ -24,21 +24,14 @@ const ContentPage = ({
             <Typography variant="body1" component="p">
                 {seo.description}
             </Typography>
-            {contentTypes.map((item, index: number) => {
-                return (
-                    <Box key={index}>
-                        <ContentBlock content={item} />
-                    </Box>
-                );
-            })}
-            {contentPallete.map((item, index: number) => {
-                return (
-                    <Box key={index}>
-                        <ContentBlock content={item} />
-                    </Box>
-                );
-            })}
             {fixedContentPallete.map((item, index: number) => {
+                return (
+                    <Box key={index}>
+                        <ContentBlock content={item} />
+                    </Box>
+                );
+            })}
+            {contentTypes.map((item, index: number) => {
                 return (
                     <Box key={index}>
                         <ContentBlock content={item} />

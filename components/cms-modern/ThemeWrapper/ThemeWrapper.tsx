@@ -17,14 +17,14 @@ const ThemeWrapper = ({ theme, components = [], fixedContentPallete = [] }: Them
     return (
         <WithCMSTheme themes={themes} themeOverride={theme}>
             <Box>
-                {components.map((item, index: number) => {
+                {fixedContentPallete.map((item, index: number) => {
                     return (
                         <Box key={index}>
                             <ContentBlock content={item} />
                         </Box>
                     );
                 })}
-                {fixedContentPallete.map((item, index: number) => {
+                {components.map((item, index: number) => {
                     return (
                         <Box key={index}>
                             <ContentBlock content={item} />

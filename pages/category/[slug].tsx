@@ -126,11 +126,10 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
 
                 {/* Additional Components */}
                 <div>
-                    {compact(components).map((content, index: number) => (
+                    {compact(fixedContentPallete).map((content, index: number) => (
                         <ContentBlock key={index} content={content} />
                     ))}
-
-                    {compact(fixedContentPallete).map((content, index: number) => (
+                    {compact(components).map((content, index: number) => (
                         <ContentBlock key={index} content={content} />
                     ))}
 

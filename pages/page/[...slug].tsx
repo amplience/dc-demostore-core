@@ -47,10 +47,10 @@ export default function LandingPage({ content, slots }: InferGetServerSidePropsT
             {slots.filter(notNull).map((slot: CmsContent, index: number) => (
                 <ContentBlock content={slot} type="SLOT" key={index} />
             ))}
-            {content?.page?.components
+            {content?.page?.fixedContentPallete
                 ?.filter(notNull)
                 .map((content: CmsContent, index: number) => <ContentBlock content={content} key={index} />)}
-            {content?.page?.fixedContentPallete
+            {content?.page?.components
                 ?.filter(notNull)
                 .map((content: CmsContent, index: number) => <ContentBlock content={content} key={index} />)}
         </div>
