@@ -55,7 +55,12 @@ let commerceApi: CommerceAPI & { vendor: () => string } = {
         return await (await initCommerceAPI()).getCategoryTree(args);
     },
     getCustomerGroups: async function (args: CommonArgs): Promise<CustomerGroup[]> {
-        return await (await initCommerceAPI()).getCustomerGroups(args);
+        try {
+            return await (await initCommerceAPI()).getCustomerGroups(args);
+        } catch (e) {
+            console.warn((e as Error).message);
+            return [];
+        }
     },
     vendor: function (): string {
         return cacheApiConfig().vendor;
