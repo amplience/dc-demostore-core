@@ -19,7 +19,7 @@ const CuratedProductGridCard = (props: CuratedProductGridCardProps) => {
             category: 'Product',
             action: 'Click',
             label: slug,
-            value: prices.list,
+            value: prices?.list,
         });
     };
     const { locale: cmsLocale } = useCmsContext() || {};
