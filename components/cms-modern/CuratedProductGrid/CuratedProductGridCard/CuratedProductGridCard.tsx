@@ -33,30 +33,29 @@ const CuratedProductGridCard = (props: CuratedProductGridCardProps) => {
 
     return (
         <Link passHref href={`/product/${result.id}/${result.slug}`} onClick={handleClickProduct}>
-            <div {...other}>
-                <div
-                    style={{
-                        position: 'relative' as 'relative',
-                    }}
-                >
-                    {result.variants[0] && (
-                        <img
-                            src={imageUrl}
-                            style={{
-                                top: 0,
-                                bottom: 0,
-                                width: '100%',
-                            }}
-                            alt={result.name}
-                        />
-                    )}
-                </div>
-                <div
-                    style={{
-                        marginTop: 30,
-                        marginBottom: 60,
-                    }}
-                >
+            <div
+                {...other}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                    height: '100%',
+                }}
+            >
+                {result.variants[0] && (
+                    <img
+                        src={imageUrl}
+                        style={{
+                            maxWidth: '100%',
+                            height: 'auto',
+                            objectFit: 'contain',
+                            flexGrow: '1',
+                            overflow: 'auto',
+                        }}
+                        alt={result.name}
+                    />
+                )}
+                <div style={{ flexShrink: '0', overflow: 'auto', marginTop: 30, marginBottom: 60 }}>
                     <Typography
                         variant="h4"
                         component="h4"
