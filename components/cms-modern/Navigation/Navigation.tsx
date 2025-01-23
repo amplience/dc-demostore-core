@@ -65,13 +65,11 @@ const Navigation = ({ pages, style }: NavigationProps) => {
         <nav className="navigation" style={style}>
             <ul className="navigation__list">
                 {pages
-                    .sort((p1, p2) =>
-                        p1.content?.menu.priority > p2.content?.menu.priority
-                            ? 1
-                            : p1.content?.menu.priority < p2.content?.menu.priority
-                              ? -1
-                              : 0,
-                    )
+                    .sort((p1, p2) => {
+                        const menu1Priority = p1.content?.menu?.priority || 0;
+                        const menu2Priority = p2.content?.menu?.priority || 0;
+                        return menu1Priority > menu2Priority ? 1 : menu1Priority < menu2Priority ? -1 : 0;
+                    })
                     .map(({ title, href = '', children = [], content, category }, index) => {
                         return (
                             <li
