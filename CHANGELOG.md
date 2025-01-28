@@ -1,5 +1,21 @@
 # Changelog
 
+## [4.2.0](https://github.com/amplience/dc-demostore-core/compare/v4.1.0...v4.2.0) (2025-01-28)
+
+
+### Features
+
+* bump integration middleware version ([abe9305](https://github.com/amplience/dc-demostore-core/commit/abe9305c258e47d96bf26946b2f8a1140097755b))
+
+
+### Bug Fixes
+
+* catch errors when customer group request is not implemented ([80cd634](https://github.com/amplience/dc-demostore-core/commit/80cd634e94ff3ded117ae4219ecfa34048066d61))
+* check variant prices prop is defined ([f0e533a](https://github.com/amplience/dc-demostore-core/commit/f0e533aded6038ab7dadab06cb00623006653173))
+* checking for undefined menu items menu priority when sorting navigation ([a7b2c77](https://github.com/amplience/dc-demostore-core/commit/a7b2c77860dd01ac8da64cbe501b22c21ff8c434))
+* package-lock bump to middleware v2.4.0 ([d514afe](https://github.com/amplience/dc-demostore-core/commit/d514afe9dfc8239d00e47b6bb5c789a56ff34367))
+* prevent curate product grid card overflow ([db0ea32](https://github.com/amplience/dc-demostore-core/commit/db0ea3291d08df0443385a0844214ba08a551772))
+
 ## [4.1.0](https://github.com/amplience/dc-demostore-core/compare/v4.0.1...v4.1.0) (2024-08-29)
 
 
