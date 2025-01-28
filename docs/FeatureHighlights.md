@@ -13,5 +13,8 @@
 - AI Shoppable Image implementation to enrich interactive images
 - Accelerated Media Admin Panel with page statistics and detailed images statistics
 - AI SEO Assistant extension to generate SEO title, description, keywords for Blog
+- Automated Video Caption
+- Content Studio direct launch from Rich Text Editor
+- Image Studio support from Shoppable Image and DI Transform extensions
 
 [back](../README.md)
