@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/amplience/dc-demostore-core/compare/v4.2.0...v4.3.0) (2025-04-10)
+
+
+### Features
+
+* support scayle api base override ([#85](https://github.com/amplience/dc-demostore-core/issues/85)) ([423a174](https://github.com/amplience/dc-demostore-core/commit/423a174ea439c87eae5949e3490805a1ca52e2d6))
+
 ## [4.2.0](https://github.com/amplience/dc-demostore-core/compare/v4.1.0...v4.2.0) (2025-01-28)
 
 
