@@ -4,7 +4,7 @@
 -   Multi-language & multi-currency front-end
 -   Multiple Components and Content Types implemented (banners, card lists, blogs, slots, etc.)
 -   Multiple Visualisation implemented (page, standalone, time-based, etc.)
--   Visualisation SDK implmentation for Real-Time Visualisation from Amplience Dynamic Content
+-   Visualisation SDK implementation for Real-Time Visualisation from Amplience Dynamic Content
 -   Filter API implementation for Store page & Product Details Page personalisation
 -   [dc-integration-middleware](https://github.com/amplience/dc-integration-middleware) implementation to connect to e-Commerce (CommerceTools, BigCommerce, Shopify, SFCC, Scayle, file based catalog, etc.)
 -   Admin Panel (visualise content, slots, editons, switch between production and staging view)
