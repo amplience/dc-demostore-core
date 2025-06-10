@@ -12,6 +12,15 @@ If you already have access to Amplience as a customer / partner, the process is 
 
 Once your account is setup, you will have all of the required information to automate.
 
+### AI capabilities
+
+In order to use any AI services included in the demostore, you will require the following:
+
+1. Amplience [Credits](https://amplience.com/developers/docs/ai-services/credits/)
+2. Access to [Studios](https://amplience.com/developers/docs/amplience-studios/)
+
+Please discuss with your account manager for access.
+
 ## Without Amplience Access
 
 If you are not an existing Amplience customer / partner, please head to [Amplience.com](https://amplience.com) to register your interest.
