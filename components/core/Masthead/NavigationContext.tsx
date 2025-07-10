@@ -163,22 +163,10 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
                 case 'external-page':
                     return buildExternalPageItem(node);
             }
-
             return null;
         };
 
         const buildCmsEntries = (children: CmsHierarchyNode[] = []): NavigationItem[] => {
-            children.sort(function (a: any, b: any) {
-                const priorityA = a.menu?.priority || a.priority || a.title;
-                const priorityB = b.menu?.priority || b.priority || b.title;
-
-                if (priorityA < priorityB) {
-                    return 1;
-                } else if (priorityA > priorityB) {
-                    return -1;
-                }
-                return 0;
-            });
             return children.map(buildCmsItem).filter((x) => x != null) as NavigationItem[];
         };
 

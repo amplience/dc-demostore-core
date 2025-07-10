@@ -4,7 +4,7 @@ import { NavigationItem } from './NavigationContext';
 export default function walkNavigation(
     current: NavigationItem,
     visitor: (item: NavigationItem, parents: NavigationItem[]) => void,
-    parents: NavigationItem[] = []
+    parents: NavigationItem[] = [],
 ) {
     visitor(current, parents);
     for (let child of current.children) {
@@ -14,7 +14,7 @@ export default function walkNavigation(
 
 export function walkNavigationItems(
     items: NavigationItem[],
-    visitor: (item: NavigationItem, parents: NavigationItem[]) => void
+    visitor: (item: NavigationItem, parents: NavigationItem[]) => void,
 ) {
     for (let item of items) {
         walkNavigation(item, visitor);
@@ -31,88 +31,61 @@ export function getTypeFromSchema(schema: string) {
             return 'group';
         case 'https://demostore.amplience.com/site/pages/category':
             return 'category';
+        case 'https://demostore.amplience.com/site/pages/ecomm-category-placeholder':
+            return 'ecomm-category-placeholder';
     }
     return null;
 }
 
+export function generateEcommItem({ id, name, slug, children }: any) {
+    return {
+        content: {
+            _meta: {
+                name,
+                schema: 'https://demostore.amplience.com/site/pages/category',
+                deliveryKey: `category/${slug}`,
+                hierarchy: {
+                    parentId: 'generated',
+                    root: false,
+                },
+                deliveryId: id,
+            },
+            ecommCategories: true,
+            hideProductList: false,
+            components: [],
+            slots: [],
+            active: true,
+            menu: {
+                hidden: false,
+            },
+            name: id,
+        },
+        children: children.map(generateEcommItem),
+    };
+}
+
 export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any, categories: any) {
-    // Generate fake cms entries for categories that exist on the backend,
-    // are flagged as being visible in menu, and don't have an existing cms entry.
-
-    const myType = getTypeFromSchema(cmsEntry.content?._meta?.schema);
-
-    if (!cmsEntry.content.ecommCategories) {
-        categories = null;
-    } else if (categories == null && myType === 'category') {
-        // Locate the category by ID.
-
-        categories = categoriesById[cmsEntry.content.name]?.children;
-    }
-
-    if (categories == null) {
-        for (const child of cmsEntry.children) {
+    let categoryPosition = 0;
+    const enrichedChildren = [];
+    cmsEntry?.children.forEach((child) => {
+        const childType = getTypeFromSchema(child.content?._meta?.schema);
+        if (cmsEntry.content?.ecommCategories && childType === 'ecomm-category-placeholder') {
+            categories
+                .filter((ecommCategory: any) => !cmsEntry.children.some((c) => c.content.name === ecommCategory.id))
+                .slice(categoryPosition, categoryPosition + child.content.categoryCount)
+                .forEach((ecommCategory: any) => {
+                    const ecommItem = generateEcommItem(ecommCategory);
+                    enrichCmsEntries(ecommItem, categoriesById, categoriesById[ecommItem.content.name]?.children);
+                    enrichedChildren.push(ecommItem);
+                });
+            categoryPosition += child.content.categoryCount;
+        } else if (child.content?.ecommCategories && childType === 'category') {
+            child.children = categoriesById[child.content.name]?.children.map(generateEcommItem);
+            enrichedChildren.push(child);
+        } else {
             enrichCmsEntries(child, categoriesById, null);
+            enrichedChildren.push(child);
         }
-    } else {
-        const children = cmsEntry.children;
-        const remainingChildren = [...children];
-
-        let generated = 0;
-        for (const category of categories) {
-            // Does a CMS category exist for this entry?
-
-            let cmsChild = children.find((child) => {
-                const type = getTypeFromSchema(child.content?._meta?.schema);
-                if (!type) {
-                    return false;
-                }
-
-                return type === 'category' && child.content.name === category.id;
-            });
-
-            let pushCount = 0;
-
-            if (!cmsChild && category.showInMenu) {
-                // Create a dummy one, if it's meant to be visible
-                generated++;
-                cmsChild = {
-                    content: {
-                        _meta: {
-                            name: category.name,
-                            schema: 'https://demostore.amplience.com/site/pages/category',
-                            deliveryKey: 'category/' + category.slug,
-                            hierarchy: {
-                                parentId: 'generated',
-                                root: false,
-                            },
-                            deliveryId: category.id,
-                        },
-                        ecommCategories: true,
-                        hideProductList: false,
-                        components: [],
-                        slots: [],
-                        active: true,
-                        menu: {
-                            hidden: false,
-                            priority: generated * 10,
-                        },
-                        name: category.id,
-                    },
-                    children: [],
-                };
-
-                children.splice(pushCount++, 0, cmsChild);
-            }
-
-            if (cmsChild) {
-                enrichCmsEntries(cmsChild, categoriesById, category.children);
-
-                remainingChildren.splice(remainingChildren.indexOf(cmsChild), 1);
-            }
-        }
-
-        for (const cmsChild of remainingChildren) {
-            enrichCmsEntries(cmsChild, categoriesById, null);
-        }
-    }
+    });
+    cmsEntry.children = enrichedChildren;
 }

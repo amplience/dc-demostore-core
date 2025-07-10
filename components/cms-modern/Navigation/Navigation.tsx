@@ -64,49 +64,42 @@ const Navigation = ({ pages, style }: NavigationProps) => {
     return (
         <nav className="navigation" style={style}>
             <ul className="navigation__list">
-                {pages
-                    .sort((p1, p2) => {
-                        const menu1Priority = p1.content?.menu?.priority || 0;
-                        const menu2Priority = p2.content?.menu?.priority || 0;
-                        return menu1Priority > menu2Priority ? 1 : menu1Priority < menu2Priority ? -1 : 0;
-                    })
-                    .map(({ title, href = '', children = [], content, category }, index) => {
-                        return (
-                            <li
-                                key={index}
-                                className={clsx('navigation__list__item', {
-                                    ['navigation__list__item--active']: isRouteActive(href || '', category),
-                                    ['navigation__list__item--open']: isMenuOpen(index),
-                                })}
-                            >
-                                {title && href && (
-                                    <Link
-                                        href={href || ''}
-                                        onClick={(event) =>
-                                            children.length === 0 ? handleRouteChange() : handleClick(event, index)
-                                        }
-                                        className="navigation__list__item__link"
-                                        title={`priority: ${content?.menu?.priority}`}
-                                    >
-                                        {title}
-                                    </Link>
-                                )}
-                                {children.length > 0 ? (
-                                    <MegaMenu
-                                        content={content?.menu?.content}
-                                        handleRouteChange={handleRouteChange}
-                                        closeMenu={closeMenu}
-                                        title={title}
-                                        href={href || ''}
-                                    >
-                                        {children}
-                                    </MegaMenu>
-                                ) : (
-                                    <div></div>
-                                )}
-                            </li>
-                        );
-                    })}
+                {pages.map(({ title, href = '', children = [], content, category }, index) => {
+                    return (
+                        <li
+                            key={index}
+                            className={clsx('navigation__list__item', {
+                                ['navigation__list__item--active']: isRouteActive(href || '', category),
+                                ['navigation__list__item--open']: isMenuOpen(index),
+                            })}
+                        >
+                            {title && href && (
+                                <Link
+                                    href={href || ''}
+                                    onClick={(event) =>
+                                        children.length === 0 ? handleRouteChange() : handleClick(event, index)
+                                    }
+                                    className="navigation__list__item__link"
+                                >
+                                    {title}
+                                </Link>
+                            )}
+                            {children.length > 0 ? (
+                                <MegaMenu
+                                    content={content?.menu?.content}
+                                    handleRouteChange={handleRouteChange}
+                                    closeMenu={closeMenu}
+                                    title={title}
+                                    href={href || ''}
+                                >
+                                    {children}
+                                </MegaMenu>
+                            ) : (
+                                <div></div>
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
             <ul className="navigation__list--search">
                 <li className="navigation__list__item navigation__list__item--search" key={pages.length}>
