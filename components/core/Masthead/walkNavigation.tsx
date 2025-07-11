@@ -1,5 +1,7 @@
 import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
-import { NavigationItem } from './NavigationContext';
+import { CategoryById, NavigationItem } from './NavigationContext';
+import { Category } from '@amplience/dc-integration-middleware';
+import { variableChunker } from '@lib/variable-chunker/variable-chunker';
 
 export default function walkNavigation(
     current: NavigationItem,
@@ -37,7 +39,7 @@ export function getTypeFromSchema(schema: string) {
     return null;
 }
 
-export function generateEcommItem({ id, name, slug, children }: any) {
+export function generateCmsCategory({ id, name, slug, children }: Category): CmsHierarchyNode {
     return {
         content: {
             _meta: {
@@ -60,32 +62,38 @@ export function generateEcommItem({ id, name, slug, children }: any) {
             },
             name: id,
         },
-        children: children.map(generateEcommItem),
+        children: children.map(generateCmsCategory),
     };
 }
 
-export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any, categories: any) {
-    let categoryPosition = 0;
-    const enrichedChildren = [];
-    cmsEntry?.children.forEach((child) => {
-        const childType = getTypeFromSchema(child.content?._meta?.schema);
-        if (cmsEntry.content?.ecommCategories && childType === 'ecomm-category-placeholder') {
-            categories
-                .filter((ecommCategory: any) => !cmsEntry.children.some((c) => c.content.name === ecommCategory.id))
-                .slice(categoryPosition, categoryPosition + child.content.categoryCount)
-                .forEach((ecommCategory: any) => {
-                    const ecommItem = generateEcommItem(ecommCategory);
-                    enrichCmsEntries(ecommItem, categoriesById, categoriesById[ecommItem.content.name]?.children);
-                    enrichedChildren.push(ecommItem);
-                });
-            categoryPosition += child.content.categoryCount;
-        } else if (child.content?.ecommCategories && childType === 'category') {
-            child.children = categoriesById[child.content.name]?.children.map(generateEcommItem);
-            enrichedChildren.push(child);
-        } else {
-            enrichCmsEntries(child, categoriesById, null);
-            enrichedChildren.push(child);
+export function enrichHierarchyNodes(
+    rootCmsNode: CmsHierarchyNode,
+    categoriesById: CategoryById,
+    categories: Category[],
+): CmsHierarchyNode {
+    const ecommCategoriesEnabled = Boolean(rootCmsNode.content?.ecommCategories);
+    const unusedCategories = categories.filter(
+        (ecommCategory: Category) => !rootCmsNode.children.some((c) => c.content.name === ecommCategory.id),
+    );
+    const nextCategoryChunk = variableChunker<Category>(unusedCategories);
+    const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
+        const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
+        if (ecommCategoriesEnabled && childNodeType === 'ecomm-category-placeholder') {
+            const enrichedChildNodes = nextCategoryChunk(childNode.content.categoryCount).map((category: Category) =>
+                enrichHierarchyNodes(
+                    generateCmsCategory(category),
+                    categoriesById,
+                    categoriesById[category.id]?.children,
+                ),
+            );
+            return [...cmsNodes, ...enrichedChildNodes];
         }
-    });
-    cmsEntry.children = enrichedChildren;
+        if (ecommCategoriesEnabled && childNodeType === 'category') {
+            childNode.children = categoriesById[childNode.content.name]?.children.map(generateCmsCategory);
+            return [...cmsNodes, childNode];
+        }
+        return [...cmsNodes, enrichHierarchyNodes(childNode, categoriesById, [])];
+    }, []);
+
+    return { content: rootCmsNode.content, children: enrichedRootNodeChildren };
 }

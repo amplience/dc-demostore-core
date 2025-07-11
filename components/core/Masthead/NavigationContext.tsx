@@ -1,8 +1,9 @@
 import { createContext, useMemo, useContext, PropsWithChildren } from 'react';
 import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 import { CmsContent } from '@lib/cms/CmsContent';
-import walkNavigation, { enrichCmsEntries, getTypeFromSchema } from './walkNavigation';
+import walkNavigation, { enrichHierarchyNodes, getTypeFromSchema } from './walkNavigation';
 import { useUserContext } from '@lib/user/UserContext';
+import { Category } from '@amplience/dc-integration-middleware';
 
 export type NavigationItem = {
     type: 'page' | 'external-page' | 'category' | 'group';
@@ -12,7 +13,7 @@ export type NavigationItem = {
     parents: NavigationItem[];
 
     content?: CmsContent;
-    category?: any;
+    category?: Category;
 
     nodeContentItem?: CmsContent;
 };
@@ -22,18 +23,20 @@ export type NavigationState = {
     findByHref: (href: string) => NavigationItem | undefined;
 };
 
+export type CategoryById = Record<string, Category>;
+
 const NavigationContext = createContext<NavigationState | null>(null);
 
 interface WithNavigationContextProps extends PropsWithChildren {
     pages: CmsHierarchyNode;
-    categories: any;
+    categories: Category[];
 }
 
 export const WithNavigationContext = ({ pages, categories, children }: WithNavigationContextProps) => {
     const { language } = useUserContext();
-    const flattenCategories = (categories: any[]) => {
-        const allCategories: any[] = [];
-        const bulldozeCategories = (cat: any) => {
+    const flattenCategories = (categories: Category[]) => {
+        const allCategories: Category[] = [];
+        const bulldozeCategories = (cat: Category) => {
             allCategories.push(cat);
             cat.children && cat.children.forEach(bulldozeCategories);
         };
@@ -41,7 +44,7 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
         return allCategories;
     };
     const categoriesById = useMemo(() => {
-        const result: any = {};
+        const result: CategoryById = {};
         for (let item of flattenCategories(categories)) {
             result[item.id] = item;
         }
@@ -51,7 +54,7 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
     const rootItems = useMemo(() => {
         const buildCategoryItem = (
             cmsCategory: CmsHierarchyNode | undefined,
-            ecommerceCategory: any | undefined,
+            ecommerceCategory: Category | undefined,
         ): NavigationItem | null => {
             if (!cmsCategory && !ecommerceCategory) {
                 return null;
@@ -170,9 +173,9 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             return children.map(buildCmsItem).filter((x) => x != null) as NavigationItem[];
         };
 
-        enrichCmsEntries(pages, categoriesById, categories);
+        const enrichedPages = enrichHierarchyNodes(pages, categoriesById, categories);
 
-        const rootEntries = buildCmsEntries(pages.children);
+        const rootEntries = buildCmsEntries(enrichedPages.children);
         rootEntries.forEach((rootEntry) => {
             walkNavigation(rootEntry, (node: NavigationItem, parents: NavigationItem[]) => {
                 node.parents = parents;
