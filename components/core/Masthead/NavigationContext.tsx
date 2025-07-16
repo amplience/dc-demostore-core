@@ -173,7 +173,7 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             return children.map(buildCmsItem).filter((x) => x != null) as NavigationItem[];
         };
 
-        const enrichedPages = enrichHierarchyNodes(pages, categoriesById, categories);
+        const enrichedPages = enrichHierarchyNodes(pages, categoriesById);
 
         const rootEntries = buildCmsEntries(enrichedPages.children);
         rootEntries.forEach((rootEntry) => {
@@ -182,7 +182,7 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             });
         });
         return rootEntries as NavigationItem[];
-    }, [pages, categories, categoriesById, language]);
+    }, [pages, categoriesById, language]);
 
     const findByHref = (href: string) => {
         let result: NavigationItem | undefined;
