@@ -70,6 +70,9 @@ export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesBy
     const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
         const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
         if (ecommCategoriesEnabled && childNodeType === 'ecomm-category-placeholder') {
+            if (!childNode.content?.active) {
+                return [];
+            }
             const enrichedChildNodes = childNode.content.name.map((n: string) => {
                 return enrichHierarchyNodes(generateCmsCategory(categoriesById[n]), categoriesById);
             });
