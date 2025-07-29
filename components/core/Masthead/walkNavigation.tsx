@@ -32,8 +32,8 @@ export function getTypeFromSchema(schema: string) {
             return 'group';
         case 'https://demostore.amplience.com/site/pages/category':
             return 'category';
-        case 'https://demostore.amplience.com/site/pages/ecomm-category-placeholder':
-            return 'ecomm-category-placeholder';
+        case 'https://demostore.amplience.com/site/pages/ecommerce-container':
+            return 'ecommerce-container';
     }
     return null;
 }
@@ -72,7 +72,7 @@ export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesBy
     const ecommCategoriesEnabled = Boolean(rootCmsNode.content?.ecommCategories);
     const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
         const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
-        if (ecommCategoriesEnabled && childNodeType === 'ecomm-category-placeholder') {
+        if (ecommCategoriesEnabled && childNodeType === 'ecommerce-container') {
             const enrichedChildNodes = childNode.content.name.map((n: string) => {
                 return enrichHierarchyNodes(
                     generateCmsCategory(categoriesById[n], {

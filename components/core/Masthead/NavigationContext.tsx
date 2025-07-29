@@ -157,7 +157,8 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             }
             switch (type) {
                 case 'category':
-                    let category = categoriesById[node.content.name];
+                case 'ecommerce-container':
+                    const category = categoriesById[node.content.name];
                     return buildCategoryItem(node, category);
                 case 'group':
                     return buildGroupItem(node);
