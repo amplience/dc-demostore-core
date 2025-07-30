@@ -61,6 +61,9 @@ const Navigation = ({ pages, style }: NavigationProps) => {
         setSelectedMenuKey(null);
     };
 
+    const { query } = useRouter() || {};
+    const vse = (query?.vse as string) || '';
+
     return (
         <nav className="navigation" style={style}>
             <ul className="navigation__list">
@@ -80,6 +83,7 @@ const Navigation = ({ pages, style }: NavigationProps) => {
                                         children.length === 0 ? handleRouteChange() : handleClick(event, index)
                                     }
                                     className="navigation__list__item__link"
+                                    title={vse && content?.menu?.itemType}
                                 >
                                     {title}
                                 </Link>

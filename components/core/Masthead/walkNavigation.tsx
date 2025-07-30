@@ -61,6 +61,7 @@ export function generateCmsCategory(
             active: options?.active ?? true,
             menu: {
                 hidden: false,
+                itemType: 'Commerce Item',
             },
             name: id,
         },
@@ -72,6 +73,10 @@ export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesBy
     const ecommCategoriesEnabled = Boolean(rootCmsNode.content?.ecommCategories);
     const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
         const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
+
+        let updatedContent = { ...childNode.content, menu: { itemType: 'CMS Item' } };
+        let updatedChildNode = { ...childNode, content: updatedContent };
+
         if (ecommCategoriesEnabled && childNodeType === 'ecommerce-container') {
             const enrichedChildNodes = childNode.content.name.map((n: string) => {
                 return enrichHierarchyNodes(
@@ -87,9 +92,12 @@ export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesBy
             childNode.children = categoriesById[childNode.content.name]?.children.map((child) =>
                 generateCmsCategory(child),
             );
-            return [...cmsNodes, childNode];
+
+            updatedContent = { ...childNode.content, menu: { itemType: 'CMS Override Item' } };
+            updatedChildNode = { ...childNode, content: updatedContent };
+            return [...cmsNodes, updatedChildNode];
         }
-        return [...cmsNodes, enrichHierarchyNodes(childNode, categoriesById)];
+        return [...cmsNodes, enrichHierarchyNodes(updatedChildNode, categoriesById)];
     }, []);
 
     return { content: rootCmsNode.content, children: enrichedRootNodeChildren };
