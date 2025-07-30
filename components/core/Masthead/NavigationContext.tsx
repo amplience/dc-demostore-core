@@ -6,7 +6,7 @@ import { useUserContext } from '@lib/user/UserContext';
 import { Category } from '@amplience/dc-integration-middleware';
 
 export type NavigationItem = {
-    type: 'page' | 'external-page' | 'category' | 'group';
+    type: 'page' | 'external-page' | 'category' | 'group' | 'ecommerce-container-generated';
     title: string;
     href?: string;
     children: NavigationItem[];
@@ -61,7 +61,7 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             }
             const children: NavigationItem[] = [];
             const result = {
-                type: 'category',
+                type: getTypeFromSchema(cmsCategory?.content?._meta?.schema) || 'category',
                 title: ecommerceCategory?.name,
                 href: cmsCategory?.content?._meta?.deliveryKey
                     ? `/category/${cmsCategory?.content?._meta?.deliveryKey.split('/')[1]}`
@@ -157,7 +157,7 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             }
             switch (type) {
                 case 'category':
-                case 'ecommerce-container':
+                case 'ecommerce-container-generated':
                     const category = categoriesById[node.content.name];
                     return buildCategoryItem(node, category);
                 case 'group':

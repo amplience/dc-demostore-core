@@ -34,6 +34,8 @@ export function getTypeFromSchema(schema: string) {
             return 'category';
         case 'https://demostore.amplience.com/site/pages/ecommerce-container':
             return 'ecommerce-container';
+        case 'https://demostore.amplience.com/site/pages/ecommerce-container-generated':
+            return 'ecommerce-container-generated';
     }
     return null;
 }
@@ -46,7 +48,7 @@ export function generateCmsCategory(
         content: {
             _meta: {
                 name,
-                schema: 'https://demostore.amplience.com/site/pages/category',
+                schema: 'https://demostore.amplience.com/site/pages/ecommerce-container-generated',
                 deliveryKey: `category/${slug}`,
                 hierarchy: {
                     parentId: 'generated',
@@ -54,7 +56,6 @@ export function generateCmsCategory(
                 },
                 deliveryId: id,
             },
-            ecommCategories: true,
             hideProductList: false,
             components: [],
             slots: [],
@@ -69,10 +70,9 @@ export function generateCmsCategory(
 }
 
 export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesById: CategoryById): CmsHierarchyNode {
-    const ecommCategoriesEnabled = Boolean(rootCmsNode.content?.ecommCategories);
     const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
         const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
-        if (ecommCategoriesEnabled && childNodeType === 'ecommerce-container') {
+        if (childNodeType === 'ecommerce-container') {
             const enrichedChildNodes = childNode.content.name.map((n: string) => {
                 return enrichHierarchyNodes(
                     generateCmsCategory(categoriesById[n], {
@@ -83,7 +83,7 @@ export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesBy
             });
             return [...cmsNodes, ...enrichedChildNodes];
         }
-        if (ecommCategoriesEnabled && childNodeType === 'category') {
+        if (childNodeType === 'category') {
             childNode.children = categoriesById[childNode.content.name]?.children.map((child) =>
                 generateCmsCategory(child),
             );
