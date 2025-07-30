@@ -16,6 +16,7 @@ const Navigation = ({ pages, style }: NavigationProps) => {
     const { navigationToggle, toggleNavigation } = useUI();
     const [selectedMenuKey, setSelectedMenuKey] = useState<number | null>(null);
     const router = useRouter();
+    const vse = router.query.vse;
     const isRouteActive = (href: string | undefined, category: any): boolean => {
         // !!using the first word in the category slug as the current category
         // => full path should be present in slugs, and 1st level category slug shouldn't contain '-'
@@ -61,10 +62,21 @@ const Navigation = ({ pages, style }: NavigationProps) => {
         setSelectedMenuKey(null);
     };
 
+    const itemType = (type: string) => {
+        switch (type) {
+            case 'ecommerce-container-generated':
+                return 'Commerce Item';
+            case 'category':
+                return 'CMS Override Item';
+            default:
+                return 'CMS Item';
+        }
+    };
+
     return (
         <nav className="navigation" style={style}>
             <ul className="navigation__list">
-                {pages.map(({ title, href = '', children = [], content, category }, index) => {
+                {pages.map(({ title, href = '', children = [], content, category, type }, index) => {
                     return (
                         <li
                             key={index}
@@ -80,6 +92,7 @@ const Navigation = ({ pages, style }: NavigationProps) => {
                                         children.length === 0 ? handleRouteChange() : handleClick(event, index)
                                     }
                                     className="navigation__list__item__link"
+                                    title={vse && itemType(type)}
                                 >
                                     {title}
                                 </Link>
