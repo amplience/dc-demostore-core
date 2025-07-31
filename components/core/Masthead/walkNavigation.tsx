@@ -80,15 +80,15 @@ export function enrichHierarchyNodes(
             const categoryIds: string[] = childNode.content?.ecommerceConfiguration?.showAll
                 ? categories.map((category) => category.id)
                 : childNode.content?.ecommerceConfiguration?.categoryIds || [];
-            const enrichedChildNodes = categoryIds.map((categoryId) => {
-                return enrichHierarchyNodes(
+            const enrichedChildNodes = categoryIds.map((categoryId) =>
+                enrichHierarchyNodes(
                     generateCmsCategory(categoriesById[categoryId], {
                         active: childNode.content?.active,
                     }),
                     categoriesById,
                     categories,
-                );
-            });
+                ),
+            );
             return [...cmsNodes, ...enrichedChildNodes];
         }
         if (childNodeType === 'category') {
