@@ -79,8 +79,8 @@ export function enrichHierarchyNodes(
         if (childNodeType === 'ecommerce-container') {
             const categoryIds: string[] = childNode.content?.ecommerceConfiguration?.showAll
                 ? categories.map((category) => category.id)
-                : childNode.content?.ecommerceConfiguration?.categoryIds;
-            const enrichedChildNodes = (categoryIds || []).map((categoryId) => {
+                : childNode.content?.ecommerceConfiguration?.categoryIds || [];
+            const enrichedChildNodes = categoryIds.map((categoryId) => {
                 return enrichHierarchyNodes(
                     generateCmsCategory(categoriesById[categoryId], {
                         active: childNode.content?.active,
