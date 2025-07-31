@@ -77,12 +77,12 @@ export function enrichHierarchyNodes(
     const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
         const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
         if (childNodeType === 'ecommerce-container') {
-            const categoryIds = childNode.content?.ecommerceConfiguration?.showAll
-                ? categories.map((c) => c.id)
+            const categoryIds: string[] = childNode.content?.ecommerceConfiguration?.showAll
+                ? categories.map((category) => category.id)
                 : childNode.content?.ecommerceConfiguration?.categoryIds;
-            const enrichedChildNodes = (categoryIds || []).map((n: string) => {
+            const enrichedChildNodes = (categoryIds || []).map((categoryId) => {
                 return enrichHierarchyNodes(
-                    generateCmsCategory(categoriesById[n], {
+                    generateCmsCategory(categoriesById[categoryId], {
                         active: childNode.content?.active,
                     }),
                     categoriesById,
