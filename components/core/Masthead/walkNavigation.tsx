@@ -69,19 +69,29 @@ export function generateCmsCategory(
     };
 }
 
-export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesById: CategoryById): CmsHierarchyNode {
+export function enrichHierarchyNodes(
+    rootCmsNode: CmsHierarchyNode,
+    categoriesById: CategoryById,
+    categories: Category[],
+): CmsHierarchyNode {
     const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
         const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
         if (childNodeType === 'ecommerce-container') {
-            const enrichedChildNodes = childNode.content.name.map((n: string) => {
-                return enrichHierarchyNodes(
-                    generateCmsCategory(categoriesById[n], {
-                        active: childNode.content?.active,
-                    }),
-                    categoriesById,
-                );
-            });
-            return [...cmsNodes, ...enrichedChildNodes];
+            const categoryIds = childNode.content.ecommerceConfiguration.showAll
+                ? categories.map((c) => c.id)
+                : childNode.content.ecommerceConfiguration.categoryIds;
+            if (categoryIds) {
+                const enrichedChildNodes = categoryIds.map((n: string) => {
+                    return enrichHierarchyNodes(
+                        generateCmsCategory(categoriesById[n], {
+                            active: childNode.content?.active,
+                        }),
+                        categoriesById,
+                        categories,
+                    );
+                });
+                return [...cmsNodes, ...enrichedChildNodes];
+            }
         }
         if (childNodeType === 'category') {
             childNode.children = categoriesById[childNode.content.name]?.children.map((child) =>
@@ -89,7 +99,7 @@ export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesBy
             );
             return [...cmsNodes, childNode];
         }
-        return [...cmsNodes, enrichHierarchyNodes(childNode, categoriesById)];
+        return [...cmsNodes, enrichHierarchyNodes(childNode, categoriesById, categories)];
     }, []);
 
     return { content: rootCmsNode.content, children: enrichedRootNodeChildren };
