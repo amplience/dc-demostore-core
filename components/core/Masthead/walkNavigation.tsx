@@ -34,8 +34,8 @@ export function getTypeFromSchema(schema: string) {
             return 'category';
         case 'https://demostore.amplience.com/site/pages/ecommerce-container':
             return 'ecommerce-container';
-        case 'https://demostore.amplience.com/site/pages/ecommerce-container-generated':
-            return 'ecommerce-container-generated';
+        case 'https://demostore.amplience.com/site/pages/ecommerce-category-generated':
+            return 'ecommerce-category-generated';
     }
     return null;
 }
@@ -48,7 +48,7 @@ export function generateCmsCategory(
         content: {
             _meta: {
                 name,
-                schema: 'https://demostore.amplience.com/site/pages/ecommerce-container-generated',
+                schema: 'https://demostore.amplience.com/site/pages/ecommerce-category-generated',
                 deliveryKey: `category/${slug}`,
                 hierarchy: {
                     parentId: 'generated',
@@ -63,33 +63,41 @@ export function generateCmsCategory(
             menu: {
                 hidden: false,
             },
-            name: id,
+            categoryId: id,
         },
         children: children.map((child) => generateCmsCategory(child)),
     };
 }
 
-export function enrichHierarchyNodes(rootCmsNode: CmsHierarchyNode, categoriesById: CategoryById): CmsHierarchyNode {
+export function enrichHierarchyNodes(
+    rootCmsNode: CmsHierarchyNode,
+    categoriesById: CategoryById,
+    categories: Category[],
+): CmsHierarchyNode {
     const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
         const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
         if (childNodeType === 'ecommerce-container') {
-            const enrichedChildNodes = childNode.content.name.map((n: string) => {
-                return enrichHierarchyNodes(
-                    generateCmsCategory(categoriesById[n], {
+            const categoryIds: string[] = childNode.content?.ecommerceConfiguration?.showAll
+                ? categories.map((category) => category.id)
+                : childNode.content?.ecommerceConfiguration?.categoryIds || [];
+            const enrichedChildNodes = categoryIds.map((categoryId) =>
+                enrichHierarchyNodes(
+                    generateCmsCategory(categoriesById[categoryId], {
                         active: childNode.content?.active,
                     }),
                     categoriesById,
-                );
-            });
+                    categories,
+                ),
+            );
             return [...cmsNodes, ...enrichedChildNodes];
         }
         if (childNodeType === 'category') {
-            childNode.children = categoriesById[childNode.content.name]?.children.map((child) =>
+            childNode.children = categoriesById[childNode.content.categoryId]?.children.map((child) =>
                 generateCmsCategory(child),
             );
             return [...cmsNodes, childNode];
         }
-        return [...cmsNodes, enrichHierarchyNodes(childNode, categoriesById)];
+        return [...cmsNodes, enrichHierarchyNodes(childNode, categoriesById, categories)];
     }, []);
 
     return { content: rootCmsNode.content, children: enrichedRootNodeChildren };
