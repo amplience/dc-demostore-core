@@ -64,7 +64,7 @@ const Navigation = ({ pages, style }: NavigationProps) => {
 
     const itemType = (type: string) => {
         switch (type) {
-            case 'ecommerce-container-generated':
+            case 'ecommerce-category-generated':
                 return 'Commerce Item';
             case 'category':
                 return 'CMS Override Item';
