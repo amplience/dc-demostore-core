@@ -4,13 +4,13 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ### Navigation:
 
--   **Landing Page** - Just a pure CMS driven page (maybe a CMS icon next to the node)
+-   **Landing Page** - Just a pure CMS driven page.
 
--   **Category Page** - Links directly to a commerce category and allows CMS content (maybe a commerce icon)
+-   **Category Page** - Links directly to a commerce category and allows CMS content.
 
--   **Ecommerce Container** - Allows to draw all commerce categories or select and reorder multiple - no CMS content. Maybe multiple ordered commerce icons?)
+-   **Ecommerce Container** - Allows to draw all commerce categories or select and reorder multiple - no CMS content.
 
--   **External Page** - Menu item that links to an external URL (maybe the open in new page icon next to it)
+-   **External Page** - Menu item that links to an external URL.
 
 -   **Page Group** - A grouping for sub nodes of any type.
 
