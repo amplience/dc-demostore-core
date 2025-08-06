@@ -4,9 +4,15 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ### Navigation:
 
--   **Category Page** - An item & page linked to a Commerce category (PLP)
--   **Landing Page** - An item and standalone page for content only
--   **External Page** - An item which has an external link for its page content
+-   **Landing Page** - Just a pure CMS driven page (maybe a CMS icon next to the node)
+
+-   **Category Page** - Links directly to a commerce category and allows CMS content (maybe a commerce icon)
+
+-   **Ecommerce Container** - Allows to draw all commerce categories or select and reorder multiple - no CMS content. Maybe multiple ordered commerce icons?)
+
+-   **External Page** - Menu item that links to an external URL (maybe the open in new page icon next to it)
+
+-   **Page Group** - A grouping for sub nodes of any type.
 
 ### Standalone:
 
@@ -14,20 +20,15 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ## Ordering in Navigation
 
-Each item in the navigation has a `Priority` attribute. The number set in here is the order in which the navigation item is rendered.
+Each of the navigation items mentioned above can be arranged by dragging and dropping in the left-hand side menu. This provides a powerful and flexible way to arrange items in the menu according to preference.
 
-Example: 0 will be first
+When creating / adding and Ecommerce Container, you have two options:
 
-The priority is in relation to other priorities set at the same at the same level in the hierarchy. So for example if you have 2 nodes at the same level
+1. When the 'Show All' toggle switch is checked (default option), this will pull in all the ecommerce categories in the order they are obtained from the CMS.
 
--   MyItemA [Priority set to 50]
--   MyItemB [Priority set to 10]
+2. When it is unchecked you will be able to manually select and arrange the eCommerce categories via drag and drop inside of the Ecommerce container.
 
-Will display as `MyItemB,MyItemA` in that order
-
-> Note: When categories are set to automatically draw from commerce, they are given their priority with increments of 10 so that you can mix and max dynamic and curated navigation.
-
-> Additional node: If items have the same priority, they will display in order of which they are returned from the API.
+> Note: A Page Group can only be added as a child of a Category Page.
 
 ## Hiding a page
 
