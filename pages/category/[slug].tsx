@@ -72,9 +72,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     );
 
     let category;
-    if (data.content.page?.name) {
-        const cmsslug = data.content.page?.name;
-        category = findCategory(props.ecommerce.categories, (cat) => cat.id === cmsslug);
+    if (data.content.page?.categoryId) {
+        category = findCategory(props.ecommerce.categories, (cat) => cat.id === data.content.page?.categoryId);
     } else {
         category = findCategory(props.ecommerce.categories, (cat) => cat.slug === slug);
     }
@@ -118,7 +117,7 @@ function CategoryPage(props: InferGetServerSidePropsType<typeof getServerSidePro
                     <div>
                         <Breadcrumb />
                         <div style={{ marginBottom: '30px' }}>
-                            <Typography variant="h2">{category && category.name}</Typography>
+                            <Typography variant="h2">{category && category.categoryId}</Typography>
                         </div>
                     </div>
                 }
