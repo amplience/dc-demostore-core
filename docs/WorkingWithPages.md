@@ -4,15 +4,29 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ### Navigation:
 
--   **Landing Page** - Just a pure CMS driven page.
+-   **Landing Page** - A pure CMS driven page. An item and standalone page for content only. Via Page Group can link to a Category Page, External Page or another Landing Page. Shows as a CMS Item on hover in the visualisation.
 
--   **Category Page** - Links directly to a commerce category and allows CMS content.
+![alt text](image-4.png)
 
--   **Ecommerce Container** - Allows to draw all commerce categories or select and reorder multiple - no CMS content.
+-   **Category Page** - Links directly to a commerce category and allows CMS content. An item & page linked to a Commerce category (PLP), to which Page Groups or further Category Pages can be added. Shows as a CMS Override Item on hover in the visualisation.
 
--   **External Page** - Menu item that links to an external URL.
+![alt text](image-5.png)
 
--   **Page Group** - A grouping for sub nodes of any type.
+-   **Ecommerce Container** - Allows to you to draw all Ecommerce Categories into a single node - via Show All switch. Alternatively, select and reorder multiple Ecommerce Categories so you can control the order in which they appear in that existing node. Furthermore, you can use multiple Ecommerce Containers to distribute Ecommerce Categories amongst the CMS items. Shows as a Commerce Item on hover in the visualisation.
+
+![alt text](image-7.png)
+
+Show All above, below is selected Ecommerce Categories:
+
+![alt text](image-8.png)
+
+-   **External Page** - Menu item that links to an external URL. As this links to an External site, there are no further items that can be added. Displays as CMS Item on hover in the visualisation.
+
+![alt text](image-9.png)
+
+-   **Page Group** - A grouping for sub nodes of any type with the exception of External Pages and Ecommerce Containers.
+
+![alt text](image-10.png)
 
 ### Standalone:
 
@@ -20,19 +34,27 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ## Ordering in Navigation
 
-Each of the navigation items mentioned above can be arranged by dragging and dropping in the left-hand side menu. This provides a powerful and flexible way to arrange items in the menu according to preference.
+Each of the navigation items mentioned above can be arranged by dragging and dropping in the left-hand-side hierarchy menu. This provides a powerful and flexible way to arrange items in the menu according to preference. 
 
-When creating / adding and Ecommerce Container, you have two options:
+![alt text](image-11.png)
 
-1. When the 'Show All' toggle switch is checked (default option), this will pull in all the ecommerce categories in the order they are obtained from the CMS.
+Existing drag-and-drop functionality, eg dragging a Page Group from a Landing Page to a Category Page continues to be available.
 
-2. When it is unchecked you will be able to manually select and arrange the eCommerce categories via drag and drop inside of the Ecommerce container.
+When creating / adding an Ecommerce Container, you have two options:
 
-> Note: A Page Group can only be added as a child of a Category Page.
+1. When the 'Show All' toggle switch is checked (default option), this will pull in all the Ecommerce Categories in the order they are obtained from the CMS.
+
+![alt text](image-12.png)
+
+2. When it is unchecked you will be able to manually select and arrange the eCommerce categories via drag-and-drop inside of the Ecommerce Container. In addition to the drag-and-drop re-ording function, here are a number of other functions available to enhance the user experience such as Move to top, Add below, Move to top etc
+
+> Note: A Page Group can only be added as a child of a Category Page or Landing Page.
 
 ## Hiding a page
 
 Each of these content types has a flag in the content form called `is Active` which defaults to true.
+
+![alt text](image-13.png)
 
 If you disable this, then the page is no longer visible if attempting to visit it directly or in the menu navigation.
 
