@@ -72,9 +72,7 @@ export function enrichEcommerceContainer(node: CmsHierarchyNode, categoriesById:
         ? categories.map((category) => category.id)
         : ecommerceConfiguration?.categoryIds || [];
 
-    return categoryIds.map((categoryId) =>
-        enrichHierarchyNodes(generateCmsCategory(categoriesById[categoryId]), categoriesById, categories),
-    );
+    return categoryIds.map((categoryId) => generateCmsCategory(categoriesById[categoryId]));
 }
 
 export function enrichCategory(node: CmsHierarchyNode, categoriesById: CategoryById) {
@@ -84,51 +82,49 @@ export function enrichCategory(node: CmsHierarchyNode, categoriesById: CategoryB
     };
 }
 
-export function enrichNodes(nodes: CmsHierarchyNode[], categoriesById: CategoryById, categories: Category[]) {
-    return nodes.flatMap((node) => {
-        if (getTypeFromSchema(node.content?._meta?.schema) === 'ecommerce-container') {
-            return enrichEcommerceContainer(node, categoriesById, categories);
-        }
-        if (getTypeFromSchema(node.content?._meta?.schema) === 'category') {
-            return enrichCategory(node, categoriesById);
-        }
-        return node;
-    });
-}
-
-export function applyCmsOverrides(nodes: CmsHierarchyNode[]) {
-    return nodes.flatMap((node) => {
-        if (getTypeFromSchema(node.content?._meta?.schema) === 'category') {
-            const matchingEcommOverride = nodes.find(
-                (n) =>
-                    getTypeFromSchema(n.content?._meta?.schema) === 'ecommerce-category-generated' &&
-                    node.content.categoryId === n.content.categoryId,
-            );
-            // remove the category if used as an override
-            return matchingEcommOverride ? [] : node;
-        }
-        if (getTypeFromSchema(node.content?._meta?.schema) === 'ecommerce-category-generated') {
-            const matchingCmsOverride = nodes.find(
-                (n) =>
-                    getTypeFromSchema(n.content?._meta?.schema) === 'category' &&
-                    n.content.categoryId === node.content?.categoryId,
-            );
-            // replace ecomm category if matching cms category exists
-            return matchingCmsOverride ? matchingCmsOverride : node;
-        }
-
-        return node;
-    });
-}
-
 export function enrichHierarchyNodes(
-    hierarchNode: CmsHierarchyNode,
+    hierarchyNode: CmsHierarchyNode,
     categoriesById: CategoryById,
     categories: Category[],
 ): CmsHierarchyNode {
-    const activeChildNodes = hierarchNode.children.filter((node) => node.content?.active);
-    const enrichedChildNodes = enrichNodes(activeChildNodes, categoriesById, categories);
-    const enrichedChildNodesWithCmsOverrides = applyCmsOverrides(enrichedChildNodes);
+    const overrideCategoryIds: string[] = [];
 
-    return { content: hierarchNode.content, children: enrichedChildNodesWithCmsOverrides };
+    const enrichHierarchy = (node: CmsHierarchyNode): CmsHierarchyNode => {
+        const children = node.children
+            .filter((childNode) => childNode.content?.active)
+            .flatMap((childNode) => {
+                if (getTypeFromSchema(childNode.content?._meta?.schema) === 'ecommerce-container') {
+                    return enrichEcommerceContainer(childNode, categoriesById, categories);
+                }
+                if (getTypeFromSchema(childNode.content?._meta?.schema) === 'category') {
+                    overrideCategoryIds.push(childNode.content.categoryId);
+                    return enrichCategory(childNode, categoriesById);
+                }
+                return childNode;
+            })
+            .map((childNode) => enrichHierarchy(childNode));
+
+        return { ...node, children };
+    };
+
+    const filterOverridesFromHierarchy = (node: CmsHierarchyNode): CmsHierarchyNode => {
+        const children = node.children
+            .filter((childNode) => {
+                if (
+                    getTypeFromSchema(childNode.content?._meta?.schema) === 'ecommerce-category-generated' &&
+                    overrideCategoryIds.includes(childNode.content.categoryId)
+                ) {
+                    return false;
+                }
+                return true;
+            })
+            .map((childNode) => filterOverridesFromHierarchy(childNode));
+
+        return { ...node, children };
+    };
+
+    const enrichedHierarchy = enrichHierarchy(hierarchyNode);
+    const processedHierarchy = filterOverridesFromHierarchy(enrichedHierarchy);
+
+    return processedHierarchy;
 }
