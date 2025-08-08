@@ -3,6 +3,7 @@
 -   Content fully coming from Amplience Dynamic Content
 -   Multi-language & multi-currency front-end
 -   Multiple Components and Content Types implemented (banners, card lists, blogs, slots, etc.)
+-   Fully content managed 'Drag and Drop' hierarchy implementation.
 -   Multiple Visualisation implemented (page, standalone, time-based, etc.)
 -   Visualisation SDK implementation for Real-Time Visualisation from Amplience Dynamic Content
 -   Filter API implementation for Store page & Product Details Page personalisation
