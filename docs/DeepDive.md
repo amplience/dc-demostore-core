@@ -100,22 +100,24 @@ let filterRequest: GetByFilterRequest =
 
 ## Navigation Hierarchy
 
-![Site Pages](../media/sitePages.png)
+![alt text](../media/nav-sitePagesNew.png)
 
 The `Site Pages` hierarchy defines the top navigation of the site.
 This hierarchy is always loaded server-side and available for the Next.js pages.
 
-Each commerce related node (Site Pages and Category Page) has an option to populate sub nodes from commerce.
+Each commerce related node (Category Page and eComm Container) has an option to populate sub nodes from commerce. 
 
-![Site Pages](../media/site-pages-sub.png)
+The eComm Container allows you to select all commerce categories to be shown in the visualisation menu or a selection of your choice. These can be re-ordered as you wish. More than one eComm Container can be added to distribute the commerce categories through the visualisation menu as desired.
 
-When set to true, the navigation will auto populate sub items from the commerce category (or root).
+![alt text](../media/nav-ecommContainer.png)
 
-If set to false, only CMS managed sub items will appear.
+The Category Page allows you to select one commerce category. 
 
-CMS managed sub items will display AFTER the commerce items.
+![alt text](../media/nav-categoryPage.png)
 
-The default automation has the Site Pages node set to true to automatically render sub items from commerce.
+Further details are available at [WorkingWithPages.md](../docs/WorkingWithPages.md)
+
+The default automation has the eComm Container node set to Show All to automatically render all sub items from commerce.
 
 Other sub-hierarchies like `Components` and `Themes` are also always loaded in.
 

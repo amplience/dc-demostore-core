@@ -19,7 +19,7 @@ For any of the supported integrations, you will need follow the guidance to setu
 
 Details can be found in [dc-demostore-integration](https://github.com/amplience/dc-integration-middleware) for each of the supported commerce vendors.
 
-## What do i need to change?
+## What do I need to change?
 
 There are 2 elements that you need to change to have your demostore work with a different supported eCommerce Vendor:
 
