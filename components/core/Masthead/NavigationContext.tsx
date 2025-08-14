@@ -1,18 +1,19 @@
 import { createContext, useMemo, useContext, PropsWithChildren } from 'react';
 import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
 import { CmsContent } from '@lib/cms/CmsContent';
-import walkNavigation, { enrichCmsEntries, getTypeFromSchema } from './walkNavigation';
+import walkNavigation, { enrichHierarchyNodes, getTypeFromSchema } from './walkNavigation';
 import { useUserContext } from '@lib/user/UserContext';
+import { Category } from '@amplience/dc-integration-middleware';
 
 export type NavigationItem = {
-    type: 'page' | 'external-page' | 'category' | 'group';
+    type: 'page' | 'external-page' | 'category' | 'group' | 'ecommerce-category-generated';
     title: string;
     href?: string;
     children: NavigationItem[];
     parents: NavigationItem[];
 
     content?: CmsContent;
-    category?: any;
+    category?: Category;
 
     nodeContentItem?: CmsContent;
 };
@@ -22,18 +23,20 @@ export type NavigationState = {
     findByHref: (href: string) => NavigationItem | undefined;
 };
 
+export type CategoryById = Record<string, Category>;
+
 const NavigationContext = createContext<NavigationState | null>(null);
 
 interface WithNavigationContextProps extends PropsWithChildren {
     pages: CmsHierarchyNode;
-    categories: any;
+    categories: Category[];
 }
 
 export const WithNavigationContext = ({ pages, categories, children }: WithNavigationContextProps) => {
     const { language } = useUserContext();
-    const flattenCategories = (categories: any[]) => {
-        const allCategories: any[] = [];
-        const bulldozeCategories = (cat: any) => {
+    const flattenCategories = (categories: Category[]) => {
+        const allCategories: Category[] = [];
+        const bulldozeCategories = (cat: Category) => {
             allCategories.push(cat);
             cat.children && cat.children.forEach(bulldozeCategories);
         };
@@ -41,7 +44,7 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
         return allCategories;
     };
     const categoriesById = useMemo(() => {
-        const result: any = {};
+        const result: CategoryById = {};
         for (let item of flattenCategories(categories)) {
             result[item.id] = item;
         }
@@ -51,14 +54,14 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
     const rootItems = useMemo(() => {
         const buildCategoryItem = (
             cmsCategory: CmsHierarchyNode | undefined,
-            ecommerceCategory: any | undefined,
+            ecommerceCategory: Category | undefined,
         ): NavigationItem | null => {
             if (!cmsCategory && !ecommerceCategory) {
                 return null;
             }
             const children: NavigationItem[] = [];
             const result = {
-                type: 'category',
+                type: getTypeFromSchema(cmsCategory?.content?._meta?.schema) || 'category',
                 title: ecommerceCategory?.name,
                 href: cmsCategory?.content?._meta?.deliveryKey
                     ? `/category/${cmsCategory?.content?._meta?.deliveryKey.split('/')[1]}`
@@ -149,13 +152,10 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             if (!type) {
                 return null;
             }
-            if (!node.content?.active) {
-                return null;
-            }
             switch (type) {
                 case 'category':
-                    let category = categoriesById[node.content.name];
-                    return buildCategoryItem(node, category);
+                case 'ecommerce-category-generated':
+                    return buildCategoryItem(node, categoriesById[node.content.categoryId]);
                 case 'group':
                     return buildGroupItem(node);
                 case 'page':
@@ -163,35 +163,23 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
                 case 'external-page':
                     return buildExternalPageItem(node);
             }
-
             return null;
         };
 
         const buildCmsEntries = (children: CmsHierarchyNode[] = []): NavigationItem[] => {
-            children.sort(function (a: any, b: any) {
-                const priorityA = a.menu?.priority || a.priority || a.title;
-                const priorityB = b.menu?.priority || b.priority || b.title;
-
-                if (priorityA < priorityB) {
-                    return 1;
-                } else if (priorityA > priorityB) {
-                    return -1;
-                }
-                return 0;
-            });
             return children.map(buildCmsItem).filter((x) => x != null) as NavigationItem[];
         };
 
-        enrichCmsEntries(pages, categoriesById, categories);
+        const enrichedPages = enrichHierarchyNodes(pages, categoriesById, categories);
 
-        const rootEntries = buildCmsEntries(pages.children);
+        const rootEntries = buildCmsEntries(enrichedPages.children);
         rootEntries.forEach((rootEntry) => {
             walkNavigation(rootEntry, (node: NavigationItem, parents: NavigationItem[]) => {
                 node.parents = parents;
             });
         });
         return rootEntries as NavigationItem[];
-    }, [pages, categories, categoriesById, language]);
+    }, [pages, categoriesById, categories, language]);
 
     const findByHref = (href: string) => {
         let result: NavigationItem | undefined;
