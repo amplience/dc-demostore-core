@@ -152,9 +152,6 @@ export const WithNavigationContext = ({ pages, categories, children }: WithNavig
             if (!type) {
                 return null;
             }
-            if (!node.content?.active) {
-                return null;
-            }
             switch (type) {
                 case 'category':
                 case 'ecommerce-category-generated':

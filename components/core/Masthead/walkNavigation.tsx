@@ -40,10 +40,7 @@ export function getTypeFromSchema(schema: string) {
     return null;
 }
 
-export function generateCmsCategory(
-    { id, name, slug, children }: Category,
-    options?: { active: boolean },
-): CmsHierarchyNode {
+export function generateCmsCategory({ id, name, slug, children }: Category): CmsHierarchyNode {
     return {
         content: {
             _meta: {
@@ -59,7 +56,7 @@ export function generateCmsCategory(
             hideProductList: false,
             components: [],
             slots: [],
-            active: options?.active ?? true,
+            active: true,
             menu: {
                 hidden: false,
             },
@@ -69,36 +66,65 @@ export function generateCmsCategory(
     };
 }
 
+export function enrichEcommerceContainer(node: CmsHierarchyNode, categoriesById: CategoryById, categories: Category[]) {
+    const { ecommerceConfiguration } = node.content;
+    const categoryIds: string[] = ecommerceConfiguration?.showAll
+        ? categories.map((category) => category.id)
+        : ecommerceConfiguration?.categoryIds || [];
+
+    return categoryIds.map((categoryId) => generateCmsCategory(categoriesById[categoryId]));
+}
+
+export function enrichCategory(node: CmsHierarchyNode, categoriesById: CategoryById) {
+    return {
+        ...node,
+        children: categoriesById[node.content.categoryId]?.children.map((child) => generateCmsCategory(child)),
+    };
+}
+
 export function enrichHierarchyNodes(
-    rootCmsNode: CmsHierarchyNode,
+    hierarchyNode: CmsHierarchyNode,
     categoriesById: CategoryById,
     categories: Category[],
 ): CmsHierarchyNode {
-    const enrichedRootNodeChildren = rootCmsNode.children.reduce((cmsNodes: CmsHierarchyNode[], childNode) => {
-        const childNodeType = getTypeFromSchema(childNode.content?._meta?.schema);
-        if (childNodeType === 'ecommerce-container') {
-            const categoryIds: string[] = childNode.content?.ecommerceConfiguration?.showAll
-                ? categories.map((category) => category.id)
-                : childNode.content?.ecommerceConfiguration?.categoryIds || [];
-            const enrichedChildNodes = categoryIds.map((categoryId) =>
-                enrichHierarchyNodes(
-                    generateCmsCategory(categoriesById[categoryId], {
-                        active: childNode.content?.active,
-                    }),
-                    categoriesById,
-                    categories,
-                ),
-            );
-            return [...cmsNodes, ...enrichedChildNodes];
-        }
-        if (childNodeType === 'category') {
-            childNode.children = categoriesById[childNode.content.categoryId]?.children.map((child) =>
-                generateCmsCategory(child),
-            );
-            return [...cmsNodes, childNode];
-        }
-        return [...cmsNodes, enrichHierarchyNodes(childNode, categoriesById, categories)];
-    }, []);
+    const overrideCategoryIds: string[] = [];
 
-    return { content: rootCmsNode.content, children: enrichedRootNodeChildren };
+    const enrichHierarchy = (node: CmsHierarchyNode): CmsHierarchyNode => {
+        const children = node.children
+            .filter((childNode) => childNode.content?.active)
+            .flatMap((childNode) => {
+                if (getTypeFromSchema(childNode.content?._meta?.schema) === 'ecommerce-container') {
+                    return enrichEcommerceContainer(childNode, categoriesById, categories);
+                }
+                if (getTypeFromSchema(childNode.content?._meta?.schema) === 'category') {
+                    overrideCategoryIds.push(childNode.content.categoryId);
+                    return enrichCategory(childNode, categoriesById);
+                }
+                return childNode;
+            })
+            .map((childNode) => enrichHierarchy(childNode));
+
+        return { ...node, children };
+    };
+
+    const filterOverridesFromHierarchy = (node: CmsHierarchyNode): CmsHierarchyNode => {
+        const children = node.children
+            .filter((childNode) => {
+                if (
+                    getTypeFromSchema(childNode.content?._meta?.schema) === 'ecommerce-category-generated' &&
+                    overrideCategoryIds.includes(childNode.content.categoryId)
+                ) {
+                    return false;
+                }
+                return true;
+            })
+            .map((childNode) => filterOverridesFromHierarchy(childNode));
+
+        return { ...node, children };
+    };
+
+    const enrichedHierarchy = enrichHierarchy(hierarchyNode);
+    const processedHierarchy = filterOverridesFromHierarchy(enrichedHierarchy);
+
+    return processedHierarchy;
 }
