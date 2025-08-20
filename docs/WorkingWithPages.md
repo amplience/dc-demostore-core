@@ -4,9 +4,29 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ### Navigation:
 
--   **Category Page** - An item & page linked to a Commerce category (PLP)
--   **Landing Page** - An item and standalone page for content only
--   **External Page** - An item which has an external link for its page content
+-   **Landing Page** - A pure CMS driven page. An item and standalone page for content only. Via Page Group can link to a Category Page, External Page or another Landing Page. Shows as a CMS Item on hover in the visualisation.
+
+![alt text](../media/nav-landing-page.png)
+
+-   **Category Page** - Links directly to a commerce category and allows CMS content. An item & page linked to a Commerce category (PLP), to which Page Groups or further Category Pages can be added. Shows as a CMS Override Item on hover in the visualisation.
+
+![alt text](../media/nav-category-page.png)
+
+-   **Ecommerce Container** - Allows to you to draw all Ecommerce Categories into a single node - via Show All switch. Alternatively, select and reorder multiple Ecommerce Categories so you can control the order in which they appear in that existing node. Furthermore, you can use multiple Ecommerce Containers to distribute Ecommerce Categories amongst the CMS items. Shows as a Commerce Item on hover in the visualisation.
+
+![alt text](../media/nav-ecommerce-container.png)
+
+Show All above, below is selected Ecommerce Categories:
+
+![alt text](../media/nav-ecommerce-categories.png)
+
+-   **External Page** - Menu item that links to an external URL. As this links to an External site, there are no further items that can be added. Displays as CMS Item on hover in the visualisation.
+
+![alt text](../media/nav-external-page.png)
+
+-   **Page Group** - A grouping for sub nodes of any type with the exception of External Pages and Ecommerce Containers.
+
+![alt text](../media/nav-page-group.png)
 
 ### Standalone:
 
@@ -14,24 +34,27 @@ The concepts of pages are a key demonstrable area of Demostore. They exist in 2 
 
 ## Ordering in Navigation
 
-Each item in the navigation has a `Priority` attribute. The number set in here is the order in which the navigation item is rendered.
+Each of the navigation items mentioned above can be arranged by dragging and dropping in the left-hand-side hierarchy menu. This provides a powerful and flexible way to arrange items in the menu according to preference.
 
-Example: 0 will be first
+![alt text](../media/nav-ordering.png)
 
-The priority is in relation to other priorities set at the same at the same level in the hierarchy. So for example if you have 2 nodes at the same level
+Existing drag-and-drop functionality, eg dragging a Page Group from a Landing Page to a Category Page continues to be available.
 
--   MyItemA [Priority set to 50]
--   MyItemB [Priority set to 10]
+When creating / adding an Ecommerce Container, you have two options:
 
-Will display as `MyItemB,MyItemA` in that order
+1. When the 'Show All' toggle switch is checked (default option), this will pull in all the Ecommerce Categories in the order they are obtained from the CMS.
 
-> Note: When categories are set to automatically draw from commerce, they are given their priority with increments of 10 so that you can mix and max dynamic and curated navigation.
+![alt text](../media/nav-show-all.png)
 
-> Additional node: If items have the same priority, they will display in order of which they are returned from the API.
+2. When it is unchecked you will be able to manually select and arrange the eCommerce categories via drag-and-drop inside of the Ecommerce Container. In addition to the drag-and-drop re-ording function, here are a number of other functions available to enhance the user experience such as Move to top, Add below, Move to top etc
+
+> Note: A Page Group can only be added as a child of a Category Page or Landing Page.
 
 ## Hiding a page
 
 Each of these content types has a flag in the content form called `is Active` which defaults to true.
+
+![alt text](../media/nav-is-active.png)
 
 If you disable this, then the page is no longer visible if attempting to visit it directly or in the menu navigation.
 

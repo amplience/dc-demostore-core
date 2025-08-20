@@ -16,6 +16,7 @@ const Navigation = ({ pages, style }: NavigationProps) => {
     const { navigationToggle, toggleNavigation } = useUI();
     const [selectedMenuKey, setSelectedMenuKey] = useState<number | null>(null);
     const router = useRouter();
+    const vse = router.query.vse;
     const isRouteActive = (href: string | undefined, category: any): boolean => {
         // !!using the first word in the category slug as the current category
         // => full path should be present in slugs, and 1st level category slug shouldn't contain '-'
@@ -61,52 +62,57 @@ const Navigation = ({ pages, style }: NavigationProps) => {
         setSelectedMenuKey(null);
     };
 
+    const itemType = (type: string) => {
+        switch (type) {
+            case 'ecommerce-category-generated':
+                return 'Commerce Item';
+            case 'category':
+                return 'CMS Override Item';
+            default:
+                return 'CMS Item';
+        }
+    };
+
     return (
         <nav className="navigation" style={style}>
             <ul className="navigation__list">
-                {pages
-                    .sort((p1, p2) => {
-                        const menu1Priority = p1.content?.menu?.priority || 0;
-                        const menu2Priority = p2.content?.menu?.priority || 0;
-                        return menu1Priority > menu2Priority ? 1 : menu1Priority < menu2Priority ? -1 : 0;
-                    })
-                    .map(({ title, href = '', children = [], content, category }, index) => {
-                        return (
-                            <li
-                                key={index}
-                                className={clsx('navigation__list__item', {
-                                    ['navigation__list__item--active']: isRouteActive(href || '', category),
-                                    ['navigation__list__item--open']: isMenuOpen(index),
-                                })}
-                            >
-                                {title && href && (
-                                    <Link
-                                        href={href || ''}
-                                        onClick={(event) =>
-                                            children.length === 0 ? handleRouteChange() : handleClick(event, index)
-                                        }
-                                        className="navigation__list__item__link"
-                                        title={`priority: ${content?.menu?.priority}`}
-                                    >
-                                        {title}
-                                    </Link>
-                                )}
-                                {children.length > 0 ? (
-                                    <MegaMenu
-                                        content={content?.menu?.content}
-                                        handleRouteChange={handleRouteChange}
-                                        closeMenu={closeMenu}
-                                        title={title}
-                                        href={href || ''}
-                                    >
-                                        {children}
-                                    </MegaMenu>
-                                ) : (
-                                    <div></div>
-                                )}
-                            </li>
-                        );
-                    })}
+                {pages.map(({ title, href = '', children = [], content, category, type }, index) => {
+                    return (
+                        <li
+                            key={index}
+                            className={clsx('navigation__list__item', {
+                                ['navigation__list__item--active']: isRouteActive(href || '', category),
+                                ['navigation__list__item--open']: isMenuOpen(index),
+                            })}
+                        >
+                            {title && href && (
+                                <Link
+                                    href={href || ''}
+                                    onClick={(event) =>
+                                        children.length === 0 ? handleRouteChange() : handleClick(event, index)
+                                    }
+                                    className="navigation__list__item__link"
+                                    title={vse && itemType(type)}
+                                >
+                                    {title}
+                                </Link>
+                            )}
+                            {children.length > 0 ? (
+                                <MegaMenu
+                                    content={content?.menu?.content}
+                                    handleRouteChange={handleRouteChange}
+                                    closeMenu={closeMenu}
+                                    title={title}
+                                    href={href || ''}
+                                >
+                                    {children}
+                                </MegaMenu>
+                            ) : (
+                                <div></div>
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
             <ul className="navigation__list--search">
                 <li className="navigation__list__item navigation__list__item--search" key={pages.length}>

@@ -1,10 +1,11 @@
 import { CmsHierarchyNode } from '@lib/cms/fetchHierarchy';
-import { NavigationItem } from './NavigationContext';
+import { CategoryById, NavigationItem } from './NavigationContext';
+import { Category } from '@amplience/dc-integration-middleware';
 
 export default function walkNavigation(
     current: NavigationItem,
     visitor: (item: NavigationItem, parents: NavigationItem[]) => void,
-    parents: NavigationItem[] = []
+    parents: NavigationItem[] = [],
 ) {
     visitor(current, parents);
     for (let child of current.children) {
@@ -14,7 +15,7 @@ export default function walkNavigation(
 
 export function walkNavigationItems(
     items: NavigationItem[],
-    visitor: (item: NavigationItem, parents: NavigationItem[]) => void
+    visitor: (item: NavigationItem, parents: NavigationItem[]) => void,
 ) {
     for (let item of items) {
         walkNavigation(item, visitor);
@@ -31,88 +32,99 @@ export function getTypeFromSchema(schema: string) {
             return 'group';
         case 'https://demostore.amplience.com/site/pages/category':
             return 'category';
+        case 'https://demostore.amplience.com/site/pages/ecommerce-container':
+            return 'ecommerce-container';
+        case 'https://demostore.amplience.com/site/pages/ecommerce-category-generated':
+            return 'ecommerce-category-generated';
     }
     return null;
 }
 
-export function enrichCmsEntries(cmsEntry: CmsHierarchyNode, categoriesById: any, categories: any) {
-    // Generate fake cms entries for categories that exist on the backend,
-    // are flagged as being visible in menu, and don't have an existing cms entry.
+export function generateCmsCategory({ id, name, slug, children }: Category): CmsHierarchyNode {
+    return {
+        content: {
+            _meta: {
+                name,
+                schema: 'https://demostore.amplience.com/site/pages/ecommerce-category-generated',
+                deliveryKey: `category/${slug}`,
+                hierarchy: {
+                    parentId: 'generated',
+                    root: false,
+                },
+                deliveryId: id,
+            },
+            hideProductList: false,
+            components: [],
+            slots: [],
+            active: true,
+            menu: {
+                hidden: false,
+            },
+            categoryId: id,
+        },
+        children: children.map((child) => generateCmsCategory(child)),
+    };
+}
 
-    const myType = getTypeFromSchema(cmsEntry.content?._meta?.schema);
+export function enrichEcommerceContainer(node: CmsHierarchyNode, categoriesById: CategoryById, categories: Category[]) {
+    const { ecommerceConfiguration } = node.content;
+    const categoryIds: string[] = ecommerceConfiguration?.showAll
+        ? categories.map((category) => category.id)
+        : ecommerceConfiguration?.categoryIds || [];
 
-    if (!cmsEntry.content.ecommCategories) {
-        categories = null;
-    } else if (categories == null && myType === 'category') {
-        // Locate the category by ID.
+    return categoryIds.map((categoryId) => generateCmsCategory(categoriesById[categoryId]));
+}
 
-        categories = categoriesById[cmsEntry.content.name]?.children;
-    }
+export function enrichCategory(node: CmsHierarchyNode, categoriesById: CategoryById) {
+    return {
+        ...node,
+        children: categoriesById[node.content.categoryId]?.children.map((child) => generateCmsCategory(child)),
+    };
+}
 
-    if (categories == null) {
-        for (const child of cmsEntry.children) {
-            enrichCmsEntries(child, categoriesById, null);
-        }
-    } else {
-        const children = cmsEntry.children;
-        const remainingChildren = [...children];
+export function enrichHierarchyNodes(
+    hierarchyNode: CmsHierarchyNode,
+    categoriesById: CategoryById,
+    categories: Category[],
+): CmsHierarchyNode {
+    const overrideCategoryIds: string[] = [];
 
-        let generated = 0;
-        for (const category of categories) {
-            // Does a CMS category exist for this entry?
+    const enrichHierarchy = (node: CmsHierarchyNode): CmsHierarchyNode => {
+        const children = node.children
+            .filter((childNode) => childNode.content?.active)
+            .flatMap((childNode) => {
+                if (getTypeFromSchema(childNode.content?._meta?.schema) === 'ecommerce-container') {
+                    return enrichEcommerceContainer(childNode, categoriesById, categories);
+                }
+                if (getTypeFromSchema(childNode.content?._meta?.schema) === 'category') {
+                    overrideCategoryIds.push(childNode.content.categoryId);
+                    return enrichCategory(childNode, categoriesById);
+                }
+                return childNode;
+            })
+            .map((childNode) => enrichHierarchy(childNode));
 
-            let cmsChild = children.find((child) => {
-                const type = getTypeFromSchema(child.content?._meta?.schema);
-                if (!type) {
+        return { ...node, children };
+    };
+
+    const filterOverridesFromHierarchy = (node: CmsHierarchyNode): CmsHierarchyNode => {
+        const children = node.children
+            .filter((childNode) => {
+                if (
+                    getTypeFromSchema(childNode.content?._meta?.schema) === 'ecommerce-category-generated' &&
+                    overrideCategoryIds.includes(childNode.content.categoryId)
+                ) {
                     return false;
                 }
+                return true;
+            })
+            .map((childNode) => filterOverridesFromHierarchy(childNode));
 
-                return type === 'category' && child.content.name === category.id;
-            });
+        return { ...node, children };
+    };
 
-            let pushCount = 0;
+    const enrichedHierarchy = enrichHierarchy(hierarchyNode);
+    const processedHierarchy = filterOverridesFromHierarchy(enrichedHierarchy);
 
-            if (!cmsChild && category.showInMenu) {
-                // Create a dummy one, if it's meant to be visible
-                generated++;
-                cmsChild = {
-                    content: {
-                        _meta: {
-                            name: category.name,
-                            schema: 'https://demostore.amplience.com/site/pages/category',
-                            deliveryKey: 'category/' + category.slug,
-                            hierarchy: {
-                                parentId: 'generated',
-                                root: false,
-                            },
-                            deliveryId: category.id,
-                        },
-                        ecommCategories: true,
-                        hideProductList: false,
-                        components: [],
-                        slots: [],
-                        active: true,
-                        menu: {
-                            hidden: false,
-                            priority: generated * 10,
-                        },
-                        name: category.id,
-                    },
-                    children: [],
-                };
-
-                children.splice(pushCount++, 0, cmsChild);
-            }
-
-            if (cmsChild) {
-                enrichCmsEntries(cmsChild, categoriesById, category.children);
-
-                remainingChildren.splice(remainingChildren.indexOf(cmsChild), 1);
-            }
-        }
-
-        for (const cmsChild of remainingChildren) {
-            enrichCmsEntries(cmsChild, categoriesById, null);
-        }
-    }
+    return processedHierarchy;
 }
