@@ -1,5 +1,22 @@
 # Changelog
 
+## [5.0.0](https://github.com/amplience/dc-demostore-core/compare/v4.3.0...v5.0.0) (2025-08-20)
+
+
+### Features
+
+* dnd hierarchy navigation placeholders ([#91](https://github.com/amplience/dc-demostore-core/issues/91)) ([d03f3df](https://github.com/amplience/dc-demostore-core/commit/d03f3dfd503a9a320148f67a78c4ff8a6254444c))
+
+
+### Bug Fixes
+
+* first child only ([#98](https://github.com/amplience/dc-demostore-core/issues/98)) ([a7ad3f7](https://github.com/amplience/dc-demostore-core/commit/a7ad3f71571370d857187c5a949761bc5299788e))
+
+
+### Miscellaneous Chores
+
+* release 5.0.0 ([56648e2](https://github.com/amplience/dc-demostore-core/commit/56648e2cdf8c2d962a076560a4a131f7f20088ce))
+
 ## [4.3.0](https://github.com/amplience/dc-demostore-core/compare/v4.2.0...v4.3.0) (2025-04-10)
 
 
