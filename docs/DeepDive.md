@@ -3,6 +3,7 @@
 -   [Fetching content](#fetching-content)
 -   [Filter API](#filter-api)
 -   [Navigation Hierarchy](#navigation-hierarchy)
+-   [Fetching Hierarchy Descendants](#fetching-hierarchy-descendants)
 -   [Product Detail Page Layout](#product-detail-page-layout)
 -   [Personalisation](#personalisation)
 -   [Theming](#theming)
@@ -141,6 +142,48 @@ const data = await fetchPageData(
     },
     context,
 );
+```
+
+[top](#table-of-contents)
+
+## Fetching Hierarchy Descendants
+
+An example of how to fetch hierarchy descendants using the root hierarchy nodes ID.
+
+```js
+async function fetchHierarchyDescendants(id: string, params = {}) {
+    const fetchParams = {
+        maxPageSize: 20,
+        hierarchyDepth: 10,
+        ...params,
+    };
+    return fetch(`https://my-demo-hub.cdn.content.amplience.net/content/hierarchies/descendants/id/${id}?${stringify(fetchParams)}`).then((x) =>
+        x.json(),
+    );
+}
+```
+
+If results exceed the max page size the response will include a page cursor. This cursor can then be used to request additional results.
+
+```js
+const results = await fetchHierarchyDescendants(parentId);
+
+if (results.page.cursor) {
+    const nextPageResults = await fetchHierarchyDescendants(parentId, { pageCursor: results.page.cursor });
+}
+```
+
+The results are returned in a flattened state. To be able to construct a full descendant tree you will need to retrieve all descedants (using the page cursor and a looping method of your choice if necessary). Once you have all descendants you can unflatten them.
+
+```js
+function unflattenDescendants(parentId: string, descendants: DefaultContentBody[] = []): any {
+    return descendants
+        .filter((item) => item.content._meta?.hierarchy?.parentId === parentId)
+        .map((child) => ({
+            ...child,
+            children: unflattenDescendants(child.content._meta.deliveryId, descendants),
+        }));
+}
 ```
 
 [top](#table-of-contents)

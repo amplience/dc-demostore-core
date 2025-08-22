@@ -1,7 +1,10 @@
 import { CmsContext } from './CmsContext';
 import { CmsContent } from './CmsContent';
 
-import fetchContent, { GetByFilterRequest } from './fetchContent';
+import { createAppContext } from '@lib/config/AppContext';
+import { stringify } from 'querystring';
+import { ContentBody, DefaultContentBody } from 'dc-delivery-sdk-js';
+import fetchContent from './fetchContent';
 
 export type CmsHierarchyRequest = { tree: { key: string } };
 
@@ -10,44 +13,67 @@ export type CmsHierarchyNode = {
     children: CmsHierarchyNode[];
 };
 
-async function getChildren(nodeId: string, context: CmsContext): Promise<CmsHierarchyNode[]> {
-    const childrenRequest: GetByFilterRequest = {
-        filterBy: [
-            {
-                path: '/_meta/hierarchy/parentId',
-                value: nodeId,
-            },
-        ],
-        sortBy: {
-            key: 'default',
-            order: 'asc',
-        },
-    };
-    const [children] = await fetchContent([childrenRequest], context, { depth: 'root', format: 'inlined' });
-    const responses: any[] = children?.responses || [];
-    const subChildren = await Promise.all(
-        responses.map((child: any) => {
-            return getChildren(child.content._meta.deliveryId, context);
-        }),
-    );
-    responses.forEach((element: any, i: number) => {
-        responses[i].children = subChildren[i];
+async function fetchHierarchyRootNode(
+    hierarchyRequest: CmsHierarchyRequest,
+    context: CmsContext,
+): Promise<ContentBody> {
+    const [rootNode] = await fetchContent([{ key: hierarchyRequest.tree.key }], context, {
+        depth: 'root',
+        format: 'linked',
     });
 
-    return responses;
+    return rootNode as DefaultContentBody;
+}
+
+async function fetchHierarchyDescendants(id: string, context: CmsContext, params = {}) {
+    const { cms } = await createAppContext();
+    const host = context.stagingApi || `${cms.hub}.cdn.content.amplience.net`;
+    const fetchParams = {
+        maxPageSize: 20,
+        hierarchyDepth: 10,
+        ...params,
+    };
+    return fetch(`https://${host}/content/hierarchies/descendants/id/${id}?${stringify(fetchParams)}`).then((x) =>
+        x.json(),
+    );
+}
+
+async function fetchAllHierarchyDescendants(parentId: string, context: CmsContext): Promise<DefaultContentBody[]> {
+    const pagingHandler = async (id: string, context: CmsContext, params = {}): Promise<DefaultContentBody[]> => {
+        const results = await fetchHierarchyDescendants(id, context, params);
+        if (results.page.cursor) {
+            return results.responses.concat(await pagingHandler(id, context, { pageCursor: results.page.cursor }));
+        }
+        return results.responses;
+    };
+
+    return await pagingHandler(parentId, context);
+}
+
+function unflattenDescendants(parentId: string, descendants: DefaultContentBody[] = []): any {
+    return descendants
+        .filter((item) => item.content._meta?.hierarchy?.parentId === parentId)
+        .filter((item) => item.content.active === true)
+        .sort(
+            (a, b) =>
+                (a.content?.menu?.priority || a.content?.priority || 0) -
+                (b.content?.menu?.priority || b.content?.priority || 0),
+        )
+        .map((child) => ({
+            ...child,
+            children: unflattenDescendants(child.content._meta.deliveryId, descendants),
+        }));
 }
 
 async function fetchHierarchy(items: CmsHierarchyRequest[], context: CmsContext): Promise<(CmsHierarchyNode | null)[]> {
     return await Promise.all(
         items.map(async (item) => {
-            const [rootNode] = await fetchContent([{ key: item.tree.key }], context, {
-                depth: 'root',
-                format: 'linked',
-            });
-            const children: CmsHierarchyNode[] = await getChildren((rootNode as any)._meta.deliveryId, context);
+            const rootNode = await fetchHierarchyRootNode(item, context);
+            const descendants = await fetchAllHierarchyDescendants(rootNode._meta.deliveryId, context);
+            const descendantsTree = unflattenDescendants(rootNode._meta.deliveryId, descendants);
             const response: any = {
                 content: rootNode,
-                children: children,
+                children: descendantsTree,
             };
             return response;
         }),
