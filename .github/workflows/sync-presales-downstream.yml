@@ -1,0 +1,28 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  rebase-presales-downstream:
+    if: github.repository == 'amplience/dc-demostore-presales'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: git
+      run: |        
+        git --version
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        
+        git remote add upstream https://github.com/amplience/dc-demostore-core
+        git fetch
+        git fetch upstream
+        git checkout main        
+        git rebase upstream/main        
+        git status
+        git push
