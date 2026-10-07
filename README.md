@@ -21,7 +21,7 @@ The package also includes a Debug/X-Ray panel to help understand how the pages a
 
 This demo application was developed and tested with:
 
--   Node version `20.x`
+-   Node version `24.x`
 
 ## General Use (w/o Amplience account)
 
