@@ -196,7 +196,7 @@ export function getImageURL(
     const query: string[] = [];
     const params: any = {
         w: width,
-        h: height,
+        h: scaleMode == ImageScaleMode.ASPECT_RATIO ? undefined : !aspectRatio ? height : undefined,
         sm: scaleMode,
         scaleFit: scaleFit,
         aspect: aspectRatio,
